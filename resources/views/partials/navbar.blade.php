@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg  bg-body-tertiary p-0">
+<nav class="navbar navbar-expand-lg  bg-body-tertiary p-0 navbar-dark">
         <div class="container-fluid header1 px-3">
             <div class="logo">
-                <a class="navbar-brand text-white" href="#">
+                <a class="navbar-brand " href="/">
                     <img
                         src="/assets/undip-logo.svg"
                         alt="Logo"
@@ -13,7 +13,7 @@
             </div>
             <ul class="navbar-nav">
                 @auth
-                    <li class="nav-item dropdown ">
+                    <li class="nav-item dropdown">
                         <a
                             class="nav-link dropdown-toggle"
                             href="#"
@@ -27,7 +27,7 @@
                                 width="30"
                             />
 
-                            <p class="d-inline text-white">{{ auth()->user()->name }}</p>
+                            <p class="text-white d-inline ms-2">{{ auth()->user()->name }}</p>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li class="nav-item">
@@ -49,28 +49,45 @@
                         >
                             Login
                         </a>
-                        <a
+                        {{-- <a
                             class="nav-link text-white d-inline"
                             href="#"
                             role="button"
                             aria-expanded="false"
                         >
                             Register
-                        </a>
+                        </a> --}}
                     </li>
                 @endauth
             </ul>
         </div>
     </nav>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
+        <div class="container-fluid mx-3">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active" href="#">Dashboard</a>
-                    <a class="nav-link" href="#">Anjab</a>
-                    <a class="nav-link" href="#">ABK</a>
-                    <a class="nav-link" href="#">Laporan</a>
+                <div class="navbar-nav gap-3">
+                    <a class="nav-link active" href="/"><img data-feather="home" width="20px"> Dashboard</a>
+                    <a class="nav-link dropdown-center" href="#" role="button" data-bs-toggle="dropdown"><img data-feather="edit" width="20px"></img> 
+                        Anjab
+                        {{-- <ul class="dropdown-menu dropdown-menu-start">
+                            <li>Entry Data Jabatan</li>
+                            <li><a class="dropdown-item" href="#">Menu item</a></li>
+                            <li><a class="dropdown-item" href="#">Menu item</a></li>
+                        </ul> --}}
+                        <ul class="dropdown-menu m-0">
+                            <a class="dropdown-item pe-5 mb-2" href="/anjab/jabatan">Entry Data Jabatan</a>
+                            <a class="dropdown-item pe-5 mb-2" href="/anjab/jabatan">Entry Data Jabatan</a>
+                            <a class="dropdown-item pe-5 mb-2" href="/anjab/jabatan">Entry Data Jabatan</a>
+                                {{-- Entry Data Jabatan --}}
+                        
+                            {{-- <li class="dropdown-item pe-5 mb-2">Entry Data Biodata</li>
+                            <li class="dropdown-item pe-5 mb-2">Entry Analisis Jabatan</li>                               
+                            <li class="dropdown-item pe-5 mb-2">Entry Syarat Jabatan</li>                                --}}
+                        </ul>
+                    </a>
+                    <a class="nav-link" href="#"><img data-feather="edit" width="20px"></img> ABK</a>
+                    <a class="nav-link" href="#"><img data-feather="file" width="20px"></img> Laporan</a>
                 </div>
-            </div>
+            </div> 
         </div>
     </nav>

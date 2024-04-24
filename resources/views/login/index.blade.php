@@ -20,7 +20,7 @@
             </div>
             
     
-            <form action="" method="POST" class="d-flex flex-column ">
+            <form action="" method="POST" class="d-flex flex-column mb-1">
                 @csrf
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="name@example.com" name="email" value="{{ old('email') }}">
@@ -42,6 +42,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary header1">Masuk</button>
             </form>
+            {{-- <small class="text-center">Belum Memiliki Akun? <a href="">Daftar disini</a>.</small> --}}
         </div>
 
     </div>
