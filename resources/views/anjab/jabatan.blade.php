@@ -28,24 +28,13 @@
                                 <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample">Expand</button>
                             </td>
                             <td>// K-123 //</td>
-                            <td class="d-flex justify-content-between">
+                            <td class="d-flex justify-content-start">
                                 <p>Bidang Kepegawaian</p>
-                                <button class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#modalExample"><img width="20px" data-feather="plus"></img> Tambah Jabatan</button>
+                                <button class="btn btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#modalExample"><img width="20px" data-feather="plus"></img> Tambah Jabatan</button>
                             </td>
-                        </tr>
-                        
-                        {{-- <tr class="collapse" id="collapseExample">
-                            <td><button class="btn btn-dark">Expand</button></td>
-                            <td>// K-123 //</td>
-                            <td class="d-flex justify-content-between">
-                                <p>ABCD</p>
-                                <button class="btn btn-success ms-2"> Tambah Jabatan</button>
-                            </td>
-                        </tr> --}}
-                        
-                        {{-- <tr class="collapse" id="collapseExample">
-                            @foreach ($jabatans as $jabatan)
-                            <tr>
+                        </tr>                                
+                        @foreach ($jabatans as $jabatan)
+                            <tr class="collapse fade" id="collapseExample">
                                 <td><button class="btn btn-dark">Expand</button></td>
                                 <td>// K-123 //</td>
                                 <td class="d-flex justify-content-between">
@@ -53,32 +42,7 @@
                                     <button class="btn btn-success ms-2"> Tambah Jabatan</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><button class="btn btn-dark">Expand</button></td>
-                                <td>// K-123 //</td>
-                                <td class="d-flex justify-content-between">
-                                    <p>{{ $jabatan->nama_jabatan }}</p>
-                                    <button class="btn btn-success ms-2"> Tambah Jabatan</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><button class="btn btn-dark">Expand</button></td>
-                                <td>// K-123 //</td>
-                                <td class="d-flex justify-content-between">
-                                    <p>{{ $jabatan->nama_jabatan }}</p>
-                                    <button class="btn btn-success ms-2"> Tambah Jabatan</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><button class="btn btn-dark">Expand</button></td>
-                                <td>// K-123 //</td>
-                                <td class="d-flex justify-content-between">
-                                    <p>{{ $jabatan->nama_jabatan }}</p>
-                                    <button class="btn btn-success ms-2"> Tambah Jabatan</button>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tr> --}}
+                        @endforeach
                     
                     </tbody>
                 </table>
@@ -86,5 +50,49 @@
 
         </div>
         @include('anjab.partials.modaljabatan')
+
+        {{-- non ajax --}}
+        @if ($errors->any())
+            <script>
+                $(document).ready(function() {
+                    $('#modalExample').modal('show')
+                });
+            </script>
+        @endif
+
+        {{-- ajax --}}
+        {{-- <script>
+            
+            $(document).ready(function() {
+                $('#submitJabatan').click(function(event) {
+                    event.preventDefault();
+
+                    $.ajax({
+                        url : "/anjab/data-jabatan",
+                        method : 'POST',
+                        data : $('#jabatanForm').serialize(),
+                        dataType: "json",
+                        success: function(response){
+                            if(response.success) {
+                                $('#modalExample').modal('hide');
+                            }
+                            else {
+                                for (const field in errors) {
+                                    const errorMessage = errors[field][0];
+                                    $(`#${field}`).addClass('is-invalid');
+                                    $(`#${field} + .invalid-feedback`).text(errorMessage);
+                                }
+
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            // Handle any errors during the AJAX request
+                            console.error("Error:", textStatus, errorThrown);
+                        }
+                    })
+                })
+            })
+
+        </script> --}}
     </div>
 @endsection

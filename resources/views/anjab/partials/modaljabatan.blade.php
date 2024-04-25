@@ -6,7 +6,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="/anjab/data-jabatan" method="POST">
+            <form action="/anjab/data-jabatan" method="POST" id="jabatanForm">
                 @csrf
                 <div class="mb-3">
                     <label for="nama_jabatan" class="form-label">Nama Jabatan</label>
@@ -27,7 +27,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <button class="btn btn-primary header1" type="submit">Tambah Jabatan</button>
+                    <button class="btn btn-primary header1" type="submit" id="submitJabatan">Tambah Jabatan</button>
                 </div>
                 
             
