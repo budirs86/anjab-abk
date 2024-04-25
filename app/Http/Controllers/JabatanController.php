@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class JabatanController extends Controller
 {
@@ -29,12 +30,31 @@ class JabatanController extends Controller
     public function store(Request $request)
     {
         // ddd($request);
-        $validatedData = request()->validate([
+        // $validatedData = request()->validate([
+        //     'nama_jabatan' => 'required',
+        //     'unit_kerja' => 'required'
+        // ]);
+        // ddd();
+
+        // Jabatan::create($validatedData);
+        
+        $validator = Validator::make($request->all(), [
             'nama_jabatan' => 'required',
             'unit_kerja' => 'required'
         ]);
-
+        
+        if($validator->fails()) {
+            
+            // // Halaman ke-refresh
+            return redirect('/anjab/jabatan')->withErrors($validator)->withInput();
+            
+            // return response()->json([$validator->errors()->getMessages()],422);
+        }
+        
+        $validatedData = $validator->validated();
+        
         Jabatan::create($validatedData);
+        
 
         return back()->with('success', 'Data Jabatan berhasil Ditambahkan');
     }
