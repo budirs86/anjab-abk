@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnalisisJabatanController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\LoginController;
 use App\Models\Jabatan;
@@ -22,4 +23,5 @@ Route::get('/anjab/jabatan', function() {
     ]);
 })->middleware('auth');
 
-Route::resource('/anjab/data-jabatan/', JabatanController::class);
+Route::resource('/anjab/data-jabatan/', JabatanController::class)->middleware('auth');
+Route::resource('/anjab/analisis-jabatan/', AnalisisJabatanController::class)->middleware('auth');
