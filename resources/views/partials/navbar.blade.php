@@ -72,7 +72,7 @@
                         <img src="" data-feather="edit" alt="">Anjab
                     </p>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item me-3 my-1" href="/anjab/jabatan">Entry Data Jabatan</a></li>
+                        <li><a class="dropdown-item me-3 my-1" href="/anjab/data-jabatan">Entry Data Jabatan</a></li>
                         <li><a class="dropdown-item me-3 my-1" href="">Entry Biodata Jabatan</a></li>
                         <li><a class="dropdown-item me-3 my-1" href="/anjab/analisis-jabatan">Entry Analisis Jabatan</a></li>
                         
