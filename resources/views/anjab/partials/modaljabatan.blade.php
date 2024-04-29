@@ -8,10 +8,35 @@
         <div class="modal-body">
             <form action="/anjab/data-jabatan" method="POST" id="jabatanForm">
                 @csrf
+                <input type="hidden" name="parent_id" id="parent_id" value="{{ $jabatan->id }}">
                 <div class="mb-3">
-                    <label for="nama_jabatan" class="form-label">Nama Jabatan</label>
-                    <input type="text" class="form-control @error('nama_jabatan') is-invalid @enderror" id="nama_jabatan" name="nama_jabatan" placeholder="Masukkan Nama Jabatan" value="{{ old('nama_jabatan') }}">
-                    @error('nama_jabatan')
+                    <label for="jenis_jabatan" class="form-label">Jenis Jabatan</label>
+                    <select class="form-select" name="jenis_jabatan_id" id="jenis_jabatan">
+                        @foreach ($jenis_jabatan as $jenis)
+                            <option value="{{ $jenis->id }}" @if ($jenis->id == old('jenis_jabatan_id')) selected @endif>{{ $jenis->jenis_jabatan }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="eselon_id" class="form-label">Eselon</label>
+                    <select class="form-select" name="eselon_id" id="eselon_id">
+                        @foreach ($eselon as $esel)
+                            <option value="{{ $esel->id }}" @if ($esel->id == old('eselon_id')) selected @endif>{{ $esel->eselon }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="golongan_id" class="form-label">Golongan</label>
+                    <select class="form-select" name="golongan_id" id="golongan_id">
+                        @foreach ($golongan as $gol)
+                            <option value="{{ $gol->id }}" @if ($gol->id == old('golongan_id')) selected @endif>{{ $gol->golongan . " - " . $gol->nama }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="kode" class="form-label">Kode</label>
+                    <input type="text" class="form-control @error('kode') is-invalid @enderror" id="kode" name="kode" placeholder="Diisi Secara Otomatis" disabled value="{{ old('kode') }}">
+                    @error('kode')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>    
@@ -19,8 +44,17 @@
                 </div>
                 <div class="mb-3">
                     <label for="unit_kerja" class="form-label">Unit Kerja</label>
-                    <input type="text" class="form-control @error('unit_kerja') is-invalid @enderror"  id="unit_kerja" name="unit_kerja" placeholder="Masukkan Unit Kerja">
+                    <input type="text" class="form-control @error('unit_kerja') is-invalid @enderror" id="unit_kerja" name="unit_kerja" placeholder="Masukkan Unit Kerja" value="{{ old('unit_kerja') }}">
                     @error('unit_kerja')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>    
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="nama_jabatan" class="form-label">Nama Jabatan</label>
+                    <input type="text" class="form-control @error('nama_jabatan') is-invalid @enderror" id="nama_jabatan" name="nama_jabatan" placeholder="Masukkan Nama Jabatan" value="{{ old('nama_jabatan') }}">
+                    @error('nama_jabatan')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>    
