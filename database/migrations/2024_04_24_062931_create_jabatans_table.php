@@ -14,7 +14,13 @@ return new class extends Migration
         Schema::create('jabatans', function (Blueprint $table) {
             $table->id();
             $table->string('nama_jabatan');
+            $table->foreignId('jenis_jabatan_id');
+            $table->foreignId('eselon_id');
+            $table->foreignId('golongan_id');
+            $table->string('kode');
             $table->string('unit_kerja');
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->foreignId('analisisjabatan_id');
             $table->timestamps();
         });
     }
