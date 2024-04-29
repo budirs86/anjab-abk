@@ -39,17 +39,19 @@
                                 <td>// K-123 //</td>
                                 <td class="d-flex justify-content-between">
                                     <p>{{ $jabatan->nama_jabatan }}</p>
-                                    <button class="btn btn-success ms-2"> Tambah Jabatan</button>
+                                    {{-- <button class="btn btn-success ms-2"> Tambah Jabatan</button> --}}
+                                    <button class="btn btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#modalExample"><img width="20px" data-feather="plus"></img> Tambah Jabatan</button>
                                 </td>
                             </tr>
-                        @endforeach
-                    
-                    </tbody>
-                </table>
+                            @endforeach
+                            
+                        </tbody>
+                    </table>
+                </div>
+                @include('anjab.partials.modaljabatan')
+                
             </div>
-
-        </div>
-        @include('anjab.partials.modaljabatan')
+            
 
         {{-- non ajax --}}
         @if ($errors->any())
@@ -73,10 +75,15 @@
                         data : $('#jabatanForm').serialize(),
                         dataType: "json",
                         success: function(response){
+                            console.log("Response:", response);
                             if(response.success) {
+
                                 $('#modalExample').modal('hide');
                             }
                             else {
+                                const errors = response.errors;
+
+                                // Loop through errors and update form fields
                                 for (const field in errors) {
                                     const errorMessage = errors[field][0];
                                     $(`#${field}`).addClass('is-invalid');
