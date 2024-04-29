@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Eselon;
+use App\Models\Golongan;
 use App\Models\Jabatan;
+use App\Models\JenisJabatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,7 +16,13 @@ class JabatanController extends Controller
      */
     public function index()
     {
-        //
+        return view('anjab.jabatan',[
+        'title' => 'Data Jabatan',
+        'jabatans' => Jabatan::all(),
+        'jenis_jabatan' => JenisJabatan::all(),
+        'eselon' => Eselon::all(),
+        'golongan' => Golongan::all()
+    ]);
     }
 
     /**
@@ -29,7 +38,7 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
-        // ddd($request);
+        ddd($request);
         // $validatedData = request()->validate([
         //     'nama_jabatan' => 'required',
         //     'unit_kerja' => 'required'
@@ -40,15 +49,17 @@ class JabatanController extends Controller
         
         $validator = Validator::make($request->all(), [
             'nama_jabatan' => 'required',
-            'unit_kerja' => 'required'
+            'unit_kerja' => 'required',
+            'jenis_jabatan_id' => 'required',
         ]);
         
         if($validator->fails()) {
             
             // // Halaman ke-refresh
-            return redirect('/anjab/jabatan')->withErrors($validator)->withInput();
+            return redirect('/anjab/data-jabatan')->withErrors($validator)->withInput();
             
-            // return response()->json([$validator->errors()->getMessages()],422);
+            // Client-side pake ajax
+            // return response()->json([$validator->errors()],422);
         }
         
         $validatedData = $validator->validated();
