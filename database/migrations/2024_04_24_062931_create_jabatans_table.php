@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('kode');
             $table->string('unit_kerja');
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->foreignId('analisisjabatan_id');
+            $table->foreignId('analisisjabatan_id')->nullable();
             $table->timestamps();
         });
     }
