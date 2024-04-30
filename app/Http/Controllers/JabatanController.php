@@ -42,7 +42,7 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
-        ddd($request);
+        // ddd($request);
         // $validatedData = request()->validate([
         //     'nama_jabatan' => 'required',
         //     'unit_kerja' => 'required'
@@ -53,8 +53,16 @@ class JabatanController extends Controller
         
         $validator = Validator::make($request->all(), [
             'nama_jabatan' => 'required',
-            'unit_kerja' => 'required',
             'jenis_jabatan_id' => 'required',
+            'eselon_id' => 'required',
+            'golongan_id' => 'required',
+            'kode' => 'filled',
+            'unit_kerja' => 'required',
+            'parent_id' => 'nullable',
+            'analisisjabatan_id' => 'nullable',
+            
+        
+
         ]);
         
         if($validator->fails()) {
