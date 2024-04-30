@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AnalisisJabatan;
+use App\Models\Eselon;
 use App\Models\Jabatan;
+use App\Models\Golongan;
+use App\Models\JenisJabatan;
 use Illuminate\Http\Request;
+use App\Models\AnalisisJabatan;
 
 class AnalisisJabatanController extends Controller
 {
@@ -14,8 +17,12 @@ class AnalisisJabatanController extends Controller
     public function index()
     {
         return view('anjab.analisis-jabatan',[
+        // 'request' => $request,
         'title' => 'Analisis Jabatan',
-        'jabatans' => Jabatan::all()
+        'jabatans' => Jabatan::all(),
+        'jenis_jabatan' => JenisJabatan::all(),
+        'eselon' => Eselon::all(),
+        'golongan' => Golongan::all()
     ]);
     }
 
@@ -26,7 +33,11 @@ class AnalisisJabatanController extends Controller
     {
         return view('anjab/anjabform',[
             'title' => 'Form Analisis Jabatan',
-            'jabatan' => Jabatan::where('id',$request->jabatan)
+            'jabatan' => Jabatan::where('id',$request->jabatan),
+            'jenis_jabatan' => JenisJabatan::all(),
+            'eselon' => Eselon::all(),
+            'golongan' => Golongan::all()
+
         ]);
     }
 
