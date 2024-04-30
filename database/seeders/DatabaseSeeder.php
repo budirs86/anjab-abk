@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Eselon;
-use App\Models\Golongan;
-use App\Models\JenisJabatan;
 use App\Models\User;
+use App\Models\Eselon;
+use App\Models\Jabatan;
+use App\Models\Golongan;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\JenisJabatan;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -144,5 +145,42 @@ class DatabaseSeeder extends Seeder
         foreach ($golongan_data as $golongan) {
             Golongan::create($golongan);
         }
+
+        Jabatan::create([
+            'nama_jabatan' => 'Kepala Dinas',
+            'jenis_jabatan_id' => '1',
+            'eselon_id' => '1',
+            'golongan_id' => '1',
+            'kode' => '',
+            'unit_kerja' => 'Unit Kerja deh Pokoknya',
+            'parent_id' => null,
+        ]);
+        Jabatan::create([
+            'nama_jabatan' => 'Sekretaris Dinas',
+            'jenis_jabatan_id' => '1',
+            'eselon_id' => '1',
+            'golongan_id' => '1',
+            'kode' => '',
+            'unit_kerja' => 'Unit Kerja deh Pokoknya',
+            'parent_id' => 1,
+        ]);
+        Jabatan::create([
+            'nama_jabatan' => 'Bawahannya Sekretaris Dinas',
+            'jenis_jabatan_id' => '1',
+            'eselon_id' => '1',
+            'golongan_id' => '1',
+            'kode' => '',
+            'unit_kerja' => 'Unit Kerja deh Pokoknya',
+            'parent_id' => 2,
+        ]);
+        Jabatan::create([
+            'nama_jabatan' => 'Bawahannya Kepala Dinas',
+            'jenis_jabatan_id' => '1',
+            'eselon_id' => '1',
+            'golongan_id' => '1',
+            'kode' => '',
+            'unit_kerja' => 'Unit Kerja deh Pokoknya',
+            'parent_id' => 1,
+        ]);
     }
 }
