@@ -25,25 +25,17 @@
                     <tbody>
                         <tr>
                             <td>
-                                <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample">Expand</button>
+                                <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWithDepth0">Expand</button>
                             </td>
                             <td>// K-123 //</td>
                             <td class="d-flex justify-content-start">
                                 <p>Bidang Kepegawaian</p>
-                                <button class="btn btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#modalExample"><img width="20px" data-feather="plus"></img> Tambah Jabatan</button>
+                                <button class="btn btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#modalJabatan"><img width="20px" data-feather="plus"></img> Tambah Jabatan</button>
                             </td>
                         </tr>                                
                         @foreach ($jabatans as $jabatan)
-                            <tr class="collapse fade" id="collapseExample">
-                                <td><button class="btn btn-dark">Expand</button></td>
-                                <td>// K-123 //</td>
-                                <td class="d-flex justify-content-between">
-                                    <p>{{ $jabatan->nama_jabatan }}</p>
-                                    {{-- <button class="btn btn-success ms-2"> Tambah Jabatan</button> --}}
-                                    <button class="btn btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#modalExample"><img width="20px" data-feather="plus"></img> Tambah Jabatan</button>
-                                </td>
-                            </tr>
-                            @endforeach
+                            <x-table-row :jabatan="$jabatan"/>    
+                        @endforeach
                             
                         </tbody>
                     </table>
@@ -57,11 +49,30 @@
         @if ($errors->any())
             <script>
                 $(document).ready(function() {
-                    $('#modalExample').modal('show')
+                    $('#modalJabatan').modal('show')
                 });
             </script>
         @endif
+        
+        <script>
+            const modal = document.getElementById('modalJabatan');
 
+            modal.addEventListener('show.bs.modal', event => {
+                console.log('NJIR DIPENCET');
+                const btn = event.relatedTarget
+                console.log(btn)
+
+                const atasan = btn.getAttribute('data-bs-atasan')
+                console.log(atasan)
+
+                const inputAtasan = document.getElementById('parent_id');
+
+                inputAtasan.value = atasan;
+            })
+
+
+            
+        </script>
         {{-- ajax --}}
         {{-- <script>
             
