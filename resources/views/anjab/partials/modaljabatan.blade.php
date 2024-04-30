@@ -1,4 +1,4 @@
-<div class="modal fade" tabindex="-1" id="modalExample">
+<div class="modal fade" tabindex="-1" id="modalJabatan">
   <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -9,6 +9,7 @@
             <form action="/anjab/data-jabatan" method="POST" id="jabatanForm">
                 @csrf
                 <input type="hidden" name="parent_id" id="parent_id" value="{{ $jabatan->id }}">
+                <input type="hidden" name="analisisjabatan_id" id="analisisjabatan_id" value="">
                 <div class="mb-3">
                     <label for="jenis_jabatan" class="form-label">Jenis Jabatan</label>
                     <select class="form-select" name="jenis_jabatan_id" id="jenis_jabatan">
@@ -35,7 +36,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="kode" class="form-label">Kode</label>
-                    <input type="text" class="form-control @error('kode') is-invalid @enderror" id="kode" name="kode" placeholder="Diisi Secara Otomatis" disabled value="{{ old('kode') }}">
+                    <input type="text" class="form-control @error('kode') is-invalid @enderror" id="kode" name="kode" placeholder="Diisi Secara Otomatis" value="contoh">
                     @error('kode')
                         <div class="invalid-feedback">
                             {{ $message }}
