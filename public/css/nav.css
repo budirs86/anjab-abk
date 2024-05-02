@@ -16,3 +16,7 @@
 .hvr:hover {
     text-emphasis: red;
 }
+
+.nav-link {
+    margin: 10px;
+}
