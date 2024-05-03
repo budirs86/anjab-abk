@@ -8,7 +8,7 @@
         <div class="modal-body">
             <form action="/anjab/data-jabatan" method="POST" id="jabatanForm">
                 @csrf
-                <input type="hidden" name="parent_id" id="parent_id" value="{{ $jabatan->id }}">
+                <input type="hidden" name="parent_id" id="parent_id" value="{{ old('parent_id',$jabatan->id) }}">
                 <input type="hidden" name="analisisjabatan_id" id="analisisjabatan_id" value="">
                 <div class="mb-3">
                     <label for="jenis_jabatan" class="form-label">Jenis Jabatan</label>
