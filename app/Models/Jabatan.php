@@ -12,6 +12,8 @@ class Jabatan extends Model
 
     protected $guarded = ['id'];
 
+    protected $with = ['ancestors'];
+
     public function getParentKeyName()
     {
         return 'parent_id';

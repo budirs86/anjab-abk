@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg  bg-body-tertiary p-0 navbar-dark">
+    <nav class="navbar navbar-expand-lg  bg-body-tertiary p-0 navbar-dark">
         <div class="container-fluid header1 px-3">
             <div class="logo">
                 <a class="navbar-brand " href="/">
@@ -62,7 +62,7 @@
             </ul>
         </div>
 </nav>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid mx-3">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <ul class="navbar-nav gap-3">
@@ -72,9 +72,10 @@
                         <img src="" data-feather="edit" alt="">Anjab
                     </p>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item me-3 my-1" href="/anjab/data-jabatan">Entry Data Jabatan</a></li>
-                        <li><a class="dropdown-item me-3 my-1" href="">Entry Biodata Jabatan</a></li>
-                        <li><a class="dropdown-item me-3 my-1" href="/anjab/analisis-jabatan">Entry Analisis Jabatan</a></li>
+                        <li><a class="dropdown-item me-3 my-1" href="/anjab/buat-ajuan">Buat Ajuan Informasi Jabatan Baru</a></li>
+                        <li><a class="dropdown-item me-3 my-1" href="/anjab/ajuans">Lihat Ajuan</a></li>
+                        {{-- <li><a class="dropdown-item me-3 my-1" href="">Entry Biodata Jabatan</a></li>
+                        <li><a class="dropdown-item me-3 my-1" href="/anjab/analisis-jabatan">Entry Analisis Jabatan</a></li> --}}
                         
                     </ul>
                     </li>

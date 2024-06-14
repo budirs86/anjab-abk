@@ -1,9 +1,7 @@
-@extends('layouts.main')
+@extends('anjab.layouts.main')
 
-@section('container')
-    <div class="container-fluid px-5 py-3 bg-tertiary vh-100">
-        <div class="card m-0 p-3 ">
-            <div class="card-head mb-3">
+@section('content')
+    <div class="card-head mb-3">
                 <h1 class="fw-light fs-4 d-inline nav-item">{{ $title }}</h1>
                 <div class="card dropdown-divider mb-4"></div>
                 
@@ -298,21 +296,8 @@
                     </div>
                     
                     <div class="">
-                        {{-- <button type="submit" class="btn btn-primary header1"><img src="" alt="" data-feather="save" width="20px"> Simpan</button> --}}
-                        <a href="{{ url()->previous() }}" class="btn btn-primary header1"><img src="" alt="" data-feather="save" width="20px"> Simpan</a>
+                        <button type="submit" class="btn btn-primary header1"><img src="" alt="" data-feather="save" width="20px"> Simpan</button>
                     </div>
                 </form>
             </div>
-        </div>
-        
-        <script>
-            const tambahTugas = document.getElementById('tambahTugas');
-            const tabelTugas = document.getElementById('tabelTugas');
-            
-
-            function tambahTugas(e) {
-
-            }
-        </script>
-    </div>
 @endsection

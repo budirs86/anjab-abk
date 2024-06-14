@@ -13,7 +13,7 @@
             </div>
         </div>
     </nav>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary ">
+    {{-- <nav class="navbar navbar-expand-lg bg-body-tertiary ">
         <div class="container-fluid">
             <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
@@ -24,4 +24,4 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav> --}}
