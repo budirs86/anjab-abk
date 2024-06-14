@@ -1,8 +1,16 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="container mt-5">
-        <div class="row">
+    <div class="container my-5 card vh-100">
+        <div class="container mb-3 d-flex flex-column align-items-center p-3">
+            <h1 class="display-3 mb-5"> Selamat Datang, {{ Auth::user()->name }}</h1>
+            <div class="d-flex gap-2">
+                <a href="{{ route('anjab.buat-ajuan') }}" class="btn btn-primary">Buat Ajuan Analisis Jabatan Baru</a>
+                <a href="{{ route('anjab.ajuans') }}" class="btn btn-warning">Lihat Ajuan Analisis Jabatan</a>
+            </div>
+    
+        </div>
+        <div class="row m-3">
                 <div class="col">
                     <h2>Grafik Jabatan Berdasarkan Jenis</h2>
                     <img
@@ -71,7 +79,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+        </div>
     </div>
     
 @endsection
