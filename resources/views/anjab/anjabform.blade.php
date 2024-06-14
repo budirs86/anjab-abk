@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="container-fluid px-5 py-3 bg-tertiary vh-100">
-        <div class="card m-0 p-3">
+        <div class="card m-0 p-3 ">
             <div class="card-head mb-3">
                 <h1 class="fw-light fs-4 d-inline nav-item">{{ $title }}</h1>
                 <div class="card dropdown-divider mb-4"></div>
@@ -18,8 +18,8 @@
                         placeholder="Masukkan Objek kerja">
                     </div>
                     
-                    <label for="uraian_tugas" class="form-label">Uraian Tugas</label>
-                    <div class="mb-3" id="uraian_tugas">
+                    <label for="uraian_tugas_table" class="form-label">Uraian Tugas</label>
+                    <div class="mb-3" id="uraian_tugas_table">
                         <table class=" table table-bordered" id="tabelTugas">
                             <thead class="table-light">
                                 <tr>
@@ -32,7 +32,8 @@
                                     <td>   
                                         <button type="button" class="btn btn-secondary w-100">Hapus</button>
                                     </td>
-                                    <td>   
+                                    <td> 
+                                        <input type="text" class="form-control mb-3" name="uraian_tugas" id="uraian_tugas" placeholder="Masukkan Uraian Tugas">  
                                         <table class="table table-bordered border-secondary">
                                             <thead class="table-primary">
                                                 <th class="fw-semibold text-muted w-75">Langkah Kerja</th>
@@ -196,10 +197,11 @@
                                             </tbody>
                                         </table>
                     </div>
-                    <div class="mb-3">
+                    <div class="my-3">
                         <p>Kondisi Lingkungan Kerja</p>
+                        <hr>
                         <div class="row mb-3 col-lg-8">
-                            <div class="col-auto">
+                            <div class="col-4">
                                 <label for="tempat_kerja" class="col-form-label">Tempat Kerja</label>
                             </div>
                             <div class="col">
@@ -207,69 +209,97 @@
                             </div>
                         </div>
                         <div class="row mb-3 col-lg-8">
-                            <div class="col-auto">
-                                <label for="tempat_kerja" class="col-form-label">Tempat Kerja</label>
+                            <div class="col-4">
+                                <label for="tempat_kerja" class="col-form-label">Suhu</label>
                             </div>
                             <div class="col">
                                 <input type="text" class="form-control" id="tempat_kerja">
                             </div>
                         </div>
                         <div class="row mb-3 col-lg-8">
-                            <div class="col-auto">
-                                <label for="tempat_kerja" class="col-form-label">Tempat Kerja</label>
+                            <div class="col-4">
+                                <label for="tempat_kerja" class="col-form-label">Udara</label>
                             </div>
                             <div class="col">
                                 <input type="text" class="form-control" id="tempat_kerja">
                             </div>
                         </div>
                         <div class="row mb-3 col-lg-8">
-                            <div class="col-auto">
-                                <label for="tempat_kerja" class="col-form-label">Tempat Kerja</label>
+                            <div class="col-4">
+                                <label for="tempat_kerja" class="col-form-label">Keadaan Ruangan</label>
                             </div>
                             <div class="col">
                                 <input type="text" class="form-control" id="tempat_kerja">
                             </div>
                         </div>
                         <div class="row mb-3 col-lg-8">
-                            <div class="col-auto">
-                                <label for="tempat_kerja" class="col-form-label">Tempat Kerja</label>
+                            <div class="col-4">
+                                <label for="tempat_kerja" class="col-form-label">Letak</label>
                             </div>
                             <div class="col">
                                 <input type="text" class="form-control" id="tempat_kerja">
                             </div>
                         </div>
                         <div class="row mb-3 col-lg-8">
-                            <div class="col-auto">
-                                <label for="tempat_kerja" class="col-form-label">Tempat Kerja</label>
+                            <div class="col-4">
+                                <label for="tempat_kerja" class="col-form-label">Penerangan</label>
                             </div>
                             <div class="col">
                                 <input type="text" class="form-control" id="tempat_kerja">
                             </div>
                         </div>
                         <div class="row mb-3 col-lg-8">
-                            <div class="col-auto">
-                                <label for="tempat_kerja" class="col-form-label">Tempat Kerja</label>
+                            <div class="col-4">
+                                <label for="tempat_kerja" class="col-form-label">Penerangan</label>
                             </div>
                             <div class="col">
                                 <input type="text" class="form-control" id="tempat_kerja">
                             </div>
                         </div>
                         <div class="row mb-3 col-lg-8">
-                            <div class="col-auto">
-                                <label for="tempat_kerja" class="col-form-label">Tempat Kerja</label>
+                            <div class="col-4">
+                                <label for="tempat_kerja" class="col-form-label">Suara</label>
                             </div>
                             <div class="col">
                                 <input type="text" class="form-control" id="tempat_kerja">
                             </div>
                         </div>
                         <div class="row mb-3 col-lg-8">
-                            <div class="col-auto">
-                                <label for="tempat_kerja" class="col-form-label">Tempat Kerja</label>
+                            <div class="col-4">
+                                <label for="tempat_kerja" class="col-form-label">Keadaan Tempat Kerja</label>
                             </div>
                             <div class="col">
                                 <input type="text" class="form-control" id="tempat_kerja">
                             </div>
                         </div>
+                        <div class="row mb-3 col-lg-8">
+                            <div class="col-4">
+                                <label for="tempat_kerja" class="col-form-label">Getaran</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="tempat_kerja">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <label for="rekomendasi" class="form-label">Rekomendasi</label>
+                    <input type="text" class="form-control" id="rekomendasi">
+                    <label for="prestasi" class="form-label text-capitalize">prestasi</label>
+                    <input type="text" class="form-control " id="prestasi">
+                    <label for="lainnya" class="form-label text-capitalize">lainnya</label>
+                    <input type="text" class="form-control" id="lainnya">
+                    <label for="kelas_jabatan" class="form-label text-capitalize">kelas jabatan</label>
+                    <div class="mb-3">
+                        <select class="form-select" id="kelas_jabatan">
+                            @for ($i = 1; $i <= 8; ++$i)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                    
+                    <div class="">
+                        {{-- <button type="submit" class="btn btn-primary header1"><img src="" alt="" data-feather="save" width="20px"> Simpan</button> --}}
+                        <a href="{{ url()->previous() }}" class="btn btn-primary header1"><img src="" alt="" data-feather="save" width="20px"> Simpan</a>
                     </div>
                 </form>
             </div>
