@@ -10,6 +10,9 @@
                 </div>
                 
             @endif
+            <div class="">
+                {{ Breadcrumbs::render('data-jabatan') }}
+            </div>
             <div class="card-head mb-3">
                 <h1 class="fw-light fs-4 d-inline nav-item">Data Jabatan</h1>                
             </div>
