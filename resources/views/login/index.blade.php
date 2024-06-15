@@ -1,4 +1,4 @@
-@extends('login.layouts.main')
+@extends('layouts.main')
 
 @section('container')
     <div class="bg-light">
