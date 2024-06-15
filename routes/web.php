@@ -12,16 +12,16 @@ Route::get('/', function () {
     return view('home',[
         'title' => 'Dashboard'
     ]);
-})->middleware('auth');
+})->middleware('auth')->name('home');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
-Route::resource('/anjab/data-jabatan/', JabatanController::class)->middleware('auth');
+Route::resource('/anjab/data-jabatan/', JabatanController::class)->name('anjab.data-jabatan.index','index')->middleware('auth');
 Route::resource('/anjab/analisis-jabatan/', AnalisisJabatanController::class)->middleware('auth');
 
-Route::get('/anjab/buat-ajuan',function() {
+Route::get('/anjab/ajuan/create',function() {
     return view('anjab.buat-ajuan',[
         'title' => ''
     ]);
@@ -49,7 +49,7 @@ Route::get('/anjab/ajuan/{id}',function($id) {
         'jabatans' => $jabatans,
         'editable' => false
     ]);
-});
+})->name('anjab.ajuan');
 Route::get('/anjab/ajuan/{id}/edit',function($id) {
     // $jabatans = Jabatan::tree()->get()->toTree();
     $jabatans = Jabatan::all();
