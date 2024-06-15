@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="mb-3">
-        <a href="{{ url()->previous() }}" class="btn btn-outline-dark"><i data-feather="chevron-left"></i> Back</a>
+        {{ Breadcrumbs::render('lihat-ajuan-analisis-jabatan') }}
     </div>
     <div class="card-head mb-3">
                 <h1 class="fw-light fs-4 ">Ajuan Analisis Jabatan Periode {{ request('periode') }}</h1>                
