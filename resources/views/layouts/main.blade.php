@@ -28,7 +28,11 @@
     <script src="/js/orgchart.js"></script>
 </head>
 <body>
-    @include('partials.navbar')
+    @if (Request::is('login'))
+        @include('login.partials.navbar')
+    @else
+        @include('partials.navbar')
+    @endif
     @yield('container')
 
     {{-- bootstrap js --}}
