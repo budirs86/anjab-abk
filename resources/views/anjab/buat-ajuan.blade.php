@@ -3,6 +3,9 @@
 @section('container')
     <div class="container-fluid px-5 py-3 bg-tertiary vh-100">
         <div class="card m-0 p-3">
+            <div class="">
+                {{ Breadcrumbs::render('buat-ajuan') }}
+            </div>
             <div class="card-head mb-3">
                 <h1 class="fw-light fs-4 d-inline nav-item">Buat Ajuan Baru</h1>                
             </div>
