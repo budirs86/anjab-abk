@@ -3,19 +3,19 @@
 @section('container')
     <div class="bg-light">
         <div class="p-5">
-            <div class="container card  col-lg-4 p-3">
+            <div class="container card rounded-3 col-lg-4 p-3">
                 @if (session()->has('loginError'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <small>{{ session('loginError') }}</small>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-                <div class="d-flex justify-content-start text-center">
-                    <img src="/assets/undip-logo.svg" width="200" class="" alt="">
-                    <div class="d-flex flex-column my-3">
+                <div class="justify-content-start text-center">
+                    <img src={{ asset('assets/undip-logo-cropped.svg') }} width="100" class="" alt="">
+                    <div class="d-flex flex-column my-3 gap-1">
                         <h1 class="card-title display-6">Anjab ABK</h1>
-                        <p class="">Selamat datang di Aplikasi Anjab ABK <br> Universitas Diponegoro</p>
-                        <p>Silakan Login untuk melanjutkan</p>
+                        <p class="m-0">Selamat datang di Aplikasi Anjab ABK <br> Universitas Diponegoro</p>
+                        {{-- <p class="m-0">Silakan masuk untuk melanjutkan</p> --}}
                     </div>
                     
                 </div>
@@ -41,7 +41,7 @@
                             </div>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary header1">Masuk</button>
+                    <button type="submit" class="btn btn-primary header1 ">Masuk</button>
                 </form>
                 {{-- <small class="text-center">Belum Memiliki Akun? <a href="">Daftar disini</a>.</small> --}}
             </div>
