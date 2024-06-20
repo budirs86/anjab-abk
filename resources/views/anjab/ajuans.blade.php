@@ -12,13 +12,14 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <div class="card dropdown-divider mb-3"></div>
-        <table class="table table-striped  table-responsive">
+        <table class="table table-striped table-bordered table-responsive">
             <thead>
             <tr>
                 <th>No</th>
                 <th>Periode</th>
                 <th>Status</th>
-                <th></th>
+                <th>Catatan</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -32,19 +33,31 @@
                     <td>{{ $i }}</td>
                     <td>{{ $i + 2020}}</td>
                     @if ($i % 2 == 0)
-                        <td><h5><span class="badge rounded-pill text-bg-success">Disetujui</span></h5></td=>
-                    @else
+                        <td><h5><span class="badge rounded-pill text-bg-success">Disetujui</span></h5></td>
+                        <td></td>
+                        @else
                         <td><h5><span class="badge rounded-pill text-bg-danger">Revisi</span></h5></td>
+                        <td>Mohon diperbaiki di sini dan di sana</td>
                         
                     @endif
                     {{-- <td>{{  ? <p class="bad"></p> : "Revisi" }}</td> --}}
                     <td>
-                        <a href="/anjab/ajuan/{{ $i }}?periode={{ $i+2020 }}" class="btn btn-primary m-0 pt-1" ><i data-feather="eye" class="m-0 p-0"></i></a>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a href="/anjab/ajuan/{{ $i }}?periode={{ $i+2020 }}" class="btn btn-outline-primary">Lihat</a>
+                            @if ($i % 2 != 0)
+                                <a href="/anjab/ajuan/{{ $i }}/edit?periode={{ $i+2020 }}" type="button" class="btn btn-outline-secondary">Edit</a>
+                                
+                            @else
+                                <a href="/abk/ajuan/create" class="btn btn-outline-success" aria-disabled="true">Buat Ajuan ABK</a>
+                                
+                            @endif
+                        </div>
+                        {{-- <a href="/anjab/ajuan/{{ $i }}?periode={{ $i+2020 }}" class="btn btn-sm btn-primary m-0 pt-1" ><i data-feather="eye" class="m-0 p-0"></i></a>
                         @if ($i % 2 != 0)
-                            <a href="/anjab/ajuan/1/edit?periode={{ $i+2020 }}" class="btn btn-warning"><i data-feather="edit"></i></a>
+                            <a href="/anjab/ajuan/1/edit?periode={{ $i+2020 }}" class="btn btn-sm btn-warning"><i data-feather="edit"></i></a>
                         @else
-                            <a href="/abk/ajuan" class="btn btn-success" aria-disabled="true">Buat Ajuan ABK</a>
-                        @endif
+                            <a href="/abk/ajuan/create" class="btn btn-sm btn-success" aria-disabled="true">Buat Ajuan ABK</a>
+                        @endif --}}
                     </td>
 
                 </tr>
