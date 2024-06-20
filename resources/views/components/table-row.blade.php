@@ -1,4 +1,4 @@
-@props(['jabatan', 'editable'])
+@props(['jabatan', 'editable','abk'])
 
 <div>
 <tr class="collapseparent0"> 
@@ -13,15 +13,19 @@
     </td> --}}
     <td>// K-123 //</td>
     <td class="d-flex justify-content-between">
-        @if ($editable)
-            <a class="text-decoration-underline" href="/anjab/analisis-jabatan/create" style="margin-left: {{ $jabatan->depth * 25 }}px;"><img width="20px" data-feather="corner-down-right"></img> {{ $jabatan->nama_jabatan }}</a>
+        @if ($editable && !$abk)
+            <p class="" href="/anjab/analisis-jabatan/create" style="margin-left: {{ $jabatan->depth * 25 }}px;"><img width="20px" data-feather="corner-down-right"></img> {{ $jabatan->nama_jabatan }}</p>
             <div class="">
-                <a href="{{ route('create') }}" class="btn btn-sm btn-primary ms-auto add-button"><img width="20px" data-feather="edit-3"></img> Ubah Informasi Jabatan</a>
+                <a href="{{ route('create',['nama_jabatan' => $jabatan->nama_jabatan]) }}" class="btn btn-sm btn-primary ms-auto add-button"><img width="20px" data-feather="edit-3"></img> Ubah Informasi Jabatan</a>
                 <button class="btn btn-sm btn-success ms-auto add-button" data-bs-toggle="modal" data-bs-target="#modalJabatan" id="addButton" data-bs-atasan="{{ $jabatan->id }}"><img width="20px" data-feather="plus"></img> Tambah Jabatan Bawahan</button>
             </div>
-        @else
+        @elseif(!$editable && !$abk)
             <p style="margin-left: {{ $jabatan->depth * 25 }}px;"><img width="20px" data-feather="corner-down-right"></img> {{ $jabatan->nama_jabatan }}</p>
             <a href="" class="btn btn-sm btn-primary">Lihat Informasi Jabatan</a>
+            
+        @elseif($editable && $abk)
+            <p style="margin-left: {{ $jabatan->depth * 25 }}px;"><img width="20px" data-feather="corner-down-right"></img> {{ $jabatan->nama_jabatan }}</p>
+            <a href="{{ route('abk.data-abk') }}" class="btn btn-sm btn-primary add-button"><img width="20px" data-feather="edit-3"></img> Isi Informasi ABK</a>
         @endif
         {{-- <button class="btn btn-success ms-2"> Tambah Jabatan</button> --}}
         {{-- @if ($request->is('anjab/data-jabatan'))
@@ -31,8 +35,12 @@
 </tr>
 
 @foreach ($jabatan->children as $child)
-    @if ($editable)
+    @if ($editable && !$abk)
         <x-table-row :jabatan="$child" :editable="true"/>
+    @elseif(!$editable && !$abk)
+        <x-table-row :jabatan="$child"/>
+    @elseif($editable && $abk)
+        <x-table-row :jabatan="$child" :editable="true" :abk="true"/>
     @else
         <x-table-row :jabatan="$child"/>    
     @endif
