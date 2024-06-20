@@ -68,3 +68,11 @@ Route::get('abk/ajuan/create',function() {
         'jabatans' => Jabatan::tree()->get()->toTree()  
     ]);
 });
+
+Route::get('abk/ajuan/data-abk', function() {
+    return view('abk.abkform',[
+        'title' => 'Isi Informasi ABK',
+        
+    ]);
+})->name('abk.data-abk');
+
