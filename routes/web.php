@@ -76,3 +76,8 @@ Route::get('abk/ajuan/data-abk', function() {
     ]);
 })->name('abk.data-abk');
 
+Route::get('abk/ajuans', function(){
+    return view('abk.ajuans',[
+        'title' => 'Daftar Ajuan ABK    '
+    ]);
+});
