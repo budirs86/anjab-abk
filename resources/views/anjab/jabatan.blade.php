@@ -54,12 +54,12 @@
                     </tbody>
                 </table>
             </div>
-                @include('anjab.partials.modaljabatan')
-                
-                <div class="">
-                    <a href="/anjab/ajuans"  class="btn btn-primary header1 text-white"><i data-feather="save"></i> Simpan Ajuan Informasi Jabatan</a>
-                </div>
+            @include('anjab.partials.modaljabatan')
+            
+            <div class="">
+                <a href="/anjab/ajuans"  class="btn btn-primary header1 text-white"><i data-feather="save"></i> Simpan Ajuan Informasi Jabatan</a>
             </div>
+            
             
 
         {{-- non ajax --}}
