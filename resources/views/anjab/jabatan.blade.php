@@ -14,9 +14,9 @@
                 {{ Breadcrumbs::render('data-jabatan') }}
             </div>
             <div class="card-head mb-3">
-                <h1 class="fw-light fs-4 d-inline nav-item">Data Jabatan</h1>                
+                <h1 class="fw-light fs-4 d-inline nav-item">Susunan Informasi Jabatan</h1>                
             </div>
-            <div class="card dropdown-divider mb-5"></div>
+            <div class="card dropdown-divider mb-3"></div>
 
             <div class="">
                 <div class="mb-3">
@@ -32,12 +32,12 @@
 
                 <table class="table table-striped table-bordered">
                     <thead >
-                        <th class="fw-semibold text-muted">Action</th>
+                        {{-- <th class="fw-semibold text-muted">Action</th> --}}
                         <th class="fw-semibold text-muted">Kode</th>
-                        <th class="fw-semibold text-muted">Unit Kerja</th>
+                        <th class="fw-semibold text-muted">Jabatan</th>
                     </thead>
                     <tbody>
-                        <tr>
+                        {{-- <tr>
                             <td>
                                 <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target=".collapseparent0">Expand</button>
                             </td>
@@ -46,9 +46,9 @@
                                 <p>Bidang Kepegawaian</p>
                                 <button class="btn btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#modalJabatan"><img width="20px" data-feather="plus"></img> Tambah Jabatan</button>
                             </td>
-                        </tr>                                
+                        </tr>                                 --}}
                         @foreach ($jabatans as $jabatan)
-                            <x-table-row :jabatan="$jabatan"/>    
+                            <x-table-row :jabatan="$jabatan" :editable="true"/>    
                         @endforeach
                             
                     </tbody>
@@ -57,7 +57,7 @@
                 @include('anjab.partials.modaljabatan')
                 
                 <div class="">
-                    <a href="/anjab/ajuans"  class="btn btn-primary header1 text-white">Simpan Ajuan Jabatan</a>
+                    <a href="/anjab/ajuans"  class="btn btn-primary header1 text-white"><i data-feather="save"></i> Simpan Ajuan Informasi Jabatan</a>
                 </div>
             </div>
             
@@ -87,6 +87,11 @@
                 inputAtasan.value = atasan;
             })
 
+            var unitKerja = document.getElementById('unit_kerja');
+
+            select(unitKerja, {
+                search: true
+            });
 
             
         </script>
