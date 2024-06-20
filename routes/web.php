@@ -60,3 +60,11 @@ Route::get('/anjab/ajuan/{id}/edit',function($id) {
         'editable' => true
     ]);
 });
+
+Route::get('abk/ajuan/create',function() {
+    return view('abk.buat-ajuan',
+    [
+        'title' => 'Buat Ajuan Baru',
+        'jabatans' => Jabatan::tree()->get()->toTree()  
+    ]);
+});
