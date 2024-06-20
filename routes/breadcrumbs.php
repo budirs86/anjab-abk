@@ -40,6 +40,12 @@ Breadcrumbs::for('data-jabatan', function (BreadcrumbTrail $trail) {
     $trail->push('Data Jabatan', "/anjab/data-jabatan");
 });
 
+// create a breadcrumb for ubah informasi jabatan page, parent-ing the data jabatan breadcrumb
+Breadcrumbs::for('ubah-informasi-jabatan', function (BreadcrumbTrail $trail) {
+    $trail->parent('data-jabatan');
+    $trail->push('Ubah Informasi Jabatan', "/anjab/analisis-jabatan/create");
+});
+
 
 
 

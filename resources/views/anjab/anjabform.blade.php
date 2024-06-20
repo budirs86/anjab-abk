@@ -4,6 +4,12 @@
     <div class="container-fluid px-5 py-3 bg-tertiary vh-100">
         <div class="card m-0 p-3 ">
             <div class="card-head mb-3">
+                <div class="">
+                    {{ Breadcrumbs::render('ubah-informasi-jabatan') }}
+                </div>
+                <div class="mb-3">
+                    <a href="{{ url()->previous() }}" class="btn btn-sm btn-outline-dark align-baseline"><i data-feather="chevron-left"></i>Kembali</a>
+                </div>
                 <h1 class="fw-light fs-4 d-inline nav-item">{{ $title }}</h1>
                 <div class="card dropdown-divider mb-4"></div>
                 
