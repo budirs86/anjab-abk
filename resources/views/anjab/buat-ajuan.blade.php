@@ -27,7 +27,7 @@
                     {{-- <button type="submit" class="btn btn-primary">Buat Informasi Jabatan</button> --}}
                     </div>
 
-                <a href="/anjab/data-jabatan" class="btn btn-primary">Buat Informasi Jabatan</a>
+                <a href="/anjab/data-jabatan" class="btn btn-primary">Susun Informasi Jabatan</a>
             </form>
         </div>
     </div>
