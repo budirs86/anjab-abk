@@ -15,6 +15,21 @@
                 
                 <form action="/anjab/analisis-jabatan" method="POST">
                     <div class="mb-3">
+                        <label for="nama_jabatan" id="nama_jabatan" class="form-label">Nama Jabatan</label>
+                        <input type="text" class="form-control" id="nama_jabatan" 
+                        value="{{ request()->nama_jabatan ?? '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jenis_jabatan" id="jenis_jabatan" class="form-label">Jenis Jabatan</label>
+                        <input type="text" class="form-control" id="jenis_jabatan" 
+                        value="{{ request()->jenis_jabatan ?? '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="golongan" id="golongan" class="form-label">Golongan Jabatan</label>
+                        <input type="text" class="form-control" id="golongan" 
+                        value="{{ request()->golongan ?? '' }}">
+                    </div>
+                    <div class="mb-3">
                         <label for="ikhtisar" class="form-label">Ikhtisar Jabatan</label>  
                         <textarea class="form-control"  placeholder="Masukkan Ikhtisar" id="ikhtisar" style="height:100px" ></textarea>
                     </div>
@@ -24,7 +39,7 @@
                         placeholder="Masukkan Objek kerja">
                     </div>
                     
-                    <label for="uraian_tugas_table" class="form-label">Uraian Tugas</label>
+                    {{-- <label for="uraian_tugas_table" class="form-label">Uraian Tugas</label>
                     <div class="mb-3" id="uraian_tugas_table">
                         <table class=" table table-bordered" id="tabelTugas">
                             <thead class="table-light">
@@ -90,7 +105,7 @@
                                 </tbody>
                             </table>
                         
-                    </div>
+                    </div> --}}
                     
                     <div class="mb-3">
                         <label for="tanggungjawab" class="form-label">Tanggung Jawab</label>
