@@ -1,6 +1,9 @@
 @extends('anjab.layouts.main')
 
 @section('content')
+    <div class="">
+        {{ Breadcrumbs::render('isi-informasi-abk') }}
+    </div>
     <div class="card-head mb-3">
         <h1 class="fw-light fs-4 d-inline nav-item">Informasi ABK</h1>                
     </div>
@@ -9,61 +12,40 @@
         <table class=" table table-bordered" id="tabelTugas">
             <thead class="table-light">
                 <tr>
-                    <th class="fw-semibold text-muted" scope="col">Aksi</th>
                     <th class="fw-semibold text-muted" scope="col ">Uraian Tugas</th>
+                    <th class="fw-semibold text-muted" scope="col ">Hasil Kerja</th>
+                    <th class="fw-semibold text-muted" scope="col ">Jumlah Hasil Kerja</th>
+                    <th class="fw-semibold text-muted" scope="col ">Waktu Penyelesaian</th>
+                    <th class="fw-semibold text-muted" scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>   
-                        <button type="button" class="btn btn-secondary w-100">Hapus</button>
-                    </td>
-                    <td> 
+                    <td class="">   
                         <input type="text" class="form-control mb-3" name="uraian_tugas" id="uraian_tugas" placeholder="Masukkan Uraian Tugas">  
-                        <table class="table table-bordered border-secondary">
-                            <thead class="table-primary">
-                                <th class="fw-semibold text-muted w-75">Langkah Kerja</th>
-                                <th class="fw-semibold text-muted">Aksi</th>
-                            </thead>
-                            <tbody>
-                                <tr >
-                                    <td colspan="2">
-                                        <button type="button" class="btn btn-primary header1">Tambah Langkah kerja</button>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table class="table table-bordered ">
-                            <thead class="table-success">
-                                <th class="fw-semibold text-muted w-50">Hasil Kerja</th>
-                                <th class="fw-semibold text-muted">Satuan</th>
-                                <th class="fw-semibold text-muted">Waktu</th>
-                                <th class="fw-semibold text-muted">Jumlah</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <input type="text" class="form-control" placeholder="Hasil Kerja">
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control" placeholder="Satuan">
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control" placeholder="Dalam Menit">
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control" placeholder="Jumlah">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    </td>
+                    <td>   
+                        <input type="text" class="form-control mb-3" name="hasil_kerja" id="hasil_kerja" placeholder="Masukkan Satuan Hasil Kerja">  
+                    </td>
+                    <td>   
+                        <input type="text" class="form-control mb-3" name="beban_kerja" id="beban_kerja" placeholder="Masukkan Jumlah Hasil Kerja">  
+                    </td>
+                    <td>   
+                        <input type="text" class="form-control mb-3" name="uraian_tugas" id="uraian_tugas" placeholder="Masukkan Waktu Penyelesaian Dalam Jam">  
+                    </td>
+                    <td class="d-flex gap-2"> 
+                        <button type="button" class="btn btn-sm btn-secondary w-100">
+                            <img width="20px" data-feather="edit"></img>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger w-100">
+                            <img width="20px" data-feather="trash"></img>
+                        </button>
                         
                     </td>
                     
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td colspan="5" class="text-end">
                         <button type="button" class="btn btn-primary header1" onclick="tambahTugas()" id="tambahTugas">Tambah Uraian Tugas</button>
                     </td>                                    
                 </tr>
