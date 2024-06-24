@@ -81,3 +81,14 @@ Route::get('abk/ajuans', function(){
         'title' => 'Daftar Ajuan ABK    '
     ]);
 });
+
+Route::get('/abk/ajuan/{id}',function($id) {
+    $jabatans = Jabatan::tree()->get()->toTree();
+
+    return view('abk.ajuan',[
+        'title' => 'Ajuan Jabatan',
+        'jabatans' => $jabatans,
+        'editable' => false,
+        'abk' => true
+    ]);
+})->name('abk.ajuan');
