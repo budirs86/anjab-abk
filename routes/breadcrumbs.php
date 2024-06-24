@@ -46,6 +46,13 @@ Breadcrumbs::for('ubah-informasi-jabatan', function (BreadcrumbTrail $trail) {
     $trail->push('Ubah Informasi Jabatan', "/anjab/analisis-jabatan/create");
 });
 
+// create a bredcrumb for buat ajuan abk page, parent-ing the home breadcrumb
+Breadcrumbs::for('buat-ajuan-abk', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Buat Ajuan ABK', "/abk/ajuan/create");
+});
+
+
 // create a breadcrumb for daftar ajuan abk page, parent-ing the home breadcrumb
 Breadcrumbs::for('daftar-ajuan-abk', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
