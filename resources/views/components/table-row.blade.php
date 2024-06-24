@@ -26,6 +26,9 @@
         @elseif($editable && $abk)
             <p style="margin-left: {{ $jabatan->depth * 25 }}px;"><img width="20px" data-feather="corner-down-right"></img> {{ $jabatan->nama_jabatan }}</p>
             <a href="{{ route('abk.data-abk') }}" class="btn btn-sm btn-primary add-button"><img width="20px" data-feather="edit-3"></img> Isi Informasi ABK</a>
+        @else
+            <p style="margin-left: {{ $jabatan->depth * 25 }}px;"><img width="20px" data-feather="corner-down-right"></img> {{ $jabatan->nama_jabatan }}</p>
+            <a href="" class="btn btn-sm btn-primary">Lihat Informasi ABK</a>
         @endif
         {{-- <button class="btn btn-success ms-2"> Tambah Jabatan</button> --}}
         {{-- @if ($request->is('anjab/data-jabatan'))
@@ -35,14 +38,6 @@
 </tr>
 
 @foreach ($jabatan->children as $child)
-    @if ($editable && !$abk)
-        <x-table-row :jabatan="$child" :editable="true"/>
-    @elseif(!$editable && !$abk)
-        <x-table-row :jabatan="$child"/>
-    @elseif($editable && $abk)
-        <x-table-row :jabatan="$child" :editable="true" :abk="true"/>
-    @else
-        <x-table-row :jabatan="$child"/>    
-    @endif
+    <x-table-row :jabatan="$child" :editable="$editable" :abk="$abk"/>
 @endforeach
 </div>  
