@@ -52,6 +52,18 @@ Breadcrumbs::for('buat-ajuan-abk', function (BreadcrumbTrail $trail) {
     $trail->push('Buat Ajuan ABK', "/abk/ajuan/create");
 });
 
+// create a breadcrumb for isi informasi abk page, parent-ing the buat ajuan abk breadcrumb
+Breadcrumbs::for('isi-informasi-abk', function (BreadcrumbTrail $trail) {
+    $trail->parent('buat-ajuan-abk');
+    $trail->push('Isi Informasi ABK', "/abk/ajuan/data-abk");
+});
+
+// create a breadcrumb for lihat ajuan abk page, parent-ing the buat ajuan abk breadcrumb
+Breadcrumbs::for('lihat-ajuan-abk', function (BreadcrumbTrail $trail) {
+    $trail->parent('buat-ajuan-abk');
+    $trail->push('Lihat Ajuan ABK', "");
+});
+
 
 // create a breadcrumb for daftar ajuan abk page, parent-ing the home breadcrumb
 Breadcrumbs::for('daftar-ajuan-abk', function (BreadcrumbTrail $trail) {
