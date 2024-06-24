@@ -82,6 +82,18 @@ Route::get('abk/ajuans', function(){
     ]);
 });
 
+Route::get('/abk/ajuan/{id}/edit',function($id) {
+    // $jabatans = Jabatan::tree()->get()->toTree();
+    $jabatans = Jabatan::all();
+
+    return view('abk.ajuan',[
+        'title' => 'Ajuan ABK',
+        'jabatans' => $jabatans,
+        'editable' => true,
+        'abk' => true
+    ]);
+});
+
 Route::get('/abk/ajuan/{id}',function($id) {
     $jabatans = Jabatan::tree()->get()->toTree();
 
