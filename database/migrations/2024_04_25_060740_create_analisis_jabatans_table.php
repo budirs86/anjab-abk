@@ -16,8 +16,6 @@ return new class extends Migration
             $table->timestamps();
             $table->text('ikhtisar');
             $table->text('objek_kerja');
-            
-            
         });
     }
 
