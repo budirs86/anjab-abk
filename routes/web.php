@@ -104,3 +104,15 @@ Route::get('/abk/ajuan/{id}',function($id) {
         'abk' => true
     ]);
 })->name('abk.ajuan');
+
+
+Route::get('/abk/ajuan/{id}/jabatan/{jabatan:id}',function($id,Jabatan $jabatan) {
+    // $jabatans = Jabatan::tree()->get()->toTree();
+
+    return view('abk.jabatan.show',[
+        'title' => 'Lihat Informasi ABK',
+        'jabatan' => $jabatan,
+        'editable' => false,
+        'abk' =>     true
+    ]);
+})->name('abk.jabatan.show');
