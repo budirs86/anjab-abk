@@ -1,0 +1,52 @@
+[
+    {
+        "kode": "D",
+        "nama": "Direct Control Planning (DCP)",
+        "deskripsi": "Kemampuan menyesuaikan diri menerima tanggung jawab untuk kegiatan memimpin, mengendalikan atau merencanakan."
+    },
+    {
+        "kode": "F",
+        "nama": "Feeling-Idea-Fact (FIF)",
+        "deskripsi": "Kemampuan menyesuaikan diri dengan kegiatan yang mengandung penafsiran perasaan, gagasan atau fakta dari sudut pandang pribadi."
+    },
+    {
+        "kode": "I",
+        "nama": "Influencing (INFLU)",
+        "deskripsi": "Kemampuan menyesuaikan diri untuk pekerjaan-pekerjaan mempengaruhi orang lain dalam pendapat, sikap atau pertimbangan mengenai gagasan."
+    },
+    {
+        "kode": "J",
+        "nama": "Sensory & Judgmental Creteria (SJC)",
+        "deskripsi": "Kemampuan menyesuaikan diri pada kegiatan perbuatan kesimpulan penilaian atau pembuatan peraturan berdasarkan kriteria rangsangan indera atau atas dasar pertimbangan pribadi."
+    },
+    {
+        "kode": "M",
+        "nama": "Measurable and Verifiable Creteria (MVC)",
+        "deskripsi": "Kemampuan menyesuaikan diri dengan kegiatan pengambilan peraturan, pembuatan pertimbangan, atau pembuatan peraturan berdasarkan kriteria yang diukur atau yang dapat diuji."
+    },
+    {
+        "kode": "P",
+        "nama": "Dealing with People (DEPL)",
+        "deskripsi": "Kemampuan menyesuaikan diri dalam berhubungan dengan orang lain lebih dari hanya penerimaan pembuatan instruksi."
+    },
+    {
+        "kode": "R",
+        "nama": "Repetitive and Continuous (REPCON)",
+        "deskripsi": "Kemampuan menyesuaikan diri dalam kegiatan-kegiatan yang berulang, atau secara terus menerus melakukan kegiatan yang sama, sesuai dengan perangkat prosedur, urutan atau kecepatan tertentu."
+    },
+    {
+        "kode": "S",
+        "nama": "Performing Under Stress (PUS)",
+        "deskripsi": "Kemampuan menyesuaikan diri untuk bekerja dengan ketegangan jiwa jika berhadapan dengan keadaan darurat, kritis, tidak biasa atau bahaya, atau bekerja dengan kecepatan kerja dan perhatian terus menerus untuk keseluruhan atau sebagian aspek pekerjaan."
+    },
+    {
+        "kode": "T",
+        "nama": "Set of Limits, Tolerance and Other Standart (STS)",
+        "deskripsi": "Kemampuan menyesuaikan diri dengan situasi yang menghendaki pencapaian dengan tepat menurut perangkat ba-tas, toleransi atau standar-standar tertentu."
+    },
+    {
+        "kode": "V",
+        "nama": "Variety and Changing Conditions (VARCH)",
+        "deskripsi": "Kemampuan menyesuaikan diri untuk melaksanakan berbagai tugas, sering berganti dari tugas yang satu ke tugas yang lainnya yang 'berbeda' sifatnya, tanpa kehilangan efisiensi atau ketenangan diri."
+    }
+]

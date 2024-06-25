@@ -1,0 +1,57 @@
+[
+    {
+        "kode": "G",
+        "nama": "Intelegensia",
+        "deskripsi": "Kemampuan belajar secara umum."
+    },
+    {
+        "kode": "V",
+        "nama": "Bakat Verbal",
+        "deskripsi": "Kemampuan untuk memahami arti kata-kata dan penggunaannya secara tepat dan efektif."
+    },
+    {
+        "kode": "N",
+        "nama": "Bakat Numerik",
+        "deskripsi": "Kemampuan untuk melakukan operasi aritmatik secara tepat dan akurat."
+    },
+    {
+        "kode": "S",
+        "nama": "Bakat Pandang Ruang",
+        "deskripsi": "Kemampuan berpikir secara visual mengenai bentuk-bentuk geometris, untuk memahami gambar-gambar dari benda-benda tiga dimensi."
+    },
+    {
+        "kode": "P",
+        "nama": "Bakat Penerapan",
+        "deskripsi": "Kemampuan menyerap bentuk perincian-perincian yang berkaitan dalam objek atau dalam gambar atau dalam bahan grafik."
+    },
+    {
+        "kode": "Q",
+        "nama": "Bakat Ketelitian",
+        "deskripsi": "Kemampuan menyerap perincian yang berkaitan dalam bahan verbal atau dalam tabel."
+    },
+    {
+        "kode": "K",
+        "nama": "Koordinasi Motorik",
+        "deskripsi": "Kemampuan untuk mengkoordinasikan mata dan tangan secara cepat dan cermat dalam membuat gerakan yang cepat."
+    },
+    {
+        "kode": "F",
+        "nama": "Kecekatan Jari",
+        "deskripsi": "Kemampuan menggerakkan jari-jemari dengan mudah dan perlu keterampilan."
+    },
+    {
+        "kode": "E",
+        "nama": "Koordinasi Mata, Tangan, Kaki",
+        "deskripsi": "Kemampuan menggerakkan tangan dan kaki secara koordinatif satu sama lain sesuai dengan rangsangan penglihatan."
+    },
+    {
+        "kode": "C",
+        "nama": "Kemampuan Membedakan Warna",
+        "deskripsi": "Kemampuan memadukan atau membedakan berbagai warna yang asli, yang gemerlapan."
+    },
+    {
+        "kode": "M",
+        "nama": "Kecekatan Tangan",
+        "deskripsi": "Kemampuan menggerakkan tangan dengan mudah dan penuh keterampilan."
+    }
+]
