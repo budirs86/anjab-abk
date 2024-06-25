@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "nama_jabatan": "Kepala Dinas",
+        "jenis_jabatan_id": 1,
+        "eselon_id": 1,
+        "golongan_id": 1,
+        "kode": "",
+        "unit_kerja": "Unit Kerja deh Pokoknya",
+        "parent_id": null
+    },
+    {
+        "id": 2,
+        "nama_jabatan": "Sekretaris Dinas",
+        "jenis_jabatan_id": 1,
+        "eselon_id": 1,
+        "golongan_id": 1,
+        "kode": "",
+        "unit_kerja": "Unit Kerja deh Pokoknya",
+        "parent_id": 1
+    },
+    {
+        "id": 3,
+        "nama_jabatan": "Bawahannya Sekretaris Dinas",
+        "jenis_jabatan_id": 1,
+        "eselon_id": 1,
+        "golongan_id": 1,
+        "kode": "",
+        "unit_kerja": "Unit Kerja deh Pokoknya",
+        "parent_id": 2
+    },
+    {
+        "id": 4,
+        "nama_jabatan": "Bawahannya Kepala Dinas",
+        "jenis_jabatan_id": 1,
+        "eselon_id": 1,
+        "golongan_id": 1,
+        "kode": "",
+        "unit_kerja": "Unit Kerja deh Pokoknya",
+        "parent_id": 1
+    }
+]

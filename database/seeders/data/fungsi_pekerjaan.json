@@ -1,0 +1,122 @@
+[
+    {
+        "kode": "B0",
+        "nama": "Memasang mesin",
+        "deskripsi": "Menyesuaikan mesin untuk melakukan suatu pekerjaan tertentu dengan memasang, mengubah komponen-komponennya atau memperbaiki mesin menurut standar."
+    },
+    {
+        "kode": "B1",
+        "nama": "Mengerjakan persisi",
+        "deskripsi": "Menggunakan anggota badan atau perkakas untuk mengerjakan, memindahkan, mengarahkan atau menempatkan obyek secara tepat sesuai dengan standar yang telah ditetapkan dengan toleransi yang kecil."
+    },
+    {
+        "kode": "B2",
+        "nama": "Menjalankan mengontrol mesin",
+        "deskripsi": "Menghidupkan, menyetel, mengatur kerja dan menghentikan mesin serta mengamati berbagai alat petunjuk pada mesin."
+    },
+    {
+        "kode": "B3",
+        "nama": "Mengemudikan/menjalankan mesin",
+        "deskripsi": "Menghidupkan, menghentikan, mengatur jalan mesin atau peralatan yang arahnya harus dikemudikan untuk memproses atau memindahkan benda atau orang. Dalam fungsi ini mesin sifatnya bergerak atau berjalan."
+    },
+    {
+        "kode": "B4",
+        "nama": "Mengerjakan benda dengan tangan atau perkakas",
+        "deskripsi": "Menggunakan anggota badan, seperangkat alat perkakas tangan atau alat-alat khusus untuk mengerjakan, menggerakkan, mengarahkan atau menempatkan benda."
+    },
+    {
+        "kode": "B5",
+        "nama": "Melayani mesin",
+        "deskripsi": "Menghidupkan, menghentikan dan mengamati kerja mesin beserta peralatannya."
+    },
+    {
+        "kode": "B6",
+        "nama": "Memasukkan, mengeluarkan barang ke/dari mesin",
+        "deskripsi": "Menyisipkan, memasukkan, mencelupkan atau menempatkan bahan ke dalam atau memindahkan dari mesin, atau dari peralatan otomatis, atau yang dilayani, atau yang dioperasikan oleh karyawan lainnya."
+    },
+    {
+        "kode": "B7",
+        "nama": "Memegang",
+        "deskripsi": "Menggunakan anggota badan, perkakas tangan atau alat khusus lain dalam mengerjakan, memindahkan atau membawa benda."
+    },
+    {
+        "kode": "D0",
+        "nama": "Memadukan data",
+        "deskripsi": "Menyatukan atau memadukan hasil analisis data untuk menemukan fakta menyusun karangan atau mengembangkan konsep, pengetahuan, interpretasi, menciptakan gagasan dengan menggunakan imajinasi."
+    },
+    {
+        "kode": "D1",
+        "nama": "Mengkoordinasi data",
+        "deskripsi": "Menentukan waktu, tempat atau urutan operasi yang akan dilaksanakan atau tindakan yang harus diambil berdasarkan hasil analisa data, melaksanakan ketentuan atau melaporkan kejadian dengan cara menghubung-hubungkan mencari kaitan serta membandingkan data setelah data tersebut dianalisa."
+    },
+    {
+        "kode": "D2",
+        "nama": "Menganalisis data",
+        "deskripsi": "Mempelajari, mengurangi, merinci dan menilai data untuk mendapatkan kejelasan, atau menyajikan tindakan alternatif."
+    },
+    {
+        "kode": "D3",
+        "nama": "Menyusun data",
+        "deskripsi": "Mengerjakan data dalam bentuk tertentu sesuai dengan kebutuhan atau peraturan yang ada."
+    },
+    {
+        "kode": "D4",
+        "nama": "Menghitung data",
+        "deskripsi": "Mengerjakan perhitungan aritmatika, (tambah, kurang, bagi)."
+    },
+    {
+        "kode": "D5",
+        "nama": "Menyalin data",
+        "deskripsi": "Menyalin, mencatat atau memindahkan data."
+    },
+    {
+        "kode": "D6",
+        "nama": "Membandingkan data",
+        "deskripsi": "Mengidentifikasi persamaan atau perbedaan sifat data, orang atau benda yang dapat diamati secara langsung, serta secara fisik, dan sedikit sekali memerlukan upaya mental."
+    },
+    {
+        "kode": "O0",
+        "nama": "Menasehati",
+        "deskripsi": "Memberi bimbingan, saran, konsultasi atau nasehat kepada perorangan atau instansi dalam pemecahan masalah berdasarkan disiplin ilmu, spiritual, atau prinsip-prinsip keahlian lainnya."
+    },
+    {
+        "kode": "O1",
+        "nama": "Berunding",
+        "deskripsi": "Menyelesaikan masalah tukar menukar & beradu pendapat, argumen, gagasan, dengan pihak lain membuat keputusan."
+    },
+    {
+        "kode": "O2",
+        "nama": "Mengajar",
+        "deskripsi": "Melatih orang lain dengan memberikan penjelasan, peragaan, bimbingan teknis, atau memberikan rekomendasi atas dasar disiplin yang bersifat teknis."
+    },
+    {
+        "kode": "O3",
+        "nama": "Menyelia",
+        "deskripsi": "Menentukan atau menafsirkan prosedur kerja, membagi tugas, menciptakan dan memelihara hubungan yang harmonis di antara bawahan dan meningkatkan efisiensi."
+    },
+    {
+        "kode": "O4",
+        "nama": "Menghibur",
+        "deskripsi": "Menghibur orang lain, biasanya menggunakan media panggung, film, televisi dan radio."
+    },
+    {
+        "kode": "O5",
+        "nama": "Mempengaruhi",
+        "deskripsi": "Mempengaruhi orang lain untuk memperoleh keuntungan dalam benda, jasa atau pendapat."
+    },
+    {
+        "kode": "O6",
+        "nama": "Berbicara memberi tanda",
+        "deskripsi": "Berbicara atau memberi tanda kepada orang lain untuk meminta, memberi informasi atau untuk mendapatkan tanggapan atau reaksi yang sifatnya tidak konseptual."
+    },
+    {
+        "kode": "O7",
+        "nama": "Melayani orang",
+        "deskripsi": "Memenuhi kebutuhan atau permintaan orang lain atau hewan, baik yang dinyatakan atau yang tidak langsung dinyatakan tetap harus dilaksanakan menurut ketentuan. Fungsi ini diperlukan pengetahuan dan keterampilan khusus untuk melaksanakannya."
+    },
+    {
+        "kode": "O8",
+        "nama": "Menerima instruksi",
+        "deskripsi": "Membantu melaksanakan kerja berdasarkan perintah atasan yang tidak memerlukan tanggapan."
+    }
+]

@@ -1,0 +1,26 @@
+[
+    {
+        "nama": "Realistik",
+        "deskripsi": "Aktivitas yang memerlukan manipulasi eksplisit, teratur atau sistematik terhadap obyek/alat/benda/mesin"
+    },
+    {
+        "nama": "Investigatif",
+        "deskripsi": "Aktivitas yang memerlukan penyelidikan observasional, simbolik dan sistematik terhadap fenomena dan kegiatan ilmiah"
+    },
+    {
+        "nama": "Artistik",
+        "deskripsi": "Aktivitas yang sifatnya ambigu, kreatif, bebas dan tidak sistematis dalam proses penciptaan produk/karya bernilai seni"
+    },
+    {
+        "nama": "Sosial",
+        "deskripsi": "Aktivitas yang bersifat sosial atau memerlukan keterampilan berkomunikasi dengan orang lain"
+    },
+    {
+        "nama": "Kewirausahaan",
+        "deskripsi": "Aktivitas yang melibatkan kegiatan pengelolaan/ manajerial untuk pencapaian tujuan organisasi."
+    },
+    {
+        "nama": "Konvensional",
+        "deskripsi": "Aktivitas yang memerlukan manipulasi data yang eksplisit, kegiatan administrasi, rutin dan klerikal."
+    }
+]
