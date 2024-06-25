@@ -80,7 +80,7 @@ Route::get('abk/ajuans', function(){
     return view('abk.ajuans',[
         'title' => 'Daftar Ajuan ABK    '
     ]);
-});
+})->name('abk.ajuans');
 
 Route::get('/abk/ajuan/{id}/edit',function($id) {
     // $jabatans = Jabatan::tree()->get()->toTree();
