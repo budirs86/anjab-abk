@@ -59,9 +59,9 @@ Breadcrumbs::for('isi-informasi-abk', function (BreadcrumbTrail $trail) {
 });
 
 // create a breadcrumb for lihat ajuan abk page, parent-ing the buat ajuan abk breadcrumb
-Breadcrumbs::for('lihat-ajuan-abk', function (BreadcrumbTrail $trail) {
-    $trail->parent('buat-ajuan-abk');
-    $trail->push('Lihat Ajuan ABK', "");
+Breadcrumbs::for('informasi-abk-jabatan', function (BreadcrumbTrail $trail, $jabatan) {
+    $trail->parent('lihat-ajuan-abk');
+    $trail->push('Edit Informasi ABK'. ' ' . $jabatan->nama_jabatan, "/abk/ajuan/data-abk");
 });
 
 

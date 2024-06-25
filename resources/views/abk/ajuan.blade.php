@@ -3,7 +3,7 @@
 
 @section('container')
     <div class="">
-        {{ Breadcrumbs::render('lihat-ajuan-abk') }}
+        {{ $editable ? Breadcrumbs::render('edit-ajuan-abk') : Breadcrumbs::render('lihat-ajuan-abk') }}
     </div>
     <div class="card-head mb-3">
         <h1 class="fw-light fs-4 d-inline nav-item">Analisis Beban Kerja Periode {{ request()->periode }}</h1>                
