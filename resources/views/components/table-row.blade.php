@@ -28,7 +28,7 @@
             <a href="{{ route('abk.data-abk') }}" class="btn btn-sm btn-primary add-button"><img width="20px" data-feather="edit-3"></img> Isi Informasi ABK</a>
         @else
             <p style="margin-left: {{ $jabatan->depth * 25 }}px;"><img width="20px" data-feather="corner-down-right"></img> {{ $jabatan->nama_jabatan }}</p>
-            <a href="" class="btn btn-sm btn-primary">Lihat Informasi ABK</a>
+            <a href="{{ route('abk.jabatan.show',['id' => request()->periode, 'jabatan' => $jabatan->id ]) }}" class="btn btn-sm btn-primary">Lihat Informasi ABK</a>
         @endif
         {{-- <button class="btn btn-success ms-2"> Tambah Jabatan</button> --}}
         {{-- @if ($request->is('anjab/data-jabatan'))
