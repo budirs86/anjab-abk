@@ -1,6 +1,6 @@
-@extends('anjab.layouts.main')
+@extends('layouts.main')
 
-@section('content')
+@section('container')
     <div class="mb-3">
         {{ Breadcrumbs::render('lihat-ajuan-analisis-jabatan') }}
     </div>

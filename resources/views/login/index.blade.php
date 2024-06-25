@@ -3,7 +3,7 @@
 @section('container')
     <div class="bg-light">
         <div class="p-5">
-            <div class="container card rounded-3 col-lg-4 p-3">
+            <div class="container rounded shadow-lg rounded-3 col-lg-4 p-3">
                 @if (session()->has('loginError'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <small>{{ session('loginError') }}</small>

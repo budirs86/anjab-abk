@@ -1,8 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="container my-5 card vh-100">
-        <div class="container mb-3 d-flex flex-column align-items-center p-3">
+    <div class="container mb-3 d-flex flex-column align-items-center p-3">
             <h1 class="display-3 mb-5"> Selamat Datang, {{ Auth::user()->name }}</h1>
             <div class="d-flex gap-2">
                 <a href="{{ route('anjab.buat-ajuan') }}" class="btn btn-primary">Buat Ajuan Anjab ABK Baru</a>
@@ -80,6 +79,7 @@
                     </div>
                 </div>
         </div>
-    </div>
+  
+    
     
 @endsection

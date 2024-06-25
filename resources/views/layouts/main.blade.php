@@ -27,14 +27,15 @@
     {{-- OrgChart JS --}}
     <script src="/js/orgchart.js"></script>
 </head>
-<body>
+<body class="bg-body-tertiary">
     @if (Request::is('login'))
         @include('login.partials.navbar')
     @else
         @include('partials.navbar')
     @endif
-    @yield('container')
-
+    <div class="container rounded my-5 p-3 shadow bg-white">
+        @yield('container')
+    </div>
     {{-- bootstrap js --}}
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

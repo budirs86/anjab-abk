@@ -62,11 +62,11 @@
             </ul>
         </div>
 </nav>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
         <div class="container-fluid mx-3">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <ul class="navbar-nav gap-3">
-                    <li><a class="nav-link active" href="/"><img data-feather="home" width="20px"> Dashboard</a></li>
+                    <li><a class="nav-link" href="/"><img data-feather="home" width="20px"> Dashboard</a></li>
                     <li class="nav-item dropdown">
                     <p class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="" data-feather="edit" alt="">Anjab
@@ -79,7 +79,13 @@
                         
                     </ul>
                     </li>
-                    <li><a class="nav-link" href="#"><img data-feather="edit" width="20px"></img> ABK</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"><img data-feather="edit" width="20px"></img> ABK</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item me-3 my-1" href="{{ route('abk.ajuans') }}">Lihat Ajuan</a></li>
+                        </ul>
+                    </li>
+
                     <li><a class="nav-link" href="#"><img data-feather="file" width="20px"></img> Laporan</a></li>
                 </ul>
             </div> 
