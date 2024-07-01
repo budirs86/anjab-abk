@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbkController;
 use App\Http\Controllers\AnalisisJabatanController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\LoginController;
@@ -61,13 +62,22 @@ Route::get('/anjab/ajuan/{id}/edit',function($id) {
     ]);
 });
 
-Route::get('abk/ajuan/create',function() {
-    return view('abk.buat-ajuan',
-    [
-        'title' => 'Buat Ajuan Baru',
-        'jabatans' => Jabatan::tree()->get()->toTree()  
-    ]);
-});
+// Route::get('abk/ajuans', function () {
+//     return view('abk.ajuans', [
+//         'title' => 'Daftar Ajuan ABK    '
+//     ]);
+// })->name('abk.ajuans');
+
+// Route::get('abk/ajuan/create',function() {
+//     return view('abk.buat-ajuan',
+//     [
+//         'title' => 'Buat Ajuan Baru',
+//         'jabatans' => Jabatan::tree()->get()->toTree()  
+//     ]);
+// });
+
+Route::get('abk/ajuan', [AbkController::class, 'index'])->name('abk.ajuans');
+Route::get('abk/ajuan/create', [AbkController::class, 'createAjuan'])->name('abk.ajuan.create');
 
 Route::get('abk/ajuan/data-abk', function() {
     return view('abk.abkform',[
@@ -75,12 +85,6 @@ Route::get('abk/ajuan/data-abk', function() {
         
     ]);
 })->name('abk.data-abk');
-
-Route::get('abk/ajuans', function(){
-    return view('abk.ajuans',[
-        'title' => 'Daftar Ajuan ABK    '
-    ]);
-})->name('abk.ajuans');
 
 Route::get('/abk/ajuan/{id}/edit',function($id) {
     // $jabatans = Jabatan::tree()->get()->toTree();

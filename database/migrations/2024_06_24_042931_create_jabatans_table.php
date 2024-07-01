@@ -14,17 +14,16 @@ return new class extends Migration
         Schema::create('jabatans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->foreignId('jenis_jabatan_id')->constrained();
-            $table->foreignId('ajuan_id')->constrained();
-            $table->foreignId('unit_kerja_id')->constrained();
-            $table->foreignId('eselon_id')->constrained();
-            $table->foreignId('golongan_id')->constrained();
+            $table->foreignId('jenis_jabatan_id')->constrained()->nullable();
+            $table->foreignId('unit_kerja_id')->constrained()->nullable();
+            $table->foreignId('eselon_id')->constrained()->nullable();
+            $table->foreignId('golongan_id')->constrained()->nullable();
             $table->string('nama');
             $table->string('kode');
-            $table->integer('kelas_jabatan');
-            $table->text('ikhtisar');
-            $table->text('prestasi');
-            $table->text('tanggung_jawab');
+            $table->integer('kelas_jabatan')->nullable();
+            $table->text('ikhtisar')->nullable();
+            $table->text('prestasi')->nullable();
+            $table->text('tanggung_jawab')->nullable();
             $table->timestamps();
 
             $table->foreign('parent_id')->references('id')->on('jabatans')->onDelete('cascade');

@@ -1,42 +1,42 @@
 [
     {
-        "id": 1,
-        "nama_jabatan": "Kepala Dinas",
+        "parent_id": null,
         "jenis_jabatan_id": 1,
+        "unit_kerja_id": 1,
         "eselon_id": 1,
         "golongan_id": 1,
+        "nama": "Kepala Dinas",
         "kode": "",
-        "unit_kerja": "Unit Kerja deh Pokoknya",
-        "parent_id": null
+        "kelas_jabatan": 1,
+        "ikhtisar": "",
+        "prestasi": "",
+        "tanggung_jawab": ""
     },
     {
-        "id": 2,
-        "nama_jabatan": "Sekretaris Dinas",
+        "parent_id": 1,
+        "nama": "Sekretaris Dinas",
+        "unit_kerja_id": 1,
         "jenis_jabatan_id": 1,
-        "eselon_id": 1,
         "golongan_id": 1,
-        "kode": "",
-        "unit_kerja": "Unit Kerja deh Pokoknya",
-        "parent_id": 1
+        "eselon_id": 1,
+        "kode": ""
     },
     {
-        "id": 3,
-        "nama_jabatan": "Bawahannya Sekretaris Dinas",
+        "parent_id": 2,
+        "nama": "Bawahannya Sekretaris Dinas",
+        "unit_kerja_id": 1,
         "jenis_jabatan_id": 1,
-        "eselon_id": 1,
         "golongan_id": 1,
-        "kode": "",
-        "unit_kerja": "Unit Kerja deh Pokoknya",
-        "parent_id": 2
+        "eselon_id": 1,
+        "kode": ""
     },
     {
-        "id": 4,
-        "nama_jabatan": "Bawahannya Kepala Dinas",
+        "parent_id": 1,
+        "nama": "Bawahannya Kepala Dinas",
+        "unit_kerja_id": 1,
         "jenis_jabatan_id": 1,
-        "eselon_id": 1,
         "golongan_id": 1,
-        "kode": "",
-        "unit_kerja": "Unit Kerja deh Pokoknya",
-        "parent_id": 1
+        "eselon_id": 1,
+        "kode": ""
     }
 ]

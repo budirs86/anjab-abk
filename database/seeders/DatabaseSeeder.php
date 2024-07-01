@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             JenisJabatanSeeder::class,
             EselonSeeder::class,
             GolonganSeeder::class,
-            // JabatanSeeder::class,
+            UnitKerjaSeeder::class,
+            JabatanSeeder::class,
         ]);
     }
 }
