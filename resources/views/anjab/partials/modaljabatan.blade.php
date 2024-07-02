@@ -13,7 +13,7 @@
                 <div class="mb-3">
                     <label for="jenis_jabatan" class="form-label">Jenis Jabatan</label>
                     <select class="form-select" name="jenis_jabatan_id" id="jenis_jabatan">
-                        @foreach ($jenis_jabatan as $jenis)
+                        @foreach ($jenisJabatan as $jenis)
                             <option value="{{ $jenis->id }}" @if ($jenis->id == old('jenis_jabatan_id')) selected @endif>{{ $jenis->jenis_jabatan }}</option>
                         @endforeach
                     </select>
