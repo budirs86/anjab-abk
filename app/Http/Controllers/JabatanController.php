@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateJabatanRequest;
 use App\Models\Eselon;
 use App\Models\Golongan;
 use App\Models\Jabatan;
@@ -38,41 +39,9 @@ class JabatanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateJabatanRequest $request)
     {
-        // ddd($request);
-        // $validatedData = request()->validate([
-        //     'nama_jabatan' => 'required',
-        //     'unit_kerja' => 'required'
-        // ]);
-        // ddd();
-
-        // Jabatan::create($validatedData);
-        
-        $validator = Validator::make($request->all(), [
-            'nama_jabatan' => 'required',
-            'jenis_jabatan_id' => 'required',
-            'eselon_id' => 'required',
-            'golongan_id' => 'required',
-            'kode' => 'filled',
-            'unit_kerja' => 'required',
-            'parent_id' => 'nullable',
-            'analisisjabatan_id' => 'nullable',
-            
-        
-
-        ]);
-        
-        if($validator->fails()) {
-            
-            // // Halaman ke-refresh
-            return redirect('/anjab/data-jabatan')->withErrors($validator)->withInput();
-            
-            // Client-side pake ajax
-            // return response()->json([$validator->errors()],422);
-        }
-        
-        $validatedData = $validator->validated();
+        $validatedData = $request->validated();
         
         Jabatan::create($validatedData);
         
@@ -93,7 +62,14 @@ class JabatanController extends Controller
      */
     public function edit(Jabatan $jabatan)
     {
-        //
+        //return view anjabform.blade.php
+        return view('jabatan.edit', [
+            'title' => 'Edit Data Jabatan',
+            'jabatan' => $jabatan,
+            'jenis_jabatan' => JenisJabatan::all(),
+            'eselon' => Eselon::all(),
+            'golongan' => Golongan::all()
+        ]);
     }
 
     /**
