@@ -45,7 +45,12 @@
                 </div>
                 <div class="mb-3">
                     <label for="unit_kerja" class="form-label">Unit Kerja</label>
-                    <input type="text" class="form-control @error('unit_kerja') is-invalid @enderror" id="unit_kerja" name="unit_kerja" placeholder="Masukkan Unit Kerja" value="{{ old('unit_kerja') }}">
+                        <select class="form-select @error('unit_kerja') is-invalid @enderror" id="unit_kerja"
+                            name="unit_kerja_id">
+                            @foreach ($unitKerjas as $unitKerja)
+                                <option value="{{ $unitKerja->id }}">{{ $unitKerja->nama }}</option>
+                            @endforeach
+                        </select>
                     @error('unit_kerja')
                         <div class="invalid-feedback">
                             {{ $message }}
