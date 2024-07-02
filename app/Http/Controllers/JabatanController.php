@@ -6,6 +6,7 @@ use App\Models\Eselon;
 use App\Models\Golongan;
 use App\Models\Jabatan;
 use App\Models\JenisJabatan;
+use App\Models\UnitKerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,17 +17,14 @@ class JabatanController extends Controller
      */
     public function index()
     {
-        // $jabatans = Jabatan::tree()->get()->toTree();
-        // dd($jabatans);
+        $title = 'Data Jabatan';
+        $jabatans = Jabatan::tree()->get()->toTree();
+        $jenisJabatan = JenisJabatan::all();
+        $eselon = Eselon::all();
+        $golongan = Golongan::all();
+        $unitKerjas = UnitKerja::all();
 
-        return view('anjab.jabatan',[
-        'title' => 'Data Jabatan',
-        // 'jabatans' => Jabatan::all(),
-        'jabatans' => Jabatan::tree()->get()->toTree(),
-        'jenis_jabatan' => JenisJabatan::all(),
-        'eselon' => Eselon::all(),
-        'golongan' => Golongan::all()
-    ]);
+        return view('anjab.jabatan', compact('title', 'jabatans', 'jenisJabatan', 'eselon', 'golongan', 'unitKerjas'));
     }
 
     /**
