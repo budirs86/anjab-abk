@@ -28,6 +28,17 @@ Route::get('/anjab/ajuan/create',function() {
     ]);
 })->name('anjab.buat-ajuan')->middleware('auth');
 
+Route::get('anjab/jabatan/{jabatan:id}/edit', function(Jabatan $jabatan) {
+    return view('anjab/jabatan/edit',[
+            'title' => 'Form Informasi Jabatan',
+            'jabatan' => $jabatan,
+            'jenis_jabatan' => JenisJabatan::all(),
+            'eselons' => Eselon::all(),
+            'golongan' => Golongan::all()
+        ]);
+})->name('anjab.jabatan.edit')->middleware('auth');
+
+
 Route::get('/petajabatan', function() {
 
     $jabatans = Jabatan::tree()->get()->toTree();
