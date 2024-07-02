@@ -20,10 +20,9 @@
         <div class="mb-3">
             <label for="unit_kerja" class="form-label">Unit Kerja</label>
             <select class="form-select" id="unit_kerja" name="unit_kerja">
-                <option value="Bidang Kepegawaian">Bidang Kepegawaian</option>
-                <option value="Bidang Keuangan">Bidang Keuangan</option>
-                <option value="Bidang Teknologi Informasi">Bidang Teknologi Informasi</option>
-                <option value="Bidang Pengembangan Sumber Daya Manusia">Bidang Pengembangan Sumber Daya Manusia</option>
+                @foreach ($unitKerjas as $unitKerja)
+                    <option value="{{ $unitKerja->id }}">{{ $unitKerja->nama }}</option>
+                @endforeach
             </select>
         </div>
         
