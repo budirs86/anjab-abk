@@ -21,9 +21,8 @@
                 <option value="6">6 Hari Kerja</option>
             </select>
         </div>
-
-        <a href="/anjab/data-jabatan" class="btn btn-primary">Susun Informasi Jabatan</a>
-    </form>
-    
-            
+                @foreach ($jabatans as $jabatan)
+                    <x-table-row :jabatan="$jabatan" :buttons="$buttons"/>    
+                @endforeach
+                    
 @endsection
