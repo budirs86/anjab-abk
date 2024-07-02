@@ -68,6 +68,7 @@ Route::get('/anjab/ajuan/{id}',function($id) {
 
     return view('anjab.ajuan',[
         'title' => 'Ajuan Jabatan',
+        'unit_kerjas' => UnitKerja::all(),
         'jabatans' => $jabatans,
         'editable' => false
     ]);
