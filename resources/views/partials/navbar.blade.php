@@ -69,7 +69,7 @@
                     <li><a class="nav-link" href="/"><img data-feather="home" width="20px"> Dashboard</a></li>
                     <li class="nav-item dropdown">
                     <p class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="" data-feather="edit" alt="">Anjab
+                        <img src="" width=20px data-feather="edit" alt="">Anjab
                     </p>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.buat-ajuan') }}">Buat Ajuan Informasi Jabatan Baru</a></li>

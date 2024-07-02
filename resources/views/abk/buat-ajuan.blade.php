@@ -43,7 +43,7 @@
                     </tbody>
                 </table>
                 <div class="">
-                    <a href="/abk/ajuans"  class="btn btn-primary header1 text-white"><i data-feather="save"></i> Simpan Ajuan Informasi ABK</a>
+                    <a href="{{ route('abk.ajuans') }}"  class="btn btn-primary header1 text-white"><i data-feather="save"></i> Simpan Ajuan Informasi ABK</a>
                 </div>
             </div>
 @endsection

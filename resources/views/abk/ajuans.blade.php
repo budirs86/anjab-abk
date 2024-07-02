@@ -15,11 +15,10 @@
         <table class="table table-striped table-bordered table-responsive">
             <thead>
             <tr>
-                <th>No</th>
+                <th style="width: 10%">No</th>
                 <th>Periode</th>
                 <th>Status</th>
                 <th>Catatan</th>
-                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -28,40 +27,66 @@
             {{-- @foreach ($ajuanData as $ajuan)
             @endforeach --}}
             
-            @for($i = 1; $i <= 5; $i++)
+            @for($i = 1; $i <= 2; $i++)
                 <tr>
                     <td>{{ $i }}</td>
-                    <td>{{ $i + 2020}}</td>
+                    <td class="w-25">
+                        <div class="d-flex justify-content-between">
+                            <p>{{ $i + 2020}} </p>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a href="/anjab/ajuan/{{ $i }}?periode={{ $i+2020 }}" class="btn btn-outline-primary">Lihat</a>
+                                @if ($i % 2 != 0)
+                                    <a href="/anjab/ajuan/{{ $i }}/edit?periode={{ $i+2020 }}" type="button" class="btn btn-outline-secondary">Edit</a>                                    
+                                @endif
+                            </div>
+                        </div>
+                    </td>
                     @if ($i % 2 == 0)
-                        <td><h5><span class="badge rounded-pill text-bg-success">Disetujui</span></h5></td>
-                        <td></td>
+                        <td class="w-25">
+                            <div class="alert alert-success w-100">
+                                <div class="alert-heading d-flex">
+                                    <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
+                                    <p class="m-0 p-0">Disetujui</p>
+                                </div>
+                                <hr>  
+                                <p class="m-0 p-0">Manajer Tata Usaha/Kepegawaian</p>
+                            </div>
+                            <div class="alert alert-info w-100">
+                                <div class="alert-heading d-flex">
+                                    <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
+                                    <p class="m-0 p-0">Menunggu Diperiksa</p>
+                                </div>
+                                <hr>  
+                                <p class="m-0 p-0">Kepala Biro, Wakil Dekan 2, Sekretaris Lembaga</p>
+                            </div>
+                        </td>
+                        <td>Tidak ada catatan.</td>
                         @else
-                        <td><h5><span class="badge rounded-pill text-bg-danger">Revisi</span></h5></td>
-                        <td>Mohon diperbaiki di sini dan di sana</td>
+                        <td class="">
+                            <div class="alert alert-warning w-100">
+                                    <div class="alert-heading d-flex">
+                                        <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
+                                        <p class="m-0 p-0">Perlu Perbaikan</p>
+                                    </div>
+                                    <hr>  
+                                    <p class="m-0 p-0">Kepala Biro, Wakil Dekan 2, Sekretaris Lembaga</p>
+                            </div>
+
+                        </td>
+                        <td>
+                            <ul>
+                                <li>Lorem ipsum dolor doloran</li>
+                                <li>Lorem ipsum dolor doloran</li>
+                                <li>Lorem ipsum dolor doloran</li>
+                            </ul>
+                        </td>
                         
                     @endif
                     {{-- <td>{{  ? <p class="bad"></p> : "Revisi" }}</td> --}}
-                    <td>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <a href="/abk/ajuan/{{ $i }}?periode={{ $i+2020 }}" class="btn btn-outline-primary">Lihat</a>
-                            @if ($i % 2 != 0)
-                                <a href="/abk/ajuan/{{ $i }}/edit?periode={{ $i+2020 }}" type="button" class="btn btn-outline-secondary">Edit</a>
-                                
-                            @else
-                                <a href="" class="btn btn-outline-success">Buat Peta Jabatan</a>                
-                            @endif
-                        </div>
-                        {{-- <a href="/anjab/ajuan/{{ $i }}?periode={{ $i+2020 }}" class="btn btn-sm btn-primary m-0 pt-1" ><i data-feather="eye" class="m-0 p-0"></i></a>
-                        @if ($i % 2 != 0)
-                            <a href="/anjab/ajuan/1/edit?periode={{ $i+2020 }}" class="btn btn-sm btn-warning"><i data-feather="edit"></i></a>
-                        @else
-                            <a href="/abk/ajuan/create" class="btn btn-sm btn-success" aria-disabled="true">Buat Ajuan ABK</a>
-                        @endif --}}
-                    </td>
-
                 </tr>
             @endfor
             {{-- please  --}}
             </tbody>
         </table>            
 @endsection 
+
