@@ -1,13 +1,17 @@
 <?php
 
-use App\Http\Controllers\AbkController;
-use App\Http\Controllers\AnalisisJabatanController;
-use App\Http\Controllers\JabatanController;
-use App\Http\Controllers\LoginController;
+use Carbon\Unit;
+use App\Models\Eselon;
 use App\Models\Jabatan;
+use App\Models\Golongan;
+use App\Models\UnitKerja;
 use App\Models\JenisJabatan;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AbkController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\AnalisisJabatanController;
 
 Route::get('/', function () {
     return view('home',[
@@ -23,9 +27,15 @@ Route::resource('/anjab/data-jabatan/', JabatanController::class)->name('anjab.d
 Route::resource('/anjab/analisis-jabatan/', AnalisisJabatanController::class)->middleware('auth');
 
 Route::get('/anjab/ajuan/create',function() {
-    return view('anjab.buat-ajuan',[
-        'title' => ''
-    ]);
+    
+    $title = 'Buat Ajuan Baru';
+    $jabatans = Jabatan::tree()->get()->toTree();
+    $jenisJabatan = JenisJabatan::all();
+    $eselon = Eselon::all();
+    $golongan = Golongan::all();
+    $unitKerjas = UnitKerja::all();
+    $buttons = ['tambah-jabatan-bawahan', 'ubah-informasi-jabatan'];
+    return view('anjab.buat-ajuan',compact('title', 'jabatans', 'jenisJabatan', 'eselon', 'golongan', 'unitKerjas','buttons'));
 })->name('anjab.buat-ajuan')->middleware('auth');
 
 Route::get('anjab/jabatan/{jabatan:id}/edit', function(Jabatan $jabatan) {
