@@ -73,6 +73,21 @@ Route::get('/anjab/ajuan/{id}/edit',function($id) {
     ]);
 });
 
+Route::get('/anjab/ajuan/{id}/unit/{unitkerja:id}',function($id,UnitKerja $unitkerja) {
+    // $jabatans = Jabatan::tree()->get()->toTree();
+
+    return view('anjab.unitkerja.show',[
+        'title' => 'Lihat Informasi Jabatan',
+        'periode' => $id,
+        'unit_kerja' => $unitkerja,
+        'jabatans' => Jabatan::where('unit_kerja_id',$unitkerja->id)->tree()->get()->toTree(),
+        'buttons' =>[
+            'lihat-informasi-jabatan'
+        ],
+        'editable' => false
+    ]);
+})->name('anjab.unitkerja.show');
+
 // Route::get('abk/ajuans', function () {
 //     return view('abk.ajuans', [
 //         'title' => 'Daftar Ajuan ABK    '
