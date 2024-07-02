@@ -1,4 +1,4 @@
-@extends('anjab.layouts.main')
+@extends('layouts.main')
 
 @section('content')
     <div class="card-head mb-3">

@@ -11,19 +11,16 @@
     <form>
         <div class="mb-3">
             <label for="periode" class="form-label">Periode</label>
-            <select class="form-select" id="periode" name="periode">
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-            </select>
+            <input type="text" class="form-control" id="periode" name="periode" value="{{ now()->year }}" readonly>
         </div>
         <div class="mb-3">
-            <label for="otk" class="form-label">Pilih OTK</label>
-            <select class="form-select" id="otk" name="otk">
-                <option value="otk1">Peraturan Rektor no 6 2021</option>
+            <label for="waktu_kerja_efektif" class="form-label">Pilih Standar Hari Kerja per Minggu</label>
+            <select class="form-select" id="waktu_kerja_efektif" name="waktu_kerja_efektif">
+                <option selected>Pilih Standar Hari Kerja per Minggu</option>
+                <option value="5">5 Hari Kerja</option>
+                <option value="6">6 Hari Kerja</option>
             </select>
-            {{-- <button type="submit" class="btn btn-primary">Buat Informasi Jabatan</button> --}}
-            </div>
+        </div>
 
         <a href="/anjab/data-jabatan" class="btn btn-primary">Susun Informasi Jabatan</a>
     </form>
