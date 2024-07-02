@@ -2,6 +2,8 @@
 
 // Note: Laravel will automatically resolve `Breadcrumbs::` without
 // this import. This is nice for IDE syntax and refactoring.
+
+use App\Models\UnitKerja;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
 // This import is also not required, and you could replace `BreadcrumbTrail $trail`
@@ -34,6 +36,11 @@ Breadcrumbs::for('lihat-ajuan-analisis-jabatan', function (BreadcrumbTrail $trai
     $trail->push('Lihat Ajuan Analisis Jabatan', "/anjab/lihat-ajuan-analisis-jabatan");
 });
 
+Breadcrumbs::for('lihat-ajuan-analisis-jabatan-unitkerja', function (BreadcrumbTrail $trail, UnitKerja $unit_kerja) {
+    $trail->parent('lihat-ajuan-analisis-jabatan');
+    $trail->push($unit_kerja->nama);
+});
+
 // create a breadcrumb for data jabatan page, parent-ing the buat ajuan breadcrumb
 Breadcrumbs::for('data-jabatan', function (BreadcrumbTrail $trail) {
     $trail->parent('buat-ajuan');
@@ -42,7 +49,7 @@ Breadcrumbs::for('data-jabatan', function (BreadcrumbTrail $trail) {
 
 // create a breadcrumb for ubah informasi jabatan page, parent-ing the data jabatan breadcrumb
 Breadcrumbs::for('ubah-informasi-jabatan', function (BreadcrumbTrail $trail) {
-    $trail->parent('data-jabatan');
+    $trail->parent('buat-ajuan');
     $trail->push('Ubah Informasi Jabatan', "/anjab/analisis-jabatan/create");
 });
 
