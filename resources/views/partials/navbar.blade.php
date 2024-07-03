@@ -2,30 +2,17 @@
         <div class="container-fluid header1 px-3">
             <div class="logo">
                 <a class="navbar-brand " href="/">
-                    <img
-                        src="/assets/undip-logo.svg"
-                        alt="Logo"
-                        width="100"
-                        class="d-inline-block align-text-center"
-                    />
+                    <img src="/assets/undip-logo.svg" alt="Logo" width="100"
+                        class="d-inline-block align-text-center" />
                     Universitas Diponegoro <br />
                 </a>
             </div>
             <ul class="navbar-nav">
                 @auth
                     <li class="nav-item dropdown">
-                        <a
-                            class="nav-link dropdown-toggle"
-                            href="#"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-                            <img
-                                src="/assets/default-picture.svg"
-                                alt="Profile Picture"
-                                width="30"
-                            />
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="/assets/default-picture.svg" alt="Profile Picture" width="30" />
 
                             <p class="text-white d-inline ms-2">{{ auth()->user()->name }}</p>
                         </a>
@@ -35,18 +22,13 @@
                                     @csrf
                                     <button class="dropdown-item" type="submit">Log Out</button>
                                 </form>
-                                
+
                             </li>
                         </ul>
                     </li>
                 @else
                     <li class="nav-item">
-                        <a
-                            class="nav-link text-white d-inline"
-                            href="/login"
-                            role="button"
-                            aria-expanded="false"
-                        >
+                        <a class="nav-link text-white d-inline" href="/login" role="button" aria-expanded="false">
                             Login
                         </a>
                         {{-- <a
@@ -61,33 +43,38 @@
                 @endauth
             </ul>
         </div>
-</nav>
+    </nav>
     <nav class="navbar navbar-expand-lg bg-white shadow-sm">
         <div class="container-fluid mx-3">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <ul class="navbar-nav gap-3">
                     <li><a class="nav-link" href="/"><img data-feather="home" width="20px"> Dashboard</a></li>
                     <li class="nav-item dropdown">
-                    <p class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="" width=20px data-feather="edit" alt="">Anjab
-                    </p>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.buat-ajuan') }}">Buat Ajuan Informasi Jabatan Baru</a></li>
-                        <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.ajuans') }}">Lihat Ajuan</a></li>
-                        {{-- <li><a class="dropdown-item me-3 my-1" href="">Entry Biodata Jabatan</a></li>
+                        <p class="nav-link " href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="" width=20px data-feather="edit" alt="">Anjab
+                        </p>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.ajuan.create') }}">Buat Ajuan
+                                    Informasi Jabatan Baru</a></li>
+                            <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.ajuan.index') }}">Lihat
+                                    Ajuan</a></li>
+                            {{-- <li><a class="dropdown-item me-3 my-1" href="">Entry Biodata Jabatan</a></li>
                         <li><a class="dropdown-item me-3 my-1" href="/anjab/analisis-jabatan">Entry Analisis Jabatan</a></li> --}}
-                        
-                    </ul>
+
+                        </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"><img data-feather="edit" width="20px"></img> ABK</a>
+                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"><img
+                                data-feather="edit" width="20px"></img> ABK</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item me-3 my-1" href="{{ route('abk.ajuans') }}">Lihat Ajuan</a></li>
                         </ul>
                     </li>
 
-                    <li><a class="nav-link" href="#"><img data-feather="file" width="20px"></img> Laporan</a></li>
+                    <li><a class="nav-link" href="#"><img data-feather="file" width="20px"></img> Laporan</a>
+                    </li>
                 </ul>
-            </div> 
+            </div>
         </div>
     </nav>
