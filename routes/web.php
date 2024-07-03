@@ -12,6 +12,7 @@ use App\Http\Controllers\AbkController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\AnalisisJabatanController;
+use App\Models\BakatKerja;
 
 Route::get('/', function () {
     return view('home',[
@@ -42,6 +43,8 @@ Route::get('anjab/jabatan/{jabatan:id}/edit', function(Jabatan $jabatan) {
     return view('anjab/jabatan/edit',[
             'title' => 'Form Informasi Jabatan',
             'jabatan' => $jabatan,
+            'bakat_kerjas'=> BakatKerja::all(),
+            'unit_kerjas' => UnitKerja::all(),
             'jenis_jabatan' => JenisJabatan::all(),
             'eselons' => Eselon::all(),
             'golongan' => Golongan::all()
