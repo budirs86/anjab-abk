@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             GolonganSeeder::class,
             UnitKerjaSeeder::class,
             JabatanSeeder::class,
+            UpayaFisikSeeder::class,
         ]);
     }
 }

@@ -1,0 +1,103 @@
+[
+    {
+        "nama": "Berdiri",
+        "deskripsi": "Berada di suatu tempat dalam posisi tegak ditempat tanpa pindah ke tempat lain."
+    },
+    { "nama": "Berjalan", "deskripsi": "Bergerak dengan jalan kaki." },
+    {
+        "nama": "Duduk",
+        "deskripsi": "Berada dalam suatu tempat dalam posisi duduk biasa."
+    },
+    {
+        "nama": "Mengangkat",
+        "deskripsi": "Menaikkan atau menurunkan benda di satu tingkat ke tingkat lain (termasuk menarik ke atas)."
+    },
+    {
+        "nama": "Membawa",
+        "deskripsi": "Memindahkan benda, umumnya dengan menggunakan tangan, lengan atau bahu."
+    },
+    {
+        "nama": "Mendorong",
+        "deskripsi": "Menggunakan tenaga untuk memindahkan benda menjauhi badan."
+    },
+    {
+        "nama": "Menarik",
+        "deskripsi": "Menggunakan tenaga untuk memindahkan suatu benda ke arah badan (termasuk menyentak atau merenggut)."
+    },
+    {
+        "nama": "Memanjat",
+        "deskripsi": "Naik atau turun tangga, tiang, lorong dan lain-lain dengan menggunakan kaki, tangan, dan kaki."
+    },
+    {
+        "nama": "Menyimpan imbang / mengatur imbang",
+        "deskripsi": "Agar tidak jatuh badan waktu berjalan, berdiri, membungkuk, atau berdiri di atas tempat yang agak sempit, licin dan tinggi tanpa alat pegangan, atau mengatur imbang pada waktu melakukan olah raga senam."
+    },
+    {
+        "nama": "Menunduk",
+        "deskripsi": "Melengkungkan tubuh dengan cara melekukkan tulang punggung dan kaki."
+    },
+    {
+        "nama": "Berlutut",
+        "deskripsi": "Melengkungkan paha kaki pada lutut dan berdiam di suatu tempat dengan tubuh di atas lutut."
+    },
+    {
+        "nama": "Membungkuk",
+        "deskripsi": "Melengkungkan tubuh dengan cara melengkungkan tulang punggung sampai kira-kira sejajar dengan pinggang."
+    },
+    {
+        "nama": "Merangkak",
+        "deskripsi": "Bergerak dengan menggunakan tangan dan lutut atau kaki dan tangan."
+    },
+    {
+        "nama": "Menjangkau",
+        "deskripsi": "Mengulurkan tangan dan lengan ke jurusan tertentu."
+    },
+    {
+        "nama": "Memegang",
+        "deskripsi": "Dengan satu atau dua tangan mengukur, menggenggam, memutar dan lain sebagainya."
+    },
+  {
+    "nama": "Bekerja dengan jari",
+    "deskripsi": "Memungut, menjepit, menekan dan lain sebagainya dengan menggunakan jari (berbeda dengan 'memegang' yang terutama menggunakan seluruh bagian tangan)."
+  },
+  {
+    "nama": "Meraba",
+    "deskripsi": "Menyentuh dengan jari atau telapak tangan untuk mengetahui sifat benda seperti, suhu, bentuk."
+  },
+  {
+    "nama": "Berbicara",
+    "deskripsi": "Menyatakan atau bertukar pikiran secara lisan agar dapat dipahami."
+  },
+  {
+    "nama": "Mendengar",
+    "deskripsi": "Menggunakan telinga untuk mengetahui adanya suara."
+  },
+  {
+    "nama": "Melihat",
+    "deskripsi": "Usaha mengetahui dengan menggunakan mata."
+  },
+  {
+    "nama": "Ketajaman jarak jauh",
+    "deskripsi": "Kejelasan penglihatan dalam jarak lebih dari 5 meter."
+  },
+  {
+    "nama": "Ketajaman jarak dekat",
+    "deskripsi": "Kejelasan penglihatan dalam jarak kurang dari 5 meter."
+  },
+  {
+    "nama": "Pengamatan secara mendalam",
+    "deskripsi": "Penglihatan dalam 3 dimensi, untuk menetapkan hubungan antara jarak, ruang serta cara melihat benda dimana benda tersebut berada dan sebagaimana adanya."
+  },
+  {
+    "nama": "Penyesuaian lensa mata",
+    "deskripsi": "Penyesuaian lensa mata untuk melihat suatu benda yang sangat penting bila melaksanakan pekerjaan yang perlu dengan melihat benda dalam jarak dan arah yang berbeda."
+  },
+  {
+    "nama": "Melihat berbagai warna",
+    "deskripsi": "Membedakan warna yang terdapat dalam pekerjaan."
+  },
+  {
+    "nama": "Luas",
+    "deskripsi": "Melihat suatu daerah pandang, ke atas dan ke bawah pandang atau ke kanan atau ke kiri sedang mata tetap berada di titik tertentu."
+  }
+]
