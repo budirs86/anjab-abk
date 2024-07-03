@@ -5,8 +5,8 @@
         {{ Breadcrumbs::render('lihat-ajuan-analisis-jabatan') }}
     </div>
     <div class="card-head mb-3">
-                <h1 class="fw-light fs-4 ">Ajuan Analisis Jabatan Periode {{ request('periode') }}</h1>                
-        </div>
+        <h1 class="fw-light fs-4 ">Ajuan Analisis Jabatan Periode {{ request('periode') }}</h1>
+    </div>
     <div class="card dropdown-divider mb-4"></div>
     {{-- <div class="mb-3">
         <label for="unit_kerja" class="form-label">Unit Kerja</label>
@@ -20,7 +20,7 @@
     </div> --}}
 
     <table class="table table-striped table-bordered col-8">
-        <thead >
+        <thead>
             <th class="fw-semibold text-muted">No</th>
             <th class="fw-semibold text-muted">Unit Kerja/Lembaga/Sekolah</th>
             <th class="fw-semibold text-muted">Status</th>
@@ -34,7 +34,8 @@
                     <td class="">
                         <div class="d-flex justify-content-between">
                             <p>{{ $unit_kerja->nama }}</p>
-                            <a href="{{ route('anjab.unitkerja.show',['id'=> request()->periode, 'unitkerja'=>$unit_kerja->id]) }}" class="btn btn-outline-primary">Lihat</a>
+                            <a href="{{ route('anjab.unitkerja.show', ['id' => request()->periode, 'unitkerja' => $unit_kerja->id]) }}"
+                                class="btn btn-outline-primary">Lihat</a>
                         </div>
                     </td>
                     <td class="w-25">
@@ -43,7 +44,7 @@
                                 <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
                                 <p class="m-0 p-0">Disetujui</p>
                             </div>
-                            <hr>  
+                            <hr>
                             <p class="m-0 p-0">Manajer Kepegawaian</p>
                         </div>
                         <div class="alert alert-info w-100">
@@ -51,7 +52,7 @@
                                 <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
                                 <p class="m-0 p-0">Menunggu Diperiksa</p>
                             </div>
-                            <hr>  
+                            <hr>
                             <p class="m-0 p-0">Kepala Biro</p>
                         </div>
                         <div class="alert alert-warning w-100">
@@ -59,7 +60,7 @@
                                 <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
                                 <p class="m-0 p-0">Perlu Perbaikan</p>
                             </div>
-                            <hr>  
+                            <hr>
                             <p class="m-0 p-0">Kepala Biro</p>
                         </div>
                     </td>
@@ -71,8 +72,8 @@
                         </ul>
                     </td>
                 </tr>
-                @endforeach
+            @endforeach
         </tbody>
     </table>
-    <a href="{{ route('anjab.ajuans') }}" class="btn btn-secondary"><i data-feather="chevron-left"></i> Kembali</a>
+    <a href="{{ route('anjab.ajuan.index') }}" class="btn btn-secondary"><i data-feather="chevron-left"></i> Kembali</a>
 @endsection
