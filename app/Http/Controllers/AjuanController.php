@@ -13,7 +13,15 @@ use Illuminate\Http\Request;
 
 class AjuanController extends Controller
 {
-    public function anjabCreate() {
+    public function anjabIndex()
+    {
+        $title = 'Ajuan Jabatan';
+
+        return view('anjab/ajuans', compact('title'));
+    }
+
+    public function anjabCreate()
+    {
         $title = 'Buat Ajuan Baru';
         $jabatans = Jabatan::tree()->get()->toTree();
         $jenisJabatan = JenisJabatan::all();
@@ -24,7 +32,8 @@ class AjuanController extends Controller
         return view('anjab.buat-ajuan', compact('title', 'jabatans', 'jenisJabatan', 'eselon', 'golongan', 'unitKerjas', 'buttons'));
     }
 
-    public function anjabStore($jabatans) {
+    public function anjabStore($jabatans)
+    {
         Ajuan::create([
             'tahun' => now()->year,
             'status' => 'diajukan',

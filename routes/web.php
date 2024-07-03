@@ -27,9 +27,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::resource('/anjab/data-jabatan/', JabatanController::class)->name('anjab.data-jabatan.index','index')->middleware('auth');
 Route::resource('/anjab/analisis-jabatan/', AnalisisJabatanController::class)->middleware('auth');
 
-
+Route::get('/anjab/ajuan', [AjuanController::class, 'anjabIndex'])->name('anjab.ajuan.index')->middleware('auth');
 Route::get('/anjab/ajuan/create', [AjuanController::class, 'anjabCreate'])->name('anjab.ajuan.create')->middleware('auth');
-
 
 Route::get('anjab/jabatan/{jabatan:id}/edit', function(Jabatan $jabatan) {
     return view('anjab/jabatan/edit',[
@@ -51,10 +50,6 @@ Route::get('/petajabatan', function() {
         'jabatans' => $jabatans
     ]);
 })->middleware('auth');
-
-Route::view('anjab/ajuans','anjab.ajuans',[
-    'title' => 'Ajuan Jabatan'
-])->name('anjab.ajuans');
 
 Route::get('/anjab/ajuan/{id}',function($id) {
     $jabatans = Jabatan::tree()->get()->toTree();

@@ -26,7 +26,7 @@ Breadcrumbs::for('buat-ajuan', function (BreadcrumbTrail $trail) {
 // Create Breadcumb for Ajuan Analisis Jabatan
 Breadcrumbs::for('ajuan-analisis-jabatan', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Daftar Ajuan Analisis Jabatan', route('anjab.ajuans'));
+    $trail->push('Daftar Ajuan Analisis Jabatan', route('anjab.ajuan.index'));
 });
 
 
@@ -67,7 +67,7 @@ Breadcrumbs::for('isi-informasi-abk', function (BreadcrumbTrail $trail) {
 
 Breadcrumbs::for('informasi-abk-jabatan', function (BreadcrumbTrail $trail, $jabatan) {
     $trail->parent('lihat-ajuan-abk');
-    $trail->push('Edit Informasi ABK'. ' ' . $jabatan->nama_jabatan, "/abk/ajuan/data-abk");
+    $trail->push('Edit Informasi ABK' . ' ' . $jabatan->nama_jabatan, "/abk/ajuan/data-abk");
 });
 
 
