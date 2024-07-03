@@ -24,8 +24,9 @@ class JabatanController extends Controller
         $eselon = Eselon::all();
         $golongan = Golongan::all();
         $unitKerjas = UnitKerja::all();
+        $buttons = ['tambah-jabatan-bawahan', 'ubah-informasi-jabatan'];
 
-        return view('anjab.jabatan', compact('title', 'jabatans', 'jenisJabatan', 'eselon', 'golongan', 'unitKerjas'));
+        return view('anjab.jabatan', compact('title', 'jabatans', 'jenisJabatan', 'eselon', 'golongan', 'unitKerjas','buttons'));
     }
 
     /**

@@ -15,8 +15,7 @@ class TableRow extends Component
      */
     public function __construct(
         public Jabatan $jabatan,
-        public bool $editable = false,
-        public bool $abk = false
+        public array $buttons = []
     )
     {
         //

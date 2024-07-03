@@ -31,14 +31,7 @@ class AnalisisJabatanController extends Controller
      */
     public function create(Request $request)
     {
-        return view('anjab/anjabform',[
-            'title' => 'Form Informasi Jabatan',
-            'jabatan' => Jabatan::where('id',request()->id),
-            'jenis_jabatan' => JenisJabatan::all(),
-            'eselon' => Eselon::all(),
-            'golongan' => Golongan::all()
-
-        ]);
+        
     }
 
     /**
@@ -62,7 +55,14 @@ class AnalisisJabatanController extends Controller
      */
     public function edit(AnalisisJabatan $analisisJabatan)
     {
-        
+        return view('anjab/jabatan/edit',[
+            'title' => 'Form Informasi Jabatan',
+            'jabatan' => Jabatan::where('id',request()->id),
+            'jenis_jabatan' => JenisJabatan::all(),
+            'eselon' => Eselon::all(),
+            'golongan' => Golongan::all()
+
+        ]);
     }
 
     /**

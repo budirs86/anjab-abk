@@ -1,13 +1,17 @@
 <?php
 
-use App\Http\Controllers\AbkController;
-use App\Http\Controllers\AnalisisJabatanController;
-use App\Http\Controllers\JabatanController;
-use App\Http\Controllers\LoginController;
+use Carbon\Unit;
+use App\Models\Eselon;
 use App\Models\Jabatan;
+use App\Models\Golongan;
+use App\Models\UnitKerja;
 use App\Models\JenisJabatan;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AbkController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\AnalisisJabatanController;
 
 Route::get('/', function () {
     return view('home',[
@@ -23,10 +27,27 @@ Route::resource('/anjab/data-jabatan/', JabatanController::class)->name('anjab.d
 Route::resource('/anjab/analisis-jabatan/', AnalisisJabatanController::class)->middleware('auth');
 
 Route::get('/anjab/ajuan/create',function() {
-    return view('anjab.buat-ajuan',[
-        'title' => ''
-    ]);
+    
+    $title = 'Buat Ajuan Baru';
+    $jabatans = Jabatan::tree()->get()->toTree();
+    $jenisJabatan = JenisJabatan::all();
+    $eselon = Eselon::all();
+    $golongan = Golongan::all();
+    $unitKerjas = UnitKerja::all();
+    $buttons = ['tambah-jabatan-bawahan', 'ubah-informasi-jabatan'];
+    return view('anjab.buat-ajuan',compact('title', 'jabatans', 'jenisJabatan', 'eselon', 'golongan', 'unitKerjas','buttons'));
 })->name('anjab.buat-ajuan')->middleware('auth');
+
+Route::get('anjab/jabatan/{jabatan:id}/edit', function(Jabatan $jabatan) {
+    return view('anjab/jabatan/edit',[
+            'title' => 'Form Informasi Jabatan',
+            'jabatan' => $jabatan,
+            'jenis_jabatan' => JenisJabatan::all(),
+            'eselons' => Eselon::all(),
+            'golongan' => Golongan::all()
+        ]);
+})->name('anjab.jabatan.edit')->middleware('auth');
+
 
 Route::get('/petajabatan', function() {
 
@@ -47,6 +68,7 @@ Route::get('/anjab/ajuan/{id}',function($id) {
 
     return view('anjab.ajuan',[
         'title' => 'Ajuan Jabatan',
+        'unit_kerjas' => UnitKerja::all(),
         'jabatans' => $jabatans,
         'editable' => false
     ]);
@@ -61,6 +83,21 @@ Route::get('/anjab/ajuan/{id}/edit',function($id) {
         'editable' => true
     ]);
 });
+
+Route::get('/anjab/ajuan/{id}/unit/{unitkerja:id}',function($id,UnitKerja $unitkerja) {
+    // $jabatans = Jabatan::tree()->get()->toTree();
+
+    return view('anjab.unitkerja.show',[
+        'title' => 'Lihat Informasi Jabatan',
+        'periode' => $id,
+        'unit_kerja' => $unitkerja,
+        'jabatans' => Jabatan::where('unit_kerja_id',$unitkerja->id)->tree()->get()->toTree(),
+        'buttons' =>[
+            'lihat-informasi-jabatan'
+        ],
+        'editable' => false
+    ]);
+})->name('anjab.unitkerja.show');
 
 // Route::get('abk/ajuans', function () {
 //     return view('abk.ajuans', [
