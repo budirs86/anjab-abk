@@ -30,6 +30,7 @@ Route::resource('/anjab/analisis-jabatan/', AnalisisJabatanController::class)->m
 
 Route::get('/anjab/ajuan', [AjuanController::class, 'anjabIndex'])->name('anjab.ajuan.index')->middleware('auth');
 Route::get('/anjab/ajuan/create', [AjuanController::class, 'anjabCreate'])->name('anjab.ajuan.create')->middleware('auth');
+Route::post('/anjab/ajuan/store/', [AjuanController::class, 'anjabStore'])->name('anjab.ajuan.store')->middleware('auth');
 
 Route::get('anjab/jabatan/{jabatan:id}/edit', function(Jabatan $jabatan) {
     return view('anjab/jabatan/edit',[

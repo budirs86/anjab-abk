@@ -70,10 +70,14 @@
     @include('anjab.partials.modaljabatan')
     
     <div class="">
-        <a href="/anjab/ajuans"  class="btn btn-primary header1 text-white"><i data-feather="save"></i> Simpan Ajuan Informasi Jabatan</a>
+        <form action="{{ route('anjab.ajuan.store') }}" method="POST">
+            @csrf
+            @foreach ($jabatans as $jabatan)
+                <input type="text" name="jabatans[{{ $loop->index }}]" value="{{ $jabatan->id }}" hidden>
+            @endforeach
+            <button type="submit" class="btn btn-primary header1 text-white"><i data-feather="save"></i> Simpan Ajuan Informasi Jabatan</button>
+        </form>
     </div>
-        
-        
 
     {{-- non ajax --}}
     @if ($errors->any())
