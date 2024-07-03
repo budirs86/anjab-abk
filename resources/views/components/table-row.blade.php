@@ -13,7 +13,7 @@
     </td> --}}
     <td>// K-123 //</td>
     <td class="d-flex justify-content-between">
-        <p class="" href="/anjab/analisis-jabatan/create" style="margin-left: {{ $jabatan->depth * 25 }}px;"><img width="20px" data-feather="corner-down-right"></img> {{ $jabatan->nama }}</p>
+        <p class="" href="/anjab/analisis-jabatan/create" style="">{{ $jabatan->nama }}</p>
         <div class="div">
             @foreach ($buttons as $button)
                 @if ($button == 'ubah-informasi-jabatan')
@@ -56,8 +56,8 @@
             @endif --}}
     </td>
 </tr>
-
+{{-- 
 @foreach ($jabatan->children as $child)
     <x-table-row :jabatan="$child" :buttons="$buttons"/>
-@endforeach
+@endforeach --}}
 </div>  
