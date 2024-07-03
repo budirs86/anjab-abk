@@ -23,7 +23,7 @@ class AjuanController extends Controller
     public function anjabCreate()
     {
         $title = 'Buat Ajuan Baru';
-        $jabatans = Jabatan::tree()->get()->toTree();
+        $jabatans = Jabatan::all();
         $jenisJabatan = JenisJabatan::all();
         $eselon = Eselon::all();
         $golongan = Golongan::all();
