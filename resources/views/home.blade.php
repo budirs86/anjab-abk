@@ -4,7 +4,7 @@
     <div class="container mb-3 d-flex flex-column align-items-center p-3">
             <h1 class="display-3 mb-5"> Selamat Datang, {{ Auth::user()->name }}</h1>
             <div class="d-flex gap-2">
-                <a href="{{ route('anjab.buat-ajuan') }}" class="btn btn-primary">Buat Ajuan Anjab ABK Baru</a>
+                <a href="{{ route('anjab.ajuan.create') }}" class="btn btn-primary">Buat Ajuan Anjab ABK Baru</a>
                 <a href="{{ route('anjab.ajuans') }}" class="btn btn-warning">Lihat Daftar Ajuan Anjab ABK</a>
             </div>
     

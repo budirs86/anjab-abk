@@ -12,7 +12,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <div class="card dropdown-divider mb-3"></div>
-        <a type="button" class="btn-primary btn mb-3" href="{{ route('anjab.buat-ajuan') }}"><i data-feather="plus"></i> Buat Ajuan Baru</a>
+        <a type="button" class="btn-primary btn mb-3" href="{{ route('anjab.ajuan.create') }}"><i data-feather="plus"></i> Buat Ajuan Baru</a>
         <table class="table table-striped table-bordered table-responsive">
             <thead>
             <tr>

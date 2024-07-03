@@ -18,7 +18,7 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
 // create a breadcrumb for buat ajuan page
 Breadcrumbs::for('buat-ajuan', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Buat Ajuan', route('anjab.buat-ajuan'));
+    $trail->push('Buat Ajuan', route('anjab.ajuan.create'));
 });
 
 

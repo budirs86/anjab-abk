@@ -72,7 +72,7 @@
                         <img src="" width=20px data-feather="edit" alt="">Anjab
                     </p>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.buat-ajuan') }}">Buat Ajuan Informasi Jabatan Baru</a></li>
+                        <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.ajuan.create') }}">Buat Ajuan Informasi Jabatan Baru</a></li>
                         <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.ajuans') }}">Lihat Ajuan</a></li>
                         {{-- <li><a class="dropdown-item me-3 my-1" href="">Entry Biodata Jabatan</a></li>
                         <li><a class="dropdown-item me-3 my-1" href="/anjab/analisis-jabatan">Entry Analisis Jabatan</a></li> --}}
