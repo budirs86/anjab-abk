@@ -31,35 +31,14 @@
         <div class="mb-3">
             <label for="periode" class="form-label">Periode</label>
             <input type="text" class="form-control" id="periode" name="periode" value="{{ now()->year }}" readonly>
-        </div>
-        <div class="mb-3">
-            <label for="unit_kerja" class="form-label">Unit Kerja</label>
-
-            <select class="form-select" id="unit_kerja" name="unit_kerja">
-                @foreach ($unitKerjas as $unitKerja)
-                    <option value="{{ $unitKerja->id }}">{{ $unitKerja->nama }}</option>
-                @endforeach
-            </select>
-        </div>
-        
+        </div>        
 
         <table class="table table-striped table-bordered">
             <thead >
-                {{-- <th class="fw-semibold text-muted">Action</th> --}}
                 <th class="fw-semibold text-muted">Kode</th>
                 <th class="fw-semibold text-muted">Jabatan</th>
             </thead>
             <tbody>
-                {{-- <tr>
-                    <td>
-                        <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target=".collapseparent0">Expand</button>
-                    </td>
-                    <td>// K-123 //</td>
-                    <td class="d-flex justify-content-start">
-                        <p>Bidang Kepegawaian</p>
-                        <button class="btn btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#modalJabatan"><img width="20px" data-feather="plus"></img> Tambah Jabatan</button>
-                    </td>
-                </tr>                                 --}}
                 @foreach ($jabatans as $jabatan)
                     <tr>
                         <td>K - 123</td>
