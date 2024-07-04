@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Jabatan;
+use App\Models\KualifikasiJabatan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,6 +20,14 @@ class JabatanSeeder extends Seeder
 
         foreach ($data as $jabatan) {
             Jabatan::create($jabatan);
+        }
+
+        for ($i = 1; $i < count($data); $i++) {
+            KualifikasiJabatan::create(
+                [
+                    'jabatan_id' => $i
+                ]
+            );
         }
     }
 }

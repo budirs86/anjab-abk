@@ -19,17 +19,15 @@ class Jabatan extends Model
         return 'parent_id';
     }
 
-    public function jenis_jabatan(){
+    public function jenisJabatan(){
         return $this->belongsTo(JenisJabatan::class);
     }
-    public function golongan(){
-        return $this->belongsTo(Golongan::class);
-    }
-    public function eselon(){
-        return $this->belongsTo(Eselon::class);
+
+    public function analisisJabatan() {
+        return $this->hasOne(AnalisisJabatan::class);
     }
 
-    public function analisis_jabatan() {
-        return $this->hasOne(AnalisisJabatan::class);
+    public function kualifikasi() {
+        return $this->hasOne(KualifikasiJabatan::class);
     }
 }
