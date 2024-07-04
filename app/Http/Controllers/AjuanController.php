@@ -23,7 +23,7 @@ class AjuanController extends Controller
     public function anjabCreate()
     {
         $title = 'Buat Ajuan Baru';
-        $jabatans = Jabatan::all();
+        $jabatans = Jabatan::orderBy('nama')->get();
         $jenisJabatan = JenisJabatan::all();
         $unitKerjas = UnitKerja::all();
         return view('anjab.buat-ajuan', compact('title', 'jabatans', 'jenisJabatan', 'unitKerjas'));
