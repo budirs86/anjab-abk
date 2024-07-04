@@ -5,16 +5,18 @@ use App\Models\Eselon;
 use App\Models\Jabatan;
 use App\Models\Golongan;
 use App\Models\UnitKerja;
+use App\Models\BakatKerja;
+use App\Models\UpayaFisik;
 use App\Models\JenisJabatan;
 use GuzzleHttp\Psr7\Request;
+use App\Models\TemperamenKerja;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AbkController;
 use App\Http\Controllers\AjuanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\AnalisisJabatanController;
-use App\Models\BakatKerja;
-use App\Models\TemperamenKerja;
+use App\Models\FungsiPekerjaan;
 
 Route::get('/', function () {
     return view('home',[
@@ -42,7 +44,9 @@ Route::get('anjab/jabatan/{jabatan:id}/edit', function(Jabatan $jabatan) {
             'jenis_jabatan' => JenisJabatan::all(),
             'temperamens' => TemperamenKerja::all(),
             'eselons' => Eselon::all(),
-            'golongan' => Golongan::all()
+            'golongan' => Golongan::all(),
+            'upaya_fisiks' => UpayaFisik::all(),
+            'fungsi_pekerjaans' => FungsiPekerjaan::all()
         ]);
 })->name('anjab.jabatan.edit')->middleware('auth');
 

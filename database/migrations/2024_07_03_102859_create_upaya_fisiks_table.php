@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('upaya_fisiks', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('deskripsi');
             $table->timestamps();
             
         });

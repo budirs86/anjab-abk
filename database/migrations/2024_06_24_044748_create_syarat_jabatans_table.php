@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['L', 'P']);
             $table->integer('umur');
             $table->integer('tinggi_badan');
+            $table->integer('berat_badan');
             $table->string('postur_badan');
             $table->string('penampilan');
             $table->string('keterampilan');
