@@ -30,8 +30,7 @@ class AjuanController extends Controller
         $eselon = Eselon::all();
         $golongan = Golongan::all();
         $unitKerjas = UnitKerja::all();
-        $buttons = ['tambah-jabatan-bawahan', 'ubah-informasi-jabatan'];
-        return view('anjab.buat-ajuan', compact('title', 'jabatans', 'jenisJabatan', 'eselon', 'golongan', 'unitKerjas', 'buttons'));
+        return view('anjab.buat-ajuan', compact('title', 'jabatans', 'jenisJabatan', 'eselon', 'golongan', 'unitKerjas'));
     }
 
     public function anjabStore(Request $request)
