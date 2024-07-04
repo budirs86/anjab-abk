@@ -121,7 +121,7 @@
                         </div>
                     </td>
                     <td>
-                        {{ $ajuan->verifikasis->latest()->first()->catatan ? $ajuan->verifikasis->latest()->first()->catatan : 'Tidak ada catatan.' }}
+                        {{ $ajuan->verifikasis->last()->catatan ?? 'Tidak ada catatan.' }}
                     </td>
                 </tr>
             @endforeach
