@@ -36,6 +36,7 @@
                             <p>{{ $i + 2020}} </p>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="/anjab/ajuan/{{ $i }}?periode={{ $i+2020 }}" class="btn btn-outline-primary">Lihat</a>
+                                <a href="/anjab/ajuan/{{ $i }}/edit?periode={{ $i+2020 }}" class="btn btn-outline-primary">Edit</a>
                                 @if ($i % 2 != 0)                                  
                                 @else
                                     <a href="/abk/ajuan/create" class="btn btn-outline-success" aria-disabled="true">Buat Ajuan ABK</a>

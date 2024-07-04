@@ -19,13 +19,12 @@
         </select>
     </div> --}}
 
-    <table class="table table-striped table-bordered col-8">
+    {{-- <table class="table table-striped table-bordered col-8">
         <thead>
             <th class="fw-semibold text-muted">No</th>
             <th class="fw-semibold text-muted">Unit Kerja/Lembaga/Sekolah</th>
             <th class="fw-semibold text-muted">Status</th>
             <th class="fw-semibold text-muted">Catatan Perbaikan</th>
-            {{-- <th class="fw-semibold text-muted">Unit Kerja</th> --}}
         </thead>
         <tbody>
             @foreach ($unit_kerjas as $unit_kerja)
@@ -74,6 +73,26 @@
                 </tr>
             @endforeach
         </tbody>
+    </table> --}}
+    <table class="table table-striped table-bordered">
+            <thead >
+                <th class="fw-semibold text-muted">Kode</th>
+                <th class="fw-semibold text-muted">Jabatan</th>
+            </thead>
+            <tbody>
+                @foreach ($jabatans as $jabatan)
+                    <tr>
+                        <td>K - 123</td>
+                        <td class="d-flex justify-content-between">
+                            <p class="" href="/anjab/analisis-jabatan/create" style="">{{ $jabatan->nama }}</p>
+                            <div class="div">
+                                <a href="{{ route('anjab.jabatan.show', ['jabatan'=> $jabatan->id]) }}" class="btn btn-sm btn-primary ms-auto add-button"><img width="20px" data-feather="eye"></img> Lihat Informasi Jabatan</a>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+                    
+            </tbody>
     </table>
     <a href="{{ route('anjab.ajuan.index') }}" class="btn btn-secondary"><i data-feather="chevron-left"></i> Kembali</a>
 @endsection

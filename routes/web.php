@@ -49,6 +49,20 @@ Route::get('anjab/jabatan/{jabatan:id}/edit', function(Jabatan $jabatan) {
             'fungsi_pekerjaans' => FungsiPekerjaan::all()
         ]);
 })->name('anjab.jabatan.edit')->middleware('auth');
+Route::get('anjab/jabatan/{jabatan:id}', function(Jabatan $jabatan) {
+    return view('anjab.jabatan.show',[
+            'title' => 'Form Informasi Jabatan',
+            'jabatan' => $jabatan,
+            'bakat_kerjas'=> BakatKerja::all(),
+            'unit_kerjas' => UnitKerja::all(),
+            'jenis_jabatan' => JenisJabatan::all(),
+            'temperamens' => TemperamenKerja::all(),
+            'eselons' => Eselon::all(),
+            'golongan' => Golongan::all(),
+            'upaya_fisiks' => UpayaFisik::all(),
+            'fungsi_pekerjaans' => FungsiPekerjaan::all()
+        ]);
+})->name('anjab.jabatan.show')->middleware('auth');
 
 
 Route::get('/petajabatan', function() {
@@ -62,12 +76,10 @@ Route::get('/petajabatan', function() {
 })->middleware('auth');
 
 Route::get('/anjab/ajuan/{id}',function($id) {
-    $jabatans = Jabatan::tree()->get()->toTree();
-
     return view('anjab.ajuan',[
         'title' => 'Ajuan Jabatan',
         'unit_kerjas' => UnitKerja::all(),
-        'jabatans' => $jabatans,
+        'jabatans' => Jabatan::all(),
         'editable' => false
     ]);
 })->name('anjab.ajuan');
@@ -75,7 +87,7 @@ Route::get('/anjab/ajuan/{id}/edit',function($id) {
     // $jabatans = Jabatan::tree()->get()->toTree();
     $jabatans = Jabatan::all();
 
-    return view('anjab.ajuan',[
+    return view('anjab.edit',[
         'title' => 'Ajuan Jabatan',
         'jabatans' => $jabatans,
         'editable' => true
