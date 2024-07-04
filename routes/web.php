@@ -14,6 +14,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\AnalisisJabatanController;
 use App\Models\BakatKerja;
+use App\Models\TemperamenKerja;
 
 Route::get('/', function () {
     return view('home',[
@@ -38,6 +39,7 @@ Route::get('anjab/jabatan/{jabatan:id}/edit', function(Jabatan $jabatan) {
             'bakat_kerjas'=> BakatKerja::all(),
             'unit_kerjas' => UnitKerja::all(),
             'jenis_jabatan' => JenisJabatan::all(),
+            'temperamens' => TemperamenKerja::all(),
             'eselons' => Eselon::all(),
             'golongan' => Golongan::all()
         ]);
@@ -82,7 +84,7 @@ Route::get('/anjab/ajuan/{id}/unit/{unitkerja:id}',function($id,UnitKerja $unitk
         'title' => 'Lihat Informasi Jabatan',
         'periode' => $id,
         'unit_kerja' => $unitkerja,
-        'jabatans' => Jabatan::where('unit_kerja_id',$unitkerja->id)->tree()->get()->toTree(),
+        'jabatans' => Jabatan::where('unit_kerja_id',$unitkerja->id)->get(),
         'buttons' =>[
             'lihat-informasi-jabatan'
         ],
