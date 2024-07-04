@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateJabatanRequest;
+use App\Models\BakatKerja;
+use App\Models\FungsiPekerjaan;
 use App\Models\Jabatan;
 use App\Models\JenisJabatan;
+use App\Models\TemperamenKerja;
 use App\Models\UnitKerja;
+use App\Models\UpayaFisik;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class JabatanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $title = 'Data Jabatan';
@@ -22,26 +22,15 @@ class JabatanController extends Controller
         $unitKerjas = UnitKerja::all();
         $buttons = ['tambah-jabatan-bawahan', 'ubah-informasi-jabatan'];
 
-        return view('anjab.jabatan', compact('title', 'jabatans', 'jenisJabatan', 'unitKerjas','buttons'));
+        return view('anjab.jabatan', compact('title', 'jabatans', 'jenisJabatan', 'unitKerjas', 'buttons'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(CreateJabatanRequest $request)
     {
         $validatedData = $request->validated();
-        
+
         Jabatan::create($validatedData);
-        
+
 
         return back()->with('success', 'Data Jabatan berhasil Ditambahkan');
     }
