@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             TemperamenKerjaSeeder::class,
             MinatKerjaSeeder::class,
             FungsiPekerjaanSeeder::class,
+            // PermissionSeeder::class,
+            RolePermissionSeeder::class,
             UserSeeder::class,
             JenisJabatanSeeder::class,
             EselonSeeder::class,
@@ -29,6 +31,7 @@ class DatabaseSeeder extends Seeder
             UnitKerjaSeeder::class,
             JabatanSeeder::class,
             UpayaFisikSeeder::class,
+
         ]);
     }
 }
