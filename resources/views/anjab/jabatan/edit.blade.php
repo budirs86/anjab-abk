@@ -141,7 +141,7 @@
                                         <form action="">
                                         <td>2</td>
                                         <td class="d-flex justify-content-between">
-                                            <input type="text" class="form-control w-50" placeholder="Masukkan Nama Pengalaman">
+                                            <input type="text" class="form-control w-50" placeholder="Masukkan Nama Pelatihan">
                                             <button type="button" class="btn btn-primary"><i data-feather="plus"></i> Tambah</button>
                                         </td>  
                                         </form>
@@ -150,6 +150,36 @@
                             </table>
                         </div>
                         <hr>
+                    </div>
+                    <div class="mb-3">
+                        <label for="uraian_tugas" class="form-label">Uraian Tugas</label>
+                        <table class="table table-bordered w-75" id="uraian_tugas">
+                                <thead class="table-info">
+                                    <th>No</th>
+                                    <th>Uraian Tugas</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td class="d-flex justify-content-between">
+                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro modi ad nam vero ea temporibus.</p>
+                                            <div class="">
+                                                <a href="" class="btn btn-warning"><img width="20px" data-feather="edit"></img></a>
+                                                <a href="" class="btn btn-danger"><img width="20px" data-feather="trash"></img></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <form action="">
+                                        <td>2</td>
+                                        <td class="d-flex justify-content-between">
+                                            <input type="text" class="form-control w-50" placeholder="Masukkan Uraian Tugas">
+                                            <button type="button" class="btn btn-primary"><i data-feather="plus"></i> Tambah</button>
+                                        </td>  
+                                        </form>
+                                    </tr>
+                                </tbody>
+                            </table>
                     </div>
                     <div class="mb-3">
                         <label for="bahan_kerja" class="form-label">Bahan Kerja</label>
@@ -243,7 +273,7 @@
                                         <form action="">
                                         <td>2</td>
                                         <td class="d-flex justify-content-between">
-                                            <input type="text" class="form-control w-50" placeholder="Masukkan Nama Pengalaman">
+                                            <input type="text" class="form-control w-50" placeholder="Masukkan Uraian Tanggung Jawab">
                                             <button type="button" class="btn btn-primary"><i data-feather="plus"></i> Tambah</button>
                                         </td>  
                                         </form>
@@ -273,7 +303,7 @@
                                         <form action="">
                                         <td>2</td>
                                         <td class="d-flex justify-content-between">
-                                            <input type="text" class="form-control w-50" placeholder="Masukkan Nama Pengalaman">
+                                            <input type="text" class="form-control w-50" placeholder="Masukkan Uraian Wewenang">
                                             <button type="button" class="btn btn-primary"><i data-feather="plus"></i> Tambah</button>
                                         </td>  
                                         </form>
@@ -472,14 +502,14 @@
                                     <option value="P">Perempuan</option>
                                 </select>
 
-                                <label for="umur" class="form-label">Umur</label>
+                                <label for="umur" class="form-label">Umur (Tahun)</label>
                                 <input type="text" class="form-control mb-3" id="umur">
 
-                                <label for="tinggi_badan" class="form-label text-capitalize">tinggi badan</label>
+                                <label for="tinggi_badan" class="form-label text-capitalize">tinggi badan (sentimeter)</label>
                                 <input type="number" class="form-control mb-3" id="tinggi_badan">
                             </div>
                             <div class="col-6">
-                                <label for="berat_badan" class="form-label text-capitalize">berat badan</label>
+                                <label for="berat_badan" class="form-label text-capitalize">berat badan (kilogram)</label>
                                 <input type="number" class="form-control mb-3" id="berat_badan">
 
                                 <label for="postur_badan" class="form-label text-capitalize">postur badan</label>
@@ -504,7 +534,7 @@
                 
                     <label for="prestasi" class="form-label text-capitalize">prestasi</label>
                     <input type="text" class="form-control " id="prestasi">
-                    
+
                     <label for="kelas_jabatan" class="form-label text-capitalize">kelas jabatan</label>
                     <div class="mb-3">
                         <select class="form-select" id="kelas_jabatan">
