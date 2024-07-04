@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Pengalaman extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function kualifikasiJabatan() {
+        return $this->belongsTo(KualifikasiJabatan::class);
+    }
 }

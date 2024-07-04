@@ -1,9 +1,7 @@
 <?php
 
 use Carbon\Unit;
-use App\Models\Eselon;
 use App\Models\Jabatan;
-use App\Models\Golongan;
 use App\Models\UnitKerja;
 use App\Models\BakatKerja;
 use App\Models\UpayaFisik;
@@ -16,6 +14,7 @@ use App\Http\Controllers\AjuanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\AnalisisJabatanController;
+use App\Http\Controllers\KualifikasiController;
 use App\Models\FungsiPekerjaan;
 
 Route::get('/', function () {
@@ -27,9 +26,6 @@ Route::get('/', function () {
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
-
-Route::resource('/anjab/data-jabatan/', JabatanController::class)->name('anjab.data-jabatan.index','index')->middleware('auth');
-Route::resource('/anjab/analisis-jabatan/', AnalisisJabatanController::class)->middleware('auth');
 
 Route::get('/anjab/ajuan', [AjuanController::class, 'anjabIndex'])->name('anjab.ajuan.index')->middleware('auth');
 Route::get('/anjab/ajuan/create', [AjuanController::class, 'anjabCreate'])->name('anjab.ajuan.create')->middleware('auth');
@@ -49,6 +45,10 @@ Route::get('anjab/jabatan/{jabatan:id}/edit', function(Jabatan $jabatan) {
             'fungsi_pekerjaans' => FungsiPekerjaan::all()
         ]);
 })->name('anjab.jabatan.edit')->middleware('auth');
+Route::get('/anjab/jabatan/{jabatan:id}/edit', [JabatanController::class, 'edit'])->name('anjab.jabatan.edit')->middleware('auth');
+Route::put('/anjab/jabatan/{jabatan:id}/update', [JabatanController::class, 'update'])->name('anjab.jabatan.update')->middleware('auth');
+Route::post('/anjab/jabatan/{jabatan:id}/pendidikan/store', [KualifikasiController::class, 'storePendidikan'])->name('anjab.jabatan.pendidikan.store')->middleware('auth');
+Route::delete('/anjab/jabatan/{jabatan}/pendidikan/{pendidikan}/delete', [KualifikasiController::class, 'deletePendidikan'])->name('anjab.jabatan.pendidikan.delete')->middleware('auth');
 Route::get('anjab/jabatan/{jabatan:id}', function(Jabatan $jabatan) {
     return view('anjab.jabatan.show',[
             'title' => 'Form Informasi Jabatan',

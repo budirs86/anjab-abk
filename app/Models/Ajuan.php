@@ -9,5 +9,11 @@ class Ajuan extends Model
 {
     use HasFactory;
 
+    // Ajuan has many verfiikasi
+    public function verifikasis()
+    {
+        return $this->hasMany(Verifikasi::class);
+    }
+
     protected $guarded = ['id'];
 }
