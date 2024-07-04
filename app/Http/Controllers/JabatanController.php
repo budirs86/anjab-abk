@@ -19,7 +19,7 @@ class JabatanController extends Controller
     public function index()
     {
         $title = 'Data Jabatan';
-        $jabatans = Jabatan::tree()->get()->toTree();
+        $jabatans = Jabatan::all();
         $jenisJabatan = JenisJabatan::all();
         $eselon = Eselon::all();
         $golongan = Golongan::all();
