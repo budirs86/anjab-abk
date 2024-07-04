@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Ajuan;
 use App\Models\AjuanJabatan;
-use App\Models\Eselon;
-use App\Models\Golongan;
 use App\Models\Jabatan;
 use App\Models\JenisJabatan;
 use App\Models\UnitKerja;
@@ -27,10 +25,8 @@ class AjuanController extends Controller
         $title = 'Buat Ajuan Baru';
         $jabatans = Jabatan::all();
         $jenisJabatan = JenisJabatan::all();
-        $eselon = Eselon::all();
-        $golongan = Golongan::all();
         $unitKerjas = UnitKerja::all();
-        return view('anjab.buat-ajuan', compact('title', 'jabatans', 'jenisJabatan', 'eselon', 'golongan', 'unitKerjas'));
+        return view('anjab.buat-ajuan', compact('title', 'jabatans', 'jenisJabatan', 'unitKerjas'));
     }
 
     public function anjabStore(Request $request)

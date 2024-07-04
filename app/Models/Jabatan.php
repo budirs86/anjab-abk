@@ -22,12 +22,6 @@ class Jabatan extends Model
     public function jenis_jabatan(){
         return $this->belongsTo(JenisJabatan::class);
     }
-    public function golongan(){
-        return $this->belongsTo(Golongan::class);
-    }
-    public function eselon(){
-        return $this->belongsTo(Eselon::class);
-    }
 
     public function analisis_jabatan() {
         return $this->hasOne(AnalisisJabatan::class);

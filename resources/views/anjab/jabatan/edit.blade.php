@@ -27,22 +27,6 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="eselon_id" class="form-label">Eselon</label>
-                        <select class="form-select" name="eselon_id" id="eselon_id">
-                            @foreach ($eselons as $esel)
-                                <option value="{{ $esel->id }}" @if ($esel->id == old('eselon_id')) selected @endif>{{ $esel->nama }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="golongan_id" class="form-label">Golongan</label>
-                        <select class="form-select" name="golongan_id" id="golongan_id">
-                            @foreach ($golongan as $gol)
-                                <option value="{{ $gol->id }}" @if ($gol->id == old('golongan_id')) selected @endif>{{ $gol->kode . " - " . $gol->nama }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-3">
                         <label for="ikhtisar" class="form-label">Ikhtisar Jabatan</label>  
                         <textarea class="form-control"  placeholder="Masukkan Ikhtisar" id="ikhtisar" style="height:100px" ></textarea>
                     </div>

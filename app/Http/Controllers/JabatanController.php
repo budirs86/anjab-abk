@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateJabatanRequest;
-use App\Models\Eselon;
-use App\Models\Golongan;
 use App\Models\Jabatan;
 use App\Models\JenisJabatan;
 use App\Models\UnitKerja;
@@ -21,12 +19,10 @@ class JabatanController extends Controller
         $title = 'Data Jabatan';
         $jabatans = Jabatan::all();
         $jenisJabatan = JenisJabatan::all();
-        $eselon = Eselon::all();
-        $golongan = Golongan::all();
         $unitKerjas = UnitKerja::all();
         $buttons = ['tambah-jabatan-bawahan', 'ubah-informasi-jabatan'];
 
-        return view('anjab.jabatan', compact('title', 'jabatans', 'jenisJabatan', 'eselon', 'golongan', 'unitKerjas','buttons'));
+        return view('anjab.jabatan', compact('title', 'jabatans', 'jenisJabatan', 'unitKerjas','buttons'));
     }
 
     /**
@@ -68,8 +64,6 @@ class JabatanController extends Controller
             'title' => 'Edit Data Jabatan',
             'jabatan' => $jabatan,
             'jenis_jabatan' => JenisJabatan::all(),
-            'eselon' => Eselon::all(),
-            'golongan' => Golongan::all()
         ]);
     }
 

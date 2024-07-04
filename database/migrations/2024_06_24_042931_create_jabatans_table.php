@@ -16,8 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreignId('jenis_jabatan_id')->constrained()->nullable();
             $table->foreignId('unit_kerja_id')->constrained()->nullable();
-            $table->foreignId('eselon_id')->constrained()->nullable();
-            $table->foreignId('golongan_id')->constrained()->nullable();
             $table->string('nama');
             $table->string('kode');
             $table->integer('kelas_jabatan')->nullable();

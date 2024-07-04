@@ -19,24 +19,6 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="eselon_id" class="form-label">Eselon</label>
-                        <select class="form-select" name="eselon_id" id="eselon_id">
-                            @foreach ($eselon as $eselon)
-                                <option value="{{ $eselon->id }}" @if ($eselon->id == old('eselon_id')) selected @endif>
-                                    {{ $eselon->nama }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="golongan_id" class="form-label">Golongan</label>
-                        <select class="form-select" name="golongan_id" id="golongan_id">
-                            @foreach ($golongan as $golongan)
-                                <option value="{{ $golongan->id }}" @if ($golongan->id == old('golongan_id')) selected @endif>
-                                    {{ $golongan->golongan . ' - ' . $golongan->nama }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-3">
                         <label for="kode" class="form-label">Kode</label>
                         <input type="text" class="form-control @error('kode') is-invalid @enderror" id="kode"
                             name="kode" placeholder="Diisi Secara Otomatis" value="contoh">

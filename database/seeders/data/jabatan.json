@@ -3,8 +3,6 @@
         "parent_id": null,
         "jenis_jabatan_id": 1,
         "unit_kerja_id": 1,
-        "eselon_id": 1,
-        "golongan_id": 1,
         "nama": "Kepala Dinas",
         "kode": "",
         "kelas_jabatan": 1,
@@ -17,8 +15,6 @@
         "nama": "Sekretaris Dinas",
         "unit_kerja_id": 1,
         "jenis_jabatan_id": 1,
-        "golongan_id": 1,
-        "eselon_id": 1,
         "kode": ""
     },
     {
@@ -26,8 +22,6 @@
         "nama": "Bawahannya Sekretaris Dinas",
         "unit_kerja_id": 1,
         "jenis_jabatan_id": 1,
-        "golongan_id": 1,
-        "eselon_id": 1,
         "kode": ""
     },
     {
@@ -35,8 +29,6 @@
         "nama": "Bawahannya Kepala Dinas",
         "unit_kerja_id": 1,
         "jenis_jabatan_id": 1,
-        "golongan_id": 1,
-        "eselon_id": 1,
         "kode": ""
     }
 ]

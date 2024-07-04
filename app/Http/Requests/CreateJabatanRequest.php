@@ -24,8 +24,6 @@ class CreateJabatanRequest extends FormRequest
         return [
             'nama' => 'required|string|max:255',
             'jenis_jabatan_id' => 'required',
-            'eselon_id' => 'required',
-            'golongan_id' => 'required',
             'kode' => 'nullable',
             'unit_kerja_id' => 'required',
             'parent_id' => 'nullable',

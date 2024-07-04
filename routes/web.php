@@ -1,9 +1,7 @@
 <?php
 
 use Carbon\Unit;
-use App\Models\Eselon;
 use App\Models\Jabatan;
-use App\Models\Golongan;
 use App\Models\UnitKerja;
 use App\Models\BakatKerja;
 use App\Models\UpayaFisik;
@@ -43,8 +41,6 @@ Route::get('anjab/jabatan/{jabatan:id}/edit', function(Jabatan $jabatan) {
             'unit_kerjas' => UnitKerja::all(),
             'jenis_jabatan' => JenisJabatan::all(),
             'temperamens' => TemperamenKerja::all(),
-            'eselons' => Eselon::all(),
-            'golongan' => Golongan::all(),
             'upaya_fisiks' => UpayaFisik::all(),
             'fungsi_pekerjaans' => FungsiPekerjaan::all()
         ]);

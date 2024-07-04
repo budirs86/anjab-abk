@@ -3,9 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Eselon;
 use App\Models\Jabatan;
-use App\Models\Golongan;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\JenisJabatan;
 use Illuminate\Database\Seeder;
@@ -24,8 +22,6 @@ class DatabaseSeeder extends Seeder
             FungsiPekerjaanSeeder::class,
             UserSeeder::class,
             JenisJabatanSeeder::class,
-            EselonSeeder::class,
-            GolonganSeeder::class,
             UnitKerjaSeeder::class,
             JabatanSeeder::class,
             UpayaFisikSeeder::class,
