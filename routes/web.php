@@ -20,7 +20,6 @@ use App\Http\Controllers\BahanKerjaController;
 use App\Http\Controllers\KualifikasiController;
 use App\Http\Controllers\PerangkatKerjaController;
 use App\Http\Controllers\UraianTugasController;
-use App\Models\FungsiPekerjaan;
 
 Route::get('/', function () {
     return view('home',[

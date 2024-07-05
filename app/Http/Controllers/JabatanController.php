@@ -71,6 +71,6 @@ class JabatanController extends Controller
         $upaya_fisiks = UpayaFisik::all();
         $fungsi_pekerjaans = FungsiPekerjaan::all();
 
-        return view('anjab.jabatan.edit.step-one', compact('title', 'jabatan', 'bakat_kerjas', 'unit_kerjas', 'jenis_jabatan', 'temperamens', 'upaya_fisiks', 'fungsi_pekerjaans'));
+        return view('anjab.jabatan.edit.step-1', compact('title', 'jabatan', 'bakat_kerjas', 'unit_kerjas', 'jenis_jabatan', 'temperamens', 'upaya_fisiks', 'fungsi_pekerjaans'));
     }
 }

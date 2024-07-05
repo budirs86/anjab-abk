@@ -9,7 +9,7 @@
 </div>
 <div class="card dropdown-divider mb-4"></div>
 <div class="mb-3">
-    <a href="{{ route('anjab.jabatan.edit.step-one',$jabatan) }}" class="btn btn-sm btn-secondary align-baseline"><i
+    <a href="{{ route('anjab.jabatan.edit.1',$jabatan) }}" class="btn btn-sm btn-secondary align-baseline"><i
         data-feather="chevron-left"></i>Kembali</a>
 </div>
 <div class="alert alert-info alert-dismissible fade show">

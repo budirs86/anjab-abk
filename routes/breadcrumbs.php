@@ -51,11 +51,11 @@ Breadcrumbs::for('data-jabatan', function (BreadcrumbTrail $trail) {
 // create a breadcrumb for ubah informasi jabatan page, parent-ing the data jabatan breadcrumb
 Breadcrumbs::for('ubah-informasi-jabatan', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
     $trail->parent('buat-ajuan');
-    $trail->push('Ubah Informasi Jabatan ' . $jabatan->nama, route('anjab.jabatan.edit.step-one', $jabatan));
+    $trail->push('Ubah Informasi Jabatan ' . $jabatan->nama, route('anjab.jabatan.edit.1', $jabatan));
 });
 Breadcrumbs::for('isi-informasi-umum', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
     $trail->parent('ubah-informasi-jabatan', $jabatan);
-    $trail->push('Isi Informasi Umum', route('anjab.jabatan.edit.step-one', $jabatan));
+    $trail->push('Isi Informasi Umum', route('anjab.jabatan.edit.1', $jabatan));
 });
 Breadcrumbs::for('isi-detail-jabatan', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
     $trail->parent('isi-informasi-umum', $jabatan);
