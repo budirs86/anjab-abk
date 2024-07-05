@@ -39,6 +39,8 @@ Route::post('/anjab/jabatan/{jabatan:id}/pendidikan/store', [KualifikasiControll
 Route::delete('/anjab/jabatan/{jabatan}/pendidikan/{pendidikan}/delete', [KualifikasiController::class, 'deletePendidikan'])->name('anjab.jabatan.pendidikan.delete')->middleware('auth');
 Route::post('/anjab/jabatan/{jabatan:id}/pengalaman/store', [KualifikasiController::class, 'storePengalaman'])->name('anjab.jabatan.pengalaman.store')->middleware('auth');
 Route::delete('/anjab/jabatan/{jabatan}/pengalaman/{pengalaman}/delete', [KualifikasiController::class, 'deletePengalaman'])->name('anjab.jabatan.pengalaman.delete')->middleware('auth');
+Route::post('/anjab/jabatan/{jabatan:id}/pelatihan/store', [KualifikasiController::class, 'storePelatihan'])->name('anjab.jabatan.pelatihan.store')->middleware('auth');
+Route::delete('/anjab/jabatan/{jabatan}/pelatihan/{pelatihan}/delete', [KualifikasiController::class, 'deletePelatihan'])->name('anjab.jabatan.pelatihan.delete')->middleware('auth');
 
 Route::get('/petajabatan', function() {
 
