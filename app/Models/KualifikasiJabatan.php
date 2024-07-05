@@ -23,7 +23,7 @@ class KualifikasiJabatan extends Model
         return $this->hasMany(PendidikanPelatihan::class);
     }
 
-    public function pengalaman() {
+    public function pengalamans() {
         return $this->hasMany(Pengalaman::class);
     }
 }

@@ -50,7 +50,9 @@
                                 <td>{{ $pendidikan->jenjang }}</td>
                                 <td>{{ $pendidikan->jurusan }}</td>
                                 <td class="d-flex gap-1">
-                                    <form action="{{ route('anjab.jabatan.pendidikan.delete', ['jabatan' => $jabatan->id, 'pendidikan' => $pendidikan->id]) }}" method="POST">
+                                    <form
+                                        action="{{ route('anjab.jabatan.pendidikan.delete', ['jabatan' => $jabatan->id, 'pendidikan' => $pendidikan->id]) }}"
+                                        method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="kualifikasi_jabatan_id"
@@ -95,33 +97,54 @@
                     </tbody>
                 </table>
                 <table class="table 
-                            table-bordered w-75">
+                            table-bordered w-75" id="pengalaman">
                     <caption class="caption-top">Kualifikasi Jabatan | Pengalaman</caption>
                     <thead class="table-primary">
                         <th>No</th>
                         <th>Nama Pengalaman</th>
-                        <th>Lama Pengalaman</th>
+                        <th>Lama Pengalaman (Tahun)</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Manajer</td>
-                            <td>1 Tahun</td>
+                        @foreach ($jabatan->kualifikasi->pengalamans as $pengalaman)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $pengalaman->nama }}</td>
+                                <td>{{ $pengalaman->lama }}</td>
                             <td class="d-flex gap-1">
-                                <a href="" class="btn btn-warning"><img width="20px" data-feather="edit"></img></a>
-                                <a href="" class="btn btn-danger"><img width="20px" data-feather="trash"></img></a>
+                                    <form
+                                        action="{{ route('anjab.jabatan.pengalaman.delete', ['jabatan' => $jabatan->id, 'pengalaman' => $pengalaman->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="kualifikasi_jabatan_id"
+                                            value="{{ $jabatan->kualifikasi->id }}">
+                                        <button type="submit" class="btn btn-danger">
+                                            <img width="20px" data-feather="trash"></img>
+                                        </button>
+                                    </form>
                             </td>
                         </tr>
+                        @endforeach
                         <tr>
-                            <form action="">
-                                <td>2</td>
-                                <td><input type="text" class="form-control" placeholder="Masukkan Nama Pengalaman">
+                            <form action="{{ route('anjab.jabatan.pengalaman.store', ['jabatan' => $jabatan->id]) }}"
+                                method="POST">
+                                @csrf
+                                <input type="hidden" name="kualifikasi_jabatan_id"
+                                    value="{{ $jabatan->kualifikasi->id }}">
+                                <td></td>
+                                <td><input name="nama" type="text" class="form-control"
+                                        placeholder="Masukkan Nama Pengalaman">
                                 </td>
-                                <td><input type="text" class="form-control" placeholder="Masukkan Lama Pengalaman">
+                                <td><input name="lama" type="text" class="form-control"
+                                        placeholder="Masukkan Lama Pengalaman">
                                 </td>
-                                <td><button type="button" class="btn btn-primary"><i data-feather="plus"></i>
-                                        Tambah</button></td>
+                                <td>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i data-feather="plus"></i>
+                                        Tambah
+                                    </button>
+                                </td>
                             </form>
                         </tr>
                     </tbody>
