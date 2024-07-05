@@ -15,8 +15,12 @@ use App\Http\Controllers\AbkController;
 use App\Http\Controllers\AjuanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JabatanController;
-use App\Http\Controllers\KualifikasiController;
 use App\Http\Controllers\AnalisisJabatanController;
+use App\Http\Controllers\BahanKerjaController;
+use App\Http\Controllers\KualifikasiController;
+use App\Http\Controllers\PerangkatKerjaController;
+use App\Http\Controllers\UraianTugasController;
+use App\Models\FungsiPekerjaan;
 
 Route::get('/', function () {
     return view('home',[
@@ -34,10 +38,21 @@ Route::post('/anjab/ajuan/store/', [AjuanController::class, 'anjabStore'])->name
 
 Route::get('/anjab/jabatan/{jabatan:id}', [JabatanController::class, 'show'])->name('anjab.jabatan.show')->middleware('auth');
 Route::get('/anjab/jabatan/{jabatan:id}/edit', [JabatanController::class, 'edit'])->name('anjab.jabatan.edit')->middleware('auth');
-// Route::get('/anjab/jabatan/{jabatan:id}/edit', [JabatanController::class, 'edit'])->name('anjab.jabatan.edit')->middleware('auth');
+Route::get('/anjab/jabatan/{jabatan:id}/edit/1', [JabatanController::class, 'edit1'])->name('anjab.jabatan.edit.1')->middleware('auth');
 Route::put('/anjab/jabatan/{jabatan:id}/update', [JabatanController::class, 'update'])->name('anjab.jabatan.update')->middleware('auth');
 Route::post('/anjab/jabatan/{jabatan:id}/pendidikan/store', [KualifikasiController::class, 'storePendidikan'])->name('anjab.jabatan.pendidikan.store')->middleware('auth');
 Route::delete('/anjab/jabatan/{jabatan}/pendidikan/{pendidikan}/delete', [KualifikasiController::class, 'deletePendidikan'])->name('anjab.jabatan.pendidikan.delete')->middleware('auth');
+Route::post('/anjab/jabatan/{jabatan:id}/pengalaman/store', [KualifikasiController::class, 'storePengalaman'])->name('anjab.jabatan.pengalaman.store')->middleware('auth');
+Route::delete('/anjab/jabatan/{jabatan}/pengalaman/{pengalaman}/delete', [KualifikasiController::class, 'deletePengalaman'])->name('anjab.jabatan.pengalaman.delete')->middleware('auth');
+Route::post('/anjab/jabatan/{jabatan:id}/pelatihan/store', [KualifikasiController::class, 'storePelatihan'])->name('anjab.jabatan.pelatihan.store')->middleware('auth');
+Route::delete('/anjab/jabatan/{jabatan}/pelatihan/{pelatihan}/delete', [KualifikasiController::class, 'deletePelatihan'])->name('anjab.jabatan.pelatihan.delete')->middleware('auth');
+Route::post('/anjab/jabatan/{jabatan:id}/uraian/store', [UraianTugasController::class, 'storeUraian'])->name('anjab.jabatan.uraian.store')->middleware('auth');
+Route::delete('/anjab/jabatan/{jabatan}/uraian/{uraian}/delete', [UraianTugasController::class, 'deleteUraian'])->name('anjab.jabatan.uraian.delete')->middleware('auth');
+Route::post('/anjab/jabatan/{jabatan:id}/bahanKerja/store', [BahanKerjaController::class, 'storeBahanKerja'])->name('anjab.jabatan.bahanKerja.store')->middleware('auth');
+Route::delete('/anjab/jabatan/{jabatan}/bahanKerja/{bahanKerja}/delete', [BahanKerjaController::class, 'deleteBahanKerja'])->name('anjab.jabatan.bahanKerja.delete')->middleware('auth');
+Route::post('/anjab/jabatan/{jabatan:id}/perangkatKerja/store', [PerangkatKerjaController::class, 'storePerangkatKerja'])->name('anjab.jabatan.perangkatKerja.store')->middleware('auth');
+Route::delete('/anjab/jabatan/{jabatan}/perangkatKerja/{perangkatKerja}/delete', [PerangkatKerjaController::class, 'deletePerangkatKerja'])->name('anjab.jabatan.perangkatKerja.delete')->middleware('auth');
+
 Route::get('/petajabatan', function() {
 
     $jabatans = Jabatan::tree()->get()->toTree();
@@ -142,13 +157,6 @@ Route::get('/abk/ajuan/{id}/jabatan/{jabatan:id}',function($id,Jabatan $jabatan)
     ]);
 })->name('abk.jabatan.show');
 
-Route::get('anjab/jabatan/{jabatan:id}/edit/step-one', function(Jabatan $jabatan) {
-    return view('anjab/jabatan/edit/step-1',[
-            'title' => 'Form Informasi Jabatan',
-            'jabatan' => $jabatan,
-            'jenis_jabatan' => JenisJabatan::all(),
-        ]);
-})->name('anjab.jabatan.edit.step-one')->middleware('auth');
 Route::get('anjab/jabatan/{jabatan:id}/edit/step-two', function(Jabatan $jabatan) {
     return view('anjab/jabatan/edit/step-2',[
             'title' => 'Form Informasi Jabatan',

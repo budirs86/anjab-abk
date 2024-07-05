@@ -50,7 +50,9 @@
                                 <td>{{ $pendidikan->jenjang }}</td>
                                 <td>{{ $pendidikan->jurusan }}</td>
                                 <td class="d-flex gap-1">
-                                    <form action="{{ route('anjab.jabatan.pendidikan.delete', ['jabatan' => $jabatan->id, 'pendidikan' => $pendidikan->id]) }}" method="POST">
+                                    <form
+                                        action="{{ route('anjab.jabatan.pendidikan.delete', ['jabatan' => $jabatan->id, 'pendidikan' => $pendidikan->id]) }}"
+                                        method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="kualifikasi_jabatan_id"
@@ -95,130 +97,195 @@
                     </tbody>
                 </table>
                 <table class="table 
-                            table-bordered w-75">
+                            table-bordered w-75" id="pengalaman">
                     <caption class="caption-top">Kualifikasi Jabatan | Pengalaman</caption>
                     <thead class="table-primary">
                         <th>No</th>
                         <th>Nama Pengalaman</th>
-                        <th>Lama Pengalaman</th>
+                        <th>Lama Pengalaman (Tahun)</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Manajer</td>
-                            <td>1 Tahun</td>
-                            <td class="d-flex gap-1">
-                                <a href="" class="btn btn-warning"><img width="20px" data-feather="edit"></img></a>
-                                <a href="" class="btn btn-danger"><img width="20px" data-feather="trash"></img></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <form action="">
-                                <td>2</td>
-                                <td><input type="text" class="form-control" placeholder="Masukkan Nama Pengalaman">
+                        @foreach ($jabatan->kualifikasi->pengalamans as $pengalaman)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $pengalaman->nama }}</td>
+                                <td>{{ $pengalaman->lama }}</td>
+                                <td class="d-flex gap-1">
+                                    <form
+                                        action="{{ route('anjab.jabatan.pengalaman.delete', ['jabatan' => $jabatan->id, 'pengalaman' => $pengalaman->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="kualifikasi_jabatan_id"
+                                            value="{{ $jabatan->kualifikasi->id }}">
+                                        <button type="submit" class="btn btn-danger">
+                                            <img width="20px" data-feather="trash"></img>
+                                        </button>
+                                    </form>
                                 </td>
-                                <td><input type="text" class="form-control" placeholder="Masukkan Lama Pengalaman">
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <form action="{{ route('anjab.jabatan.pengalaman.store', ['jabatan' => $jabatan->id]) }}"
+                                method="POST">
+                                @csrf
+                                <input type="hidden" name="kualifikasi_jabatan_id"
+                                    value="{{ $jabatan->kualifikasi->id }}">
+                                <td></td>
+                                <td><input name="nama" type="text" class="form-control"
+                                        placeholder="Masukkan Nama Pengalaman">
                                 </td>
-                                <td><button type="button" class="btn btn-primary"><i data-feather="plus"></i>
-                                        Tambah</button></td>
+                                <td><input name="lama" type="text" class="form-control"
+                                        placeholder="Masukkan Lama Pengalaman">
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i data-feather="plus"></i>
+                                        Tambah
+                                    </button>
+                                </td>
                             </form>
                         </tr>
                     </tbody>
                 </table>
                 <table class="table 
-                            table-bordered w-75">
-                                <caption class="caption-top"> Kualifikasi Jabatan | Pelatihan</caption>
-                                <thead class="table-primary">
-                                    <th>No</th>
-                                    <th>Jenis Pelatihan</th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td class="d-flex justify-content-between">
-                                            <p>Pelatihan Manajemen Organisasi</p>
-                                            <div class="">
-                                                <a href="" class="btn btn-warning"><img width="20px" data-feather="edit"></img></a>
-                                                <a href="" class="btn btn-danger"><img width="20px" data-feather="trash"></img></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <form action="">
-                                        <td>2</td>
-                                        <td class="d-flex justify-content-between">
-                                            <input type="text" class="form-control w-50" placeholder="Masukkan Nama Pelatihan">
-                                            <button type="button" class="btn btn-primary"><i data-feather="plus"></i> Tambah</button>
-                                        </td>  
-                                        </form>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <hr>
-                    </div>
-                    <div class="mb-3">
-                        <label for="uraian_tugas" class="form-label">Uraian Tugas</label>
-                        <table class="table table-bordered w-75" id="uraian_tugas">
-                                <thead class="table-info">
-                                    <th>No</th>
-                                    <th>Uraian Tugas</th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td class="d-flex justify-content-between">
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro modi ad nam vero ea temporibus.</p>
-                                            <div class="">
-                                                <a href="" class="btn btn-warning"><img width="20px" data-feather="edit"></img></a>
-                                                <a href="" class="btn btn-danger"><img width="20px" data-feather="trash"></img></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <form action="">
-                                        <td>2</td>
-                                        <td class="d-flex justify-content-between">
-                                            <input type="text" class="form-control w-50" placeholder="Masukkan Uraian Tugas">
-                                            <button type="button" class="btn btn-primary"><i data-feather="plus"></i> Tambah</button>
-                                        </td>  
-                                        </form>
-                                    </tr>
-                                </tbody>
-                            </table>
-                    </div>
-                    <div class="mb-3">
-                        <label for="bahan_kerja" class="form-label">Bahan Kerja</label>
-                        <table class="table 
-                            table-bordered w-75" id="bahan_kerja">
+                            table-bordered w-75" id="pelatihan">
+                    <caption class="caption-top"> Kualifikasi Jabatan | Pelatihan</caption>
+                    <thead class="table-primary">
+                        <th>No</th>
+                        <th>Jenis Pelatihan</th>
+                        <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                        @foreach ($jabatan->kualifikasi->pendidikanPelatihans as $pelatihan)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $pelatihan->nama }}</td>
+                                <td class="d-flex gap-1">
+                                    <form
+                                        action="{{ route('anjab.jabatan.pelatihan.delete', ['jabatan' => $jabatan->id, 'pelatihan' => $pelatihan->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="kualifikasi_jabatan_id"
+                                            value="{{ $jabatan->kualifikasi->id }}">
+                                        <button type="submit" class="btn btn-danger">
+                                            <img width="20px" data-feather="trash"></img>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <form action="{{ route('anjab.jabatan.pelatihan.store', ['jabatan' => $jabatan->id]) }}"
+                                method="POST">
+                                @csrf
+                                <input type="hidden" name="kualifikasi_jabatan_id"
+                                    value="{{ $jabatan->kualifikasi->id }}">
+                                <td></td>
+                                <td class="d-flex justify-content-between">
+                                    <input name="nama" type="text" class="form-control w-50"
+                                        placeholder="Masukkan Nama Pelatihan">
+
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i data-feather="plus"></i>
+                                        Tambah
+                                    </button>
+                                </td>
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+        </div>
+        <div class="mb-3">
+            <label for="uraian_tugas" class="form-label">Uraian Tugas</label>
+            <table class="table table-bordered w-75" id="uraian_tugas">
+                <thead class="table-info">
+                    <th>No</th>
+                    <th>Uraian Tugas</th>
+                </thead>
+                <tbody>
+                    @foreach ($jabatan->uraianTugas as $uraian)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td class="d-flex justify-content-between">
+                                <p>{{ $uraian->nama_tugas }}</p>
+                                <div class="">
+                                    <form
+                                        action="{{ route('anjab.jabatan.uraian.delete', ['jabatan' => $jabatan->id, 'uraian' => $uraian->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                                        <button type="submit" class="btn btn-danger">
+                                            <img width="20px" data-feather="trash"></img>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <form action="{{ route('anjab.jabatan.uraian.store', ['jabatan' => $jabatan->id]) }}"
+                            method="POST">
+                            @csrf
+                            <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                            <td></td>
+                            <td class="d-flex justify-content-between">
+                                <input name="nama_tugas" type="text" class="form-control w-50"
+                                    placeholder="Masukkan Uraian Tugas">
+                                <button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
+                                    Tambah</button>
+                            </td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mb-3">
+            <label for="bahan_kerja" class="form-label">Bahan Kerja</label>
+            <table class="table 
+                            table-bordered w-75" id="BahanKerja">
                 <thead class="table-primary">
                     <th>No</th>
                     <th>Bahan Kerja</th>
-                    <th>Penggunaan dalam Pekerjaan</th>
                     <th>Aksi</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Alat Tulis</td>
-                        <td>Menulis</td>
-                        <td class="d-flex gap-1">
-                            <a href="" class="btn btn-warning"><img width="20px" data-feather="edit"></img></a>
-                            <a href="" class="btn btn-danger"><img width="20px" data-feather="trash"></img></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <form action="">
-                            <td>2</td>
-                            <td>
-                                <input type="text" class="form-control" placeholder="Masukkan Bahan Kerja">
+                    @foreach ($jabatan->bahanKerja as $bahanKerja)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $bahanKerja->nama }}</td>
+                            <td class="d-flex gap-1">
+                                <form
+                                    action="{{ route('anjab.jabatan.bahanKerja.delete', ['jabatan' => $jabatan->id, 'bahanKerja' => $bahanKerja->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                                    <button type="submit" class="btn btn-danger">
+                                        <img width="20px" data-feather="trash"></img>
+                                    </button>
+                                </form>
                             </td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <form action="{{ route('anjab.jabatan.bahanKerja.store', ['jabatan' => $jabatan->id]) }}"
+                            method="POST">
+                            @csrf
+                            <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                            <td></td>
                             <td>
-                                <input type="text" class="form-control"
-                                    placeholder="Masukkan Penggunaan dalam Pekerjaan">
+                                <input name="nama" type="text" class="form-control"
+                                    placeholder="Masukkan Bahan Kerja">
                             </td>
-                            <td><button type="button" class="btn btn-primary"><i data-feather="plus"></i>
+                            <td><button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
                                     Tambah</button></td>
                         </form>
                     </tr>
@@ -228,34 +295,41 @@
         <div class="mb-3">
             <label for="perangkat_kerja" class="form-label">Perangkat Kerja</label>
             <table class="table 
-                            table-bordered w-75" id="perangkat_kerja">
+                            table-bordered w-75" id="PerangkatKerja">
                 <thead class="table-secondary">
                     <th>No</th>
                     <th>Perangkat Kerja</th>
-                    <th>Penggunaan dalam Pekerjaan</th>
                     <th>Aksi</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td class="d-flex gap-1">
-                            <a href="" class="btn btn-warning"><img width="20px" data-feather="edit"></img></a>
-                            <a href="" class="btn btn-danger"><img width="20px" data-feather="trash"></img></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <form action="">
-                            <td>2</td>
-                            <td>
-                                <input type="text" class="form-control" placeholder="Masukkan Perangkat Kerja">
+                    @foreach ($jabatan->perangkatKerja as $perangkatKerja)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $perangkatKerja->nama }}</td>
+                            <td class="d-flex gap-1">
+                                <form
+                                    action="{{ route('anjab.jabatan.perangkatKerja.delete', ['jabatan' => $jabatan->id, 'perangkatKerja' => $perangkatKerja->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                                    <button type="submit" class="btn btn-danger">
+                                        <img width="20px" data-feather="trash"></img>
+                                    </button>
+                                </form>
                             </td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <form action="{{ route('anjab.jabatan.perangkatKerja.store', ['jabatan' => $jabatan->id]) }}"
+                            method="POST">
+                            @csrf
+                            <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                            <td></td>
                             <td>
-                                <input type="text" class="form-control"
-                                    placeholder="Masukkan Penggunaan dalam Pekerjaan">
+                                <input name="nama" type="text" class="form-control" placeholder="Masukkan Perangkat Kerja">
                             </td>
-                            <td><button type="button" class="btn btn-primary"><i data-feather="plus"></i>
+                            <td><button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
                                     Tambah</button></td>
                         </form>
                     </tr>
@@ -527,60 +601,63 @@
                     <option value="P">Perempuan</option>
                 </select>
 
-                                <label for="umur" class="form-label">Umur (Tahun)</label>
-                                <input type="text" class="form-control mb-3" id="umur">
+                <label for="umur" class="form-label">Umur (Tahun)</label>
+                <input type="text" class="form-control mb-3" id="umur">
 
-                                <label for="tinggi_badan" class="form-label text-capitalize">tinggi badan (sentimeter)</label>
-                                <input type="number" class="form-control mb-3" id="tinggi_badan">
-                            </div>
-                            <div class="col-6">
-                                <label for="berat_badan" class="form-label text-capitalize">berat badan (kilogram)</label>
-                                <input type="number" class="form-control mb-3" id="berat_badan">
+                <label for="tinggi_badan" class="form-label text-capitalize">tinggi badan (sentimeter)</label>
+                <input type="number" class="form-control mb-3" id="tinggi_badan">
+            </div>
+            <div class="col-6">
+                <label for="berat_badan" class="form-label text-capitalize">berat badan (kilogram)</label>
+                <input type="number" class="form-control mb-3" id="berat_badan">
 
                 <label for="postur_badan" class="form-label text-capitalize">postur badan</label>
                 <input type="text" class="form-control mb-3" id="postur_badan">
 
-                                <label for="penampilan" class="form-label text-capitalize">penampilan</label>
-                                <input type="text" class="form-control mb-3" id="penampilan">
-                            </div>
-                        </div>
-                        <hr class="mb-3">
-                    </div>
-                    <div class="row mb-4" id="fungsi_pekerjaan">
-                        @foreach ($fungsi_pekerjaans as $fungsi_pekerjaan)
-                        <div class="col-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="{{   $fungsi_pekerjaan->id }}" id="{{ $fungsi_pekerjaan->nama }}">
-                                <label class="form-check-label" for="{{ $fungsi_pekerjaan->nama }}"> {{$fungsi_pekerjaan->kode . " " . $fungsi_pekerjaan->nama }}</label>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                
-                    <label for="prestasi" class="form-label text-capitalize">prestasi</label>
-                    <input type="text" class="form-control " id="prestasi">
-
-                    <label for="kelas_jabatan" class="form-label text-capitalize">kelas jabatan</label>
-                    <div class="mb-3">
-                        <select class="form-select" id="kelas_jabatan">
-                            @for ($i = 1; $i <= 8; ++$i)
-                                <option value="{{ $i }}">{{ $i }}</option>
-                            @endfor
-                        </select>
-                    </div>
-                    
-                    <div class="">
-                        {{-- <button type="submit" class="btn btn-primary header1"><img src="" alt="" data-feather="save" width="20px"> Simpan</button> --}}
-                        <a href="{{ url()->previous() }}" class="btn btn-primary header1"><img src="" alt="" data-feather="save" width="20px"> Simpan</a>
-                    </div>
-                </form>
+                <label for="penampilan" class="form-label text-capitalize">penampilan</label>
+                <input type="text" class="form-control mb-3" id="penampilan">
             </div>
         </div>
-        
-        <script>
-            const tambahTugas = document.getElementById('tambahTugas');
-            const tabelTugas = document.getElementById('tabelTugas');
-            
+        <hr class="mb-3">
+    </div>
+    <div class="row mb-4" id="fungsi_pekerjaan">
+        @foreach ($fungsi_pekerjaans as $fungsi_pekerjaan)
+            <div class="col-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="{{ $fungsi_pekerjaan->id }}"
+                        id="{{ $fungsi_pekerjaan->nama }}">
+                    <label class="form-check-label" for="{{ $fungsi_pekerjaan->nama }}">
+                        {{ $fungsi_pekerjaan->kode . ' ' . $fungsi_pekerjaan->nama }}</label>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+    <label for="prestasi" class="form-label text-capitalize">prestasi</label>
+    <input type="text" class="form-control " id="prestasi">
+
+    <label for="kelas_jabatan" class="form-label text-capitalize">kelas jabatan</label>
+    <div class="mb-3">
+        <select class="form-select" id="kelas_jabatan">
+            @for ($i = 1; $i <= 8; ++$i)
+                <option value="{{ $i }}">{{ $i }}</option>
+            @endfor
+        </select>
+    </div>
+
+    <div class="">
+        {{-- <button type="submit" class="btn btn-primary header1"><img src="" alt="" data-feather="save" width="20px"> Simpan</button> --}}
+        <a href="{{ url()->previous() }}" class="btn btn-primary header1"><img src="" alt=""
+                data-feather="save" width="20px"> Simpan</a>
+    </div>
+    </form>
+    </div>
+    </div>
+
+    <script>
+        const tambahTugas = document.getElementById('tambahTugas');
+        const tabelTugas = document.getElementById('tabelTugas');
+
 
         function tambahTugas(e) {
 

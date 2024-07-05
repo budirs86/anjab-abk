@@ -60,4 +60,17 @@ class JabatanController extends Controller
 
         return view('anjab.jabatan.edit', compact('title', 'jabatan', 'bakat_kerjas', 'unit_kerjas', 'jenis_jabatan', 'temperamens', 'upaya_fisiks', 'fungsi_pekerjaans'));
     }
+
+    public function edit1(Jabatan $jabatan)
+    {
+        $title = 'Form Informasi Jabatan';
+        $bakat_kerjas = BakatKerja::all();
+        $unit_kerjas = UnitKerja::all();
+        $jenis_jabatan = JenisJabatan::all();
+        $temperamens = TemperamenKerja::all();
+        $upaya_fisiks = UpayaFisik::all();
+        $fungsi_pekerjaans = FungsiPekerjaan::all();
+
+        return view('anjab.jabatan.edit.step-one', compact('title', 'jabatan', 'bakat_kerjas', 'unit_kerjas', 'jenis_jabatan', 'temperamens', 'upaya_fisiks', 'fungsi_pekerjaans'));
+    }
 }

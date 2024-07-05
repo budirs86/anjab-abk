@@ -11,6 +11,8 @@ class Pengalaman extends Model
 
     protected $guarded = ['id'];
 
+    protected $table = 'pengalamans';
+
     public function kualifikasiJabatan() {
         return $this->belongsTo(KualifikasiJabatan::class);
     }
