@@ -31,58 +31,12 @@ Route::get('/anjab/ajuan', [AjuanController::class, 'anjabIndex'])->name('anjab.
 Route::get('/anjab/ajuan/create', [AjuanController::class, 'anjabCreate'])->name('anjab.ajuan.create')->middleware('auth');
 Route::post('/anjab/ajuan/store/', [AjuanController::class, 'anjabStore'])->name('anjab.ajuan.store')->middleware('auth');
 
-Route::get('anjab/jabatan/{jabatan:id}/edit', function(Jabatan $jabatan) {
-    return view('anjab/jabatan/edit',[
-            'title' => 'Form Informasi Jabatan',
-            'jabatan' => $jabatan,
-            'bakat_kerjas'=> BakatKerja::all(),
-            'unit_kerjas' => UnitKerja::all(),
-            'jenis_jabatan' => JenisJabatan::all(),
-            'temperamens' => TemperamenKerja::all(),
-            'eselons' => Eselon::all(),
-            'golongan' => Golongan::all(),
-            'upaya_fisiks' => UpayaFisik::all(),
-            'fungsi_pekerjaans' => FungsiPekerjaan::all()
-        ]);
-})->name('anjab.jabatan.edit')->middleware('auth');
-
+Route::get('/anjab/jabatan/{jabatan:id}', [JabatanController::class, 'show'])->name('anjab.jabatan.show')->middleware('auth');
 Route::get('/anjab/jabatan/{jabatan:id}/edit', [JabatanController::class, 'edit'])->name('anjab.jabatan.edit')->middleware('auth');
-Route::get('anjab/jabatan/{jabatan:id}/edit/step-one', function(Jabatan $jabatan) {
-    return view('anjab/jabatan/edit/step-one',[
-            'title' => 'Form Informasi Jabatan',
-            'jabatan' => $jabatan,
-            'bakat_kerjas'=> BakatKerja::all(),
-            'unit_kerjas' => UnitKerja::all(),
-            'jenis_jabatan' => JenisJabatan::all(),
-            'temperamens' => TemperamenKerja::all(),
-            'upaya_fisiks' => UpayaFisik::all(),
-            'fungsi_pekerjaans' => FungsiPekerjaan::all()
-        ]);
-})->name('anjab.jabatan.edit.step-one')->middleware('auth');
-
-
-
-
 // Route::get('/anjab/jabatan/{jabatan:id}/edit', [JabatanController::class, 'edit'])->name('anjab.jabatan.edit')->middleware('auth');
 Route::put('/anjab/jabatan/{jabatan:id}/update', [JabatanController::class, 'update'])->name('anjab.jabatan.update')->middleware('auth');
 Route::post('/anjab/jabatan/{jabatan:id}/pendidikan/store', [KualifikasiController::class, 'storePendidikan'])->name('anjab.jabatan.pendidikan.store')->middleware('auth');
 Route::delete('/anjab/jabatan/{jabatan}/pendidikan/{pendidikan}/delete', [KualifikasiController::class, 'deletePendidikan'])->name('anjab.jabatan.pendidikan.delete')->middleware('auth');
-Route::get('anjab/jabatan/{jabatan:id}', function(Jabatan $jabatan) {
-    return view('anjab.jabatan.show',[
-            'title' => 'Form Informasi Jabatan',
-            'jabatan' => $jabatan,
-            'bakat_kerjas'=> BakatKerja::all(),
-            'unit_kerjas' => UnitKerja::all(),
-            'jenis_jabatan' => JenisJabatan::all(),
-            'temperamens' => TemperamenKerja::all(),
-            'eselons' => Eselon::all(),
-            'golongan' => Golongan::all(),
-            'upaya_fisiks' => UpayaFisik::all(),
-            'fungsi_pekerjaans' => FungsiPekerjaan::all()
-        ]);
-})->name('anjab.jabatan.show')->middleware('auth');
-
-
 Route::get('/petajabatan', function() {
 
     $jabatans = Jabatan::tree()->get()->toTree();
@@ -101,6 +55,7 @@ Route::get('/anjab/ajuan/{id}',function($id) {
         'editable' => false
     ]);
 })->name('anjab.ajuan');
+
 Route::get('/anjab/ajuan/{id}/edit',function($id) {
     // $jabatans = Jabatan::tree()->get()->toTree();
     $jabatans = Jabatan::all();
@@ -185,3 +140,16 @@ Route::get('/abk/ajuan/{id}/jabatan/{jabatan:id}',function($id,Jabatan $jabatan)
         'abk' =>     true
     ]);
 })->name('abk.jabatan.show');
+
+Route::get('anjab/jabatan/{jabatan:id}/edit/step-one', function(Jabatan $jabatan) {
+    return view('anjab/jabatan/edit/step-one',[
+            'title' => 'Form Informasi Jabatan',
+            'jabatan' => $jabatan,
+            'bakat_kerjas'=> BakatKerja::all(),
+            'unit_kerjas' => UnitKerja::all(),
+            'jenis_jabatan' => JenisJabatan::all(),
+            'temperamens' => TemperamenKerja::all(),
+            'upaya_fisiks' => UpayaFisik::all(),
+            'fungsi_pekerjaans' => FungsiPekerjaan::all()
+        ]);
+})->name('anjab.jabatan.edit.step-one')->middleware('auth');
