@@ -232,12 +232,13 @@
                     @endforeach
                     <tr>
                         <form action="{{ route('anjab.jabatan.uraian.store', ['jabatan' => $jabatan->id]) }}"
-                                method="POST">
+                            method="POST">
                             @csrf
                             <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
                             <td></td>
                             <td class="d-flex justify-content-between">
-                                <input name="nama_tugas" type="text" class="form-control w-50" placeholder="Masukkan Uraian Tugas">
+                                <input name="nama_tugas" type="text" class="form-control w-50"
+                                    placeholder="Masukkan Uraian Tugas">
                                 <button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
                                     Tambah</button>
                             </td>
@@ -249,34 +250,42 @@
         <div class="mb-3">
             <label for="bahan_kerja" class="form-label">Bahan Kerja</label>
             <table class="table 
-                            table-bordered w-75" id="bahan_kerja">
+                            table-bordered w-75" id="BahanKerja">
                 <thead class="table-primary">
                     <th>No</th>
                     <th>Bahan Kerja</th>
-                    <th>Penggunaan dalam Pekerjaan</th>
                     <th>Aksi</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Alat Tulis</td>
-                        <td>Menulis</td>
-                        <td class="d-flex gap-1">
-                            <a href="" class="btn btn-warning"><img width="20px" data-feather="edit"></img></a>
-                            <a href="" class="btn btn-danger"><img width="20px" data-feather="trash"></img></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <form action="">
-                            <td>2</td>
-                            <td>
-                                <input type="text" class="form-control" placeholder="Masukkan Bahan Kerja">
+                    @foreach ($jabatan->bahanKerja as $bahanKerja)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $bahanKerja->nama }}</td>
+                            <td class="d-flex gap-1">
+                                <form
+                                    action="{{ route('anjab.jabatan.bahanKerja.delete', ['jabatan' => $jabatan->id, 'bahanKerja' => $bahanKerja->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="jabatan_id"
+                                        value="{{ $jabatan->id }}">
+                                    <button type="submit" class="btn btn-danger">
+                                        <img width="20px" data-feather="trash"></img>
+                                    </button>
+                                </form>
                             </td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <form action="{{ route('anjab.jabatan.bahanKerja.store', ['jabatan' => $jabatan->id]) }}"
+                            method="POST">
+                            @csrf
+                            <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                            <td></td>
                             <td>
-                                <input type="text" class="form-control"
-                                    placeholder="Masukkan Penggunaan dalam Pekerjaan">
+                                <input name="nama" type="text" class="form-control" placeholder="Masukkan Bahan Kerja">
                             </td>
-                            <td><button type="button" class="btn btn-primary"><i data-feather="plus"></i>
+                            <td><button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
                                     Tambah</button></td>
                         </form>
                     </tr>

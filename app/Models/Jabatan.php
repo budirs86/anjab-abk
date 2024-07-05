@@ -34,4 +34,8 @@ class Jabatan extends Model
     public function uraianTugas() {
         return $this->hasMany(UraianTugas::class);
     }
+
+    public function bahanKerja() {
+        return $this->hasMany(BahanKerja::class);
+    }
 }

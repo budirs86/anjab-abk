@@ -14,6 +14,7 @@ use App\Http\Controllers\AjuanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\AnalisisJabatanController;
+use App\Http\Controllers\BahanKerjaController;
 use App\Http\Controllers\KualifikasiController;
 use App\Http\Controllers\UraianTugasController;
 use App\Models\FungsiPekerjaan;
@@ -44,6 +45,8 @@ Route::post('/anjab/jabatan/{jabatan:id}/pelatihan/store', [KualifikasiControlle
 Route::delete('/anjab/jabatan/{jabatan}/pelatihan/{pelatihan}/delete', [KualifikasiController::class, 'deletePelatihan'])->name('anjab.jabatan.pelatihan.delete')->middleware('auth');
 Route::post('/anjab/jabatan/{jabatan:id}/uraian/store', [UraianTugasController::class, 'storeUraian'])->name('anjab.jabatan.uraian.store')->middleware('auth');
 Route::delete('/anjab/jabatan/{jabatan}/uraian/{uraian}/delete', [UraianTugasController::class, 'deleteUraian'])->name('anjab.jabatan.uraian.delete')->middleware('auth');
+Route::post('/anjab/jabatan/{jabatan:id}/bahanKerja/store', [BahanKerjaController::class, 'storeBahanKerja'])->name('anjab.jabatan.bahanKerja.store')->middleware('auth');
+Route::delete('/anjab/jabatan/{jabatan}/bahanKerja/{bahanKerja}/delete', [BahanKerjaController::class, 'deleteBahanKerja'])->name('anjab.jabatan.bahanKerja.delete')->middleware('auth');
 
 Route::get('/petajabatan', function() {
 
