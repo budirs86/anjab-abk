@@ -267,8 +267,7 @@
                                     method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="hidden" name="jabatan_id"
-                                        value="{{ $jabatan->id }}">
+                                    <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
                                     <button type="submit" class="btn btn-danger">
                                         <img width="20px" data-feather="trash"></img>
                                     </button>
@@ -283,7 +282,8 @@
                             <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
                             <td></td>
                             <td>
-                                <input name="nama" type="text" class="form-control" placeholder="Masukkan Bahan Kerja">
+                                <input name="nama" type="text" class="form-control"
+                                    placeholder="Masukkan Bahan Kerja">
                             </td>
                             <td><button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
                                     Tambah</button></td>
@@ -295,34 +295,41 @@
         <div class="mb-3">
             <label for="perangkat_kerja" class="form-label">Perangkat Kerja</label>
             <table class="table 
-                            table-bordered w-75" id="perangkat_kerja">
+                            table-bordered w-75" id="PerangkatKerja">
                 <thead class="table-secondary">
                     <th>No</th>
                     <th>Perangkat Kerja</th>
-                    <th>Penggunaan dalam Pekerjaan</th>
                     <th>Aksi</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td class="d-flex gap-1">
-                            <a href="" class="btn btn-warning"><img width="20px" data-feather="edit"></img></a>
-                            <a href="" class="btn btn-danger"><img width="20px" data-feather="trash"></img></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <form action="">
-                            <td>2</td>
-                            <td>
-                                <input type="text" class="form-control" placeholder="Masukkan Perangkat Kerja">
+                    @foreach ($jabatan->perangkatKerja as $perangkatKerja)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $perangkatKerja->nama }}</td>
+                            <td class="d-flex gap-1">
+                                <form
+                                    action="{{ route('anjab.jabatan.perangkatKerja.delete', ['jabatan' => $jabatan->id, 'perangkatKerja' => $perangkatKerja->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                                    <button type="submit" class="btn btn-danger">
+                                        <img width="20px" data-feather="trash"></img>
+                                    </button>
+                                </form>
                             </td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <form action="{{ route('anjab.jabatan.perangkatKerja.store', ['jabatan' => $jabatan->id]) }}"
+                            method="POST">
+                            @csrf
+                            <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                            <td></td>
                             <td>
-                                <input type="text" class="form-control"
-                                    placeholder="Masukkan Penggunaan dalam Pekerjaan">
+                                <input name="nama" type="text" class="form-control" placeholder="Masukkan Perangkat Kerja">
                             </td>
-                            <td><button type="button" class="btn btn-primary"><i data-feather="plus"></i>
+                            <td><button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
                                     Tambah</button></td>
                         </form>
                     </tr>
