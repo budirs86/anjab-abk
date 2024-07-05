@@ -25,6 +25,19 @@ class JabatanController extends Controller
         return view('anjab.jabatan', compact('title', 'jabatans', 'jenisJabatan', 'unitKerjas', 'buttons'));
     }
 
+    public function show(Jabatan $jabatan){
+        return view('anjab.jabatan.show', [
+            'title' => 'Form Informasi Jabatan',
+            'jabatan' => $jabatan,
+            'bakat_kerjas' => BakatKerja::all(),
+            'unit_kerjas' => UnitKerja::all(),
+            'jenis_jabatan' => JenisJabatan::all(),
+            'temperamens' => TemperamenKerja::all(),
+            'upaya_fisiks' => UpayaFisik::all(),
+            'fungsi_pekerjaans' => FungsiPekerjaan::all()
+        ]);
+    }
+
     public function store(CreateJabatanRequest $request)
     {
         $validatedData = $request->validated();
