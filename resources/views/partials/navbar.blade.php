@@ -55,8 +55,9 @@
                             <img src="" width=20px data-feather="edit" alt="">Anjab
                         </p>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.ajuan.create') }}">Buat Ajuan
-                                    Informasi Jabatan Baru</a></li>
+                            @can('make ajuan')
+                                <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.ajuan.create') }}">Buat Ajuan Informasi Jabatan Baru</a></li>
+                            @endcan
                             <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.ajuan.index') }}">Lihat
                                     Ajuan</a></li>
                             {{-- <li><a class="dropdown-item me-3 my-1" href="">Entry Biodata Jabatan</a></li>
