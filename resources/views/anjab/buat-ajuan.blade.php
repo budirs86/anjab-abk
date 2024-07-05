@@ -17,7 +17,7 @@
     <div class="card dropdown-divider mb-3"></div>
 
     <div class="">
-        <div class="alert alert-info">
+        <div class="alert alert-info alert-dismissible fade show">
                 <div class="alert-heading d-flex justify-content-between">
                     <div class="d-flex">
                         <img width="20px" data-feather="info" class="m-0 p-0 me-2"></img>
@@ -47,7 +47,7 @@
                         <td class="d-flex justify-content-between">
                             <p class="" href="/anjab/analisis-jabatan/create" style="">{{ $jabatan->nama }}</p>
                             <div class="div">
-                                <a href="{{ route('anjab.jabatan.edit', ['jabatan'=> $jabatan->id]) }}" class="btn btn-sm btn-primary ms-auto add-button"><img width="20px" data-feather="edit-3"></img> Ubah Informasi Jabatan</a>
+                                <a href="{{ route('anjab.jabatan.edit.step-one', ['jabatan'=> $jabatan->id]) }}" class="btn btn-sm btn-primary ms-auto add-button"><img width="20px" data-feather="edit-3"></img> Ubah Informasi Jabatan</a>
                                 {{-- <button class="btn btn-sm btn-success ms-auto add-button" data-bs-toggle="modal" data-bs-target="#modalJabatan" id="addButton" data-bs-atasan="{{ $jabatan->id }}"><img width="20px" data-feather="plus"></img> Tambah Jabatan Bawahan</button> --}}
                             </div>
                         </td>

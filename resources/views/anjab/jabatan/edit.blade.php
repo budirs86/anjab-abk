@@ -3,7 +3,7 @@
 @section('container')
     <div class="card-head mb-3">
         <div class="">
-            {{ Breadcrumbs::render('ubah-informasi-jabatan') }}
+            {{ Breadcrumbs::render('ubah-informasi-jabatan',$jabatan) }}
         </div>
         <div class="mb-3">
             <h1 class="fw-light fs-4 d-inline nav-item">Ubah Informasi Jabatan | {{ $jabatan->nama }}</h1>

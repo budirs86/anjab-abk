@@ -4,9 +4,11 @@ use Carbon\Unit;
 use App\Models\Jabatan;
 use App\Models\UnitKerja;
 use App\Models\BakatKerja;
+use App\Models\MinatKerja;
 use App\Models\UpayaFisik;
 use App\Models\JenisJabatan;
 use GuzzleHttp\Psr7\Request;
+use App\Models\FungsiPekerjaan;
 use App\Models\TemperamenKerja;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AbkController;
@@ -154,3 +156,17 @@ Route::get('/abk/ajuan/{id}/jabatan/{jabatan:id}',function($id,Jabatan $jabatan)
         'abk' =>     true
     ]);
 })->name('abk.jabatan.show');
+
+Route::get('anjab/jabatan/{jabatan:id}/edit/step-two', function(Jabatan $jabatan) {
+    return view('anjab/jabatan/edit/step-2',[
+            'title' => 'Form Informasi Jabatan',
+            'jabatan' => $jabatan,
+            'bakat_kerjas'=> BakatKerja::all(),
+            'unit_kerjas' => UnitKerja::all(),
+            'jenis_jabatan' => JenisJabatan::all(),
+            'temperamens' => TemperamenKerja::all(),
+            'upaya_fisiks' => UpayaFisik::all(),
+            'fungsi_pekerjaans' => FungsiPekerjaan::all(),
+            'minat_kerjas' => MinatKerja::all()
+        ]);
+})->name('anjab.jabatan.edit.step-two')->middleware('auth');

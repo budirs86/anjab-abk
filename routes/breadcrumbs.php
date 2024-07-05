@@ -3,11 +3,12 @@
 // Note: Laravel will automatically resolve `Breadcrumbs::` without
 // this import. This is nice for IDE syntax and refactoring.
 
+use App\Models\Jabatan;
 use App\Models\UnitKerja;
-use Diglactic\Breadcrumbs\Breadcrumbs;
 
 // This import is also not required, and you could replace `BreadcrumbTrail $trail`
 //  with `$trail`. This is nice for IDE type checking and completion.
+use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 // Home
@@ -48,9 +49,25 @@ Breadcrumbs::for('data-jabatan', function (BreadcrumbTrail $trail) {
 });
 
 // create a breadcrumb for ubah informasi jabatan page, parent-ing the data jabatan breadcrumb
-Breadcrumbs::for('ubah-informasi-jabatan', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('ubah-informasi-jabatan', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
     $trail->parent('buat-ajuan');
-    $trail->push('Ubah Informasi Jabatan', "/anjab/analisis-jabatan/create");
+    $trail->push('Ubah Informasi Jabatan ' . $jabatan->nama, route('anjab.jabatan.edit.step-one', $jabatan));
+});
+Breadcrumbs::for('isi-informasi-umum', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
+    $trail->parent('ubah-informasi-jabatan', $jabatan);
+    $trail->push('Isi Informasi Umum', route('anjab.jabatan.edit.step-one', $jabatan));
+});
+Breadcrumbs::for('isi-detail-jabatan', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
+    $trail->parent('isi-informasi-umum', $jabatan);
+    $trail->push('Isi Detail Jabatan', route('anjab.jabatan.edit.step-two', $jabatan));
+});
+Breadcrumbs::for('isi-uraian-tugas', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
+    $trail->parent('isi-kualifikasi', $jabatan);
+    $trail->push('Isi Uraian Tugas', route('anjab.jabatan.edit.step-three', $jabatan));
+});
+Breadcrumbs::for('isi-kondisi', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
+    $trail->parent('isi-uraian-tugas', $jabatan);
+    $trail->push('Isi Kondisi Lingkungan Kerja', route('anjab.jabatan.edit.step-four', $jabatan));
 });
 
 // create a bredcrumb for buat ajuan abk page, parent-ing the home breadcrumb
