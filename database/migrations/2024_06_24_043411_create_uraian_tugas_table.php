@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('jabatan_id')->constrained('jabatans');
             $table->string('nama_tugas');
-            $table->string('hasil_kerja');
-            $table->integer('beban_kerja');
-            $table->integer('waktu_penyelesaian');
+            $table->string('hasil_kerja')->nullable();
+            $table->integer('beban_kerja')->nullable();
+            $table->integer('waktu_penyelesaian')->nullable();
             $table->timestamps();
         });
     }
