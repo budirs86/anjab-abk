@@ -8,6 +8,19 @@
                 <h1 class="fw-light fs-4 d-inline nav-item">Daftar Ajuan Analisis Jabatan</h1>                
         </div>
          @can('make ajuan')
+            @if (Request::has('abk'))
+                <div class="alert alert-info alert-dismissible fade show">
+                    <div class="alert-heading d-flex justify-content-between">
+                        <div class="d-flex">
+                            <img width="20px" data-feather="info" class="m-0 p-0 me-2"></img>
+                            <p class="m-0 p-0">Perhatian</p>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <hr>  
+                    <p class="m-0 p-0">Untuk membuat ajuan ABK, silahkan tekan tombol 'Buat Ajuan ABK'</p>
+                </div>
+            @endif
             <div class="alert alert-dismissible alert-success fade show">
                 <p class="m-0">Ajuan berhasil disimpan!</p>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -48,7 +61,7 @@
                                 @if ($i % 2 != 0)                                  
                                 @else
                                     @can('make ajuan')
-                                        <a href="/abk/ajuan/create" class="btn btn-outline-success" aria-disabled="true">Buat Ajuan ABK</a>
+                                        <a href="{{ route('abk.ajuan.create',['periode' => now()->year]) }}" class="btn btn-outline-success" aria-disabled="true">Buat Ajuan ABK</a>
                                         
                                     @endcan
                                     
@@ -96,7 +109,7 @@
                                     <li>Lorem ipsum dolor doloran</li>
                                 </ul>
                             </td>
-                            
+                        
                         @endif
                     @elsecan('verify ajuan')
                         <td>
