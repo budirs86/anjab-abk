@@ -19,8 +19,8 @@ class AbkController extends Controller
     public function createAjuan()
     {
         return view('abk.buat-ajuan', [
-            'title' => '',
-            'jabatans' => Jabatan::tree()->get()->toTree()
+            'title' => 'Buat Ajuan ABK',
+            'jabatans' => Jabatan::all()
         ]);
     }
 }
