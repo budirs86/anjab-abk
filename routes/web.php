@@ -19,6 +19,7 @@ use App\Http\Controllers\AnalisisJabatanController;
 use App\Http\Controllers\BahanKerjaController;
 use App\Http\Controllers\KualifikasiController;
 use App\Http\Controllers\PerangkatKerjaController;
+use App\Http\Controllers\TanggungJawabController;
 use App\Http\Controllers\UraianTugasController;
 
 Route::get('/', function () {
@@ -56,6 +57,8 @@ Route::prefix('anjab')->group(function () {
         Route::delete('/bahanKerja/{bahanKerja}/delete', [BahanKerjaController::class, 'deleteBahanKerja'])->name('anjab.jabatan.bahanKerja.delete')->middleware('auth');
         Route::post('/perangkatKerja/store', [PerangkatKerjaController::class, 'storePerangkatKerja'])->name('anjab.jabatan.perangkatKerja.store')->middleware('auth');
         Route::delete('/perangkatKerja/{perangkatKerja}/delete', [PerangkatKerjaController::class, 'deletePerangkatKerja'])->name('anjab.jabatan.perangkatKerja.delete')->middleware('auth');
+        Route::post('/tanggungJawab/store', [TanggungJawabController::class, 'storeTanggungJawab'])->name('anjab.jabatan.tanggungJawab.store')->middleware('auth');
+        Route::delete('/tanggungJawab/{tanggungJawab}/delete', [TanggungJawabController::class, 'deleteTanggungJawab'])->name('anjab.jabatan.tanggungJawab.delete')->middleware('auth');
     });
 });
 

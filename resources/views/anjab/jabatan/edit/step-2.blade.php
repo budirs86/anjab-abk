@@ -327,23 +327,34 @@
                 <th>Uraian</th>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td class="d-flex justify-content-between">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro modi ad nam vero ea
-                            temporibus.</p>
-                        <div class="">
-                            <a href="" class="btn btn-warning"><img width="20px" data-feather="edit"></img></a>
-                            <a href="" class="btn btn-danger"><img width="20px" data-feather="trash"></img></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <form action="">
-                        <td>2</td>
+                @foreach ($jabatan->tanggungJawab as $tanggungJawab)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
                         <td class="d-flex justify-content-between">
-                            <input type="text" class="form-control w-50" placeholder="Masukkan Nama Pengalaman">
-                            <button type="button" class="btn btn-primary"><i data-feather="plus"></i>
+                            <p>{{ $tanggungJawab->nama }}</p>
+                            <div class="">
+                                <form
+                                    action="{{ route('anjab.jabatan.tanggungJawab.delete', ['jabatan' => $jabatan->id, 'tanggungJawab' => $tanggungJawab->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                                    <button type="submit" class="btn btn-danger">
+                                        <img width="20px" data-feather="trash"></img>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+                <tr>
+                    <form action="{{ route('anjab.jabatan.tanggungJawab.store', ['jabatan' => $jabatan->id]) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                        <td></td>
+                        <td class="d-flex justify-content-between">
+                            <input name="nama" type="text" class="form-control w-50" placeholder="Masukkan Tanggung Jawab">
+                            <button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
                                 Tambah</button>
                         </td>
                     </form>
