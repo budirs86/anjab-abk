@@ -82,9 +82,9 @@ Breadcrumbs::for('isi-informasi-abk', function (BreadcrumbTrail $trail) {
     $trail->push('Isi Informasi ABK', "/abk/ajuan/data-abk");
 });
 
-Breadcrumbs::for('informasi-abk-jabatan', function (BreadcrumbTrail $trail, $jabatan) {
-    $trail->parent('lihat-ajuan-abk');
-    $trail->push('Edit Informasi ABK' . ' ' . $jabatan->nama_jabatan, "/abk/ajuan/data-abk");
+Breadcrumbs::for('edit-ajuan-abk-jabatan', function (BreadcrumbTrail $trail, $ajuan, $unit_kerja, $jabatan) {
+    $trail->parent('edit-ajuan-abk-unitkerja', $ajuan, $unit_kerja);
+    $trail->push($jabatan->nama, route('abk.jabatan.show',[$ajuan, $unit_kerja, $jabatan]));
 });
 
 
