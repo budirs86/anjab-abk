@@ -174,6 +174,17 @@ Route::get('/abk/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}',function(Aju
         'jabatan' => $jabatan,
     ]);
 })->name('abk.jabatan.show');
+Route::get('/abk/ajuan/{ajuan}/unit/{unit_kerja}/edit',function(Ajuan $ajuan,UnitKerja $unit_kerja) {
+    // $jabatans = Jabatan::tree()->get()->toTree();
+
+    return view('abk.unitkerja.edit',[
+
+        'title' => 'Lihat Informasi ABK',
+        'ajuan' => $ajuan,
+        'unit_kerja' => $unit_kerja,
+        'jabatans' => Jabatan::where('unit_kerja_id',$unit_kerja->id)->get(),
+    ]);
+})->name('abk.unitkerja.edit');
 Route::get('/abk/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}/edit',function(Ajuan $ajuan,UnitKerja $unit_kerja, Jabatan $jabatan) {
     // $jabatans = Jabatan::tree()->get()->toTree();
 
