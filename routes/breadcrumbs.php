@@ -59,15 +59,15 @@ Breadcrumbs::for('isi-informasi-umum', function (BreadcrumbTrail $trail, Jabatan
 });
 Breadcrumbs::for('isi-detail-jabatan', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
     $trail->parent('isi-informasi-umum', $jabatan);
-    $trail->push('Isi Detail Jabatan', route('anjab.jabatan.edit.step-two', $jabatan));
+    $trail->push('Isi Detail Jabatan', route('anjab.jabatan.edit.2', $jabatan));
 });
 Breadcrumbs::for('isi-uraian-tugas', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
     $trail->parent('isi-kualifikasi', $jabatan);
-    $trail->push('Isi Uraian Tugas', route('anjab.jabatan.edit.step-three', $jabatan));
+    $trail->push('Isi Uraian Tugas', route('anjab.jabatan.edit.3', $jabatan));
 });
 Breadcrumbs::for('isi-kondisi', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
     $trail->parent('isi-uraian-tugas', $jabatan);
-    $trail->push('Isi Kondisi Lingkungan Kerja', route('anjab.jabatan.edit.step-four', $jabatan));
+    $trail->push('Isi Kondisi Lingkungan Kerja', route('anjab.jabatan.edit.4', $jabatan));
 });
 
 // create a bredcrumb for buat ajuan abk page, parent-ing the home breadcrumb
