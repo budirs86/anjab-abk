@@ -9,8 +9,10 @@ class AbkController extends Controller
 {
     public function index()
     {
+        
         return view('abk.ajuans', [
-            'title' => 'Daftar Ajuan ABK    '
+            'title' => 'Daftar Ajuan ABK',
+            'ajuans' => Ajuan::all()
         ]);
     }
 
