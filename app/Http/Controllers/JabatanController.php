@@ -7,6 +7,7 @@ use App\Models\BakatKerja;
 use App\Models\FungsiPekerjaan;
 use App\Models\Jabatan;
 use App\Models\JenisJabatan;
+use App\Models\MinatKerja;
 use App\Models\TemperamenKerja;
 use App\Models\UnitKerja;
 use App\Models\UpayaFisik;
@@ -72,5 +73,12 @@ class JabatanController extends Controller
         $fungsi_pekerjaans = FungsiPekerjaan::all();
 
         return view('anjab.jabatan.edit.step-1', compact('title', 'jabatan', 'bakat_kerjas', 'unit_kerjas', 'jenis_jabatan', 'temperamens', 'upaya_fisiks', 'fungsi_pekerjaans'));
+    }
+
+    public function update1(Request $request, Jabatan $jabatan)
+    {
+        $jabatan->update($request->all());
+
+        return redirect()->route('anjab.jabatan.edit.2', ['jabatan' => $jabatan])->with('success', 'Data Jabatan berhasil Diubah');
     }
 }

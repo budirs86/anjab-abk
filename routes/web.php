@@ -41,7 +41,7 @@ Route::prefix('anjab')->group(function () {
         Route::get('/', [JabatanController::class, 'show'])->name('anjab.jabatan.show')->middleware('auth');
         Route::get('/edit', [JabatanController::class, 'edit'])->name('anjab.jabatan.edit')->middleware('auth');
         Route::get('/edit/1', [JabatanController::class, 'edit1'])->name('anjab.jabatan.edit.1')->middleware('auth');
-        Route::put('/update', [JabatanController::class, 'update'])->name('anjab.jabatan.update')->middleware('auth');
+        Route::put('/update/1', [JabatanController::class, 'update1'])->name('anjab.jabatan.update.1')->middleware('auth');
         Route::post('/pendidikan/store', [KualifikasiController::class, 'storePendidikan'])->name('anjab.jabatan.pendidikan.store')->middleware('auth');
         Route::delete('/pendidikan/{pendidikan}/delete', [KualifikasiController::class, 'deletePendidikan'])->name('anjab.jabatan.pendidikan.delete')->middleware('auth');
         Route::post('/pengalaman/store', [KualifikasiController::class, 'storePengalaman'])->name('anjab.jabatan.pengalaman.store')->middleware('auth');

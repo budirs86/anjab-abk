@@ -23,7 +23,7 @@
         <hr>
         <p class="m-0 p-0">Silahkan Isi Nama Jabatan, Jenis Jabatan, dan Ikhtisar Jabatan dengan informasi yang benar.</p>
     </div>
-    <form action="{{ route('anjab.jabatan.update', ['jabatan' => $jabatan]) }}" method="POST">
+    <form action="{{ route('anjab.jabatan.update1', ['jabatan' => $jabatan]) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">
