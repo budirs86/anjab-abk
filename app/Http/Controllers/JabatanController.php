@@ -81,4 +81,25 @@ class JabatanController extends Controller
 
         return redirect()->route('anjab.jabatan.edit.2', ['jabatan' => $jabatan])->with('success', 'Data Jabatan berhasil Diubah');
     }
+
+    public function edit2(Jabatan $jabatan)
+    {
+        $title = 'Form Informasi Jabatan';
+        $bakat_kerjas = BakatKerja::all();
+        $unit_kerjas = UnitKerja::all();
+        $jenis_jabatan = JenisJabatan::all();
+        $temperamens = TemperamenKerja::all();
+        $upaya_fisiks = UpayaFisik::all();
+        $fungsi_pekerjaans = FungsiPekerjaan::all();
+        $minat_kerjas = MinatKerja::all();
+
+        return view('anjab/jabatan/edit/step-2', compact('title', 'jabatan', 'bakat_kerjas', 'unit_kerjas', 'jenis_jabatan', 'temperamens', 'upaya_fisiks', 'fungsi_pekerjaans', 'minat_kerjas'));
+    }
+
+    public function update2(Request $request, Jabatan $jabatan)
+    {
+        $jabatan->update($request->all());
+
+        return redirect()->route('anjab.jabatan.edit.2', ['jabatan' => $jabatan])->with('success', 'Data Jabatan berhasil Diubah');
+    }
 }
