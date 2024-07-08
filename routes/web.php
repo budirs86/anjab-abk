@@ -21,6 +21,7 @@ use App\Http\Controllers\KualifikasiController;
 use App\Http\Controllers\PerangkatKerjaController;
 use App\Http\Controllers\TanggungJawabController;
 use App\Http\Controllers\UraianTugasController;
+use App\Http\Controllers\WewenangController;
 
 Route::get('/', function () {
     return view('home', [
@@ -32,33 +33,35 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
-Route::prefix('anjab')->group(function () {
-    Route::prefix('ajuan')->group(function () {
-        Route::get('/', [AjuanController::class, 'anjabIndex'])->name('anjab.ajuan.index')->middleware('auth');
-        Route::get('/create', [AjuanController::class, 'anjabCreate'])->name('anjab.ajuan.create')->middleware('auth');
-        Route::post('/store/', [AjuanController::class, 'anjabStore'])->name('anjab.ajuan.store')->middleware('auth');
+Route::prefix('anjab')->middleware('auth')->group(function () {
+    Route::prefix('ajuan')->name('anjab.ajuan.')->group(function () {
+        Route::get('/', [AjuanController::class, 'anjabIndex'])->name('index');
+        Route::get('/create', [AjuanController::class, 'anjabCreate'])->name('create');
+        Route::post('/store', [AjuanController::class, 'anjabStore'])->name('store');
     });
-    Route::prefix('jabatan/{jabatan}')->group(function () {
-        Route::get('/', [JabatanController::class, 'show'])->name('anjab.jabatan.show')->middleware('auth');
-        Route::get('/edit', [JabatanController::class, 'edit'])->name('anjab.jabatan.edit')->middleware('auth');
-        Route::get('/edit/1', [JabatanController::class, 'edit1'])->name('anjab.jabatan.edit.1')->middleware('auth');
-        Route::put('/update/1', [JabatanController::class, 'update1'])->name('anjab.jabatan.update.1')->middleware('auth');
-        Route::get('/edit/2', [JabatanController::class, 'edit2'])->name('anjab.jabatan.edit.2')->middleware('auth');
-        Route::put('/update/2', [JabatanController::class, 'update2'])->name('anjab.jabatan.update.2')->middleware('auth');
-        Route::post('/pendidikan/store', [KualifikasiController::class, 'storePendidikan'])->name('anjab.jabatan.pendidikan.store')->middleware('auth');
-        Route::delete('/pendidikan/{pendidikan}/delete', [KualifikasiController::class, 'deletePendidikan'])->name('anjab.jabatan.pendidikan.delete')->middleware('auth');
-        Route::post('/pengalaman/store', [KualifikasiController::class, 'storePengalaman'])->name('anjab.jabatan.pengalaman.store')->middleware('auth');
-        Route::delete('/pengalaman/{pengalaman}/delete', [KualifikasiController::class, 'deletePengalaman'])->name('anjab.jabatan.pengalaman.delete')->middleware('auth');
-        Route::post('/pelatihan/store', [KualifikasiController::class, 'storePelatihan'])->name('anjab.jabatan.pelatihan.store')->middleware('auth');
-        Route::delete('/pelatihan/{pelatihan}/delete', [KualifikasiController::class, 'deletePelatihan'])->name('anjab.jabatan.pelatihan.delete')->middleware('auth');
-        Route::post('/uraian/store', [UraianTugasController::class, 'storeUraian'])->name('anjab.jabatan.uraian.store')->middleware('auth');
-        Route::delete('/uraian/{uraian}/delete', [UraianTugasController::class, 'deleteUraian'])->name('anjab.jabatan.uraian.delete')->middleware('auth');
-        Route::post('/bahanKerja/store', [BahanKerjaController::class, 'storeBahanKerja'])->name('anjab.jabatan.bahanKerja.store')->middleware('auth');
-        Route::delete('/bahanKerja/{bahanKerja}/delete', [BahanKerjaController::class, 'deleteBahanKerja'])->name('anjab.jabatan.bahanKerja.delete')->middleware('auth');
-        Route::post('/perangkatKerja/store', [PerangkatKerjaController::class, 'storePerangkatKerja'])->name('anjab.jabatan.perangkatKerja.store')->middleware('auth');
-        Route::delete('/perangkatKerja/{perangkatKerja}/delete', [PerangkatKerjaController::class, 'deletePerangkatKerja'])->name('anjab.jabatan.perangkatKerja.delete')->middleware('auth');
-        Route::post('/tanggungJawab/store', [TanggungJawabController::class, 'storeTanggungJawab'])->name('anjab.jabatan.tanggungJawab.store')->middleware('auth');
-        Route::delete('/tanggungJawab/{tanggungJawab}/delete', [TanggungJawabController::class, 'deleteTanggungJawab'])->name('anjab.jabatan.tanggungJawab.delete')->middleware('auth');
+    Route::prefix('jabatan/{jabatan}')->name('anjab.jabatan.')->group(function () {
+        Route::get('/', [JabatanController::class, 'show'])->name('show');
+        Route::get('/edit', [JabatanController::class, 'edit'])->name('edit');
+        Route::get('/edit/1', [JabatanController::class, 'edit1'])->name('edit.1');
+        Route::put('/update/1', [JabatanController::class, 'update1'])->name('update.1');
+        Route::get('/edit/2', [JabatanController::class, 'edit2'])->name('edit.2');
+        Route::put('/update/2', [JabatanController::class, 'update2'])->name('update.2');
+        Route::post('/pendidikan/store', [KualifikasiController::class, 'storePendidikan'])->name('pendidikan.store');
+        Route::delete('/pendidikan/{pendidikan}/delete', [KualifikasiController::class, 'deletePendidikan'])->name('pendidikan.delete');
+        Route::post('/pengalaman/store', [KualifikasiController::class, 'storePengalaman'])->name('pengalaman.store');
+        Route::delete('/pengalaman/{pengalaman}/delete', [KualifikasiController::class, 'deletePengalaman'])->name('pengalaman.delete');
+        Route::post('/pelatihan/store', [KualifikasiController::class, 'storePelatihan'])->name('pelatihan.store');
+        Route::delete('/pelatihan/{pelatihan}/delete', [KualifikasiController::class, 'deletePelatihan'])->name('pelatihan.delete');
+        Route::post('/uraian/store', [UraianTugasController::class, 'storeUraian'])->name('uraian.store');
+        Route::delete('/uraian/{uraian}/delete', [UraianTugasController::class, 'deleteUraian'])->name('uraian.delete');
+        Route::post('/bahanKerja/store', [BahanKerjaController::class, 'storeBahanKerja'])->name('bahanKerja.store');
+        Route::delete('/bahanKerja/{bahanKerja}/delete', [BahanKerjaController::class, 'deleteBahanKerja'])->name('bahanKerja.delete');
+        Route::post('/perangkatKerja/store', [PerangkatKerjaController::class, 'storePerangkatKerja'])->name('perangkatKerja.store');
+        Route::delete('/perangkatKerja/{perangkatKerja}/delete', [PerangkatKerjaController::class, 'deletePerangkatKerja'])->name('perangkatKerja.delete');
+        Route::post('/tanggungJawab/store', [TanggungJawabController::class, 'storeTanggungJawab'])->name('tanggungJawab.store');
+        Route::delete('/tanggungJawab/{tanggungJawab}/delete', [TanggungJawabController::class, 'deleteTanggungJawab'])->name('tanggungJawab.delete');
+        Route::post('/wewenang/store', [WewenangController::class, 'storeWewenang'])->name('wewenang.store');
+        Route::delete('/wewenang/{wewenang}/delete', [WewenangController::class, 'deleteWewenang'])->name('wewenang.delete');
     });
 });
 
