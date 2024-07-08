@@ -373,11 +373,11 @@
             </thead>
             <tbody>
                 @foreach ($jabatan->wewenang as $wewenang)
-                <tr>
+                    <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td class="d-flex justify-content-between">
                             <p>{{ $wewenang->nama }}</p>
-                        <div class="">
+                            <div class="">
                                 <form
                                     action="{{ route('anjab.jabatan.wewenang.delete', ['jabatan' => $jabatan->id, 'wewenang' => $wewenang->id]) }}"
                                     method="POST">
@@ -388,9 +388,9 @@
                                         <img width="20px" data-feather="trash"></img>
                                     </button>
                                 </form>
-                        </div>
-                    </td>
-                </tr>
+                            </div>
+                        </td>
+                    </tr>
                 @endforeach
                 <tr>
                     <form action="{{ route('anjab.jabatan.wewenang.store', ['jabatan' => $jabatan->id]) }}"
@@ -414,12 +414,30 @@
         <table class="table table-bordered" id="korelasi_jabatan">
             <thead class="table-info">
                 <th>No</th>
-                <th>Unit Kerja/Instansi</th>
                 <th>Jabatan</th>
+                <th>Unit Kerja/Instansi</th>
                 <th>Dalam Hal</th>
                 <th>Aksi</th>
             </thead>
             <tbody>
+                @foreach ($jabatan->korelasiJabatan as $korelasiJabatan)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $perangkatKerja->nama }}</td>
+                        <td class="d-flex gap-1">
+                            <form
+                                action="{{ route('anjab.jabatan.perangkatKerja.delete', ['jabatan' => $jabatan->id, 'perangkatKerja' => $perangkatKerja->id]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                                <button type="submit" class="btn btn-danger">
+                                    <img width="20px" data-feather="trash"></img>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
                 <tr>
                     <td>1</td>
                     <td>Lorem ipsum dolor sit amet.</td>
@@ -443,12 +461,7 @@
                         </select>
                     </td>
                     <td>
-                        <select name="" id="" class="form-select">
-                            <option value="">Pilih Jabatan</option>
-                            <option value="">Lorem, ipsum dolor.</option>
-                            <option value="">Lorem, ipsum dolor.</option>
-                            <option value="">Lorem, ipsum dolor.</option>
-                        </select>
+                        <input type="text" class="form-control" placeholder="Masukkan Unit Kerja/Instansi">
                     </td>
                     <td>
                         <input type="text" class="form-control" placeholder="Masukkan Korelasi Jabatan">

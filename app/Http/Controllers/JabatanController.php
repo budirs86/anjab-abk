@@ -85,6 +85,7 @@ class JabatanController extends Controller
     public function edit2(Jabatan $jabatan)
     {
         $title = 'Form Informasi Jabatan';
+        $jabatans = Jabatan::orderBy('nama')->get();
         $bakat_kerjas = BakatKerja::all();
         $unit_kerjas = UnitKerja::all();
         $jenis_jabatan = JenisJabatan::all();
@@ -93,7 +94,7 @@ class JabatanController extends Controller
         $fungsi_pekerjaans = FungsiPekerjaan::all();
         $minat_kerjas = MinatKerja::all();
 
-        return view('anjab/jabatan/edit/step-2', compact('title', 'jabatan', 'bakat_kerjas', 'unit_kerjas', 'jenis_jabatan', 'temperamens', 'upaya_fisiks', 'fungsi_pekerjaans', 'minat_kerjas'));
+        return view('anjab/jabatan/edit/step-2', compact('title', 'jabatans', 'jabatan', 'bakat_kerjas', 'unit_kerjas', 'jenis_jabatan', 'temperamens', 'upaya_fisiks', 'fungsi_pekerjaans', 'minat_kerjas'));
     }
 
     public function update2(Request $request, Jabatan $jabatan)

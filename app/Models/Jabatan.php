@@ -50,4 +50,8 @@ class Jabatan extends Model
     public function wewenang() {
         return $this->hasMany(Wewenang::class);
     }
+
+    public function korelasiJabatan() {
+        return $this->hasMany(KorelasiJabatan::class);
+    }
 }
