@@ -2,10 +2,10 @@
 
 @section('container')
     <div class="">
-        {{ Breadcrumbs::render('ajuan-abk-jabatan',$ajuan, $unit_kerja, $jabatan) }}
+        {{ Breadcrumbs::render('edit-ajuan-abk-jabatan',$ajuan, $unit_kerja, $jabatan) }}
     </div>
     <div class="card-head mb-3">
-        <h1 class="fw-light fs-4 d-inline nav-item">Analisis Beban Kerja {{ $jabatan->nama }}</h1>                
+        <h1 class="fw-light fs-4 d-inline nav-item">Edit Analisis Beban Kerja {{ $jabatan->nama }}</h1>                
     </div>
     <hr>
     <label for="uraian_tugas_table" class="form-label">Uraian Tugas</label>
@@ -16,22 +16,27 @@
                     <th class="fw-semibold text-muted" scope="col ">Uraian Tugas</th>
                     <th class="fw-semibold text-muted" scope="col ">Hasil Kerja</th>
                     <th class="fw-semibold text-muted" scope="col ">Jumlah Hasil Kerja</th>
-                    <th class="fw-semibold text-muted" scope="col ">Waktu Penyelesaian</th>
+                    <th class="fw-semibold text-muted" scope="col ">Waktu Penyelesaian (dalam jam)</th>
+                    <th class="fw-semibold text-muted" scope="col ">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="">   
+                    <td>
                         Membuat Rencana Strategis
                     </td>
-                    <td class="">   
-                        Rencana Strategis
+                    <td class="">
+                        {{-- create a text input and labelfor "hasil kerja" --}}
+                        <input type="text" class="form-control" name="hasil_kerja" id="hasil_kerja" value="Rencana Strategis">
+                    </td>
+                    <td class="d-flex">   
+                        <input type="text" class="form-control" name="beban_kerja" id="beban_kerja" value="1">
                     </td>
                     <td class="">   
-                        1 Rencana Strategis
+                        <input type="text" class="form-control" name="waktu_penyelesaian" id="waktu_penyelesaian" value="16">
                     </td>
-                    <td class="">   
-                        16 jam
+                    <td class="text-center">   
+                        <button class="btn btn-primary"><i data-feather="save"></i> Simpan</button>
                     </td>
                 </tr>   
             </tbody>
@@ -56,6 +61,6 @@
         </div>
     </div>
     <div class="">
-        <a href="{{ route('abk.unitkerja.show',[$ajuan, $unit_kerja]) }}" class="btn btn-primary header1"><img src="" alt="" data-feather="arrow-left" width="20px"> Kembali</a>
+        <a href="{{ url()->previous() }}" class="btn btn-primary header1"><img src="" alt="" data-feather="arrow-left" width="20px"> Kembali</a>
     </div>  
 @endsection

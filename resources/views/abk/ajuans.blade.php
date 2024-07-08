@@ -34,83 +34,73 @@
             {{-- @foreach ($ajuanData as $ajuan)
             @endforeach --}}
             
-            @for($i = 1; $i <= 2; $i++)
+            @foreach ($ajuans as $ajuan)
                 <tr>
-                    <td>{{ $i }}</td>
+                <td>{{ $loop->iteration }}</td>
+                <td class="w-25">
+                    <div class="d-flex justify-content-between">
+                        <p>{{ $ajuan->tahun }}</p>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a href="{{ route('abk.ajuan', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
+                        </div>
+                    </div>
+                </td>
+                @can('make ajuan')
                     <td class="w-25">
-                        <div class="d-flex justify-content-between">
-                            <p>{{ $i + 2020}} </p>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="/anjab/ajuan/{{ $i }}?periode={{ $i+2020 }}" class="btn btn-outline-primary">Lihat</a>
-                                @can('make ajuan')
-                                    @if ($i % 2 != 0)
-                                        <a href="/anjab/ajuan/{{ $i }}/edit?periode={{ $i+2020 }}" type="button" class="btn btn-outline-secondary">Edit</a>                                    
-                                    @endif
-                                @endcan
+                        <div class="alert alert-success w-100">
+                            <div class="alert-heading d-flex">
+                                <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
+                                <p class="m-0 p-0">Disetujui</p>
                             </div>
+                            <hr>  
+                            <p class="m-0 p-0">Manajer Tata Usaha/Kepegawaian</p>
+                        </div>
+                        <div class="alert alert-info w-100">
+                            <div class="alert-heading d-flex">
+                                <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
+                                <p class="m-0 p-0">Menunggu Diperiksa</p>
+                            </div>
+                            <hr>  
+                            <p class="m-0 p-0">Kepala Biro, Wakil Dekan 2, Sekretaris Lembaga</p>
+                        </div>
+                        <div class="alert alert-warning w-100">
+                                <div class="alert-heading d-flex">
+                                    <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
+                                    <p class="m-0 p-0">Perlu Perbaikan</p>
+                                </div>
+                                <hr>  
+                                <p class="m-0 p-0">Kepala Biro, Wakil Dekan 2, Sekretaris Lembaga</p>
                         </div>
                     </td>
-                    @can('make ajuan')
-                        @if ($i % 2 == 0)
-                            <td class="w-25">
-                                <div class="alert alert-success w-100">
-                                    <div class="alert-heading d-flex">
-                                        <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
-                                        <p class="m-0 p-0">Disetujui</p>
-                                    </div>
-                                    <hr>  
-                                    <p class="m-0 p-0">Manajer Tata Usaha/Kepegawaian</p>
-                                </div>
-                                <div class="alert alert-info w-100">
-                                    <div class="alert-heading d-flex">
-                                        <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
-                                        <p class="m-0 p-0">Menunggu Diperiksa</p>
-                                    </div>
-                                    <hr>  
-                                    <p class="m-0 p-0">Kepala Biro, Wakil Dekan 2, Sekretaris Lembaga</p>
-                                </div>
-                            </td>
-                            <td>Tidak ada catatan.</td>
-                            @else
-                            <td class="">
-                                <div class="alert alert-warning w-100">
-                                        <div class="alert-heading d-flex">
-                                            <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
-                                            <p class="m-0 p-0">Perlu Perbaikan</p>
-                                        </div>
-                                        <hr>  
-                                        <p class="m-0 p-0">Kepala Biro, Wakil Dekan 2, Sekretaris Lembaga</p>
-                                </div>
+                    <td>Tidak ada catatan.
 
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>Lorem ipsum dolor doloran</li>
-                                    <li>Lorem ipsum dolor doloran</li>
-                                    <li>Lorem ipsum dolor doloran</li>
-                                </ul>
-                            </td>
-                            
-                        @endif
-                    @elsecan('verify ajuan')
-                        <td>
-                            <p>{{ now()->format('d-m-Y') }}</p>
-                        </td>
-                        <td>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="" class="btn btn-outline-primary">Lihat</a>
-                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalTerima">Terima</button>
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalRevisi">Revisi</button>
-                            </div>
-                        </td>
-                    @endcan
-                    {{-- <td>{{  ? <p class="bad"></p> : "Revisi" }}</td> --}}
+                        <ul>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                        </ul>
+
+                    </td>
+                @elsecan('verify ajuan')
+                    <td>
+                        <p>{{ now()->format('d-m-Y') }}</p>
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a href="" class="btn btn-outline-primary">Lihat</a>
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalTerima">Terima</button>
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalRevisi">Revisi</button>
+                        </div>
+                    </td>
+                @endcan
+                {{-- <td>{{  ? <p class="bad"></p> : "Revisi" }}</td> --}}
                 </tr>
-            @endfor
+            @endforeach
             {{-- please  --}}
             </tbody>
         </table>
-
+        <a href="{{ route('home') }}" class="btn btn-primary header1"><i data-feather="arrow
+            -left"></i> Kembali</a>
         <div class="modal fade" tabindex="-1" id="modalTerima">
             <div class="modal-dialog">
                 <div class="modal-content">

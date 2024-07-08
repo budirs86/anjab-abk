@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ajuan;
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
 
@@ -9,16 +10,18 @@ class AbkController extends Controller
 {
     public function index()
     {
+        
         return view('abk.ajuans', [
-            'title' => 'Daftar Ajuan ABK    '
+            'title' => 'Daftar Ajuan ABK',
+            'ajuans' => Ajuan::all()
         ]);
     }
 
     public function createAjuan()
     {
         return view('abk.buat-ajuan', [
-            'title' => '',
-            'jabatans' => Jabatan::tree()->get()->toTree()
+            'title' => 'Buat Ajuan ABK',
+            'jabatans' => Jabatan::all()
         ]);
     }
 }

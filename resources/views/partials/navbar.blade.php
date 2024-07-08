@@ -69,6 +69,7 @@
                         <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"><img
                                 data-feather="edit" width="20px"></img> ABK</a>
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.ajuan.index',['abk' => true]) }}">Buat Ajuan Baru</a></li>
                             <li><a class="dropdown-item me-3 my-1" href="{{ route('abk.ajuans') }}">Lihat Ajuan</a></li>
                         </ul>
                     </li>
