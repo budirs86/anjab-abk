@@ -106,7 +106,11 @@ Breadcrumbs::for('edit-ajuan-abk', function (BreadcrumbTrail $trail) {
     $trail->push('Edit Ajuan ABK', "");
 });
 
-// 
+// create a breadcrumb for Buat Informasi Beban Kerja page, parent-ing the buat ajuan abk breadcrumb
+Breadcrumbs::for('buat-informasi-beban-kerja', function (BreadcrumbTrail $trail) {
+    $trail->parent('buat-ajuan-abk');
+    $trail->push('Buat Informasi Beban Kerja', "/abk/jabatan/{jabatan:id}/create");
+});
 
 
 // Home > Blog

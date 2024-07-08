@@ -124,6 +124,12 @@ Route::get('/anjab/ajuan/{id}/unit/{unitkerja:id}', function ($id, UnitKerja $un
 
 Route::get('abk/ajuan', [AbkController::class, 'index'])->name('abk.ajuans');
 Route::get('abk/ajuan/create', [AbkController::class, 'createAjuan'])->name('abk.ajuan.create');
+Route::get('abk/jabatan/{jabatan:id}/create', function(Jabatan $jabatan){
+    return view('abk.jabatan.create',[
+        'jabatan' => $jabatan,
+        'title' => 'Buat Informasi Beban Kerja'
+    ]);
+})->name('abk.jabatan.create');
 
 Route::get('abk/ajuan/data-abk', function () {
     return view('abk.abkform', [
