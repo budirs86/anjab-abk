@@ -22,7 +22,7 @@ use App\Http\Controllers\PerangkatKerjaController;
 use App\Http\Controllers\UraianTugasController;
 
 Route::get('/', function () {
-    return view('home',[
+    return view('home', [
         'title' => 'Dashboard'
     ]);
 })->middleware('auth')->name('home');
@@ -31,39 +31,45 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
-Route::get('/anjab/ajuan', [AjuanController::class, 'anjabIndex'])->name('anjab.ajuan.index')->middleware('auth');
-Route::get('/anjab/ajuan/create', [AjuanController::class, 'anjabCreate'])->name('anjab.ajuan.create')->middleware('auth');
-Route::post('/anjab/ajuan/store/', [AjuanController::class, 'anjabStore'])->name('anjab.ajuan.store')->middleware('auth');
+Route::prefix('anjab')->group(function () {
+    Route::prefix('ajuan')->group(function () {
+        Route::get('/', [AjuanController::class, 'anjabIndex'])->name('anjab.ajuan.index')->middleware('auth');
+        Route::get('/create', [AjuanController::class, 'anjabCreate'])->name('anjab.ajuan.create')->middleware('auth');
+        Route::post('/store/', [AjuanController::class, 'anjabStore'])->name('anjab.ajuan.store')->middleware('auth');
+    });
+    Route::prefix('jabatan/{jabatan}')->group(function () {
+        Route::get('/', [JabatanController::class, 'show'])->name('anjab.jabatan.show')->middleware('auth');
+        Route::get('/edit', [JabatanController::class, 'edit'])->name('anjab.jabatan.edit')->middleware('auth');
+        Route::get('/edit/1', [JabatanController::class, 'edit1'])->name('anjab.jabatan.edit.1')->middleware('auth');
+        Route::put('/update', [JabatanController::class, 'update'])->name('anjab.jabatan.update')->middleware('auth');
+        Route::post('/pendidikan/store', [KualifikasiController::class, 'storePendidikan'])->name('anjab.jabatan.pendidikan.store')->middleware('auth');
+        Route::delete('/pendidikan/{pendidikan}/delete', [KualifikasiController::class, 'deletePendidikan'])->name('anjab.jabatan.pendidikan.delete')->middleware('auth');
+        Route::post('/pengalaman/store', [KualifikasiController::class, 'storePengalaman'])->name('anjab.jabatan.pengalaman.store')->middleware('auth');
+        Route::delete('/pengalaman/{pengalaman}/delete', [KualifikasiController::class, 'deletePengalaman'])->name('anjab.jabatan.pengalaman.delete')->middleware('auth');
+        Route::post('/pelatihan/store', [KualifikasiController::class, 'storePelatihan'])->name('anjab.jabatan.pelatihan.store')->middleware('auth');
+        Route::delete('/pelatihan/{pelatihan}/delete', [KualifikasiController::class, 'deletePelatihan'])->name('anjab.jabatan.pelatihan.delete')->middleware('auth');
+        Route::post('/uraian/store', [UraianTugasController::class, 'storeUraian'])->name('anjab.jabatan.uraian.store')->middleware('auth');
+        Route::delete('/uraian/{uraian}/delete', [UraianTugasController::class, 'deleteUraian'])->name('anjab.jabatan.uraian.delete')->middleware('auth');
+        Route::post('/bahanKerja/store', [BahanKerjaController::class, 'storeBahanKerja'])->name('anjab.jabatan.bahanKerja.store')->middleware('auth');
+        Route::delete('/bahanKerja/{bahanKerja}/delete', [BahanKerjaController::class, 'deleteBahanKerja'])->name('anjab.jabatan.bahanKerja.delete')->middleware('auth');
+        Route::post('/perangkatKerja/store', [PerangkatKerjaController::class, 'storePerangkatKerja'])->name('anjab.jabatan.perangkatKerja.store')->middleware('auth');
+        Route::delete('/perangkatKerja/{perangkatKerja}/delete', [PerangkatKerjaController::class, 'deletePerangkatKerja'])->name('anjab.jabatan.perangkatKerja.delete')->middleware('auth');
+    });
+});
 
-Route::get('/anjab/jabatan/{jabatan:id}', [JabatanController::class, 'show'])->name('anjab.jabatan.show')->middleware('auth');
-Route::get('/anjab/jabatan/{jabatan:id}/edit', [JabatanController::class, 'edit'])->name('anjab.jabatan.edit')->middleware('auth');
-Route::get('/anjab/jabatan/{jabatan:id}/edit/1', [JabatanController::class, 'edit1'])->name('anjab.jabatan.edit.1')->middleware('auth');
-Route::put('/anjab/jabatan/{jabatan:id}/update', [JabatanController::class, 'update'])->name('anjab.jabatan.update')->middleware('auth');
-Route::post('/anjab/jabatan/{jabatan:id}/pendidikan/store', [KualifikasiController::class, 'storePendidikan'])->name('anjab.jabatan.pendidikan.store')->middleware('auth');
-Route::delete('/anjab/jabatan/{jabatan}/pendidikan/{pendidikan}/delete', [KualifikasiController::class, 'deletePendidikan'])->name('anjab.jabatan.pendidikan.delete')->middleware('auth');
-Route::post('/anjab/jabatan/{jabatan:id}/pengalaman/store', [KualifikasiController::class, 'storePengalaman'])->name('anjab.jabatan.pengalaman.store')->middleware('auth');
-Route::delete('/anjab/jabatan/{jabatan}/pengalaman/{pengalaman}/delete', [KualifikasiController::class, 'deletePengalaman'])->name('anjab.jabatan.pengalaman.delete')->middleware('auth');
-Route::post('/anjab/jabatan/{jabatan:id}/pelatihan/store', [KualifikasiController::class, 'storePelatihan'])->name('anjab.jabatan.pelatihan.store')->middleware('auth');
-Route::delete('/anjab/jabatan/{jabatan}/pelatihan/{pelatihan}/delete', [KualifikasiController::class, 'deletePelatihan'])->name('anjab.jabatan.pelatihan.delete')->middleware('auth');
-Route::post('/anjab/jabatan/{jabatan:id}/uraian/store', [UraianTugasController::class, 'storeUraian'])->name('anjab.jabatan.uraian.store')->middleware('auth');
-Route::delete('/anjab/jabatan/{jabatan}/uraian/{uraian}/delete', [UraianTugasController::class, 'deleteUraian'])->name('anjab.jabatan.uraian.delete')->middleware('auth');
-Route::post('/anjab/jabatan/{jabatan:id}/bahanKerja/store', [BahanKerjaController::class, 'storeBahanKerja'])->name('anjab.jabatan.bahanKerja.store')->middleware('auth');
-Route::delete('/anjab/jabatan/{jabatan}/bahanKerja/{bahanKerja}/delete', [BahanKerjaController::class, 'deleteBahanKerja'])->name('anjab.jabatan.bahanKerja.delete')->middleware('auth');
-Route::post('/anjab/jabatan/{jabatan:id}/perangkatKerja/store', [PerangkatKerjaController::class, 'storePerangkatKerja'])->name('anjab.jabatan.perangkatKerja.store')->middleware('auth');
-Route::delete('/anjab/jabatan/{jabatan}/perangkatKerja/{perangkatKerja}/delete', [PerangkatKerjaController::class, 'deletePerangkatKerja'])->name('anjab.jabatan.perangkatKerja.delete')->middleware('auth');
 
-Route::get('/petajabatan', function() {
+Route::get('/petajabatan', function () {
 
     $jabatans = Jabatan::tree()->get()->toTree();
     // dd($jabatans);
-    return view("anjab.petajabatan.petajabatan",[
+    return view("anjab.petajabatan.petajabatan", [
         'title' => "Peta Jabatan",
         'jabatans' => $jabatans
     ]);
 })->middleware('auth');
 
-Route::get('/anjab/ajuan/{id}',function($id) {
-    return view('anjab.ajuan',[
+Route::get('/anjab/ajuan/{id}', function ($id) {
+    return view('anjab.ajuan', [
         'title' => 'Ajuan Jabatan',
         'unit_kerjas' => UnitKerja::all(),
         'jabatans' => Jabatan::all(),
@@ -71,26 +77,26 @@ Route::get('/anjab/ajuan/{id}',function($id) {
     ]);
 })->name('anjab.ajuan');
 
-Route::get('/anjab/ajuan/{id}/edit',function($id) {
+Route::get('/anjab/ajuan/{id}/edit', function ($id) {
     // $jabatans = Jabatan::tree()->get()->toTree();
     $jabatans = Jabatan::all();
 
-    return view('anjab.edit',[
+    return view('anjab.edit', [
         'title' => 'Ajuan Jabatan',
         'jabatans' => $jabatans,
         'editable' => true
     ]);
 });
 
-Route::get('/anjab/ajuan/{id}/unit/{unitkerja:id}',function($id,UnitKerja $unitkerja) {
+Route::get('/anjab/ajuan/{id}/unit/{unitkerja:id}', function ($id, UnitKerja $unitkerja) {
     // $jabatans = Jabatan::tree()->get()->toTree();
 
-    return view('anjab.unitkerja.show',[
+    return view('anjab.unitkerja.show', [
         'title' => 'Lihat Informasi Jabatan',
         'periode' => $id,
         'unit_kerja' => $unitkerja,
-        'jabatans' => Jabatan::where('unit_kerja_id',$unitkerja->id)->get(),
-        'buttons' =>[
+        'jabatans' => Jabatan::where('unit_kerja_id', $unitkerja->id)->get(),
+        'buttons' => [
             'lihat-informasi-jabatan'
         ],
         'editable' => false
@@ -114,18 +120,18 @@ Route::get('/anjab/ajuan/{id}/unit/{unitkerja:id}',function($id,UnitKerja $unitk
 Route::get('abk/ajuan', [AbkController::class, 'index'])->name('abk.ajuans');
 Route::get('abk/ajuan/create', [AbkController::class, 'createAjuan'])->name('abk.ajuan.create');
 
-Route::get('abk/ajuan/data-abk', function() {
-    return view('abk.abkform',[
+Route::get('abk/ajuan/data-abk', function () {
+    return view('abk.abkform', [
         'title' => 'Isi Informasi ABK',
-        
+
     ]);
 })->name('abk.data-abk');
 
-Route::get('/abk/ajuan/{id}/edit',function($id) {
+Route::get('/abk/ajuan/{id}/edit', function ($id) {
     // $jabatans = Jabatan::tree()->get()->toTree();
     $jabatans = Jabatan::all();
 
-    return view('abk.ajuan',[
+    return view('abk.ajuan', [
         'title' => 'Ajuan ABK',
         'jabatans' => $jabatans,
         'editable' => true,
@@ -133,10 +139,10 @@ Route::get('/abk/ajuan/{id}/edit',function($id) {
     ]);
 });
 
-Route::get('/abk/ajuan/{id}',function($id) {
+Route::get('/abk/ajuan/{id}', function ($id) {
     $jabatans = Jabatan::tree()->get()->toTree();
 
-    return view('abk.ajuan',[
+    return view('abk.ajuan', [
         'title' => 'Ajuan Jabatan',
         'jabatans' => $jabatans,
         'editable' => false,
@@ -145,10 +151,10 @@ Route::get('/abk/ajuan/{id}',function($id) {
 })->name('abk.ajuan');
 
 
-Route::get('/abk/ajuan/{id}/jabatan/{jabatan:id}',function($id,Jabatan $jabatan) {
+Route::get('/abk/ajuan/{id}/jabatan/{jabatan:id}', function ($id, Jabatan $jabatan) {
     // $jabatans = Jabatan::tree()->get()->toTree();
 
-    return view('abk.jabatan.show',[
+    return view('abk.jabatan.show', [
         'title' => 'Lihat Informasi ABK',
         'jabatan' => $jabatan,
         'editable' => false,
@@ -156,16 +162,16 @@ Route::get('/abk/ajuan/{id}/jabatan/{jabatan:id}',function($id,Jabatan $jabatan)
     ]);
 })->name('abk.jabatan.show');
 
-Route::get('anjab/jabatan/{jabatan:id}/edit/step-two', function(Jabatan $jabatan) {
-    return view('anjab/jabatan/edit/step-2',[
-            'title' => 'Form Informasi Jabatan',
-            'jabatan' => $jabatan,
-            'bakat_kerjas'=> BakatKerja::all(),
-            'unit_kerjas' => UnitKerja::all(),
-            'jenis_jabatan' => JenisJabatan::all(),
-            'temperamens' => TemperamenKerja::all(),
-            'upaya_fisiks' => UpayaFisik::all(),
-            'fungsi_pekerjaans' => FungsiPekerjaan::all(),
-            'minat_kerjas' => MinatKerja::all()
-        ]);
+Route::get('anjab/jabatan/{jabatan:id}/edit/step-two', function (Jabatan $jabatan) {
+    return view('anjab/jabatan/edit/step-2', [
+        'title' => 'Form Informasi Jabatan',
+        'jabatan' => $jabatan,
+        'bakat_kerjas' => BakatKerja::all(),
+        'unit_kerjas' => UnitKerja::all(),
+        'jenis_jabatan' => JenisJabatan::all(),
+        'temperamens' => TemperamenKerja::all(),
+        'upaya_fisiks' => UpayaFisik::all(),
+        'fungsi_pekerjaans' => FungsiPekerjaan::all(),
+        'minat_kerjas' => MinatKerja::all()
+    ]);
 })->name('anjab.jabatan.edit.step-two')->middleware('auth');
