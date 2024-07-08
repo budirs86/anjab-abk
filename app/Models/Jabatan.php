@@ -42,4 +42,8 @@ class Jabatan extends Model
     public function perangkatKerja() {
         return $this->hasMany(PerangkatKerja::class);
     }
+
+    public function tanggungJawab() {
+        return $this->hasMany(TanggungJawab::class);
+    }
 }
