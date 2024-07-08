@@ -104,6 +104,13 @@ Breadcrumbs::for('lihat-ajuan-abk', function (BreadcrumbTrail $trail, $ajuan) {
     $trail->parent('daftar-ajuan-abk');
     $trail->push('Ajuan ABK ' . $ajuan->tahun, route('abk.ajuan', $ajuan->id));
 });
+Breadcrumbs::for('ajuan-abk-unitkerja', function (BreadcrumbTrail $trail, $periode, $unit_kerja) {
+    $trail->parent('lihat-ajuan-abk' , $periode);
+    $trail->push($unit_kerja->nama, route('abk.unitkerja.show',[$periode, $unit_kerja]));
+});
+Breadcrumbs::for('edit-ajuan-abk-unitkerja', function (BreadcrumbTrail $trail, $periode, $unit_kerja) {
+    $trail->parent('lihat-ajuan-abk' , $periode);
+    $trail->push("Edit ABK ". $unit_kerja->nama, route('abk.unitkerja.edit',[$periode, $unit_kerja]));
 });
 
 Breadcrumbs::for('edit-ajuan-abk', function (BreadcrumbTrail $trail) {

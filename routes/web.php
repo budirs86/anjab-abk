@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Unit;
+use App\Models\Ajuan;
 use App\Models\Jabatan;
 use App\Models\UnitKerja;
 use App\Models\BakatKerja;
@@ -15,7 +16,6 @@ use App\Http\Controllers\AbkController;
 use App\Http\Controllers\AjuanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JabatanController;
-use App\Http\Controllers\AnalisisJabatanController;
 use App\Http\Controllers\BahanKerjaController;
 use App\Http\Controllers\KualifikasiController;
 use App\Http\Controllers\PerangkatKerjaController;
@@ -161,8 +161,17 @@ Route::get('/abk/ajuan/{ajuan}',function(Ajuan $ajuan) {
         'unit_kerjas' => UnitKerja::all(),
     ]);
 })->name('abk.ajuan');
+Route::get('/abk/ajuan/{ajuan}/unit/{unit_kerja}',function(Ajuan $ajuan,UnitKerja $unit_kerja) {
+    // $jabatans = Jabatan::tree()->get()->toTree();
 
+    return view('abk.unitkerja.show',[
 
+        'title' => 'Lihat Informasi ABK',
+        'ajuan' => $ajuan,
+        'unit_kerja' => $unit_kerja,
+        'jabatans' => Jabatan::where('unit_kerja_id',$unit_kerja->id)->get(),
+    ]);
+})->name('abk.unitkerja.show');
 Route::get('/abk/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}',function(Ajuan $ajuan,UnitKerja $unit_kerja, Jabatan $jabatan) {
     // $jabatans = Jabatan::tree()->get()->toTree();
 
