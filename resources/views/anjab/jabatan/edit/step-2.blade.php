@@ -476,7 +476,7 @@
     <div class="mb-3">
         <label for="risiko_bahaya" class="form-label">Risiko Bahaya</label>
         <table class="table 
-                    table-bordered w-75" id="bahan_kerja">
+                    table-bordered w-75" id="risiko_bahaya">
             <thead class="table-danger">
                 <th>No</th>
                 <th>Risiko bahaya</th>
@@ -484,25 +484,38 @@
                 <th>Aksi</th>
             </thead>
             <tbody>
+                @foreach ($jabatan->risikoBahaya as $risikoBahaya)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $risikoBahaya->bahaya_fisik }}</td>
+                        <td>{{ $risikoBahaya->penyebab }}</td>
+                        <td class="d-flex gap-1">
+                            <form
+                                action="{{ route('anjab.jabatan.risikoBahaya.delete', ['jabatan' => $jabatan->id, 'risikoBahaya' => $risikoBahaya->id]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                                <button type="submit" class="btn btn-danger">
+                                    <img width="20px" data-feather="trash"></img>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
                 <tr>
-                    <td>1</td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                    <td class="d-flex gap-1">
-                        <a href="" class="btn btn-warning"><img width="20px" data-feather="edit"></img></a>
-                        <a href="" class="btn btn-danger"><img width="20px" data-feather="trash"></img></a>
-                    </td>
-                </tr>
-                <tr>
-                    <form action="">
-                        <td>2</td>
+                    <form action="{{ route('anjab.jabatan.risikoBahaya.store', ['jabatan' => $jabatan->id]) }}"
+                        method="POST">
+                        @csrf
+                        <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
+                        <td></td>
                         <td>
-                            <input type="text" class="form-control" placeholder="Masukkan Risiko Bahaya">
+                            <input name="bahaya_fisik" type="text" class="form-control" placeholder="Masukkan Risiko Bahaya">
                         </td>
                         <td>
-                            <input type="text" class="form-control" placeholder="Masukkan Penyebab">
+                            <input name="penyebab" type="text" class="form-control" placeholder="Masukkan Penyebab">
                         </td>
-                        <td><button type="button" class="btn btn-primary"><i data-feather="plus"></i>
+                        <td><button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
                                 Tambah</button></td>
                     </form>
                 </tr>

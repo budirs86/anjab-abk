@@ -20,6 +20,7 @@ use App\Http\Controllers\BahanKerjaController;
 use App\Http\Controllers\KorelasiJabatanController;
 use App\Http\Controllers\KualifikasiController;
 use App\Http\Controllers\PerangkatKerjaController;
+use App\Http\Controllers\RisikoBahayaController;
 use App\Http\Controllers\TanggungJawabController;
 use App\Http\Controllers\UraianTugasController;
 use App\Http\Controllers\WewenangController;
@@ -63,8 +64,10 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
         Route::delete('/tanggung-jawab/{tanggungJawab}/delete', [TanggungJawabController::class, 'deleteTanggungJawab'])->name('tanggungJawab.delete');
         Route::post('/wewenang/store', [WewenangController::class, 'storeWewenang'])->name('wewenang.store');
         Route::delete('/wewenang/{wewenang}/delete', [WewenangController::class, 'deleteWewenang'])->name('wewenang.delete');
-        Route::post('/korelasi-jabatan/store', [KorelasiJabatanController::class, 'storeKorelasiJabatan'])->name('KorelasiJabatan.store');
-        Route::delete('/korelasi-jabatan/{KorelasiJabatan}/delete', [KorelasiJabatanController::class, 'deleteKorelasiJabatan'])->name('KorelasiJabatan.delete');
+        Route::post('/korelasi-jabatan/store', [KorelasiJabatanController::class, 'storeKorelasiJabatan'])->name('korelasiJabatan.store');
+        Route::delete('/korelasi-jabatan/{korelasiJabatan}/delete', [KorelasiJabatanController::class, 'deleteKorelasiJabatan'])->name('korelasiJabatan.delete');
+        Route::post('/risiko-bahaya/store', [RisikoBahayaController::class, 'storeRisikoBahaya'])->name('risikoBahaya.store');
+        Route::delete('/risiko-bahaya/{risikoBahaya}/delete', [RisikoBahayaController::class, 'deleteRisikoBahaya'])->name('risikoBahaya.delete');
     });
 });
 
