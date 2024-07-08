@@ -150,14 +150,15 @@ Route::get('/abk/ajuan/{id}/edit', function ($id) {
     ]);
 });
 
-Route::get('/abk/ajuan/{id}', function ($id) {
-    $jabatans = Jabatan::tree()->get()->toTree();
+Route::get('/abk/ajuan/{ajuan}',function(Ajuan $ajuan) {
+    $jabatans = Jabatan::all();
 
     return view('abk.ajuan', [
         'title' => 'Ajuan Jabatan',
+        'ajuan' => $ajuan,
+        'periode' => $ajuan->tahun,
         'jabatans' => $jabatans,
-        'editable' => false,
-        'abk' => true
+        'unit_kerjas' => UnitKerja::all(),
     ]);
 })->name('abk.ajuan');
 
