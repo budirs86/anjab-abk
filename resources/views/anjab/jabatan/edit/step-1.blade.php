@@ -13,8 +13,9 @@
     </div>
     <div class="card dropdown-divider mb-4"></div>
     <div class="mb-3">
-        <a href="{{ route('anjab.ajuan.create') }}" class="btn btn-sm btn-secondary align-baseline"><i
-                data-feather="chevron-left"></i>Kembali</a>
+        <a href="{{ Route::currentRouteName() == 'anjab.ajuan.jabatan.edit' ? route('anjab.ajuan.edit', ['ajuan' => $ajuan]) : route('anjab.ajuan.create')}}" 
+        class="btn btn-sm btn-secondary align-baseline"><i data-feather="chevron-left"></i>Kembali
+        </a>
     </div>
     <div class="alert alert-info alert-dismissible fade show">
         <div class="alert-heading d-flex justify-content-between">

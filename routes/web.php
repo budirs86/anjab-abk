@@ -154,20 +154,6 @@ Route::get('/anjab/ajuan/{id}/unit/{unitkerja:id}', function ($id, UnitKerja $un
     ]);
 })->name('anjab.unitkerja.show');
 
-// Route::get('abk/ajuans', function () {
-//     return view('abk.ajuans', [
-//         'title' => 'Daftar Ajuan ABK    '
-//     ]);
-// })->name('abk.ajuans');
-
-// Route::get('abk/ajuan/create',function() {
-//     return view('abk.buat-ajuan',
-//     [
-//         'title' => 'Buat Ajuan Baru',
-//         'jabatans' => Jabatan::tree()->get()->toTree()  
-//     ]);
-// });
-
 Route::get('abk/ajuan', [AbkController::class, 'index'])->name('abk.ajuans');
 Route::get('abk/ajuan/create', [AbkController::class, 'createAjuan'])->name('abk.ajuan.create');
 Route::get('abk/jabatan/{jabatan:id}/create', function(Jabatan $jabatan){
