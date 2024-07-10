@@ -12,12 +12,12 @@ class PerangkatKerjaController extends Controller
     {
         PerangkatKerja::create($request->all());
 
-        return redirect()->to("/anjab/jabatan/$jabatan->id/edit#PerangkatKerja")->with('success', 'Data Perangkat Kerja berhasil ditambahkan');
+        return redirect()->to("/anjab/jabatan/$jabatan->id/edit/2#PerangkatKerja")->with('success', 'Data Perangkat Kerja berhasil ditambahkan');
     }
     public function deletePerangkatKerja(Jabatan $jabatan, PerangkatKerja $perangkatKerja)
     {
         $perangkatKerja->delete();
 
-        return redirect()->to("/anjab/jabatan/$jabatan->id/edit#PerangkatKerja")->with('success', 'Data Perangkat Kerja berhasil dihapus');
+        return redirect()->to("/anjab/jabatan/$jabatan->id/edit/2#PerangkatKerja")->with('success', 'Data Perangkat Kerja berhasil dihapus');
     }
 }

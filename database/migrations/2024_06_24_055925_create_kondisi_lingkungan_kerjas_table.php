@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('kondisi_lingkungan_kerjas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('jabatan_id')->constrained();
-            $table->string('nama');
-            $table->enum('getaran', ['rendah', 'sedang', 'tinggi']);
-            $table->enum('suara', ['senyap', 'bising']);
-            $table->enum('penerangan', ['redup', 'terang']);
-            $table->enum('letak', ['dalam ruangan', 'luar ruangan']);
-            $table->enum('keadaan_ruangan', ['sesak', 'lega']);
-            $table->enum('udara', ['kering', 'lembab']);
-            $table->enum('suhu', ['dingin', 'panas']);
-            $table->string('tempat');
+            $table->string('nama')->nullable();
+            $table->enum('getaran', ['rendah', 'sedang', 'tinggi'])->nullable();
+            $table->enum('suara', ['senyap', 'bising'])->nullable();
+            $table->enum('penerangan', ['redup', 'terang'])->nullable();
+            $table->enum('letak', ['dalam ruangan', 'luar ruangan'])->nullable();
+            $table->enum('keadaan_ruangan', ['sesak', 'lega'])->nullable();
+            $table->enum('udara', ['kering', 'lembab'])->nullable();
+            $table->enum('suhu', ['dingin', 'panas'])->nullable();
+            $table->string('tempat')->nullable();
             $table->timestamps();
         });
     }

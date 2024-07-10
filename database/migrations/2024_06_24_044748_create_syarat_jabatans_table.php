@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('syarat_jabatans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('jabatan_id')->constrained();
-            $table->enum('jenis_kelamin', ['L', 'P']);
-            $table->integer('umur');
-            $table->integer('tinggi_badan');
-            $table->integer('berat_badan');
-            $table->string('postur_badan');
-            $table->string('penampilan');
-            $table->string('keterampilan');
+            $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
+            $table->integer('umur')->nullable();
+            $table->integer('tinggi_badan')->nullable();
+            $table->integer('berat_badan')->nullable();
+            $table->string('postur_badan')->nullable();
+            $table->string('penampilan')->nullable();
+            $table->string('keterampilan')->nullable();
             $table->timestamps();
         });
     }
