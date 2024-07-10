@@ -20,4 +20,9 @@ class Ajuan extends Model
     {
         return $this->hasMany(RoleVerifikasi::class);
     }
+
+    public function next_verificator()
+    {
+        return $this->role_verifikasi()->where('is_approved', false)->first();
+    }
 }
