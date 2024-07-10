@@ -3,14 +3,25 @@
 @section('container')
             <div class="card-head mb-3">
                 <div class="">
-                    {{ Breadcrumbs::render('ubah-informasi-jabatan',$jabatan) }}
+                    @if (Route::currentRouteName() == 'anjab.ajuan.jabatan.show')
+                        {{ Breadcrumbs::render('lihat-ajuan-anjab-jabatan', $ajuan, $jabatan) }}
+                    @else
+                        {{ Breadcrumbs::render('ubah-informasi-jabatan',$jabatan) }}
+                    @endif
                 </div>
                 <div class="mb-3">
-                    <h1 class="fw-light fs-4 d-inline nav-item">Ubah Informasi Jabatan | {{ $jabatan->nama }}</h1>
+                    <h1 class="fw-light fs-4 d-inline nav-item">
+                        @if (Route::currentRouteName() == 'anjab.ajuan.jabatan.show')
+                            Lihat Informasi Jabatan | {{ $jabatan->nama }}
+                        @else
+                            Ubah Informasi Jabatan | {{ $jabatan->nama }}
+                        @endif
+                    </h1> 
                 </div>
                 <div class="card dropdown-divider mb-4"></div>
                 <div class="mb-3">
-                    <a href="{{ route('anjab.ajuan.create') }}" class="btn btn-sm btn-secondary align-baseline"><i data-feather="chevron-left"></i>Kembali</a>
+                    <a href=" {{ Route::currentRouteName() == 'anjab.ajuan.jabatan.show' ? route('anjab.ajuan', ['ajuan' => $ajuan->id]) : route('anjab.ajuan.create') }} "
+                     class="btn btn-sm btn-secondary align-baseline"><i data-feather="chevron-left"></i>Kembali</a>
                 </div>
                 <form action="/anjab/analisis-jabatan" method="POST">
                     <fieldset disabled>

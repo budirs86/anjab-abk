@@ -35,7 +35,11 @@ Breadcrumbs::for('lihat-ajuan-anjab', function (BreadcrumbTrail $trail, $ajuan) 
     $trail->parent('ajuan-analisis-jabatan');
     $trail->push('Ajuan Analisis Jabatan ' . $ajuan->tahun, route('anjab.ajuan', $ajuan));
 });
-
+// create breadcrumbs for lihat ajuan anjab jabatan, parent-ing the lihat ajuan anjab breadcrumb
+Breadcrumbs::for('lihat-ajuan-anjab-jabatan', function (BreadcrumbTrail $trail, $ajuan, $jabatan) {
+    $trail->parent('lihat-ajuan-anjab', $ajuan);
+    $trail->push($jabatan->nama, route('anjab.ajuan.jabatan.show', ['ajuan' => $ajuan, 'jabatan' => $jabatan]));
+});
 Breadcrumbs::for('edit-ajuan-anjab', function (BreadcrumbTrail $trail, $ajuan) {
     $trail->parent('ajuan-analisis-jabatan');
     $trail->push('Ajuan Analisis Jabatan '. $ajuan->tahun, route('anjab.ajuan.edit',$ajuan));

@@ -91,6 +91,21 @@ Route::get('/anjab/ajuan/{ajuan}', function (Ajuan $ajuan) {
     ]);
 })->name('anjab.ajuan');
 
+Route::get('/anjab/ajuan/{ajuan}/jabatan/{jabatan}', function(Ajuan $ajuan,Jabatan $jabatan) {
+    return view('anjab.jabatan.show', [
+        'title' => 'Lihat Informasi Jabatan',
+        'ajuan' => $ajuan,
+        'jabatan' => $jabatan,
+        'bakat_kerjas' => BakatKerja::all(),
+        'unit_kerjas' => UnitKerja::all(),
+        'jenis_jabatan' => JenisJabatan::all(),
+        'temperamens' => TemperamenKerja::all(),
+        'upaya_fisiks' => UpayaFisik::all(),
+        'fungsi_pekerjaans' => FungsiPekerjaan::all()
+    ]);
+})->name('anjab.ajuan.jabatan.show');
+
+
 Route::get('/anjab/ajuan/{ajuan}/edit', function (Ajuan $ajuan) {
     // $jabatans = Jabatan::tree()->get()->toTree();
     $jabatans = Jabatan::all();
