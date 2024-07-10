@@ -41,28 +41,26 @@
                 @elsecan('verify ajuan')
                     <th>Diajukan Tanggal</th>
                     <th>Aksi</th>
-                @endcan
+                    @endcan
             </tr>
             </thead>
             <tbody>
-            {{-- Loop through the ajuan data and display each row --}}
-            
-            {{-- @foreach ($ajuanData as $ajuan)
-            @endforeach --}}
-            
-            @for($i = 1; $i <= 2; $i++)
+            @foreach ($ajuans as $ajuan)
                 <tr>
-                    <td>{{ $i }}</td>
+                    <td>{{ $loop->iteration }}</td>
                     <td class="w-25">
-                        <div class="d-flex justify-content-between">
-                            <p>{{ $i + 2020}} </p>
+                        <div class="d-flex flex-column justify-content-between">
+                            <p>{{ $ajuan->tahun }} </p>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="/anjab/ajuan/{{ $i }}?periode={{ $i+2020 }}" class="btn btn-outline-primary">Lihat</a>
-                                @if ($i % 2 != 0)                                  
+                                @if ($loop->iteration % 2 != 0)
+                                    @can('make ajuan')
+                                        <a href="{{ route('anjab.ajuan',$ajuan->id) }}" class="btn btn-outline-primary">Lihat</a>
+                                        <a href="{{ route('anjab.ajuan.edit',$ajuan->id) }}" class="btn btn-outline-primary">Edit</a>
+                                        <a href="{{ route('abk.ajuan.create',['periode' => now()->year]) }}" class="btn btn-outline-success" aria-disabled="true">Buat Ajuan ABK</a>
+                                    @endcan                                  
                                 @else
                                     @can('make ajuan')
                                         <a href="{{ route('abk.ajuan.create',['periode' => now()->year]) }}" class="btn btn-outline-success" aria-disabled="true">Buat Ajuan ABK</a>
-                                        
                                     @endcan
                                     
                                 @endif
@@ -70,7 +68,7 @@
                         </div>
                     </td>
                     @can('make ajuan')
-                        @if ($i % 2 == 0)
+                        @if ($loop->iteration % 2 == 0)
                             <td class="w-25">
                                 <div class="alert alert-success w-100">
                                     <div class="alert-heading d-flex">
@@ -117,7 +115,7 @@
                         </td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="/anjab/ajuan/1?periode=2021" class="btn btn-outline-primary">Lihat</a>
+                                <a href="{{ route('anjab.ajuan',$ajuan) }}" class="btn btn-outline-primary">Lihat</a>
                                 <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalTerima">Terima</button>
                                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalRevisi">Revisi</button>
                             </div>
@@ -125,12 +123,13 @@
                     @endcan
                     {{-- <td>{{  ? <p class="bad"></p> : "Revisi" }}</td> --}}
                 </tr>
-            @endfor
+            @endforeach
+            
             {{-- please  --}}
             </tbody>
         </table>
         {{-- make a kembali button --}}
-        <a href="{{ route('home') }}" class="btn btn-secondary"><i data-feather="chevron-left"></i> Kembali</a>
+        <a href="{{ route('home') }}" class="btn btn-primary header1"><i data-feather="arrow-left"></i> Kembali</a>
 
         <div class="modal fade" tabindex="-1" id="modalTerima">
             <div class="modal-dialog">
