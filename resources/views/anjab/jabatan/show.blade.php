@@ -393,7 +393,7 @@
                         </fieldset>
                         <div class="">
                             {{-- <button type="submit" class="btn btn-primary header1"><img src="" alt="" data-feather="save" width="20px"> Simpan</button> --}}
-                            <a href="{{ url()->previous() }}" class="btn btn-primary header1"><img src="" alt="" data-feather="save" width="20px"> Simpan</a>
+                            <a href="{{ route('anjab.ajuan', ['ajuan' => $ajuan]) }}" class="btn btn-primary header1"><img src="" alt="" data-feather="arrow-left" width="20px"> Kembali</a>
                         </div>
                     </fieldset>
                 </form>
