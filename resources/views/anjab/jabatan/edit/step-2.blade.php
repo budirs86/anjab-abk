@@ -455,7 +455,7 @@
                     <td>
                         <select name="" id="" class="form-select">
                             <option value="">Pilih Unit Kerja</option>
-                            @foreach ($unit_kerjas as $unit)
+                            @foreach ($unitKerja as $unit)
                                 <option value="{{ $unit->id }}">{{ $unit->nama }}</option>
                             @endforeach
                         </select>
@@ -510,7 +510,8 @@
                         <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
                         <td></td>
                         <td>
-                            <input name="bahaya_fisik" type="text" class="form-control" placeholder="Masukkan Risiko Bahaya">
+                            <input name="bahaya_fisik" type="text" class="form-control"
+                                placeholder="Masukkan Risiko Bahaya">
                         </td>
                         <td>
                             <input name="penyebab" type="text" class="form-control" placeholder="Masukkan Penyebab">
@@ -522,160 +523,173 @@
             </tbody>
         </table>
     </div>
-    <div class="my-3">
-        <hr>
-        <p>Kondisi Lingkungan Kerja</p>
-        <div class="row">
-            <div class="col-6">
-                <label for="letak" class="form-label">Letak</label>
-                <select name="letak" id="letak" class="form-select mb-3">
-                    <option value="dalam ruangan">Dalam Ruangan</option>
-                    <option value="luar ruangan">Luar Ruangan</option>
-                </select>
-                <label for="penerangan" class="form-label">Penerangan</label>
-                <select name="penerangan" id="penerangan" class="form-select mb-3">
-                    <option value="redup">Redup</option>
-                    <option value="terang">Terang</option>
-                </select>
-                <label for="suhu" class="form-label text-capitalize">suhu</label>
-                <select name="suhu" id="suhu" class="form-select mb-3">
-                    <option value="panas">Panas</option>
-                    <option value="dingin">Dingin</option>
-                </select>
-                <label for="getaran" class="form-label text-capitalize">getaran</label>
-                <select name="getaran" id="getaran" class="form-select mb-3">
-                    <option value="rendah">Rendah</option>
-                    <option value="sedang">Sedang</option>
-                    <option value="tinggi">Tinggi</option>
-                </select>
-            </div>
-            <div class="col-6">
-                <label for="suara" class="form-label text-capitalize">suara</label>
-                <select name="suara" id="suara" class="form-select mb-3">
-                    <option value="bising">Bising</option>
-                    <option value="senyap">Senyap</option>
-                </select>
-                <label for="keadaan_ruangan" class="form-label text-capitalize">keadaan ruangan</label>
-                <select name="keadaan_ruangan" id="keadaan_ruangan" class="form-select mb-3">
-                    <option value="sesak">Sesak</option>
-                    <option value="lega">Lega</option>
-                </select>
-                {{-- create select input for udara with options "lembab", "kering" --}}
-                <label for="udara" class="form-label text-capitalize">udara</label>
-                <select name="udara" id="udara" class="form-select mb-3">
-                    <option value="kering">Lembab</option>
-                    <option value="lembab">Kering</option>
-                </select>
-                {{-- create text input for tempat --}}
-                <label for="tempat" class="form-label text-capitalize">tempat</label>
-                <input type="text" class="form-control mb-3" id="tempat" name="tempat">
-            </div>
-        </div>
-        <hr class="mb-3">
-    </div>
-    <label for="syarat_jabatan" class="form-label mb-4">Syarat Jabatan</label>
-
-    <div class="" id="syarat_jabatan">
-        {{-- create text input for keterampilan --}}
-        <label for="keterampilan" class="text-capitalize form-label">keterampilan</label>
-        <textarea name="keterampilan" id="keterampilan" rows="4" class="form-control mb-3"></textarea>
-        {{-- create bakat kerja checkbox input, with options using options in /seeder/bakat_kerja.json --}}
-        <label for="bakat_kerja" class="form-label">Bakat Kerja</label>
-        <div class="mb-4" id="bakat_kerja">
-
+    <form action="{{ route('anjab.jabatan.update.2', ['jabatan' => $jabatan]) }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="my-3">
+            <hr>
+            <p>Kondisi Lingkungan Kerja</p>
             <div class="row">
-                @foreach ($bakat_kerjas as $bakat)
+                <div class="col-6">
+                    {{-- every option will be given selected directive --}}
+                    <label for="letak" class="form-label">Letak</label>
+                    <select name="kondisiLingkunganKerja[letak]" id="letak" class="form-select mb-3">
+                        <option value="">Pilih Kondisi Lingkungan Kerja</option>
+                        <option value="dalam ruangan" @selected($jabatan->kondisiLingkunganKerja->letak == 'dalam ruangan')>Dalam Ruangan</option>
+                        <option value="luar ruangan" @selected($jabatan->kondisiLingkunganKerja->letak == 'luar ruangan')>Luar Ruangan</option>
+                    </select>
+                    <label for="penerangan" class="form-label">Penerangan</label>
+                    <select name="kondisiLingkunganKerja[penerangan]" id="penerangan" class="form-select mb-3">
+                        <option value="">Pilih Kondisi Lingkungan Kerja</option>
+                        <option value="redup" @selected($jabatan->kondisiLingkunganKerja->penerangan == 'redup')>Redup</option>
+                        <option value="terang" @selected($jabatan->kondisiLingkunganKerja->penerangan == 'terang')>Terang</option>
+                    </select>
+                    <label for="suhu" class="form-label text-capitalize">suhu</label>
+                    <select name="kondisiLingkunganKerja[suhu]" id="suhu" class="form-select mb-3">
+                        <option value="">Pilih Kondisi Lingkungan Kerja</option>
+                        <option value="panas" @selected($jabatan->kondisiLingkunganKerja->suhu == 'panas')>Panas</option>
+                        <option value="dingin" @selected($jabatan->kondisiLingkunganKerja->suhu == 'dingin')>Dingin</option>
+                    </select>
+                    <label for="getaran" class="form-label text-capitalize">getaran</label>
+                    <select name="kondisiLingkunganKerja[getaran]" id="getaran" class="form-select mb-3">
+                        <option value="">Pilih Kondisi Lingkungan Kerja</option>
+                        <option value="rendah" @selected($jabatan->kondisiLingkunganKerja->getaran == 'rendah')>Rendah</option>
+                        <option value="sedang" @selected($jabatan->kondisiLingkunganKerja->getaran == 'sedang')>Sedang</option>
+                        <option value="tinggi" @selected($jabatan->kondisiLingkunganKerja->getaran == 'tinggi')>Tinggi</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <label for="suara" class="form-label text-capitalize">suara</label>
+                    <select name="kondisiLingkunganKerja[suara]" id="suara" class="form-select mb-3">
+                        <option value="">Pilih Kondisi Lingkungan Kerja</option>
+                        <option value="bising" @selected($jabatan->kondisiLingkunganKerja->suara == 'bising')>Bising</option>
+                        <option value="senyap" @selected($jabatan->kondisiLingkunganKerja->suara == 'senyap')>Senyap</option>
+                    </select>
+                    <label for="keadaan_ruangan" class="form-label text-capitalize">keadaan ruangan</label>
+                    <select name="kondisiLingkunganKerja[keadaan_ruangan]" id="keadaan_ruangan" class="form-select mb-3">
+                        <option value="">Pilih Kondisi Lingkungan Kerja</option>
+                        <option value="sesak" @selected($jabatan->kondisiLingkunganKerja->keadaan_ruangan == 'sesak')>Sesak</option>
+                        <option value="lega" @selected($jabatan->kondisiLingkunganKerja->keadaan_ruangan == 'lega')>Lega</option>
+                    </select>
+                    <label for="udara" class="form-label text-capitalize">udara</label>
+                    <select name="kondisiLingkunganKerja[udara]" id="udara" class="form-select mb-3">
+                        <option value="">Pilih Kondisi Lingkungan Kerja</option>
+                        <option value="kering" @selected($jabatan->kondisiLingkunganKerja->udara == 'kering')>Lembab</option>
+                        <option value="lembab" @selected($jabatan->kondisiLingkunganKerja->udara == 'lembab')>Kering</option>
+                    </select>
+                    <label for="tempat" class="form-label text-capitalize">tempat</label>
+                    <input type="text" class="form-control mb-3" id="tempat" name="kondisiLingkunganKerja[tempat]" value="{{ $jabatan->kondisiLingkunganKerja->tempat }}">
+                </div>
+            </div>
+            <hr class="mb-3">
+        </div>
+
+        <label for="syarat_jabatan" class="form-label mb-4">Syarat Jabatan</label>
+        <div class="" id="syarat_jabatan">
+            {{-- create text input for keterampilan --}}
+            <label for="keterampilan" class="text-capitalize form-label">keterampilan</label>
+            <textarea name="keterampilan" id="keterampilan" rows="4" class="form-control mb-3">{{ $jabatan->syaratJabatan->keterampilan }}</textarea>
+            {{-- create bakat kerja checkbox input, with options using options in /seeder/bakat_kerja.json --}}
+            <label for="bakat_kerja" class="form-label">Bakat Kerja</label>
+            <div class="mb-4" id="bakat_kerja">
+                <div class="row">
+                    @foreach ($bakatKerja as $bakat)
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{ $bakat->id }}"
+                                    id="{{ $bakat->nama }}" name="bakatKerja[]" @checked(in_array($bakat->id, $checkedBakatKerja))>
+                                <label class="form-check-label" for="{{ $bakat->nama }}">{{ $bakat->nama }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <label for="temperamen" class="form-label">Temperamen Kerja</label>
+            <div class="row mb-4" id="temperamen">
+                @foreach ($temperamen as $temperamen)
                     <div class="col-4">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="{{ $bakat->kode }}"
-                                id="{{ $bakat->nama }}" name="{{ $bakat->nama }}">
-                            <label class="form-check-label" for="{{ $bakat->nama }}">{{ $bakat->nama }}</label>
+                            <input class="form-check-input" type="checkbox" value="{{ $temperamen->id }}"
+                                id="{{ $temperamen->nama }}" name="temperamenKerja[]" @checked(in_array($temperamen->id, $checkedTemperamenKerja))>
+                            <label class="form-check-label"
+                                for="{{ $temperamen->nama }}">{{ $temperamen->nama }}</label>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <label for="minat" class="form-label">Minat Kerja</label>
+            <div class="row mb-4" id="minat">
+                @foreach ($minatKerja as $minatKerja)
+                    <div class="col-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="{{ $minatKerja->id }}"
+                                id="{{ $minatKerja->nama }}" name="minatKerja[]" @checked(in_array($minatKerja->id, $checkedMinatKerja))>
+                            <label class="form-check-label"
+                                for="{{ $minatKerja->nama }}">{{ $minatKerja->nama }}</label>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <label for="upaya_fisik" class="form-label">Upaya Fisik</label>
+            <div class="row mb-4" id="upaya_fisik">
+                @foreach ($upayaFisik as $upayaFisik)
+                    <div class="col-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="{{ $upayaFisik->id }}"
+                                id="{{ $upayaFisik->nama }}" name="upayaFisik[]" @checked(in_array($upayaFisik->id, $checkedUpayaFisik))>
+                            <label class="form-check-label"
+                                for="{{ $upayaFisik->nama }}">{{ $upayaFisik->nama }}</label>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="my-3">
+                <p>Kondisi Fisik</p>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                        <select name="jenis_kelamin" id="jenis_kelamin" class="form-select mb-3">
+                            <option value="">Pilih Jenis Kelamin</option>
+                            <option value="L" @selected($jabatan->syaratJabatan->jenis_kelamin == 'L')>Laki-Laki</option>
+                            <option value="P" @selected($jabatan->syaratJabatan->jenis_kelamin == 'P')>Perempuan</option>
+                        </select>
+
+                        <label for="umur" class="form-label">Umur (Tahun)</label>
+                        <input type="number" name="umur" class="form-control mb-3" id="umur" value="{{ $jabatan->syaratJabatan->umur }}">
+
+                        <label for="tinggi_badan" class="form-label text-capitalize">tinggi badan (sentimeter)</label>
+                        <input type="number" name="tinggi_badan" class="form-control mb-3" id="tinggi_badan" value="{{ $jabatan->syaratJabatan->tinggi_badan }}">
+                    </div>
+                    <div class="col-6">
+                        <label for="berat_badan" class="form-label text-capitalize">berat badan (kilogram)</label>
+                        <input type="number" name="berat_badan" class="form-control mb-3" id="berat_badan" value="{{ $jabatan->syaratJabatan->berat_badan }}">
+
+                        <label for="postur_badan" class="form-label text-capitalize">postur badan</label>
+                        <input type="text" name="postur_badan" class="form-control mb-3" id="postur_badan" value="{{ $jabatan->syaratJabatan->postur_badan }}">
+
+                        <label for="penampilan" class="form-label text-capitalize">penampilan</label>
+                        <input type="text" name="penampilan" class="form-control mb-3" id="penampilan" value="{{ $jabatan->syaratJabatan->penampilan }}">
+                    </div>
+                </div>
+            </div>
+            <label for="fungsi_pekerjaan" class="form-label">Fungsi Pekerjaan</label>
+            <div class="row mb-4" id="fungsi_pekerjaan">
+                @foreach ($fungsiPekerjaan as $fungsiPekerjaan)
+                    <div class="col-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="{{ $fungsiPekerjaan->id }}"
+                                id="{{ $fungsiPekerjaan->nama }}" name="fungsiPekerjaan[]" @checked(in_array($fungsiPekerjaan->id, $checkedFungsiPekerjaan))>
+                            <label class="form-check-label" for="{{ $fungsiPekerjaan->nama }}">
+                                {{ $fungsiPekerjaan->kode . ' ' . $fungsiPekerjaan->nama }}</label>
                         </div>
                     </div>
                 @endforeach
             </div>
         </div>
-        <label for="temperamen" class="form-label">Temperamen Kerja</label>
-        <div class="row mb-4" id="temperamen">
-            @foreach ($temperamens as $temperamen)
-                <div class="col-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{ $temperamen->kode }}"
-                            id="{{ $temperamen->nama }}" name="{{ $temperamen->nama }}">
-                        <label class="form-check-label" for="{{ $temperamen->nama }}">{{ $temperamen->nama }}</label>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-        <label for="minat" class="form-label">Minat Kerja</label>
-        <div class="row mb-4" id="minat">
-            @foreach ($minat_kerjas as $minat_kerja)
-                <div class="col-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{ $minat_kerja->kode }}"
-                            id="{{ $minat_kerja->nama }}" name="{{ $minat_kerja->nama }}">
-                        <label class="form-check-label" for="{{ $minat_kerja->nama }}">{{ $minat_kerja->nama }}</label>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-        <label for="upaya_fisik" class="form-label">Upaya Fisik</label>
-        <div class="row mb-4" id="upaya_fisik">
-            @foreach ($upaya_fisiks as $upaya_fisik)
-                <div class="col-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{ $upaya_fisik->kode }}"
-                            id="{{ $upaya_fisik->nama }}" name="{{ $upaya_fisik->nama }}">
-                        <label class="form-check-label" for="{{ $upaya_fisik->nama }}">{{ $upaya_fisik->nama }}</label>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-        <div class="my-3">
-            <p>Kondisi Fisik</p>
-            <div class="row">
-                <div class="col-6">
-                    <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-select mb-3">
-                        <option value="L">Laki-Laki</option>
-                        <option value="P">Perempuan</option>
-                    </select>
 
-                    <label for="umur" class="form-label">Umur (Tahun)</label>
-                    <input type="text" name="umur" class="form-control mb-3" id="umur">
-
-                    <label for="tinggi_badan" class="form-label text-capitalize">tinggi badan (sentimeter)</label>
-                    <input type="number" name="tinggi_badan" class="form-control mb-3" id="tinggi_badan">
-                </div>
-                <div class="col-6">
-                    <label for="berat_badan" class="form-label text-capitalize">berat badan (kilogram)</label>
-                    <input type="number" name="berat_badan" class="form-control mb-3" id="berat_badan">
-
-                    <label for="postur_badan" class="form-label text-capitalize">postur badan</label>
-                    <input type="text" name="postur_badan" class="form-control mb-3" id="postur_badan">
-
-                    <label for="penampilan" class="form-label text-capitalize">penampilan</label>
-                    <input type="text" name="penampilan" class="form-control mb-3" id="penampilan">
-                </div>
-            </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn header1 btn-primary"><i data-feather="save"></i>
+                Simpan dan Kembali</button>
         </div>
-        <label for="fungsi_pekerjaan" class="form-label">Fungsi Pekerjaan</label>
-        <div class="row mb-4" id="fungsi_pekerjaan">
-            @foreach ($fungsi_pekerjaans as $fungsi_pekerjaan)
-                <div class="col-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{ $fungsi_pekerjaan->id }}"
-                            id="{{ $fungsi_pekerjaan->nama }}" name="{{ $fungsi_pekerjaan->nama }}">
-                        <label class="form-check-label" for="{{ $fungsi_pekerjaan->nama }}">
-                            {{ $fungsi_pekerjaan->kode . ' ' . $fungsi_pekerjaan->nama }}</label>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-
-    <div class="d-flex justify-content-end">
-        <a href="{{ route('anjab.ajuan.create') }}" class="btn header1 btn-primary"><i data-feather="save"></i> Simpan
-            dan Kembali</a>
-    </div>
+    </form>
 @endsection

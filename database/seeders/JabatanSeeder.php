@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Jabatan;
+use App\Models\KondisiLingkunganKerja;
 use App\Models\KualifikasiJabatan;
+use App\Models\SyaratBakat;
+use App\Models\SyaratJabatan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,14 +21,23 @@ class JabatanSeeder extends Seeder
 
         $data = array_merge($data_fakultas_teknik);
 
-        foreach ($data as $jabatan) {
-            Jabatan::create($jabatan);
-        }
-
-        for ($i = 1; $i < count($data); $i++) {
+        foreach ($data as $data_jabatan) {
+            $jabatan = Jabatan::create($data_jabatan);
+            // Instances of KualifikasiJabatan, KondisiLingkunganKerja, and SyaratJabatan
+            // also needs to be created because each Jabatan has one of each.
             KualifikasiJabatan::create(
                 [
-                    'jabatan_id' => $i
+                    'jabatan_id' => $jabatan->id
+                ]
+            );
+            KondisiLingkunganKerja::create(
+                [
+                    'jabatan_id' => $jabatan->id
+                ]
+            );
+            SyaratJabatan::create(
+                [
+                    'jabatan_id' => $jabatan->id
                 ]
             );
         }

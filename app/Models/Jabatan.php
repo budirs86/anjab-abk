@@ -58,4 +58,12 @@ class Jabatan extends Model
     public function risikoBahaya() {
         return $this->hasMany(RisikoBahaya::class);
     }
+
+    public function kondisiLingkunganKerja() {
+        return $this->hasOne(KondisiLingkunganKerja::class);
+    }
+
+    public function syaratJabatan() {
+        return $this->hasOne(SyaratJabatan::class);
+    }
 }
