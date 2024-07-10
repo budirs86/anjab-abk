@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateJabatanRequest;
-use App\Models\BakatKerja;
-use App\Models\FungsiPekerjaan;
+use App\Models\Ajuan;
 use App\Models\Jabatan;
-use App\Models\JenisJabatan;
-use App\Models\MinatKerja;
-use App\Models\TemperamenKerja;
 use App\Models\UnitKerja;
+use App\Models\BakatKerja;
+use App\Models\MinatKerja;
 use App\Models\UpayaFisik;
+use App\Models\JenisJabatan;
 use Illuminate\Http\Request;
+use App\Models\FungsiPekerjaan;
+use App\Models\TemperamenKerja;
+use App\Http\Requests\CreateJabatanRequest;
 
 class JabatanController extends Controller
 {
@@ -26,9 +27,10 @@ class JabatanController extends Controller
         return view('anjab.jabatan', compact('title', 'jabatans', 'jenisJabatan', 'unitKerjas', 'buttons'));
     }
 
-    public function show(Jabatan $jabatan){
+    public function show(Ajuan $ajuan, Jabatan $jabatan){
         return view('anjab.jabatan.show', [
             'title' => 'Form Informasi Jabatan',
+            'ajuan' => $ajuan,
             'jabatan' => $jabatan,
             'bakat_kerjas' => BakatKerja::all(),
             'unit_kerjas' => UnitKerja::all(),
