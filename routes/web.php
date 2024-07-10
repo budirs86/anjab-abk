@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Unit;
+use App\Models\Ajuan;
 use App\Models\Jabatan;
 use App\Models\UnitKerja;
 use App\Models\BakatKerja;
@@ -15,7 +16,6 @@ use App\Http\Controllers\AbkController;
 use App\Http\Controllers\AjuanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JabatanController;
-use App\Http\Controllers\AnalisisJabatanController;
 use App\Http\Controllers\BahanKerjaController;
 use App\Http\Controllers\KorelasiJabatanController;
 use App\Http\Controllers\KualifikasiController;
@@ -82,25 +82,47 @@ Route::get('/petajabatan', function () {
     ]);
 })->middleware('auth');
 
-Route::get('/anjab/ajuan/{id}', function ($id) {
+Route::get('/anjab/ajuan/{ajuan}', function (Ajuan $ajuan) {
     return view('anjab.ajuan', [
         'title' => 'Ajuan Jabatan',
+        'ajuan' => $ajuan,
         'unit_kerjas' => UnitKerja::all(),
         'jabatans' => Jabatan::all(),
-        'editable' => false
     ]);
 })->name('anjab.ajuan');
 
-Route::get('/anjab/ajuan/{id}/edit', function ($id) {
+Route::get('/anjab/ajuan/{ajuan}/edit', function (Ajuan $ajuan) {
     // $jabatans = Jabatan::tree()->get()->toTree();
     $jabatans = Jabatan::all();
-
-    return view('anjab.edit', [
+    return view('anjab.ajuan.edit', [
+        'ajuan' => $ajuan,
         'title' => 'Ajuan Jabatan',
         'jabatans' => $jabatans,
         'editable' => true
     ]);
-});
+})->name('anjab.ajuan.edit');
+Route::get('/anjab/ajuan/{ajuan}/jabatan/{jabatan}/edit', function (Ajuan $ajuan, Jabatan $jabatan) {
+    // $jabatans = Jabatan::tree()->get()->toTree();
+    $bakat_kerjas = BakatKerja::all();
+    $unit_kerjas = UnitKerja::all();
+    $jenis_jabatan = JenisJabatan::all();
+    $temperamens = TemperamenKerja::all();
+    $upaya_fisiks = UpayaFisik::all();
+    $fungsi_pekerjaans = FungsiPekerjaan::all();
+    $title = 'Form Informasi Jabatan';
+
+    return view('anjab.jabatan.edit.step-1', compact([
+        'ajuan',
+        'title', 
+        'jabatan',
+        'bakat_kerjas',
+        'unit_kerjas',
+        'jenis_jabatan',
+        'temperamens',
+        'upaya_fisiks',
+        'fungsi_pekerjaans'
+    ]));
+})->name('anjab.ajuan.jabatan.edit');
 
 Route::get('/anjab/ajuan/{id}/unit/{unitkerja:id}', function ($id, UnitKerja $unitkerja) {
     // $jabatans = Jabatan::tree()->get()->toTree();
@@ -133,6 +155,12 @@ Route::get('/anjab/ajuan/{id}/unit/{unitkerja:id}', function ($id, UnitKerja $un
 
 Route::get('abk/ajuan', [AbkController::class, 'index'])->name('abk.ajuans');
 Route::get('abk/ajuan/create', [AbkController::class, 'createAjuan'])->name('abk.ajuan.create');
+Route::get('abk/jabatan/{jabatan:id}/create', function(Jabatan $jabatan){
+    return view('abk.jabatan.create',[
+        'jabatan' => $jabatan,
+        'title' => 'Buat Informasi Beban Kerja'
+    ]);
+})->name('abk.jabatan.create');
 
 Route::get('abk/ajuan/data-abk', function () {
     return view('abk.abkform', [
@@ -153,25 +181,58 @@ Route::get('/abk/ajuan/{id}/edit', function ($id) {
     ]);
 });
 
-Route::get('/abk/ajuan/{id}', function ($id) {
-    $jabatans = Jabatan::tree()->get()->toTree();
+Route::get('/abk/ajuan/{ajuan}',function(Ajuan $ajuan) {
+    $jabatans = Jabatan::all();
 
     return view('abk.ajuan', [
         'title' => 'Ajuan Jabatan',
+        'ajuan' => $ajuan,
+        'periode' => $ajuan->tahun,
         'jabatans' => $jabatans,
-        'editable' => false,
-        'abk' => true
+        'unit_kerjas' => UnitKerja::all(),
     ]);
 })->name('abk.ajuan');
-
-
-Route::get('/abk/ajuan/{id}/jabatan/{jabatan:id}', function ($id, Jabatan $jabatan) {
+Route::get('/abk/ajuan/{ajuan}/unit/{unit_kerja}',function(Ajuan $ajuan,UnitKerja $unit_kerja) {
     // $jabatans = Jabatan::tree()->get()->toTree();
 
-    return view('abk.jabatan.show', [
+    return view('abk.unitkerja.show',[
+
         'title' => 'Lihat Informasi ABK',
+        'ajuan' => $ajuan,
+        'unit_kerja' => $unit_kerja,
+        'jabatans' => Jabatan::where('unit_kerja_id',$unit_kerja->id)->get(),
+    ]);
+})->name('abk.unitkerja.show');
+Route::get('/abk/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}',function(Ajuan $ajuan,UnitKerja $unit_kerja, Jabatan $jabatan) {
+    // $jabatans = Jabatan::tree()->get()->toTree();
+
+    return view('abk.jabatan.show',[
+
+        'title' => 'Lihat Informasi ABK',
+        'ajuan' => $ajuan,
+        'unit_kerja' => $unit_kerja,
         'jabatan' => $jabatan,
-        'editable' => false,
-        'abk' =>     true
     ]);
 })->name('abk.jabatan.show');
+Route::get('/abk/ajuan/{ajuan}/unit/{unit_kerja}/edit',function(Ajuan $ajuan,UnitKerja $unit_kerja) {
+    // $jabatans = Jabatan::tree()->get()->toTree();
+
+    return view('abk.unitkerja.edit',[
+
+        'title' => 'Lihat Informasi ABK',
+        'ajuan' => $ajuan,
+        'unit_kerja' => $unit_kerja,
+        'jabatans' => Jabatan::where('unit_kerja_id',$unit_kerja->id)->get(),
+    ]);
+})->name('abk.unitkerja.edit');
+Route::get('/abk/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}/edit',function(Ajuan $ajuan,UnitKerja $unit_kerja, Jabatan $jabatan) {
+    // $jabatans = Jabatan::tree()->get()->toTree();
+
+    return view('abk.jabatan.edit',[
+
+        'title' => 'Lihat Informasi ABK',
+        'ajuan' => $ajuan,
+        'unit_kerja' => $unit_kerja,
+        'jabatan' => $jabatan,
+    ]);
+})->name('abk.jabatan.edit');

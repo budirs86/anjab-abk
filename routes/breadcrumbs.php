@@ -30,11 +30,24 @@ Breadcrumbs::for('ajuan-analisis-jabatan', function (BreadcrumbTrail $trail) {
     $trail->push('Daftar Ajuan Analisis Jabatan', route('anjab.ajuan.index'));
 });
 
-
 // Create a breadcrumb for lihat ajuan analisis jabatan page, parent-ing the ajuan analisis jabatan breadcrumb
-Breadcrumbs::for('lihat-ajuan-analisis-jabatan', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('lihat-ajuan-anjab', function (BreadcrumbTrail $trail, $ajuan) {
     $trail->parent('ajuan-analisis-jabatan');
-    $trail->push('Lihat Ajuan Analisis Jabatan', "/anjab/lihat-ajuan-analisis-jabatan");
+    $trail->push('Ajuan Analisis Jabatan ' . $ajuan->tahun, route('anjab.ajuan', $ajuan));
+});
+
+Breadcrumbs::for('edit-ajuan-anjab', function (BreadcrumbTrail $trail, $ajuan) {
+    $trail->parent('ajuan-analisis-jabatan');
+    $trail->push('Ajuan Analisis Jabatan '. $ajuan->tahun, route('anjab.ajuan.edit',$ajuan));
+});
+Breadcrumbs::for('edit-ajuan-anjab-jabatan', function (BreadcrumbTrail $trail, $ajuan, $jabatan) {
+    $trail->parent('edit-ajuan-anjab', $ajuan);
+    $trail->push('Edit Informasi Jabatan '. $jabatan->nama, route('anjab.ajuan.jabatan.edit', ['ajuan' => $ajuan, 'jabatan' => $jabatan]));
+    $trail->push('isi Informasi Umum', route('anjab.ajuan.jabatan.edit', ['ajuan' => $ajuan, 'jabatan' => $jabatan]));
+});
+Breadcrumbs::for('edit-ajuan-anjab-jabatan-2', function (BreadcrumbTrail $trail, $ajuan, $jabatan) {
+    $trail->parent('edit-ajuan-anjab-jabatan', $ajuan);
+    $trail->push('isi Detail Jabatan');
 });
 
 Breadcrumbs::for('lihat-ajuan-analisis-jabatan-unitkerja', function (BreadcrumbTrail $trail, UnitKerja $unit_kerja) {
@@ -82,9 +95,13 @@ Breadcrumbs::for('isi-informasi-abk', function (BreadcrumbTrail $trail) {
     $trail->push('Isi Informasi ABK', "/abk/ajuan/data-abk");
 });
 
-Breadcrumbs::for('informasi-abk-jabatan', function (BreadcrumbTrail $trail, $jabatan) {
-    $trail->parent('lihat-ajuan-abk');
-    $trail->push('Edit Informasi ABK' . ' ' . $jabatan->nama_jabatan, "/abk/ajuan/data-abk");
+Breadcrumbs::for('ajuan-abk-jabatan', function (BreadcrumbTrail $trail, $ajuan, $unit_kerja, $jabatan) {
+    $trail->parent('ajuan-abk-unitkerja', $ajuan, $unit_kerja);
+    $trail->push($jabatan->nama, route('abk.jabatan.show',[$ajuan, $unit_kerja, $jabatan]));
+});
+Breadcrumbs::for('edit-ajuan-abk-jabatan', function (BreadcrumbTrail $trail, $ajuan, $unit_kerja, $jabatan) {
+    $trail->parent('edit-ajuan-abk-unitkerja', $ajuan, $unit_kerja);
+    $trail->push($jabatan->nama, route('abk.jabatan.show',[$ajuan, $unit_kerja, $jabatan]));
 });
 
 
@@ -96,9 +113,17 @@ Breadcrumbs::for('daftar-ajuan-abk', function (BreadcrumbTrail $trail) {
 
 
 // create a breadcrumb for lihat ajuan abk page, parent-ing the buat ajuan abk breadcrumb
-Breadcrumbs::for('lihat-ajuan-abk', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('lihat-ajuan-abk', function (BreadcrumbTrail $trail, $ajuan) {
     $trail->parent('daftar-ajuan-abk');
-    $trail->push('Lihat Ajuan ABK', "");
+    $trail->push('Ajuan ABK ' . $ajuan->tahun, route('abk.ajuan', $ajuan->id));
+});
+Breadcrumbs::for('ajuan-abk-unitkerja', function (BreadcrumbTrail $trail, $periode, $unit_kerja) {
+    $trail->parent('lihat-ajuan-abk' , $periode);
+    $trail->push($unit_kerja->nama, route('abk.unitkerja.show',[$periode, $unit_kerja]));
+});
+Breadcrumbs::for('edit-ajuan-abk-unitkerja', function (BreadcrumbTrail $trail, $periode, $unit_kerja) {
+    $trail->parent('lihat-ajuan-abk' , $periode);
+    $trail->push("Edit ABK ". $unit_kerja->nama, route('abk.unitkerja.edit',[$periode, $unit_kerja]));
 });
 
 Breadcrumbs::for('edit-ajuan-abk', function (BreadcrumbTrail $trail) {
@@ -106,7 +131,11 @@ Breadcrumbs::for('edit-ajuan-abk', function (BreadcrumbTrail $trail) {
     $trail->push('Edit Ajuan ABK', "");
 });
 
-// 
+// create a breadcrumb for Buat Informasi Beban Kerja page, parent-ing the buat ajuan abk breadcrumb
+Breadcrumbs::for('buat-informasi-beban-kerja', function (BreadcrumbTrail $trail) {
+    $trail->parent('buat-ajuan-abk');
+    $trail->push('Buat Informasi Beban Kerja', "/abk/jabatan/{jabatan:id}/create");
+});
 
 
 // Home > Blog

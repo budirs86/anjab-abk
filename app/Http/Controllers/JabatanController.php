@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateJabatanRequest;
 use App\Models\BakatKerja;
-use App\Models\FungsiPekerjaan;
 use App\Models\Jabatan;
-use App\Models\JenisJabatan;
 use App\Models\KondisiLingkunganKerja;
 use App\Models\MinatKerja;
 use App\Models\SyaratBakat;
@@ -15,10 +12,14 @@ use App\Models\SyaratJabatan;
 use App\Models\SyaratMinat;
 use App\Models\SyaratTemperamen;
 use App\Models\SyaratUpaya;
-use App\Models\TemperamenKerja;
 use App\Models\UnitKerja;
 use App\Models\UpayaFisik;
+use App\Models\JenisJabatan;
 use Illuminate\Http\Request;
+use App\Models\FungsiPekerjaan;
+use App\Models\TemperamenKerja;
+use App\Http\Requests\CreateJabatanRequest;
+use App\Models\Ajuan;
 
 class JabatanController extends Controller
 {
@@ -33,18 +34,20 @@ class JabatanController extends Controller
         return view('anjab.jabatan', compact('title', 'jabatans', 'jenisJabatan', 'unitKerjas', 'buttons'));
     }
 
-    public function show(Jabatan $jabatan)
-    {
-        return view('anjab.jabatan.show', [
-            'title' => 'Form Informasi Jabatan',
-            'jabatan' => $jabatan,
-            'bakat_kerjas' => BakatKerja::all(),
-            'unit_kerjas' => UnitKerja::all(),
-            'jenis_jabatan' => JenisJabatan::all(),
-            'temperamens' => TemperamenKerja::all(),
-            'upaya_fisiks' => UpayaFisik::all(),
-            'fungsi_pekerjaans' => FungsiPekerjaan::all()
-        ]);
+    public function show(Ajuan $ajuan, Jabatan $jabatan)
+    { {
+            return view('anjab.jabatan.show', [
+                'title' => 'Form Informasi Jabatan',
+                'ajuan' => $ajuan,
+                'jabatan' => $jabatan,
+                'bakat_kerjas' => BakatKerja::all(),
+                'unit_kerjas' => UnitKerja::all(),
+                'jenis_jabatan' => JenisJabatan::all(),
+                'temperamens' => TemperamenKerja::all(),
+                'upaya_fisiks' => UpayaFisik::all(),
+                'fungsi_pekerjaans' => FungsiPekerjaan::all()
+            ]);
+        }
     }
 
     public function store(CreateJabatanRequest $request)
@@ -119,7 +122,7 @@ class JabatanController extends Controller
         $upayaFisik = UpayaFisik::all();
         $fungsiPekerjaan = FungsiPekerjaan::all();
         $minatKerja = MinatKerja::all();
-        
+
 
         // get necessary data for checkboxes
         // checkboxes are checked if the data is found in the database

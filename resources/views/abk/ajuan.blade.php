@@ -3,43 +3,86 @@
 
 @section('container')
     <div class="">
-        {{ $editable ? Breadcrumbs::render('edit-ajuan-abk') : Breadcrumbs::render('lihat-ajuan-abk') }}
+        {{ Breadcrumbs::render('lihat-ajuan-abk', $ajuan) }}
     </div>
     <div class="card-head mb-3">
-        <h1 class="fw-light fs-4 d-inline nav-item">Analisis Beban Kerja Periode {{ request()->periode }}</h1>                
+        <h1 class="fw-light fs-4 d-inline nav-item">Analisis Beban Kerja Periode {{ $ajuan->tahun }}</h1>                
     </div>
     <div class="card dropdown-divider mb-4"></div>
-    <div class="mb-3">
-        <label for="unit_kerja" class="form-label">Unit Kerja</label>
-        <select class="form-select" id="unit_kerja" name="unit_kerja">
-            
-            <option value="Bidang Kepegawaian">Bidang Kepegawaian</option>
-            <option value="Bidang Keuangan">Bidang Keuangan</option>
-            <option value="Bidang Teknologi Informasi">Bidang Teknologi Informasi</option>
-            <option value="Bidang Pengembangan Sumber Daya Manusia">Bidang Pengembangan Sumber Daya Manusia</option>
-        </select>
-    </div>
     <table class="table table-striped table-bordered">
         <thead >
-            <th class="fw-semibold text-muted">Kode</th>
-            <th class="fw-semibold text-muted">Jabatan</th>
-            {{-- <th class="fw-semibold text-muted">Unit Kerja</th> --}}
+            <th class="fw-semibold text-muted">No</th>
+            <th class="fw-semibold text-muted">Unit Kerja/Lembaga/Sekolah</th>
+            @can('make ajuan')
+                <th class="fw-semibold text-muted">Status</th>
+                <th class="fw-semibold text-muted">Catatan Perbaikan</th>
+            @elsecan('verify ajuan')
+                <th class="fw-semibold text-muted">Diajukan Tanggal</th>
+            @endcan
+
         </thead>
         <tbody>
-        {{-- <tr>
-            <td>
-                <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target=".collapseparent0">Expand</button>
-            </td>
-            <td>// K-123 //</td>
-            <td class="d-flex justify-content-start">
-                <p>Bidang Kepegawaian</p>
-                <button class="btn btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#modalJabatan"><img width="20px" data-feather="plus"></img> Tambah Jabatan</button>
-            </td>
-        </tr>                                 --}}
-            @foreach ($jabatans as $jabatan)
-                <x-table-row :jabatan="$jabatan" :editable="$editable" :abk="$abk"/>    
+            @foreach ($unit_kerjas as $unit_kerja)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td >
+                        <div class="d-flex justify-content-between">
+                            <p>{{ $unit_kerja->nama }}</p>
+                            {{-- create edit and lihat button group --}}
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a href="{{ route('abk.unitkerja.show', [$ajuan, $unit_kerja]) }}" class="btn btn-outline-primary">Lihat</a>
+                                @can('make ajuan')
+                                    <a href="{{ route('abk.unitkerja.edit',[$ajuan, $unit_kerja]) }}" class="btn btn-outline-secondary">Edit</a>
+                                @endcan
+                            </div>
+                        </div>
+                    </td>
+                    @can('make ajuan')
+                        <td class="w-25">
+                        <div class="alert alert-success w-100">
+                            <div class="alert-heading d-flex">
+                                <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
+                                <p class="m-0 p-0">Disetujui</p>
+                            </div>
+                            <hr>  
+                            <p class="m-0 p-0">Manajer Tata Usaha/Kepegawaian</p>
+                        </div>
+                        <div class="alert alert-info w-100">
+                            <div class="alert-heading d-flex">
+                                <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
+                                <p class="m-0 p-0">Menunggu Diperiksa</p>
+                            </div>
+                            <hr>  
+                            <p class="m-0 p-0">Kepala Biro, Wakil Dekan 2, Sekretaris Lembaga</p>
+                        </div>
+                        <div class="alert alert-warning w-100">
+                                <div class="alert-heading d-flex">
+                                    <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
+                                    <p class="m-0 p-0">Perlu Perbaikan</p>
+                                </div>
+                                <hr>  
+                                <p class="m-0 p-0">Kepala Biro, Wakil Dekan 2, Sekretaris Lembaga</p>
+                        </div>
+                        </td>
+                        <td>
+                            @if ($loop->iteration % 2 == 0)
+                                Tidak ada catatan.
+                            @else                            
+                                <ul>
+                                    <li>Lorem ipsum dolor sit amet.</li>
+                                    <li>Lorem ipsum dolor sit amet.</li>
+                                    <li>Lorem ipsum dolor sit amet.</li>
+                                </ul>
+                            @endif
+                        </td>
+                    
+                    @elsecan('verify ajuan')
+                        <td>{{ now()->format('d-m-Y') }}</td>
+                    @endcan
+                </tr>
             @endforeach
-                
+        
         </tbody>
     </table>
+    <a href="{{ route('abk.ajuans') }}" class="btn btn-primary header1"><i data-feather="arrow-left"></i> Kembali</a>
 @endsection
