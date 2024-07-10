@@ -40,9 +40,11 @@
                 <td class="w-25">
                     <div class="d-flex justify-content-between">
                         <p>{{ $ajuan->tahun }}</p>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <a href="{{ route('abk.ajuan', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
-                        </div>
+                        @can('make ajuan')
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a href="{{ route('abk.ajuan', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
+                            </div>
+                        @endcan
                     </div>
                 </td>
                 @can('make ajuan')
@@ -87,7 +89,7 @@
                     </td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a href="" class="btn btn-outline-primary">Lihat</a>
+                            <a href="{{ route('abk.ajuan',$ajuan) }}" class="btn btn-outline-primary">Lihat</a>
                             <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalTerima">Terima</button>
                             <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalRevisi">Revisi</button>
                         </div>
@@ -99,8 +101,7 @@
             {{-- please  --}}
             </tbody>
         </table>
-        <a href="{{ route('home') }}" class="btn btn-primary header1"><i data-feather="arrow
-            -left"></i> Kembali</a>
+        <a href="{{ route('home') }}" class="btn btn-primary header1"><i data-feather="arrow-left"></i> Kembali</a>
         <div class="modal fade" tabindex="-1" id="modalTerima">
             <div class="modal-dialog">
                 <div class="modal-content">
