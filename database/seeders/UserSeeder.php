@@ -26,43 +26,43 @@ class UserSeeder extends Seeder
             'name' => 'Alif Rachmat',
             'email' => 'alip@gmail.com',
             'password' => bcrypt('password')
-        ])->assignRole('operator');
+        ])->assignRole('Operator');
 
         User::create([
             'name' => 'Manajer Kepegawaian',
             'email' => 'kepegawaian@gmail.com',
             'password' => bcrypt('password')
-        ])->assignRole('manajer_kepegawaian');
+        ])->assignRole('Manajer Kepegawaian');
 
         User::create([
             'name' => 'Manajer Tata Usaha',
             'email' => 'tatausaha@gmail.com',
             'password' => bcrypt('password')
-        ])->assignRole('manajer_tata_usaha');
+        ])->assignRole('Manajer Tata Usaha');
 
         User::create([
             'name' => 'Wakil Dekan 2',
             'email' => 'wakildekan@gmail.com',
             'password' => bcrypt('password')
-        ])->assignRole('wakil_dekan_2');
+        ])->assignRole('Wakil Dekan 2');
 
         User::create([
             'name' => 'Sekretaris Lembaga',
             'email' => 'sekretaris@gmail.com',
             'password' => bcrypt('password')
-        ])->assignRole('sekretaris_lembaga');
+        ])->assignRole('Sekretaris Lembaga');
 
         User::create([
             'name' => 'Kepala Biro Umum dan Keuangan',
             'email' => 'buk@gmail.com',
             'password' => bcrypt('password')
-        ])->assignRole('kepala_buk');
+        ])->assignRole('Kepala BUK');
 
         User::create([
             'name' => 'Wakil Rektor',
             'email' => 'wakilrektor@gmail.com',
             'password' => bcrypt('password')
-        ])->assignRole('wakil_rektor');
+        ])->assignRole('Wakil Rektor 2');
 
         
 
