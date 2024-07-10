@@ -17,26 +17,32 @@
                     <th class="fw-semibold text-muted" scope="col ">Hasil Kerja</th>
                     <th class="fw-semibold text-muted" scope="col ">Jumlah Hasil Kerja</th>
                     <th class="fw-semibold text-muted" scope="col ">Waktu Penyelesaian (dalam menit)</th>
-                    <th class="fw-semibold text-muted" scope="col "></th>
+                    <th class="fw-semibold text-muted" scope="col ">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                    <td>Membuat Rencana Kerja</td>
+                    <td>Rencana Kerja</td>
+                    <td>1</td>
+                    <td>16</td>
+                    <td></td>
+                </tr>
+                <tr>
                     <td class="">   
-                        Membuat Kopi
-
+                        Membuat Rencana Strategis
                     </td>
                     <td class="">
                         {{-- create a text input and labelfor "hasil kerja" --}}
-                        <input type="text" class="form-control" name="hasil_kerja" id="hasil_kerja" value="Kopi">
+                        <input type="text" class="form-control" name="hasil_kerja" id="hasil_kerja" value="Rencana Strategis">
                     </td>
                     <td class="">   
                         <input type="text" class="form-control" name="beban_kerja" id="beban_kerja" value="1">
                     </td>
                     <td class="">   
-                        <input type="text" class="form-control" name="waktu_penyelesaian" id="waktu_penyelesaian" value="5">
+                        <input type="text" class="form-control" name="waktu_penyelesaian" id="waktu_penyelesaian" value="16">
                     </td>
-                    <td class="">   
+                    <td class="text-center">   
                         <button class="btn btn-primary"><i data-feather="save"></i> Simpan</button>
                     </td>
                 </tr>   
