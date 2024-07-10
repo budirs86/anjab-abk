@@ -82,12 +82,12 @@ Route::get('/petajabatan', function () {
     ]);
 })->middleware('auth');
 
-Route::get('/anjab/ajuan/{id}', function ($id) {
+Route::get('/anjab/ajuan/{ajuan}', function (Ajuan $ajuan) {
     return view('anjab.ajuan', [
         'title' => 'Ajuan Jabatan',
+        'ajuan' => $ajuan,
         'unit_kerjas' => UnitKerja::all(),
         'jabatans' => Jabatan::all(),
-        'editable' => false
     ]);
 })->name('anjab.ajuan');
 
