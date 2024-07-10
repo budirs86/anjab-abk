@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class RoleVerifikasi extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function ajuan()
+    {
+        return $this->belongsTo(Ajuan::class);
+    }
 }

@@ -239,6 +239,21 @@ class JabatanController extends Controller
             }
         }
 
+        // // UPDATING SYARAT FUNGSI
+        // // delete FungsiPekerjaan instances with syarat_jabatan_id = $syaratJabatan->id
+        // // loop through $request->input('fungsiPekerjaan') and create new FungsiPekerjaan instances
+        // // this is done so that when user uncheck an input, the data is deleted from the database
+        // SyaratFungsi::where('syarat_jabatan_id', $syaratJabatan->id)->delete();
+        // $fungsiPekerjaan = $request->input('fungsiPekerjaan');
+        // if ($fungsiPekerjaan) {
+        //     foreach ($fungsiPekerjaan as $fungsiPekerjaanId) {
+        //         SyaratFungsi::create([
+        //             'syarat_jabatan_id' => $syaratJabatan->id,
+        //             'fungsi_pekerjaan_id' => $fungsiPekerjaanId
+        //         ]);
+        //     }
+        // }
+
         // return redirect()->route('anjab.ajuan.create')->with('success', 'Data Jabatan berhasil Diubah');
         return redirect()->back()->with('success', 'Data Jabatan berhasil Diubah');
     }

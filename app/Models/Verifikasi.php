@@ -9,7 +9,8 @@ class Verifikasi extends Model
 {
     use HasFactory;
 
-    // Verifikasi belongs to ajuan
+    protected $guarded = ['id'];
+
     public function ajuan()
     {
         return $this->belongsTo(Ajuan::class);
