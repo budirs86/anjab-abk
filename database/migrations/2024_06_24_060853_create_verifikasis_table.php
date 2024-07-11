@@ -14,13 +14,11 @@ return new class extends Migration
         Schema::create('verifikasis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ajuan_id')->constrained();
-            $table->enum('status', ['menunggu diperiksa', 'sedang diperiksa', 'diterima', 'perlu diperbaiki']);
-            $table->unsignedBigInteger('previous_verificator_id')->nullable();
             $table->unsignedBigInteger('verificator_id')->nullable();
+            $table->boolean('is_approved')->nullable();
             $table->text('catatan')->nullable();
             $table->timestamps();
             
-            $table->foreign('previous_verificator_id')->references('id')->on('users');
             $table->foreign('verificator_id')->references('id')->on('users');
         });
     }

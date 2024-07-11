@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Permission\Models\Role;
 
-class Verifikasi extends Model
+class RoleVerifikasi extends Model
 {
     use HasFactory;
 
@@ -14,5 +15,10 @@ class Verifikasi extends Model
     public function ajuan()
     {
         return $this->belongsTo(Ajuan::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

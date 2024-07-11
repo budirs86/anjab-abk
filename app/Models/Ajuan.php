@@ -9,11 +9,20 @@ class Ajuan extends Model
 {
     use HasFactory;
 
-    // Ajuan has many verfiikasi
-    public function verifikasis()
+    protected $guarded = ['id'];
+
+    public function verifikasi()
     {
         return $this->hasMany(Verifikasi::class);
     }
 
-    protected $guarded = ['id'];
+    public function role_verifikasi()
+    {
+        return $this->hasMany(RoleVerifikasi::class);
+    }
+
+    public function next_verificator()
+    {
+        return $this->role_verifikasi()->where('is_approved', false)->first();
+    }
 }
