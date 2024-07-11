@@ -31,5 +31,6 @@ class RolePermissionSeeder extends Seeder
         // level 3
         Role::create(['name' => 'Wakil Rektor 2'])->givePermissionTo($can_verify);;
 
+        Role::create(['name' => 'superadmin'])->givePermissionTo(['verify ajuan', 'make ajuan']);
     }
 }

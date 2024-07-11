@@ -13,6 +13,7 @@ use App\Models\FungsiPekerjaan;
 use App\Models\TemperamenKerja;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AbkController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AjuanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JabatanController;

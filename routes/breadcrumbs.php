@@ -137,6 +137,19 @@ Breadcrumbs::for('buat-informasi-beban-kerja', function (BreadcrumbTrail $trail)
     $trail->push('Buat Informasi Beban Kerja', "/abk/jabatan/{jabatan:id}/create");
 });
 
+// create a breadcrumb for Admin Dashboard
+Breadcrumbs::for('admin-dashboard', function (BreadcrumbTrail $trail) {
+    $trail->push('Admin Dashboard', "/admin/dashboard");
+});
+Breadcrumbs::for('user-dashboard', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin-dashboard');
+    $trail->push('User Dashboard', route('admin.users.index'));
+});
+Breadcrumbs::for('user-create', function (BreadcrumbTrail $trail) {
+    $trail->parent('user-dashboard');
+    $trail->push('Create User', route('admin.users.create'));
+});
+
 
 // Home > Blog
 Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {
