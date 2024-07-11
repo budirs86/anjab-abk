@@ -17,21 +17,19 @@ class RolePermissionSeeder extends Seeder
         $can_verify = Permission::create(['name' => 'verify ajuan']);
         $can_make_ajuan = Permission::create(['name' => 'make ajuan']);
 
-        Role::create(['name' => 'operator'])->givePermissionTo($can_make_ajuan);
+        Role::create(['name' => 'Operator'])->givePermissionTo($can_make_ajuan);
 
         // level 1
-        Role::create(['name' => 'manajer_kepegawaian'])->givePermissionTo($can_verify);
-        Role::create(['name' => 'manajer_tata_usaha'])->givePermissionTo($can_verify);;
+        Role::create(['name' => 'Manajer Kepegawaian'])->givePermissionTo($can_verify);
+        Role::create(['name' => 'Manajer Tata Usaha'])->givePermissionTo($can_verify);;
 
         // level 2
-        Role::create(['name' => 'wakil_dekan_2'])->givePermissionTo($can_verify);;
-        Role::create(['name' => 'sekretaris_lembaga'])->givePermissionTo($can_verify);;
-        Role::create(['name' => 'kepala_buk'])->givePermissionTo($can_verify);;
+        Role::create(['name' => 'Wakil Dekan 2'])->givePermissionTo($can_verify);;
+        Role::create(['name' => 'Sekretaris Lembaga'])->givePermissionTo($can_verify);;
+        Role::create(['name' => 'Kepala BUK'])->givePermissionTo($can_verify);;
 
         // level 3
-        Role::create(['name' => 'wakil_rektor'])->givePermissionTo($can_verify);;
-        
+        Role::create(['name' => 'Wakil Rektor 2'])->givePermissionTo($can_verify);;
 
-        Role::create(['name' => 'superadmin'])->givePermissionTo(['verify ajuan', 'make ajuan']);
     }
 }

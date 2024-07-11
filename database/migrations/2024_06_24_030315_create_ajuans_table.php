@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('ajuans', function (Blueprint $table) {
             $table->id();
             $table->year('tahun');
-            $table->enum('status', ['diajukan', 'diterima', 'ditolak']);
             $table->enum('jenis', ['anjab', 'abk']);
             $table->timestamps();
         });
