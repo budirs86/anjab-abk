@@ -237,3 +237,11 @@ Route::get('/abk/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}/edit',functio
         'jabatan' => $jabatan,
     ]);
 })->name('abk.jabatan.edit');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard', [
+            'title' => 'Dashboard Admin'
+        ]);
+    })->name('dashboard');
+});

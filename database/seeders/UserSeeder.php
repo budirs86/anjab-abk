@@ -64,7 +64,9 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password')
         ])->assignRole('wakil_rektor');
 
-        
-
+        User::create([
+            'name' => 'Superadmin',
+            'email' => 'superadmin@gmail.com',
+            'password' => bcrypt('password')])->assignRole('superadmin');
     }
 }

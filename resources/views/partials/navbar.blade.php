@@ -76,6 +76,17 @@
 
                     <li><a class="nav-link" href="#"><img data-feather="file" width="20px"></img> Laporan</a>
                     </li>
+                    @if (auth()->user()->hasRole('superadmin'))
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"><img
+                                    data-feather="user" width="20px"></img> Admin</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item me-3 my-1" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                                <li><a class="dropdown-item me-3 my-1" href="{{ route('admin.users.index') }}">Manage Users</a></li>
+                                
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
