@@ -9,6 +9,7 @@ use App\Models\JenisJabatan;
 use App\Models\Role;
 use App\Models\RoleVerifikasi;
 use App\Models\UnitKerja;
+use App\Models\User;
 use App\Models\Verifikasi;
 use Illuminate\Http\Request;
 
@@ -41,12 +42,6 @@ class AjuanController extends Controller
         // After creating an ajuan, roles that can verify the ajuan are created
         RoleVerifikasi::create([
             'ajuan_id' => $ajuan->id,
-            'role_id' => '1',
-            'is_approved' => false
-        ]);
-
-        RoleVerifikasi::create([
-            'ajuan_id' => $ajuan->id,
             'role_id' => '2',
             'is_approved' => false
         ]);
@@ -72,5 +67,51 @@ class AjuanController extends Controller
         }
 
         return redirect()->route('anjab.ajuan.index')->with('success', 'Ajuan Jabatan berhasil diajukan');
+    }
+
+    public function anjabVerifikasi(Ajuan $ajuan)
+    {
+        // When user accepts the ajuan, verification instance is created, 
+        // and is_approved in RoleVerifikasi is set to true
+        Verifikasi::create([
+            'ajuan_id' => $ajuan->id,
+            'verificator_id' => auth()->user()->id,
+            'is_approved' => true,
+            'catatan' => null
+        ]);
+        RoleVerifikasi::where('ajuan_id', $ajuan->id)
+            ->where('role_id', auth()->user()->roles->first()->id)
+            ->update(['is_approved' => true]);
+
+        return redirect()->back()->with('success', 'Verifikasi berhasil');
+    }
+
+    public function anjabRevisi(Ajuan $ajuan)
+    {
+        // When user rejects the ajuan, verification instance is created, 
+        // and is_approved in RoleVerifikasi from the previous role is set to false
+        // and is_approved in RoleVerifikasi from the current role is also set to false
+        Verifikasi::create([
+            'ajuan_id' => $ajuan->id,
+            'verificator_id' => auth()->user()->id,
+            'is_approved' => false,
+            'catatan' => request('catatan')
+        ]);
+
+        $previous_verificator_id = Verifikasi::where('ajuan_id', $ajuan->id)
+            ->where('is_approved', true)
+            ->latest()
+            ->first()
+            ->verificator_id;
+        $previous_verificator_role_id = User::find($previous_verificator_id)->roles->first()->id;
+        RoleVerifikasi::where('ajuan_id', $ajuan->id)
+            ->where('role_id', $previous_verificator_role_id)
+            ->update(['is_approved' => false]);
+
+        RoleVerifikasi::where('ajuan_id', $ajuan->id)
+            ->where('role_id', auth()->user()->roles->first()->id)
+            ->update(['is_approved' => false]);
+
+        return redirect()->back()->with('success', 'Revisi berhasil');
     }
 }
