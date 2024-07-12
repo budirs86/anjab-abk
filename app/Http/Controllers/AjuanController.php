@@ -67,4 +67,21 @@ class AjuanController extends Controller
 
         return redirect()->route('anjab.ajuan.index')->with('success', 'Ajuan Jabatan berhasil diajukan');
     }
+
+    public function anjabVerifikasi(Ajuan $ajuan)
+    {
+        // When user accepts the ajuan, verification instance is created, 
+        // and is_approved in RoleVerifikasi is set to true
+        Verifikasi::create([
+            'ajuan_id' => $ajuan->id,
+            'verificator_id' => auth()->user()->id,
+            'is_approved' => true,
+            'catatan' => null
+        ]);
+        RoleVerifikasi::where('ajuan_id', $ajuan->id)
+            ->where('role_id', auth()->user()->roles->first()->id)
+            ->update(['is_approved' => true]);
+
+        return redirect()->back()->with('success', 'Verifikasi berhasil');
+    }
 }

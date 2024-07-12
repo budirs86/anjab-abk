@@ -65,8 +65,8 @@
                     </td>
                     @can('make ajuan')
                         <td class="w-25">
-                            @if (!$ajuan->verifikasi->count())
-                                {{-- if there is no verifikasi for the ajuan, display alert info --}}
+                            {{-- if there is still someone to verify, display alert info --}}
+                            @if ($ajuan->next_verificator())
                                 <div class="alert alert-info w-100">
                                     <div class="alert-heading d-flex">
                                         <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
@@ -74,7 +74,7 @@
                                     </div>
                                     <hr>
                                     <p class="m-0 p-0">
-                                        {{ $ajuan->role_verifikasi[0]->role->name }}
+                                        {{ $ajuan->next_verificator()->role->name }}
                                     </p>
                                 </div>
                             @endif
@@ -82,7 +82,7 @@
                         <td>
                             <ul>
                                 @forelse ($ajuan->verifikasi as $verifikasi)
-                                    <li>{{ $verifikasi->catatan }}</li>
+                                    {{ $verifikasi->catatan }}
                                 @empty
                                     <li>Tidak ada catatan.</li>
                                 @endforelse
@@ -104,6 +104,58 @@
                     @endcan
                     {{-- <td>{{  ? <p class="bad"></p> : "Revisi" }}</td> --}}
                 </tr>
+
+                {{-- Modals are placed here so that it can pass $ajuan->id when the buttons are clicked --}}
+                {{-- Modal Terima Start --}}
+                <div class="modal fade" tabindex="-1" id="modalTerima">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Terima Ajuan?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Ajuan yang sudah diterima tidak akan bisa diubah lagi dan akan diteruskan ke tingkat
+                                    verifikasi
+                                    berikutnya.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <form action="{{ route('anjab.ajuan.verifikasi', ['ajuan' => $ajuan->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">Ya</button>
+                                </form>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- Modal Terima End --}}
+
+                {{-- Modal Revisi Start --}}
+                <div class="modal fade" tabindex="-1" id="modalRevisi">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Beri Catatan dan Minta Revisi</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="">
+                                    <label for="catatan" class="form-label">Berikan Catatan tentang ajuan untuk
+                                        diperbaiki</label>
+                                    <textarea class="form-control" name="catatan" id="catatan" cols="30" rows="10"></textarea>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- Modal Revisi End --}}
             @endforeach
 
             {{-- <tr>
@@ -209,41 +261,5 @@
     {{-- make a kembali button --}}
     <a href="{{ route('home') }}" class="btn btn-primary header1"><i data-feather="arrow-left"></i> Kembali</a>
 
-    <div class="modal fade" tabindex="-1" id="modalTerima">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Terima Ajuan?</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Ajuan yang sudah diterima tidak akan bisa diubah lagi dan akan diteruskan ke tingkat verifikasi
-                        berikutnya.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ya</button>
-                    <button type="button" class="btn btn-primary">Tidak</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" tabindex="-1" id="modalRevisi">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Beri Catatan dan Minta Revisi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="">
-                        <label for="catatan" class="form-label">Berikan Catatan tentang ajuan untuk diperbaiki</label>
-                        <textarea class="form-control" name="catatan" id="catatan" cols="30" rows="10"></textarea>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Simpan</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 @endsection
