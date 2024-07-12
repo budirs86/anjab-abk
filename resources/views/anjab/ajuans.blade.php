@@ -142,16 +142,18 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <form action="">
+                            <form action="{{ route('anjab.ajuan.revisi', ['ajuan' => $ajuan->id]) }}" method="POST">
+                                @csrf
+                                <div class="modal-body">
                                     <label for="catatan" class="form-label">Berikan Catatan tentang ajuan untuk
                                         diperbaiki</label>
                                     <textarea class="form-control" name="catatan" id="catatan" cols="30" rows="10"></textarea>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Simpan</button>
-                            </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Simpan</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
