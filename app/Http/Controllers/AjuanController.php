@@ -112,6 +112,30 @@ class AjuanController extends Controller
     ));
   }
 
+  public function anjabEditJabatan(Ajuan $ajuan, Jabatan $jabatan)
+  {
+    // $jabatans = Jabatan::tree()->get()->toTree();
+    $title = 'Form Informasi Jabatan';
+    $bakat_kerjas = BakatKerja::all();
+    $unit_kerjas = UnitKerja::all();
+    $jenis_jabatan = JenisJabatan::all();
+    $temperamens = TemperamenKerja::all();
+    $upaya_fisiks = UpayaFisik::all();
+    $fungsi_pekerjaans = FungsiPekerjaan::all();
+
+    return view('anjab.jabatan.edit.step-1', compact(
+      'ajuan',
+      'jabatan',
+      'title',
+      'bakat_kerjas',
+      'unit_kerjas',
+      'jenis_jabatan',
+      'temperamens',
+      'upaya_fisiks',
+      'fungsi_pekerjaans'
+    ));
+  }
+
   public function anjabVerifikasi(Ajuan $ajuan)
   {
     // When user accepts the ajuan, verification instance is created, 

@@ -44,6 +44,7 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
     Route::get('/{ajuan:tahun}', [AjuanController::class, 'anjabShow'])->name('show');
     Route::get('/{ajuan:tahun}/edit', [AjuanController::class, 'anjabEdit'])->name('edit');
     Route::get('/{ajuan:tahun}/jabatan/{jabatan}', [AjuanController::class, 'anjabShowJabatan'])->name('jabatan.show');
+    Route::get('/{ajuan:tahun}/jabatan/{jabatan}/edit', [AjuanController::class, 'anjabEditJabatan'])->name('jabatan.edit');
     Route::post('/{ajuan}/verifikasi', [AjuanController::class, 'anjabVerifikasi'])->name('verifikasi');
     Route::post('/{ajuan}/revisi', [AjuanController::class, 'anjabRevisi'])->name('revisi');
   });
@@ -87,29 +88,6 @@ Route::get('/petajabatan', function () {
     'jabatans' => $jabatans
   ]);
 })->middleware('auth');
-
-Route::get('/anjab/ajuan/{ajuan}/jabatan/{jabatan}/edit', function (Ajuan $ajuan, Jabatan $jabatan) {
-  // $jabatans = Jabatan::tree()->get()->toTree();
-  $bakat_kerjas = BakatKerja::all();
-  $unit_kerjas = UnitKerja::all();
-  $jenis_jabatan = JenisJabatan::all();
-  $temperamens = TemperamenKerja::all();
-  $upaya_fisiks = UpayaFisik::all();
-  $fungsi_pekerjaans = FungsiPekerjaan::all();
-  $title = 'Form Informasi Jabatan';
-
-  return view('anjab.jabatan.edit.step-1', compact([
-    'ajuan',
-    'title',
-    'jabatan',
-    'bakat_kerjas',
-    'unit_kerjas',
-    'jenis_jabatan',
-    'temperamens',
-    'upaya_fisiks',
-    'fungsi_pekerjaans'
-  ]));
-})->name('anjab.ajuan.jabatan.edit');
 
 Route::get('/anjab/ajuan/{id}/unit/{unitkerja:id}', function ($id, UnitKerja $unitkerja) {
   // $jabatans = Jabatan::tree()->get()->toTree();
