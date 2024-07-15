@@ -41,6 +41,8 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
         Route::get('/', [AjuanController::class, 'anjabIndex'])->name('index');
         Route::get('/create', [AjuanController::class, 'anjabCreate'])->name('create');
         Route::post('/store', [AjuanController::class, 'anjabStore'])->name('store');
+        Route::post('/{ajuan}/verifikasi', [AjuanController::class, 'anjabVerifikasi'])->name('verifikasi');
+        Route::post('/{ajuan}/revisi', [AjuanController::class, 'anjabRevisi'])->name('revisi');
     });
     Route::prefix('jabatan/{jabatan}')->name('anjab.jabatan.')->group(function () {
         Route::get('/', [JabatanController::class, 'show'])->name('show');
@@ -239,10 +241,20 @@ Route::get('/abk/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}/edit',functio
     ]);
 })->name('abk.jabatan.edit');
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('role:superadmin')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard', [
             'title' => 'Dashboard Admin'
-        ]);
+        ]);     
     })->name('dashboard');
+    Route::prefix('users')->name('users.')->group( function () {
+        Route::get('/', [AdminUserController::class, 'index'])->name('index');
+        Route::get('/create', [AdminUserController::class, 'create'])->name('create');
+        Route::post('/store', [AdminUserController::class, 'store'])->name('store');
+        Route::prefix('{user}')->group(function () {
+            Route::get('/edit', [AdminUserController::class, 'edit'])->name('edit');
+            Route::put('/update', [AdminUserController::class, 'update'])->name('update');
+            Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
+        });
+    });
 });
