@@ -42,7 +42,7 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
     Route::get('/create', [AjuanController::class, 'anjabCreate'])->name('create');
     Route::post('/store', [AjuanController::class, 'anjabStore'])->name('store');
     Route::get('/{ajuan:tahun}', [AjuanController::class, 'anjabShow'])->name('show');
-
+    Route::get('/{ajuan:tahun}/jabatan/{jabatan}', [AjuanController::class, 'anjabShowJabatan'])->name('jabatan.show');
     Route::post('/{ajuan}/verifikasi', [AjuanController::class, 'anjabVerifikasi'])->name('verifikasi');
     Route::post('/{ajuan}/revisi', [AjuanController::class, 'anjabRevisi'])->name('revisi');
   });
@@ -86,23 +86,6 @@ Route::get('/petajabatan', function () {
     'jabatans' => $jabatans
   ]);
 })->middleware('auth');
-
-
-
-Route::get('/anjab/ajuan/{ajuan}/jabatan/{jabatan}', function (Ajuan $ajuan, Jabatan $jabatan) {
-  return view('anjab.jabatan.show', [
-    'title' => 'Lihat Informasi Jabatan',
-    'ajuan' => $ajuan,
-    'jabatan' => $jabatan,
-    'bakat_kerjas' => BakatKerja::all(),
-    'unit_kerjas' => UnitKerja::all(),
-    'jenis_jabatan' => JenisJabatan::all(),
-    'temperamens' => TemperamenKerja::all(),
-    'upaya_fisiks' => UpayaFisik::all(),
-    'fungsi_pekerjaans' => FungsiPekerjaan::all()
-  ]);
-})->name('anjab.ajuan.jabatan.show');
-
 
 Route::get('/anjab/ajuan/{ajuan}/edit', function (Ajuan $ajuan) {
   // $jabatans = Jabatan::tree()->get()->toTree();

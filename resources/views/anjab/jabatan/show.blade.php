@@ -20,7 +20,7 @@
                 </div>
                 <div class="card dropdown-divider mb-4"></div>
                 <div class="mb-3">
-                    <a href=" {{ Route::currentRouteName() == 'anjab.ajuan.jabatan.show' ? route('anjab.ajuan', ['ajuan' => $ajuan->id]) : route('anjab.ajuan.create') }} "
+                    <a href=" {{ Route::currentRouteName() == 'anjab.ajuan.jabatan.show' ? route('anjab.ajuan.show', ['ajuan' => $ajuan->tahun]) : route('anjab.ajuan.create') }} "
                      class="btn btn-sm btn-secondary align-baseline"><i data-feather="chevron-left"></i>Kembali</a>
                 </div>
                 <form action="/anjab/analisis-jabatan" method="POST">
@@ -393,7 +393,7 @@
                         </fieldset>
                         <div class="">
                             {{-- <button type="submit" class="btn btn-primary header1"><img src="" alt="" data-feather="save" width="20px"> Simpan</button> --}}
-                            <a href="{{ route('anjab.ajuan', ['ajuan' => $ajuan]) }}" class="btn btn-primary header1"><img src="" alt="" data-feather="arrow-left" width="20px"> Kembali</a>
+                            <a href="{{ route('anjab.ajuan.show', ['ajuan' => $ajuan->tahun]) }}" class="btn btn-primary header1"><img src="" alt="" data-feather="arrow-left" width="20px"> Kembali</a>
                         </div>
                     </fieldset>
                 </form>
