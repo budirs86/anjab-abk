@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('role_verifikasis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ajuan_id')->constrained();
-            $table->foreignId('role_id')->constrained();
+            $table->foreignId('ajuan_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('role_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_approved')->nullable();
             $table->timestamps();
         });
