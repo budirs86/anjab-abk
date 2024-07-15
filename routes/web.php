@@ -42,6 +42,7 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
     Route::get('/create', [AjuanController::class, 'anjabCreate'])->name('create');
     Route::post('/store', [AjuanController::class, 'anjabStore'])->name('store');
     Route::get('/{ajuan:tahun}', [AjuanController::class, 'anjabShow'])->name('show');
+    Route::get('/{ajuan:tahun}/edit', [AjuanController::class, 'anjabEdit'])->name('edit');
     Route::get('/{ajuan:tahun}/jabatan/{jabatan}', [AjuanController::class, 'anjabShowJabatan'])->name('jabatan.show');
     Route::post('/{ajuan}/verifikasi', [AjuanController::class, 'anjabVerifikasi'])->name('verifikasi');
     Route::post('/{ajuan}/revisi', [AjuanController::class, 'anjabRevisi'])->name('revisi');
@@ -87,16 +88,6 @@ Route::get('/petajabatan', function () {
   ]);
 })->middleware('auth');
 
-Route::get('/anjab/ajuan/{ajuan}/edit', function (Ajuan $ajuan) {
-  // $jabatans = Jabatan::tree()->get()->toTree();
-  $jabatans = Jabatan::all();
-  return view('anjab.ajuan.edit', [
-    'ajuan' => $ajuan,
-    'title' => 'Ajuan Jabatan',
-    'jabatans' => $jabatans,
-    'editable' => true
-  ]);
-})->name('anjab.ajuan.edit');
 Route::get('/anjab/ajuan/{ajuan}/jabatan/{jabatan}/edit', function (Ajuan $ajuan, Jabatan $jabatan) {
   // $jabatans = Jabatan::tree()->get()->toTree();
   $bakat_kerjas = BakatKerja::all();

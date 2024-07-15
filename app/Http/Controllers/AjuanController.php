@@ -81,6 +81,15 @@ class AjuanController extends Controller
     return view('anjab.ajuan', compact('title', 'ajuan', 'jabatans', 'unitKerjas'));
   }
 
+  public function anjabEdit(Ajuan $ajuan)
+  {
+    // $jabatans = Jabatan::tree()->get()->toTree();
+    $title = 'Ajuan Jabatan';
+    $jabatans = Jabatan::all();
+    $editable = true;
+    return view('anjab.ajuan.edit', compact('title', 'ajuan', 'jabatans', 'editable'));
+  }
+
   public function anjabShowJabatan(Ajuan $ajuan, Jabatan $jabatan)
   {
     $title = 'Lihat Informasi Jabatan';
