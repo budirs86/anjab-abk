@@ -65,6 +65,36 @@
                     </td>
                     @can('make ajuan')
                         <td class="w-25">
+                            {{-- if the latest verifikasi status is rejected, display alert warning --}}
+                            @if ($ajuan->latest_verifikasi()->is_approved == 0)
+                                <div class="alert alert-warning w-100">
+                                    <div class="alert-heading d-flex">
+                                        <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
+                                        <p class="m-0 p-0">Perlu Perbaikan</p>
+                                    </div>
+                                    <hr>
+                                    <p class="m-0 p-0">{{ $ajuan->latest_verificator()->role->name }}</p>
+                                </div>
+                            @endif
+
+                            {{-- if someone has verified the ajuan, display alert success --}}
+                            @if ($ajuan->approved_verificator())
+                                <div class="alert alert-success w-100">
+                                    <div class="alert-heading d-flex">
+                                        <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
+                                        <p class="m-0 p-0">Disetujui</p>
+                                    </div>
+                                    <hr>
+                                    <ul>
+                                        @foreach ($ajuan->approved_verificator() as $verificator)
+                                            <li>
+                                                {{ $verificator->role->name }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             {{-- if there is still someone to verify, display alert info --}}
                             @if ($ajuan->next_verificator())
                                 <div class="alert alert-info w-100">
@@ -80,13 +110,9 @@
                             @endif
                         </td>
                         <td>
-                            <ul>
-                                @forelse ($ajuan->verifikasi as $verifikasi)
-                                    {{ $verifikasi->catatan }}
-                                @empty
-                                    <li>Tidak ada catatan.</li>
-                                @endforelse
-                            </ul>
+                          <p>
+                            {{ $ajuan->latest_verifikasi()->catatan }}
+                          </p>
                         </td>
                     @elsecan('verify ajuan')
                         <td>
