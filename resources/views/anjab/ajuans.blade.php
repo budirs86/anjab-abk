@@ -66,7 +66,7 @@
                     @can('make ajuan')
                         <td class="w-25">
                             {{-- if the latest verifikasi status is rejected, display alert warning --}}
-                            @if ($ajuan->latest_verifikasi()->is_approved == 0)
+                            @if ($ajuan->latest_verifikasi()->is_approved ?? false)
                                 <div class="alert alert-warning w-100">
                                     <div class="alert-heading d-flex">
                                         <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
@@ -78,7 +78,7 @@
                             @endif
 
                             {{-- if someone has verified the ajuan, display alert success --}}
-                            @if ($ajuan->approved_verificator())
+                            @if ($ajuan->approved_verificator()->count())
                                 <div class="alert alert-success w-100">
                                     <div class="alert-heading d-flex">
                                         <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
@@ -111,7 +111,7 @@
                         </td>
                         <td>
                           <p>
-                            {{ $ajuan->latest_verifikasi()->catatan }}
+                            {{ $ajuan->latest_verifikasi()->catatan ?? 'Tidak ada catatan.' }}
                           </p>
                         </td>
                     @elsecan('verify ajuan')
