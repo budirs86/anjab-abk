@@ -54,7 +54,7 @@
                             <p>{{ $ajuan->tahun }} </p>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 @can('make ajuan')
-                                    <a href="{{ route('anjab.ajuan', $ajuan->id) }}" class="btn btn-outline-primary">Lihat</a>
+                                    <a href="{{ route('anjab.ajuan.show', $ajuan->tahun) }}" class="btn btn-outline-primary">Lihat</a>
                                     <a href="{{ route('anjab.ajuan.edit', $ajuan->id) }}"
                                         class="btn btn-outline-primary">Edit</a>
                                     <a href="{{ route('abk.ajuan.create', ['periode' => now()->year]) }}"

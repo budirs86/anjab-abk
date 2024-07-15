@@ -69,6 +69,14 @@ class AjuanController extends Controller
         return redirect()->route('anjab.ajuan.index')->with('success', 'Ajuan Jabatan berhasil diajukan');
     }
 
+    public function anjabShow(Ajuan $ajuan)
+    {
+        $title = 'Ajuan Jabatan';
+        $jabatans = Jabatan::all();
+        $unitKerjas = UnitKerja::all();
+        return view('anjab.ajuan', compact('title', 'ajuan', 'jabatans', 'unitKerjas'));
+    }
+
     public function anjabVerifikasi(Ajuan $ajuan)
     {
         // When user accepts the ajuan, verification instance is created, 
