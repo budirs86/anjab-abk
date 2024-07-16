@@ -54,8 +54,8 @@
                             <p>{{ $ajuan->tahun }} </p>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 @can('make ajuan')
-                                    <a href="{{ route('anjab.ajuan', $ajuan->id) }}" class="btn btn-outline-primary">Lihat</a>
-                                    <a href="{{ route('anjab.ajuan.edit', $ajuan->id) }}"
+                                    <a href="{{ route('anjab.ajuan.show', $ajuan->tahun) }}" class="btn btn-outline-primary">Lihat</a>
+                                    <a href="{{ route('anjab.ajuan.edit', $ajuan->tahun) }}"
                                         class="btn btn-outline-primary">Edit</a>
                                     <a href="{{ route('abk.ajuan.create', ['periode' => now()->year]) }}"
                                         class="btn btn-outline-success" aria-disabled="true">Buat Ajuan ABK</a>
@@ -65,6 +65,36 @@
                     </td>
                     @can('make ajuan')
                         <td class="w-25">
+                            {{-- if the latest verifikasi status is rejected, display alert warning --}}
+                            @if ($ajuan->latest_verifikasi()->is_approved ?? false)
+                                <div class="alert alert-warning w-100">
+                                    <div class="alert-heading d-flex">
+                                        <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
+                                        <p class="m-0 p-0">Perlu Perbaikan</p>
+                                    </div>
+                                    <hr>
+                                    <p class="m-0 p-0">{{ $ajuan->latest_verificator()->role->name }}</p>
+                                </div>
+                            @endif
+
+                            {{-- if someone has verified the ajuan, display alert success --}}
+                            @if ($ajuan->approved_verificator()->count())
+                                <div class="alert alert-success w-100">
+                                    <div class="alert-heading d-flex">
+                                        <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
+                                        <p class="m-0 p-0">Disetujui</p>
+                                    </div>
+                                    <hr>
+                                    <ul>
+                                        @foreach ($ajuan->approved_verificator() as $verificator)
+                                            <li>
+                                                {{ $verificator->role->name }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             {{-- if there is still someone to verify, display alert info --}}
                             @if ($ajuan->next_verificator())
                                 <div class="alert alert-info w-100">
@@ -80,13 +110,9 @@
                             @endif
                         </td>
                         <td>
-                            <ul>
-                                @forelse ($ajuan->verifikasi as $verifikasi)
-                                    {{ $verifikasi->catatan }}
-                                @empty
-                                    <li>Tidak ada catatan.</li>
-                                @endforelse
-                            </ul>
+                          <p>
+                            {{ $ajuan->latest_verifikasi()->catatan ?? 'Tidak ada catatan.' }}
+                          </p>
                         </td>
                     @elsecan('verify ajuan')
                         <td>
