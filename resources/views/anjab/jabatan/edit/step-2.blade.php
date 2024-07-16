@@ -1,13 +1,13 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="">
+    {{-- <div class="">
         @if (Route::currentRouteName() == 'anjab.jabatan.edit.2')
             {{ Breadcrumbs::render('isi-detail-jabatan', $jabatan) }}
         @else
             {{ Breadcrumbs::render('edit-ajuan-anjab-jabatan-2', $ajuan, $jabatan) }}
         @endif
-    </div>
+    </div> --}}
     <div class="mb-3">
         <h1 class="fw-light fs-4 d-inline nav-item">Ubah Informasi Jabatan | {{ $jabatan->nama }}</h1>
     </div>
@@ -527,7 +527,14 @@
             </tbody>
         </table>
     </div>
-    <form action="{{ route('anjab.jabatan.update.2', ['jabatan' => $jabatan]) }}" method="POST">
+    <form
+        action="
+    {{-- Check if current route is edit jabatan inside ajuan or before ajuan is created --}}
+    @if (Route::currentRouteName() == 'anjab.jabatan.edit.2') {{ route('anjab.jabatan.update.2', ['jabatan' => $jabatan]) }}
+    @elseif (Route::currentRouteName() == 'anjab.ajuan.jabatan.edit.2')
+      {{ route('anjab.ajuan.jabatan.update.2', ['jabatan' => $jabatan, 'ajuan' => $ajuan]) }} @endif
+"
+        method="POST">
         @csrf
         @method('PUT')
         <div class="my-3">
@@ -582,7 +589,8 @@
                         <option value="lembab" @selected($jabatan->kondisiLingkunganKerja->udara == 'lembab')>Kering</option>
                     </select>
                     <label for="tempat" class="form-label text-capitalize">tempat</label>
-                    <input type="text" class="form-control mb-3" id="tempat" name="kondisiLingkunganKerja[tempat]" value="{{ $jabatan->kondisiLingkunganKerja->tempat }}">
+                    <input type="text" class="form-control mb-3" id="tempat" name="kondisiLingkunganKerja[tempat]"
+                        value="{{ $jabatan->kondisiLingkunganKerja->tempat }}">
                 </div>
             </div>
             <hr class="mb-3">
@@ -659,20 +667,25 @@
                         </select>
 
                         <label for="umur" class="form-label">Umur (Tahun)</label>
-                        <input type="number" name="umur" class="form-control mb-3" id="umur" value="{{ $jabatan->syaratJabatan->umur }}">
+                        <input type="number" name="umur" class="form-control mb-3" id="umur"
+                            value="{{ $jabatan->syaratJabatan->umur }}">
 
                         <label for="tinggi_badan" class="form-label text-capitalize">tinggi badan (sentimeter)</label>
-                        <input type="number" name="tinggi_badan" class="form-control mb-3" id="tinggi_badan" value="{{ $jabatan->syaratJabatan->tinggi_badan }}">
+                        <input type="number" name="tinggi_badan" class="form-control mb-3" id="tinggi_badan"
+                            value="{{ $jabatan->syaratJabatan->tinggi_badan }}">
                     </div>
                     <div class="col-6">
                         <label for="berat_badan" class="form-label text-capitalize">berat badan (kilogram)</label>
-                        <input type="number" name="berat_badan" class="form-control mb-3" id="berat_badan" value="{{ $jabatan->syaratJabatan->berat_badan }}">
+                        <input type="number" name="berat_badan" class="form-control mb-3" id="berat_badan"
+                            value="{{ $jabatan->syaratJabatan->berat_badan }}">
 
                         <label for="postur_badan" class="form-label text-capitalize">postur badan</label>
-                        <input type="text" name="postur_badan" class="form-control mb-3" id="postur_badan" value="{{ $jabatan->syaratJabatan->postur_badan }}">
+                        <input type="text" name="postur_badan" class="form-control mb-3" id="postur_badan"
+                            value="{{ $jabatan->syaratJabatan->postur_badan }}">
 
                         <label for="penampilan" class="form-label text-capitalize">penampilan</label>
-                        <input type="text" name="penampilan" class="form-control mb-3" id="penampilan" value="{{ $jabatan->syaratJabatan->penampilan }}">
+                        <input type="text" name="penampilan" class="form-control mb-3" id="penampilan"
+                            value="{{ $jabatan->syaratJabatan->penampilan }}">
                     </div>
                 </div>
             </div>

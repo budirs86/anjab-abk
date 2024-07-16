@@ -44,7 +44,10 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
     Route::get('/{ajuan:tahun}', [AjuanController::class, 'anjabShow'])->name('show');
     Route::get('/{ajuan:tahun}/edit', [AjuanController::class, 'anjabEdit'])->name('edit');
     Route::get('/{ajuan:tahun}/jabatan/{jabatan}', [AjuanController::class, 'anjabShowJabatan'])->name('jabatan.show');
-    Route::get('/{ajuan:tahun}/jabatan/{jabatan}/edit', [AjuanController::class, 'anjabEditJabatan'])->name('jabatan.edit');
+    Route::get('/{ajuan:tahun}/jabatan/{jabatan}/edit/1', [AjuanController::class, 'anjabEditJabatan1'])->name('jabatan.edit.1');
+    Route::put('/{ajuan:tahun}/jabatan/{jabatan}/update/1', [AjuanController::class, 'anjabUpdateJabatan1'])->name('jabatan.update.1');
+    Route::get('/{ajuan:tahun}/jabatan/{jabatan}/edit/2', [AjuanController::class, 'anjabEditJabatan2'])->name('jabatan.edit.2');
+    Route::put('/{ajuan:tahun}/jabatan/{jabatan}/update/2', [AjuanController::class, 'anjabUpdateJabatan2'])->name('jabatan.update.2');
     Route::post('/{ajuan}/verifikasi', [AjuanController::class, 'anjabVerifikasi'])->name('verifikasi');
     Route::post('/{ajuan}/revisi', [AjuanController::class, 'anjabRevisi'])->name('revisi');
   });

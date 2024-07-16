@@ -46,8 +46,8 @@ Breadcrumbs::for('edit-ajuan-anjab', function (BreadcrumbTrail $trail, $ajuan) {
 });
 Breadcrumbs::for('edit-ajuan-anjab-jabatan', function (BreadcrumbTrail $trail, $ajuan, $jabatan) {
     $trail->parent('edit-ajuan-anjab', $ajuan);
-    $trail->push('Edit Informasi Jabatan '. $jabatan->nama, route('anjab.ajuan.jabatan.edit', ['ajuan' => $ajuan, 'jabatan' => $jabatan]));
-    $trail->push('isi Informasi Umum', route('anjab.ajuan.jabatan.edit', ['ajuan' => $ajuan, 'jabatan' => $jabatan]));
+    $trail->push('Edit Informasi Jabatan '. $jabatan->nama, route('anjab.ajuan.jabatan.edit.1', ['ajuan' => $ajuan, 'jabatan' => $jabatan]));
+    $trail->push('isi Informasi Umum', route('anjab.ajuan.jabatan.edit.1', ['ajuan' => $ajuan, 'jabatan' => $jabatan]));
 });
 Breadcrumbs::for('edit-ajuan-anjab-jabatan-2', function (BreadcrumbTrail $trail, $ajuan, $jabatan) {
     $trail->parent('edit-ajuan-anjab-jabatan', $ajuan);
