@@ -20,7 +20,7 @@
                         <td class="d-flex justify-content-between">
                             <p class="" href="/anjab/analisis-jabatan/create" style="">{{ $jabatan->nama }}</p>
                             <div class="div">
-                                <a href="{{ route('anjab.ajuan.jabatan.edit', ['ajuan'=> $ajuan->tahun,'jabatan'=> $jabatan->id]) }}" class="btn btn-sm btn-primary ms-auto add-button"><img width="20px" data-feather="edit"></img> Edit Informasi Jabatan</a>
+                                <a href="{{ route('anjab.ajuan.jabatan.edit.1', ['ajuan'=> $ajuan->tahun,'jabatan'=> $jabatan->id]) }}" class="btn btn-sm btn-primary ms-auto add-button"><img width="20px" data-feather="edit"></img> Edit Informasi Jabatan</a>
                             </div>
                         </td>
                     </tr>

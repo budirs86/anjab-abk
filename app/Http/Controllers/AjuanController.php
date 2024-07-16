@@ -120,7 +120,7 @@ class AjuanController extends Controller
     ));
   }
 
-  public function anjabEditJabatan(Ajuan $ajuan, Jabatan $jabatan)
+  public function anjabEditJabatan1(Ajuan $ajuan, Jabatan $jabatan)
   {
     // $jabatans = Jabatan::tree()->get()->toTree();
     $title = 'Form Informasi Jabatan';
