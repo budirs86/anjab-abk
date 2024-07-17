@@ -17,9 +17,10 @@ class JabatanSeeder extends Seeder
      */
     public function run(): void
     {
-        $data_fakultas_teknik = json_decode(file_get_contents(database_path('seeders/data/jabatan/fakultas_teknik.json')), true);
+        $data_fakultas_teknik = json_decode(file_get_contents(database_path('seeders/data/anjab/fakultas_teknik.json')), true);
+        $data_spi = json_decode(file_get_contents(database_path('seeders/data/anjab/spi.json')), true);
 
-        $data = array_merge($data_fakultas_teknik);
+        $data = array_merge($data_fakultas_teknik, $data_spi);
 
         foreach ($data as $data_jabatan) {
             $jabatan = Jabatan::create($data_jabatan);
