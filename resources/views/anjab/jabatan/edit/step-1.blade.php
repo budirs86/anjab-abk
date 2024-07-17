@@ -13,8 +13,8 @@
     </div>
     <div class="card dropdown-divider mb-4"></div>
     <div class="mb-3">
-        <a href="{{ Route::currentRouteName() == 'anjab.ajuan.jabatan.edit' ? route('anjab.ajuan.edit', ['ajuan' => $ajuan]) : route('anjab.ajuan.create')}}" 
-        class="btn btn-sm btn-secondary align-baseline"><i data-feather="chevron-left"></i>Kembali
+        <a href="{{ Route::currentRouteName() == 'anjab.ajuan.jabatan.edit' ? route('anjab.ajuan.edit', ['ajuan' => $ajuan]) : route('anjab.ajuan.create') }}"
+            class="btn btn-sm btn-secondary align-baseline"><i data-feather="chevron-left"></i>Kembali
         </a>
     </div>
     <div class="alert alert-info alert-dismissible fade show">
@@ -28,7 +28,12 @@
         <hr>
         <p class="m-0 p-0">Silahkan Isi Nama Jabatan, Jenis Jabatan, dan Ikhtisar Jabatan dengan informasi yang benar.</p>
     </div>
-    <form action="{{ route('anjab.jabatan.update.1', ['jabatan' => $jabatan]) }}" method="POST">
+    <form {{-- If this page is from edit jabatan inside an ajuan, action should be update inside ajuan --}} {{-- If this page is from edit jabatan before submitting ajuan, action for update should be different --}}
+        action="
+    @if (Route::currentRouteName() == 'anjab.jabatan.edit.1') {{ route('anjab.jabatan.update.1', ['jabatan' => $jabatan]) }}
+    @elseif (Route::currentRouteName() == 'anjab.ajuan.jabatan.edit.1')
+        {{ route('anjab.ajuan.jabatan.update.1', ['jabatan' => $jabatan, 'ajuan' => $ajuan]) }} @endif"
+        method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">
