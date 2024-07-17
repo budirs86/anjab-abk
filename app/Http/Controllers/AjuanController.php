@@ -66,7 +66,7 @@ class AjuanController extends Controller
     return view('anjab.buat-ajuan', compact('title', 'jabatans', 'jenisJabatan', 'unitKerjas'));
   }
 
-  public function anjabStore(Request $request)
+  public function anjabStore()
   {
     $ajuan = Ajuan::create([
       'tahun' => now()->year,
@@ -79,25 +79,20 @@ class AjuanController extends Controller
       'role_id' => '2',
       'is_approved' => false
     ]);
-
     RoleVerifikasi::create([
       'ajuan_id' => $ajuan->id,
       'role_id' => '6',
       'is_approved' => false
     ]);
-
     RoleVerifikasi::create([
       'ajuan_id' => $ajuan->id,
       'role_id' => '7',
       'is_approved' => false
     ]);
 
-    $jabatans = $request->input('jabatans');
-    foreach ($jabatans as $jabatan_id) {
-      AjuanJabatan::create([
-        'ajuan_id' => Ajuan::latest()->first()->id,
-        'jabatan_id' => $jabatan_id
-      ]);
+    $jabatans = JabatanDiajukan::where('ajuan_id', null)->get();
+    foreach ($jabatans as $jabatan) {
+      $jabatan->update(['ajuan_id' => $ajuan->id]);
     }
 
     return redirect()->route('anjab.ajuan.index')->with('success', 'Ajuan Jabatan berhasil diajukan');
