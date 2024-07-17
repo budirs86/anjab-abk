@@ -7,6 +7,7 @@ use App\Models\AjuanJabatan;
 use App\Models\BakatKerja;
 use App\Models\FungsiPekerjaan;
 use App\Models\Jabatan;
+use App\Models\JabatanDiajukan;
 use App\Models\JenisJabatan;
 use App\Models\KondisiLingkunganKerja;
 use App\Models\MinatKerja;
@@ -38,9 +39,30 @@ class AjuanController extends Controller
   public function anjabCreate()
   {
     $title = 'Buat Ajuan Baru';
-    $jabatans = Jabatan::orderBy('nama')->get();
     $jenisJabatan = JenisJabatan::all();
     $unitKerjas = UnitKerja::all();
+
+    // check if there is an ajuan draft
+    // if there is no draft, get data from 'jabatan' table and put them in 'jabatan_diajukan' table
+    // if there is a draft already, simply get data from 'jabatan_diajukan' table
+    if (!JabatanDiajukan::is_draft_exist()) {
+      foreach (Jabatan::all() as $jabatan) {
+        JabatanDiajukan::create([
+          // 'ajuan_id' => null,
+          'parent_id' => $jabatan->parent_id,
+          'jenis_jabatan_id' => $jabatan->jenis_jabatan_id,
+          'unit_kerja_id' => $jabatan->unit_kerja_id,
+          'nama' => $jabatan->nama,
+          'kode' => $jabatan->kode,
+          'kelas_jabatan' => $jabatan->kelas_jabatan,
+          'ikhtisar' => $jabatan->ikhtisar,
+          'prestasi' => $jabatan->prestasi,
+          'tanggung_jawab' => $jabatan->tanggung_jawab
+        ]);
+      }
+    }
+    $jabatans = JabatanDiajukan::where('ajuan_id', null)->get();
+
     return view('anjab.buat-ajuan', compact('title', 'jabatans', 'jenisJabatan', 'unitKerjas'));
   }
 
