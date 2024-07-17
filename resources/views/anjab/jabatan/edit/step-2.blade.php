@@ -1,13 +1,13 @@
 @extends('layouts.main')
 
 @section('container')
-    {{-- <div class="">
+    <div class="">
         @if (Route::currentRouteName() == 'anjab.jabatan.edit.2')
             {{ Breadcrumbs::render('isi-detail-jabatan', $jabatan) }}
         @else
             {{ Breadcrumbs::render('edit-ajuan-anjab-jabatan-2', $ajuan, $jabatan) }}
         @endif
-    </div> --}}
+    </div>
     <div class="mb-3">
         <h1 class="fw-light fs-4 d-inline nav-item">Ubah Informasi Jabatan | {{ $jabatan->nama }}</h1>
     </div>
