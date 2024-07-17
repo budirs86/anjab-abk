@@ -14,7 +14,7 @@ return new class extends Migration
     Schema::create('jabatan_diajukan', function (Blueprint $table) {
       $table->id();
       $table->unsignedBigInteger('parent_id')->nullable();
-      $table->foreignId('ajuan_id')->constrained()->cascadeOnDelete()->nullable();
+      $table->foreignId('ajuan_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
       $table->foreignId('jenis_jabatan_id')->constrained()->nullable();
       $table->foreignId('unit_kerja_id')->constrained()->nullable();
       $table->string('nama');
