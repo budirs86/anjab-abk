@@ -50,7 +50,7 @@ Breadcrumbs::for('edit-ajuan-anjab-jabatan', function (BreadcrumbTrail $trail, $
     $trail->push('isi Informasi Umum', route('anjab.ajuan.jabatan.edit.1', ['ajuan' => $ajuan, 'jabatan' => $jabatan]));
 });
 Breadcrumbs::for('edit-ajuan-anjab-jabatan-2', function (BreadcrumbTrail $trail, $ajuan, $jabatan) {
-    $trail->parent('edit-ajuan-anjab-jabatan', $ajuan);
+    $trail->parent('edit-ajuan-anjab-jabatan', $ajuan, $jabatan);
     $trail->push('isi Detail Jabatan');
 });
 
