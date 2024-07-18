@@ -24,23 +24,6 @@ class JabatanSeeder extends Seeder
 
         foreach ($data as $data_jabatan) {
             $jabatan = Jabatan::create($data_jabatan);
-            // Instances of KualifikasiJabatan, KondisiLingkunganKerja, and SyaratJabatan
-            // also needs to be created because each Jabatan has one of each.
-            KualifikasiJabatan::create(
-                [
-                    'jabatan_id' => $jabatan->id
-                ]
-            );
-            KondisiLingkunganKerja::create(
-                [
-                    'jabatan_id' => $jabatan->id
-                ]
-            );
-            SyaratJabatan::create(
-                [
-                    'jabatan_id' => $jabatan->id
-                ]
-            );
         }
     }
 }

@@ -10,6 +10,7 @@ use App\Models\Jabatan;
 use App\Models\JabatanDiajukan;
 use App\Models\JenisJabatan;
 use App\Models\KondisiLingkunganKerja;
+use App\Models\KualifikasiJabatan;
 use App\Models\MinatKerja;
 use App\Models\Role;
 use App\Models\RoleVerifikasi;
@@ -46,19 +47,37 @@ class AjuanController extends Controller
     // if there is no draft, get data from 'jabatan' table and put them in 'jabatan_diajukan' table
     // if there is a draft already, simply get data from 'jabatan_diajukan' table
     if (!JabatanDiajukan::is_draft_exist()) {
-      foreach (Jabatan::all() as $jabatan) {
-        JabatanDiajukan::create([
+      foreach (Jabatan::all() as $dataJabatan) {
+        $jabatan = JabatanDiajukan::create([
           // 'ajuan_id' => null,
-          'parent_id' => $jabatan->parent_id,
-          'jenis_jabatan_id' => $jabatan->jenis_jabatan_id,
-          'unit_kerja_id' => $jabatan->unit_kerja_id,
-          'nama' => $jabatan->nama,
-          'kode' => $jabatan->kode,
-          'kelas_jabatan' => $jabatan->kelas_jabatan,
-          'ikhtisar' => $jabatan->ikhtisar,
-          'prestasi' => $jabatan->prestasi,
-          'tanggung_jawab' => $jabatan->tanggung_jawab
+          'parent_id' => $dataJabatan->parent_id,
+          'jenis_jabatan_id' => $dataJabatan->jenis_jabatan_id,
+          'unit_kerja_id' => $dataJabatan->unit_kerja_id,
+          'nama' => $dataJabatan->nama,
+          'kode' => $dataJabatan->kode,
+          'kelas_jabatan' => $dataJabatan->kelas_jabatan,
+          'ikhtisar' => $dataJabatan->ikhtisar,
+          'prestasi' => $dataJabatan->prestasi,
+          'tanggung_jawab' => $dataJabatan->tanggung_jawab
         ]);
+
+        // Instances of KualifikasiJabatan, KondisiLingkunganKerja, and SyaratJabatan
+        // also needs to be created because each Jabatan has one of each.
+        KualifikasiJabatan::create(
+          [
+            'jabatan_id' => $jabatan->id
+          ]
+        );
+        KondisiLingkunganKerja::create(
+          [
+            'jabatan_id' => $jabatan->id
+          ]
+        );
+        SyaratJabatan::create(
+          [
+            'jabatan_id' => $jabatan->id
+          ]
+        );
       }
     }
     $jabatans = JabatanDiajukan::where('ajuan_id', null)->get();
@@ -101,16 +120,15 @@ class AjuanController extends Controller
   public function anjabShow(Ajuan $ajuan)
   {
     $title = 'Ajuan Jabatan';
-    $jabatans = Jabatan::all();
-    $unitKerjas = UnitKerja::all();
-    return view('anjab.ajuan', compact('title', 'ajuan', 'jabatans', 'unitKerjas'));
+    $jabatans = JabatanDiajukan::where('ajuan_id', $ajuan->id)->get();
+    return view('anjab.ajuan', compact('title', 'ajuan', 'jabatans'));
   }
 
   public function anjabEdit(Ajuan $ajuan)
   {
     // $jabatans = Jabatan::tree()->get()->toTree();
     $title = 'Ajuan Jabatan';
-    $jabatans = Jabatan::all();
+    $jabatans = JabatanDiajukan::where('ajuan_id', $ajuan->id)->get();
     $editable = true;
     return view('anjab.ajuan.edit', compact('title', 'ajuan', 'jabatans', 'editable'));
   }
@@ -137,7 +155,7 @@ class AjuanController extends Controller
     ));
   }
 
-  public function anjabEditJabatan1(Ajuan $ajuan, Jabatan $jabatan)
+  public function anjabEditJabatan1(Ajuan $ajuan, JabatanDiajukan $jabatan)
   {
     // $jabatans = Jabatan::tree()->get()->toTree();
     $title = 'Form Informasi Jabatan';
@@ -161,17 +179,17 @@ class AjuanController extends Controller
     ));
   }
 
-  public function anjabUpdateJabatan1(Request $request, Ajuan $ajuan, Jabatan $jabatan)
+  public function anjabUpdateJabatan1(Request $request, Ajuan $ajuan, JabatanDiajukan $jabatan)
   {
     $jabatan->update($request->all());
 
     return redirect()->route('anjab.ajuan.jabatan.edit.2', ['ajuan' => $ajuan->tahun, 'jabatan' => $jabatan])->with('success', 'Data Jabatan berhasil Diubah');
   }
 
-  public function anjabEditJabatan2(Ajuan $ajuan, Jabatan $jabatan)
+  public function anjabEditJabatan2(Ajuan $ajuan, JabatanDiajukan $jabatan)
   {
     $title = 'Form Informasi Jabatan';
-    $jabatans = Jabatan::orderBy('nama')->get();
+    $jabatans = JabatanDiajukan::orderBy('nama')->get();
     $bakatKerja = BakatKerja::all();
     $unitKerja = UnitKerja::all();
     $jenisJabatan = JenisJabatan::all();

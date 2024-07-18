@@ -12,6 +12,6 @@ class JenisJabatan extends Model
     protected $guarded = ['id'];
 
     public function jabatans() {
-        return $this->hasMany(Jabatan::class);
+        return $this->hasMany(JabatanDiajukan::class);
     }
 }
