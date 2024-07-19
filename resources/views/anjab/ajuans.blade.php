@@ -96,7 +96,7 @@
                             @endif
 
                             {{-- if there is still someone to verify, display alert info --}}
-                            @if ($ajuan->next_verificator())
+                            @if ($ajuan->next_verificator() && $ajuan->next_verificator()->role->name != 'Operator')
                                 <div class="alert alert-info w-100">
                                     <div class="alert-heading d-flex">
                                         <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
@@ -120,7 +120,7 @@
                         </td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="{{ route('anjab.ajuan', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
+                                <a href="{{ route('anjab.ajuan.show', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
                                 <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                     data-bs-target="#modalTerima{{ $loop->index }}">Terima</button>
                                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
