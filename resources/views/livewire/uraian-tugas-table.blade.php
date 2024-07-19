@@ -47,8 +47,7 @@ new class extends Component {
                     </td>
                     <td class="">
                         <button type="button" class="btn btn-danger" wire:click="deleteUraianTugas({{ $uraian }})">
-                            <img width="20px" data-feather="trash"></img>
-                             Hapus
+                            <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>   
                 </tr>
@@ -61,7 +60,7 @@ new class extends Component {
                             placeholder="Masukkan Uraian Tugas" wire:model="uraian">
                     </td>
                     <td>
-                        <button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i>
                             Tambah</button>
                     </td>
                 </form>

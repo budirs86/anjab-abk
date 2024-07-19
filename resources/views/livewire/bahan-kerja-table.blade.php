@@ -44,7 +44,7 @@ new class extends Component {
                     <td>{{ $bahanKerja->nama }}</td>
                     <td class="d-flex gap-1">
                         <button wire:click="deleteBahanKerja({{ $bahanKerja }})" class="btn btn-danger">
-                            <img width="20px" data-feather="trash"></img> Hapus
+                            <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>
                 </tr>

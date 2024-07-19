@@ -47,7 +47,7 @@ new class extends Component {
                     <td>{{ $pelatihan->nama }}</td>
                     <td class="d-flex gap-1">
                             <button wire:click="deletePelatihan({{ $pelatihan }})" class="btn btn-danger">
-                                <img width="20px" data-feather="trash"></img> Hapus
+                                <i class="fa-solid fa-trash"></i>
                             </button>
                     </td>
                 </tr>
@@ -61,7 +61,7 @@ new class extends Component {
                 </td>
                 <td>
                     <button wire:click="addPelatihan" class="btn btn-primary">
-                        <i data-feather="plus"></i>
+                        <i class="fa-solid fa-plus"></i>
                         Tambah
                     </button>
                 </td>

@@ -49,7 +49,7 @@ new class extends Component {
                     <td>{{ $pendidikan->jurusan }}</td>
                     <td class="d-flex gap-1">
                             <button type="submit" class="btn btn-danger" wire:click="deletePendidikan({{ $pendidikan->id }})">
-                                <img width="20px" data-feather="trash"></img> Hapus
+                                <i class="fa-solid fa-trash"></i>
                             </button>
                         </form>
                     </td>
@@ -74,7 +74,7 @@ new class extends Component {
                     </td>
                     <td>
                         <button type="submit" class="btn btn-primary">
-                            <i data-feather="plus"></i>
+                            <i class="fa-solid fa-plus"></i>
                             Tambah
                         </button>
                     </td>
