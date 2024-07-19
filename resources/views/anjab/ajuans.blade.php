@@ -65,15 +65,15 @@
                     </td>
                     @can('make ajuan')
                         <td class="w-25">
-                            {{-- if the latest verifikasi status is rejected, display alert warning --}}
-                            @if ($ajuan->latest_verifikasi()->is_approved ?? false)
+                            {{-- check if latest verification exists, if exists and latest verification is not approved, show alert warning --}}
+                            @if (!empty($ajuan->latest_verifikasi()) && !$ajuan->latest_verifikasi()->is_approved)
                                 <div class="alert alert-warning w-100">
                                     <div class="alert-heading d-flex">
                                         <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
                                         <p class="m-0 p-0">Perlu Perbaikan</p>
                                     </div>
                                     <hr>
-                                    <p class="m-0 p-0">{{ $ajuan->latest_verificator()->role->name }}</p>
+                                    <p class="m-0 p-0">{{ $ajuan->latest_verificator() }}</p>
                                 </div>
                             @endif
 
@@ -96,7 +96,7 @@
                             @endif
 
                             {{-- if there is still someone to verify, display alert info --}}
-                            @if ($ajuan->next_verificator())
+                            @if ($ajuan->next_verificator() && $ajuan->next_verificator()->role->name != 'Operator')
                                 <div class="alert alert-info w-100">
                                     <div class="alert-heading d-flex">
                                         <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
@@ -120,11 +120,11 @@
                         </td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="{{ route('anjab.ajuan', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
+                                <a href="{{ route('anjab.ajuan.show', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
                                 <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                    data-bs-target="#modalTerima">Terima</button>
+                                    data-bs-target="#modalTerima{{ $loop->index }}">Terima</button>
                                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                    data-bs-target="#modalRevisi">Revisi</button>
+                                    data-bs-target="#modalRevisi{{ $loop->index }}">Revisi</button>
                             </div>
                         </td>
                     @endcan
@@ -133,7 +133,7 @@
 
                 {{-- Modals are placed here so that it can pass $ajuan->id when the buttons are clicked --}}
                 {{-- Modal Terima Start --}}
-                <div class="modal fade" tabindex="-1" id="modalTerima">
+                <div class="modal fade" tabindex="-1" id="modalTerima{{ $loop->index }}">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -160,7 +160,7 @@
                 {{-- Modal Terima End --}}
 
                 {{-- Modal Revisi Start --}}
-                <div class="modal fade" tabindex="-1" id="modalRevisi">
+                <div class="modal fade" tabindex="-1" id="modalRevisi{{ $loop->index }}">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">

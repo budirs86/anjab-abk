@@ -22,4 +22,14 @@ class Role extends Model
     {
         return $this->hasMany(RoleVerifikasi::class);
     }
+
+    public function verifikasi()
+    {
+        return $this->hasMany(Verifikasi::class);
+    }
+
+    public function modelHasRole()
+    {
+        return $this->hasMany(ModelHasRole::class);
+    }
 }
