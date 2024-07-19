@@ -21,7 +21,34 @@ class Ajuan extends Model
     return $this->hasMany(RoleVerifikasi::class);
   }
 
-  // Get the latest verifikasi
+  // Ajuan for manajer kepegawaian
+  // Get ajuan where jenis = anjab and already approved by operator
+  public static function anjab_for_manajer_kepegawaian()
+  {
+    return Ajuan::where('jenis', 'anjab')->whereHas('role_verifikasi', function ($query) {
+      $query->where('role_id', 1)->where('is_approved', true);
+    })->get();
+  }
+
+  // Ajuan for kepala buk
+  // Get ajuan where jenis = anjab and already approved by manajer kepegawaian
+  public static function anjab_for_kepala_buk()
+  {
+    return Ajuan::where('jenis', 'anjab')->whereHas('role_verifikasi', function ($query) {
+      $query->where('role_id', 2)->where('is_approved', true);
+    })->get();
+  }
+
+  // Ajuan for wakil rektor 2
+  // Get ajuan where jenis = anjab and already approved by kepala buk
+  public static function anjab_for_wakil_rektor_2()
+  {
+    return Ajuan::where('jenis', 'anjab')->whereHas('role_verifikasi', function ($query) {
+      $query->where('role_id', 6)->where('is_approved', true);
+    })->get();
+  }
+
+  // Get the latest verifikasi (excluding operator)
   public function latest_verifikasi()
   {
     return $this->verifikasi()->latest()->first();

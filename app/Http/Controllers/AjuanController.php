@@ -34,6 +34,21 @@ class AjuanController extends Controller
     $title = 'Ajuan Jabatan';
     $ajuans = Ajuan::where('jenis', 'anjab')->get();
 
+    // If logged user has role 'Operator', display all ajuans
+    // If logged user has role 'Manajer Kepegawaian', display only ajuans that are verified by 'Operator'
+    // If logged user has role 'Kepala BUK', display only ajuans that are verified by 'Manajer Kepegawaian'
+    // If logged user has role 'Wakil Rektor 2', display only ajuans that are verified by 'Kepala BUK'
+    // If logged
+    if (auth()->user()->hasRole('Operator')) {
+      $ajuans = Ajuan::where('jenis', 'anjab')->get();
+    } elseif (auth()->user()->hasRole('Manajer Kepegawaian')) {
+      $ajuans = Ajuan::anjab_for_manajer_kepegawaian();
+    } elseif (auth()->user()->hasRole('Kepala BUK')) {
+      $ajuans = Ajuan::anjab_for_kepala_buk();
+    } elseif (auth()->user()->hasRole('Wakil Rektor 2')) {
+      $ajuans = Ajuan::anjab_for_wakil_rektor_2();
+    }
+
     return view('anjab.ajuans', compact('title', 'ajuans'));
   }
 
@@ -92,7 +107,19 @@ class AjuanController extends Controller
       'jenis' => 'anjab'
     ]);
 
-    // After creating an ajuan, roles that can verify the ajuan are created
+    Verifikasi::create([
+      'ajuan_id' => $ajuan->id,
+      'verificator_id' => auth()->user()->id,
+      'is_approved' => true,
+      'catatan' => null
+    ]);
+
+    // After creating an ajuan, roles that can verify the ajuan
+    RoleVerifikasi::create([
+      'ajuan_id' => $ajuan->id,
+      'role_id' => '1',
+      'is_approved' => true
+    ]);
     RoleVerifikasi::create([
       'ajuan_id' => $ajuan->id,
       'role_id' => '2',
@@ -347,7 +374,6 @@ class AjuanController extends Controller
       'is_approved' => false,
       'catatan' => request('catatan')
     ]);
-
     $previous_verificator_id = Verifikasi::where('ajuan_id', $ajuan->id)
       ->where('is_approved', true)
       ->latest()
