@@ -51,13 +51,17 @@ class Ajuan extends Model
   // Get the latest verifikasi (excluding operator)
   public function latest_verifikasi()
   {
-    return $this->verifikasi()->latest()->first();
+    $operatorIds = ModelHasRole::where('role_id', 1)->pluck('model_id');
+
+    return $this->verifikasi()->whereNotIn('verificator_id', $operatorIds)->latest()->first();
   }
 
-  // Get the latest verificator
+  // Get the role name of the verificator who verifed the latest verifikasi
   public function latest_verificator()
   {
-    return $this->role_verifikasi()->latest()->first();
+    $id = $this->latest_verifikasi()->verificator_id;
+    $verificator = User::find($id);
+    return $verificator->getRoleNames()->first();
   }
 
   // Get the next verificator that has not approved the ajuan
@@ -66,10 +70,10 @@ class Ajuan extends Model
     return $this->role_verifikasi()->where('is_approved', false)->first();
   }
 
-  // Get all verificator that has approved the ajuan
+  // Get all verificator that has approved the ajuan, but exclude role_verifikasi with role_id = 1
   public function approved_verificator()
   {
-    return $this->role_verifikasi()->where('is_approved', true)->get();
+    return $this->role_verifikasi()->where('is_approved', true)->where('role_id', '!=', 1)->get();
   }
 
   // Check if all verificator has approved the ajuan

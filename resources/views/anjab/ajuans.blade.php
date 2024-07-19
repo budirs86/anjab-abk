@@ -65,15 +65,15 @@
                     </td>
                     @can('make ajuan')
                         <td class="w-25">
-                            {{-- if the latest verifikasi status is rejected, display alert warning --}}
-                            @if ($ajuan->latest_verifikasi()->is_approved ?? false)
+                            {{-- check if latest verification exists, if exists and latest verification is not approved, show alert warning --}}
+                            @if (!empty($ajuan->latest_verifikasi()) && !$ajuan->latest_verifikasi()->is_approved)
                                 <div class="alert alert-warning w-100">
                                     <div class="alert-heading d-flex">
                                         <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
                                         <p class="m-0 p-0">Perlu Perbaikan</p>
                                     </div>
                                     <hr>
-                                    <p class="m-0 p-0">{{ $ajuan->latest_verificator()->role->name }}</p>
+                                    <p class="m-0 p-0">{{ $ajuan->latest_verificator() }}</p>
                                 </div>
                             @endif
 

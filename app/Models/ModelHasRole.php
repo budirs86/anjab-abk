@@ -5,23 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Verifikasi extends Model
+class ModelHasRole extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
-
-    public function ajuan()
-    {
-        return $this->belongsTo(Ajuan::class);
-    }
+    protected $table = 'model_has_roles';
 
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
-    public function verificator()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

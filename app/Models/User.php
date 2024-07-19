@@ -45,4 +45,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function verifikasi()
+    {
+        return $this->hasMany(Verifikasi::class, 'verificator_id');
+    }
+
+    public function modelHasRole()
+    {
+        return $this->hasMany(ModelHasRole::class);
+    }
 }
