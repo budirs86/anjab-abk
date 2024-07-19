@@ -122,9 +122,9 @@
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="{{ route('anjab.ajuan', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
                                 <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                    data-bs-target="#modalTerima">Terima</button>
+                                    data-bs-target="#modalTerima{{ $loop->index }}">Terima</button>
                                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                    data-bs-target="#modalRevisi">Revisi</button>
+                                    data-bs-target="#modalRevisi{{ $loop->index }}">Revisi</button>
                             </div>
                         </td>
                     @endcan
@@ -133,7 +133,7 @@
 
                 {{-- Modals are placed here so that it can pass $ajuan->id when the buttons are clicked --}}
                 {{-- Modal Terima Start --}}
-                <div class="modal fade" tabindex="-1" id="modalTerima">
+                <div class="modal fade" tabindex="-1" id="modalTerima{{ $loop->index }}">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -160,7 +160,7 @@
                 {{-- Modal Terima End --}}
 
                 {{-- Modal Revisi Start --}}
-                <div class="modal fade" tabindex="-1" id="modalRevisi">
+                <div class="modal fade" tabindex="-1" id="modalRevisi{{ $loop->index }}">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
