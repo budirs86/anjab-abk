@@ -12,7 +12,7 @@ class SyaratJabatan extends Model
     protected $guarded = ['id'];
 
     public function jabatan(){
-        return $this->belongsTo(Jabatan::class);
+        return $this->belongsTo(JabatanDiajukan::class);
     }
 
     public function syaratBakat(){

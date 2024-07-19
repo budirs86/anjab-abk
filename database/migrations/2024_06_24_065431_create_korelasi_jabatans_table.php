@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('korelasi_jabatans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jabatan_id')->constrained();
+            $table->foreignId('jabatan_id')->constrained(
+                'jabatan_diajukan',
+                'id'
+            )->cascadeOnDelete();
             $table->unsignedBigInteger('jabatan_relasi_id');
             $table->string('dalam_hal');
             $table->timestamps();

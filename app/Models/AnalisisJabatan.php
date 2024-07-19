@@ -10,6 +10,6 @@ class AnalisisJabatan extends Model
     use HasFactory;
 
     public function jabatan() {
-        return $this->belongsTo(Jabatan::class);
+        return $this->belongsTo(JabatanDiajukan::class);
     }
 }

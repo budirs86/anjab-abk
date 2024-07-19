@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('risiko_bahayas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jabatan_id')->constrained();
+            $table->foreignId('jabatan_id')->constrained(
+                'jabatan_diajukan',
+                'id'
+            )->cascadeOnDelete();
             $table->string('bahaya_fisik');
             $table->string('penyebab');
             $table->timestamps();

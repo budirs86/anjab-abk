@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('kondisi_lingkungan_kerjas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jabatan_id')->constrained();
+            $table->foreignId('jabatan_id')->constrained(
+                'jabatan_diajukan',
+                'id'
+            )->cascadeOnDelete();
             $table->string('nama')->nullable();
             $table->enum('getaran', ['rendah', 'sedang', 'tinggi'])->nullable();
             $table->enum('suara', ['senyap', 'bising'])->nullable();
