@@ -48,8 +48,14 @@ class Ajuan extends Model
     })->get();
   }
 
-  // Get the latest verifikasi (excluding operator)
+  // Get the latest verifikasi
   public function latest_verifikasi()
+  {
+    return $this->verifikasi()->latest()->first();
+  }
+
+  // Get the latest verifikasi (excluding operator)
+  public function latest_verifikasi_without_operator()
   {
     $operatorIds = ModelHasRole::where('role_id', 1)->pluck('model_id');
 
