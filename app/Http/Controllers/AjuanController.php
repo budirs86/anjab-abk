@@ -151,13 +151,29 @@ class AjuanController extends Controller
     return view('anjab.ajuan', compact('title', 'ajuan', 'jabatans'));
   }
 
-  public function anjabEdit(Ajuan $ajuan)
+  public function anjabEdit($tahun, $id)
   {
     // $jabatans = Jabatan::tree()->get()->toTree();
+    $ajuan = Ajuan::where('id', $id)->first();
     $title = 'Ajuan Jabatan';
     $jabatans = JabatanDiajukan::where('ajuan_id', $ajuan->id)->get();
     $editable = true;
     return view('anjab.ajuan.edit', compact('title', 'ajuan', 'jabatans', 'editable'));
+  }
+
+  public function anjabUpdate(Ajuan $ajuan)
+  {
+    Verifikasi::create([
+      'ajuan_id' => $ajuan->id,
+      'verificator_id' => auth()->user()->id,
+      'is_approved' => true,
+      'catatan' => null
+    ]);
+    RoleVerifikasi::where('ajuan_id', $ajuan->id)
+      ->where('role_id', auth()->user()->roles->first()->id)
+      ->update(['is_approved' => true]);
+
+    return redirect()->route('anjab.ajuan.index')->with('success', 'Data Ajuan berhasil Diubah');
   }
 
   public function anjabShowJabatan(Ajuan $ajuan, Jabatan $jabatan)
