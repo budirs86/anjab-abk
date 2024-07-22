@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\UnitKerja;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,6 +19,20 @@ class UserSeeder extends Seeder
             'email' => 'alip@gmail.com',
             'password' => bcrypt('password')
         ])->assignRole('Operator');
+
+        User::create([
+            'name' => 'Operator Fakultas Teknik',
+            'unit_kerja_id' => UnitKerja::where('nama', 'Fakultas Teknik')->first()->id,
+            'email' => 'operatorft@gmail.com',
+            'password' => bcrypt('password')
+        ])->assignRole('Operator Unit Kerja');
+
+        User::create([
+            'name' => 'Operator Satuan Pengawas Internal',
+            'unit_kerja_id' => UnitKerja::where('nama', 'Satuan Pengawas Internal')->first()->id,
+            'email' => 'operatorspi@gmail.com',
+            'password' => bcrypt('password')
+        ])->assignRole('Operator Unit Kerja');
 
         User::create([
             'name' => 'Manajer Kepegawaian',
