@@ -28,7 +28,7 @@
         <p class="m-0 p-0">Silahkan isi Kualifikasi Jabatan dengan informasi yang benar.</p>
     </div>
     <div class="" id="kualifikasi">
-        <table class="table 
+        {{-- <table class="table 
                 table-bordered w-75" id="pendidikan_formal">
             <caption class="caption-top fs-6 text-black">Kualifikasi Jabatan | Pendidikan Formal</caption>
             <thead class="table-primary">
@@ -86,8 +86,9 @@
                     </form>
                 </tr>
             </tbody>
-        </table>
-        <table class="table 
+        </table> --}}
+        <livewire:pendidikan-formal :jabatan="$jabatan" />
+        {{-- <table class="table 
                             table-bordered w-75" id="pengalaman">
             <caption class="caption-top">Kualifikasi Jabatan | Pengalaman</caption>
             <thead class="table-primary">
@@ -138,8 +139,9 @@
                     </form>
                 </tr>
             </tbody>
-        </table>
-        <table class="table 
+        </table> --}}
+        <livewire:pengalaman-table :jabatan="$jabatan"/>
+        {{-- <table class="table 
                             table-bordered w-75" id="pelatihan">
             <caption class="caption-top"> Kualifikasi Jabatan | Pelatihan</caption>
             <thead class="table-primary">
@@ -187,346 +189,17 @@
                     </form>
                 </tr>
             </tbody>
-        </table>
+        </table> --}}
+        <livewire:pelatihan-table :jabatan="$jabatan" />
     </div>
-    <div class="mb-3">
-        <label for="uraian_tugas" class="form-label">Uraian Tugas</label>
-        <table class="table table-bordered w-75" id="uraian_tugas">
-            <thead class="table-info">
-                <th>No</th>
-                <th>Uraian Tugas</th>
-            </thead>
-            <tbody>
-                @foreach ($jabatan->uraianTugas as $uraian)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td class="d-flex justify-content-between">
-                            <p>{{ $uraian->nama_tugas }}</p>
-                            <div class="">
-                                <form
-                                    action="{{ route('anjab.jabatan.uraian.delete', ['jabatan' => $jabatan->id, 'uraian' => $uraian->id]) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                                    <button type="submit" class="btn btn-danger">
-                                        <img width="20px" data-feather="trash"></img>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                <tr>
-                    <form action="{{ route('anjab.jabatan.uraian.store', ['jabatan' => $jabatan->id]) }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                        <td></td>
-                        <td class="d-flex justify-content-between">
-                            <input name="nama_tugas" type="text" class="form-control w-50"
-                                placeholder="Masukkan Uraian Tugas">
-                            <button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
-                                Tambah</button>
-                        </td>
-                    </form>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="mb-3">
-        <label for="bahan_kerja" class="form-label">Bahan Kerja</label>
-        <table class="table 
-                            table-bordered w-75" id="BahanKerja">
-            <thead class="table-primary">
-                <th>No</th>
-                <th>Bahan Kerja</th>
-                <th>Aksi</th>
-            </thead>
-            <tbody>
-                @foreach ($jabatan->bahanKerja as $bahanKerja)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $bahanKerja->nama }}</td>
-                        <td class="d-flex gap-1">
-                            <form
-                                action="{{ route('anjab.jabatan.bahanKerja.delete', ['jabatan' => $jabatan->id, 'bahanKerja' => $bahanKerja->id]) }}"
-                                method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                                <button type="submit" class="btn btn-danger">
-                                    <img width="20px" data-feather="trash"></img>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-                <tr>
-                    <form action="{{ route('anjab.jabatan.bahanKerja.store', ['jabatan' => $jabatan->id]) }}"
-                        method="POST">
-                        @csrf
-                        <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                        <td></td>
-                        <td>
-                            <input name="nama" type="text" class="form-control"
-                                placeholder="Masukkan Bahan Kerja">
-                        </td>
-                        <td><button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
-                                Tambah</button></td>
-                    </form>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="mb-3">
-        <label for="perangkat_kerja" class="form-label">Perangkat Kerja</label>
-        <table class="table 
-                            table-bordered w-75" id="PerangkatKerja">
-            <thead class="table-secondary">
-                <th>No</th>
-                <th>Perangkat Kerja</th>
-                <th>Aksi</th>
-            </thead>
-            <tbody>
-                @foreach ($jabatan->perangkatKerja as $perangkatKerja)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $perangkatKerja->nama }}</td>
-                        <td class="d-flex gap-1">
-                            <form
-                                action="{{ route('anjab.jabatan.perangkatKerja.delete', ['jabatan' => $jabatan->id, 'perangkatKerja' => $perangkatKerja->id]) }}"
-                                method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                                <button type="submit" class="btn btn-danger">
-                                    <img width="20px" data-feather="trash"></img>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-                <tr>
-                    <form action="{{ route('anjab.jabatan.perangkatKerja.store', ['jabatan' => $jabatan->id]) }}"
-                        method="POST">
-                        @csrf
-                        <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                        <td></td>
-                        <td>
-                            <input name="nama" type="text" class="form-control"
-                                placeholder="Masukkan Perangkat Kerja">
-                        </td>
-                        <td><button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
-                                Tambah</button></td>
-                    </form>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="mb-3">
-        <label for="tanggung_jawab" class="form-label">Tanggung Jawab</label>
-        <table class="table table-bordered w-75" id="tanggung_jawab">
-            <thead class="table-info">
-                <th>No</th>
-                <th>Uraian</th>
-            </thead>
-            <tbody>
-                @foreach ($jabatan->tanggungJawab as $tanggungJawab)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td class="d-flex justify-content-between">
-                            <p>{{ $tanggungJawab->nama }}</p>
-                            <div class="">
-                                <form
-                                    action="{{ route('anjab.jabatan.tanggungJawab.delete', ['jabatan' => $jabatan->id, 'tanggungJawab' => $tanggungJawab->id]) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                                    <button type="submit" class="btn btn-danger">
-                                        <img width="20px" data-feather="trash"></img>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                <tr>
-                    <form action="{{ route('anjab.jabatan.tanggungJawab.store', ['jabatan' => $jabatan->id]) }}"
-                        method="POST">
-                        @csrf
-                        <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                        <td></td>
-                        <td class="d-flex justify-content-between">
-                            <input name="nama" type="text" class="form-control w-50"
-                                placeholder="Masukkan Tanggung Jawab">
-                            <button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
-                                Tambah</button>
-                        </td>
-                    </form>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="mb-3">
-        <label for="wewenang" class="form-label">Wewenang</label>
-        <table class="table table-bordered w-75" id="wewenang">
-            <thead class="table-info">
-                <th>No</th>
-                <th>Uraian</th>
-            </thead>
-            <tbody>
-                @foreach ($jabatan->wewenang as $wewenang)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td class="d-flex justify-content-between">
-                            <p>{{ $wewenang->nama }}</p>
-                            <div class="">
-                                <form
-                                    action="{{ route('anjab.jabatan.wewenang.delete', ['jabatan' => $jabatan->id, 'wewenang' => $wewenang->id]) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                                    <button type="submit" class="btn btn-danger">
-                                        <img width="20px" data-feather="trash"></img>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                <tr>
-                    <form action="{{ route('anjab.jabatan.wewenang.store', ['jabatan' => $jabatan->id]) }}"
-                        method="POST">
-                        @csrf
-                        <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                        <td></td>
-                        <td class="d-flex justify-content-between">
-                            <input name="nama" type="text" class="form-control w-50"
-                                placeholder="Masukkan Wewenang">
-                            <button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
-                                Tambah</button>
-                        </td>
-                    </form>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="mb-3">
-        <label for="korelasi_jabatan" class="form-label">Korelasi Jabatan</label>
-        <table class="table table-bordered" id="korelasi_jabatan">
-            <thead class="table-info">
-                <th>No</th>
-                <th>Jabatan</th>
-                <th>Unit Kerja/Instansi</th>
-                <th>Dalam Hal</th>
-                <th>Aksi</th>
-            </thead>
-            <tbody>
-                @foreach ($jabatan->korelasiJabatan as $korelasiJabatan)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $perangkatKerja->nama }}</td>
-                        <td class="d-flex gap-1">
-                            <form
-                                action="{{ route('anjab.jabatan.perangkatKerja.delete', ['jabatan' => $jabatan->id, 'perangkatKerja' => $perangkatKerja->id]) }}"
-                                method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                                <button type="submit" class="btn btn-danger">
-                                    <img width="20px" data-feather="trash"></img>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-                <tr>
-                    <td>1</td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                    <td>Lorem ipsum dolor sit amet.</td>
-                    <td>
-                        <button type="button" class="btn btn-warning"><img src="" data-feather="edit"
-                                alt="" width="20px"></button>
-                        <button type="button" class="btn btn-danger"><img src="" data-feather="trash"
-                                alt="" width="20px"></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>
-                        <select name="" id="" class="form-select">
-                            <option value="">Pilih Unit Kerja</option>
-                            @foreach ($unitKerja as $unit)
-                                <option value="{{ $unit->id }}">{{ $unit->nama }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" placeholder="Masukkan Unit Kerja/Instansi">
-                    </td>
-                    <td>
-                        <input type="text" class="form-control" placeholder="Masukkan Korelasi Jabatan">
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-primary"><i data-feather=""></i>Tambah</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="mb-3">
-        <label for="risiko_bahaya" class="form-label">Risiko Bahaya</label>
-        <table class="table 
-                    table-bordered w-75" id="risiko_bahaya">
-            <thead class="table-danger">
-                <th>No</th>
-                <th>Risiko bahaya</th>
-                <th>Penyebab</th>
-                <th>Aksi</th>
-            </thead>
-            <tbody>
-                @foreach ($jabatan->risikoBahaya as $risikoBahaya)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $risikoBahaya->bahaya_fisik }}</td>
-                        <td>{{ $risikoBahaya->penyebab }}</td>
-                        <td class="d-flex gap-1">
-                            <form
-                                action="{{ route('anjab.jabatan.risikoBahaya.delete', ['jabatan' => $jabatan->id, 'risikoBahaya' => $risikoBahaya->id]) }}"
-                                method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                                <button type="submit" class="btn btn-danger">
-                                    <img width="20px" data-feather="trash"></img>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-                <tr>
-                    <form action="{{ route('anjab.jabatan.risikoBahaya.store', ['jabatan' => $jabatan->id]) }}"
-                        method="POST">
-                        @csrf
-                        <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                        <td></td>
-                        <td>
-                            <input name="bahaya_fisik" type="text" class="form-control"
-                                placeholder="Masukkan Risiko Bahaya">
-                        </td>
-                        <td>
-                            <input name="penyebab" type="text" class="form-control" placeholder="Masukkan Penyebab">
-                        </td>
-                        <td><button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
-                                Tambah</button></td>
-                    </form>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <livewire:uraian-tugas-table :jabatan="$jabatan" />
+    <livewire:bahan-kerja-table :jabatan="$jabatan" />
+    
+    <livewire:perangkat-kerja-table :jabatan="$jabatan" />
+    <livewire:tanggungjawab-table :jabatan="$jabatan" />
+    <livewire:wewenang-table :jabatan="$jabatan" />
+    <livewire:korelasi-jabatan-table :jabatan="$jabatan" />
+    <livewire:risiko-table-table :jabatan="$jabatan" />
     <form
         action="
     {{-- Check if current route is edit jabatan inside ajuan or before ajuan is created --}}

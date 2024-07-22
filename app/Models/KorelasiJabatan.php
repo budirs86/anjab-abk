@@ -14,4 +14,8 @@ class KorelasiJabatan extends Model
     public function jabatan() {
         return $this->belongsTo(JabatanDiajukan::class);
     }
+
+    public function jabatanRelasi() {
+        return $this->belongsTo(JabatanDiajukan::class, 'jabatan_relasi_id');
+    }
 }
