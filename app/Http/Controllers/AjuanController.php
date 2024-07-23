@@ -117,22 +117,22 @@ class AjuanController extends Controller
     // After creating an ajuan, roles that can verify the ajuan
     RoleVerifikasi::create([
       'ajuan_id' => $ajuan->id,
-      'role_id' => '1',
+      'role_id' => Role::where('name', 'Operator')->first()->id,
       'is_approved' => true
     ]);
     RoleVerifikasi::create([
       'ajuan_id' => $ajuan->id,
-      'role_id' => '2',
+      'role_id' => Role::where('name', 'Manajer Kepegawaian')->first()->id,
       'is_approved' => false
     ]);
     RoleVerifikasi::create([
       'ajuan_id' => $ajuan->id,
-      'role_id' => '6',
+      'role_id' => Role::where('name', 'Kepala BUK')->first()->id,
       'is_approved' => false
     ]);
     RoleVerifikasi::create([
       'ajuan_id' => $ajuan->id,
-      'role_id' => '7',
+      'role_id' => Role::where('name', 'Wakil Rektor 2')->first()->id,
       'is_approved' => false
     ]);
 
