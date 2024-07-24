@@ -38,11 +38,11 @@
                 <th>Periode</th>
                 @can('make ajuan')
                     <th>Status</th>
-                    <th>Catatan</th>
                 @elsecan('verify ajuan')
                     <th>Diajukan Tanggal</th>
                     <th>Aksi</th>
                 @endcan
+                    <th>Catatan</th>
             </tr>
         </thead>
         <tbody>
@@ -55,10 +55,13 @@
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 @can('make ajuan')
                                     <a href="{{ route('anjab.ajuan.show', $ajuan->tahun) }}" class="btn btn-outline-primary">Lihat</a>
-                                    <a href="{{ route('anjab.ajuan.edit', ['tahun' => $ajuan->tahun, 'id' => $ajuan->id]) }}"
-                                        class="btn btn-outline-primary">Edit</a>
-                                    <a href="{{ route('abk.ajuan.create', ['periode' => now()->year]) }}"
-                                        class="btn btn-outline-success" aria-disabled="true">Buat Ajuan ABK</a>
+                                    @if (!$ajuan->latest_verifikasi()->is_approved && $ajuan->next_verificator()->role->name == 'Operator')
+                                        <a href="{{ route('anjab.ajuan.edit', ['tahun' => $ajuan->tahun, 'id' => $ajuan->id]) }}" class="btn btn-outline-primary">Edit</a>
+                                    @endif
+                                    @if ($ajuan->is_approved())
+                                        <a href="{{ route('abk.ajuan.create', ['periode' => now()->year]) }}" class="btn btn-outline-success" aria-disabled="true">Buat Ajuan ABK</a>
+                                        
+                                    @endif
                                 @endcan
                             </div>
                         </div>
@@ -109,25 +112,56 @@
                                 </div>
                             @endif
                         </td>
-                        <td>
-                          <p>
-                            {{ $ajuan->latest_verifikasi()->catatan ?? 'Tidak ada catatan.' }}
-                          </p>
-                        </td>
                     @elsecan('verify ajuan')
                         <td>
-                            <p>{{ now()->format('d-m-Y') }}</p>
+                            <p>{{ $ajuan->created_at }}</p>
                         </td>
                         <td>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="{{ route('anjab.ajuan.show', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
-                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                    data-bs-target="#modalTerima{{ $loop->index }}">Terima</button>
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                    data-bs-target="#modalRevisi{{ $loop->index }}">Revisi</button>
-                            </div>
+                            
+                            {{-- check if current verificator HAS NOT accept/reject the ajuan YET, show "Terima" and "Revisi" buttons --}}
+                            @if ($ajuan->latest_verificator() != auth()->user()->getRoleNames()->first() && $ajuan->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a href="{{ route('anjab.ajuan.show', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>                           
+                                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                            data-bs-target="#modalTerima{{ $loop->index }}">Terima</button>
+                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modalRevisi{{ $loop->index }}">Revisi</button>                            
+                                </div>
+                            @else
+                                {{-- if current verificator HAS accepted/rejected the ajuan, show them that they accepted/rejected the ajuan  --}}
+                                
+                                @if (!empty($ajuan->latest_verifikasi_by_current_user()))
+                                    @if ($ajuan->latest_verifikasi_by_current_user()->is_approved)
+                                        <p class="badge text-bg-success">Anda sudah menerima Ajuan ini</p>
+                                        <div class="alert alert-info w-100">
+                                            <div class="alert-heading d-flex">
+                                                <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
+                                                <p class="m-0 p-0">Menunggu Diperiksa</p>
+                                            </div>
+                                            <hr>
+                                            <p class="m-0 p-0">
+                                                {{ $ajuan->next_verificator()->role->name }}
+                                            </p>
+                                        </div>
+                                    @else                                            
+                                        <span class="badge text-bg-danger">Anda sudah merevisi Ajuan ini</span>
+                                    @endif
+                                @endif
+                            @endif                            
                         </td>
+                        
                     @endcan
+                    <td>
+                        {{-- check if latest verification has catatan and catatan is not from current user, if true show the catatan --}}
+                        @if($ajuan->latest_verifikasi()->catatan)
+                            <p>Catatan dari {{ $ajuan->latest_verifikasi()->verificator->name }} ({{ $ajuan->latest_verifikasi()->verificator->getRolenames()->first() }})</p>
+                            <p>{{ $ajuan->latest_verifikasi()->created_at }}</p>    
+                            <hr>
+                            <p>{{ $ajuan->latest_verifikasi()->catatan }}</p>
+                        @else
+                            <p>Tidak ada catatan.</p>
+                        @endif
+                    </td>
                     {{-- <td>{{  ? <p class="bad"></p> : "Revisi" }}</td> --}}
                 </tr>
 

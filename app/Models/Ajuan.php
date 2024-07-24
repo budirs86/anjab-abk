@@ -25,27 +25,54 @@ class Ajuan extends Model
   // Get ajuan where jenis = anjab and already approved by operator
   public static function anjab_for_manajer_kepegawaian()
   {
-    return Ajuan::where('jenis', 'anjab')->whereHas('role_verifikasi', function ($query) {
-      $query->where('role_id', 1)->where('is_approved', true);
-    })->get();
+    $previousVerificatorId = Role::where('name', 'Operator')->first()->id;
+    $roleId = auth()->user()->id;
+    return Ajuan::where('jenis', 'anjab')
+      ->whereHas('role_verifikasi', function ($query) use ($previousVerificatorId) {
+      $query->where('role_id', $previousVerificatorId)->where('is_approved', true);
+    })
+      ->orWhereHas('verifikasi', function ($query) use ($roleId) {
+      $query->whereHas('verificator', function ($query) use ($roleId) {
+        $query->where('id', $roleId);
+      });
+    })
+      ->get();
   }
 
   // Ajuan for kepala buk
   // Get ajuan where jenis = anjab and already approved by manajer kepegawaian
   public static function anjab_for_kepala_buk()
   {
-    return Ajuan::where('jenis', 'anjab')->whereHas('role_verifikasi', function ($query) {
-      $query->where('role_id', 2)->where('is_approved', true);
-    })->get();
+    $previousVerificatorId = Role::where('name', 'Manajer Kepegawaian')->first()->id;
+    $roleId = auth()->user()->id;
+    return Ajuan::where('jenis', 'anjab')
+      ->whereHas('role_verifikasi', function ($query) use ($previousVerificatorId) {
+      $query->where('role_id', $previousVerificatorId)->where('is_approved', true);
+    })
+      ->orWhereHas('verifikasi', function ($query) use ($roleId) {
+      $query->whereHas('verificator', function ($query) use ($roleId) {
+        $query->where('id', $roleId);
+      });
+    })
+      ->get();
   }
 
   // Ajuan for wakil rektor 2
   // Get ajuan where jenis = anjab and already approved by kepala buk
   public static function anjab_for_wakil_rektor_2()
   {
-    return Ajuan::where('jenis', 'anjab')->whereHas('role_verifikasi', function ($query) {
-      $query->where('role_id', 6)->where('is_approved', true);
-    })->get();
+    $previousVerificatorId = Role::where('name', 'Kepala BUK')->first()->id;
+    $roleId = auth()->user()->id;
+    return Ajuan::where('jenis', 'anjab')
+      ->whereHas('role_verifikasi', function ($query) use ($previousVerificatorId) {
+      $query->where('role_id', $previousVerificatorId)->where('is_approved', true);
+    })
+      ->orWhereHas('verifikasi', function ($query) use ($roleId) {
+      $query->whereHas('verificator', function ($query) use ($roleId) {
+        $query->where('id', $roleId);
+      });
+    })
+      ->get();
   }
 
   // Get the latest verifikasi
@@ -60,6 +87,12 @@ class Ajuan extends Model
     $operatorIds = ModelHasRole::where('role_id', 1)->pluck('model_id');
 
     return $this->verifikasi()->whereNotIn('verificator_id', $operatorIds)->latest()->first();
+  }
+
+  // get the latest verifikasi by current user
+  public function latest_verifikasi_by_current_user()
+  {
+    return $this->verifikasi()->where('verificator_id', auth()->user()->id)->latest()->first();
   }
 
   // Get the role name of the verificator who verifed the latest verifikasi
