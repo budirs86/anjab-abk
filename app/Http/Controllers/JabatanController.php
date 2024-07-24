@@ -20,6 +20,7 @@ use App\Models\FungsiPekerjaan;
 use App\Models\TemperamenKerja;
 use App\Http\Requests\CreateJabatanRequest;
 use App\Models\Ajuan;
+use App\Models\JabatanDiajukan;
 use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Route;
@@ -63,7 +64,7 @@ class JabatanController extends Controller
     return back()->with('success', 'Data Jabatan berhasil Ditambahkan');
   }
 
-  public function edit(Jabatan $jabatan)
+  public function edit(JabatanDiajukan $jabatan)
   {
     $title = 'Form Informasi Jabatan';
     $bakat_kerjas = BakatKerja::all();
@@ -85,7 +86,7 @@ class JabatanController extends Controller
     ));
   }
 
-  public function edit1(Jabatan $jabatan)
+  public function edit1(JabatanDiajukan $jabatan)
   {
     $title = 'Form Informasi Jabatan';
     $bakat_kerjas = BakatKerja::all();
@@ -107,17 +108,17 @@ class JabatanController extends Controller
     ));
   }
 
-  public function update1(Request $request, Jabatan $jabatan)
+  public function update1(Request $request, JabatanDiajukan $jabatan)
   {
     $jabatan->update($request->all());
 
     return redirect()->route('anjab.jabatan.edit.2', ['jabatan' => $jabatan])->with('success', 'Data Jabatan berhasil Diubah');
   }
 
-  public function edit2(Jabatan $jabatan)
+  public function edit2(JabatanDiajukan $jabatan)
   {
     $title = 'Form Informasi Jabatan';
-    $jabatans = Jabatan::orderBy('nama')->get();
+    $jabatans = JabatanDiajukan::orderBy('nama')->get();
     $bakatKerja = BakatKerja::all();
     $unitKerja = UnitKerja::all();
     $jenisJabatan = JenisJabatan::all();
@@ -154,7 +155,7 @@ class JabatanController extends Controller
     ));
   }
 
-  public function update2(Request $request, Jabatan $jabatan)
+  public function update2(Request $request, JabatanDiajukan $jabatan)
   {
     // loop through $request->input('kondisiLingkunganKerja') and put them all inside $kondisi
     $kondisi = [];
@@ -243,6 +244,6 @@ class JabatanController extends Controller
     }
 
     // return redirect()->route('anjab.ajuan.create')->with('success', 'Data Jabatan berhasil Diubah');
-    return redirect()->back()->with('success', 'Data Jabatan berhasil Diubah');
+    return redirect(route('anjab.ajuan.create'))->with('success', 'Data Jabatan '. $jabatan->nama .' berhasil Diubah');
   }
 }
