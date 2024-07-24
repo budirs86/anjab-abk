@@ -1,13 +1,6 @@
 @extends('layouts.main')
 
 @section('container')
-    @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>    
-        </div>
-        
-    @endif
     <div class="">
         {{ Breadcrumbs::render('buat-ajuan') }}
     </div>
@@ -15,7 +8,12 @@
         <h1 class="fw-light fs-4 d-inline nav-item">Buat Ajuan Baru</h1>                
     </div>
     <div class="card dropdown-divider mb-3"></div>
-
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>    
+        </div>        
+    @endif
     <div class="">
         <div class="alert alert-info alert-dismissible fade show">
                 <div class="alert-heading d-flex justify-content-between">

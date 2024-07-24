@@ -119,7 +119,7 @@
                         <td>
                             
                             {{-- check if current verificator HAS NOT accept/reject the ajuan YET, show "Terima" and "Revisi" buttons --}}
-                            @if ($ajuan->latest_verificator() != auth()->user()->getRoleNames()->first() && $ajuan->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
+                            @if (!empty($ajuan->latest_verificator()) && !empty($ajuan->next_verificator()) && $ajuan->latest_verificator() != auth()->user()->getRoleNames()->first() && $ajuan->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="{{ route('anjab.ajuan.show', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>                           
                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
@@ -133,16 +133,18 @@
                                 @if (!empty($ajuan->latest_verifikasi_by_current_user()))
                                     @if ($ajuan->latest_verifikasi_by_current_user()->is_approved)
                                         <p class="badge text-bg-success">Anda sudah menerima Ajuan ini</p>
-                                        <div class="alert alert-info w-100">
+                                        @if (!empty($ajuan->next_verificator()))
+                                            <div class="alert alert-info w-100">
                                             <div class="alert-heading d-flex">
                                                 <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
                                                 <p class="m-0 p-0">Menunggu Diperiksa</p>
                                             </div>
                                             <hr>
                                             <p class="m-0 p-0">
-                                                {{ $ajuan->next_verificator()->role->name }}
+                                                {{ $ajuan->next_verificator()->role->name ??'' }}
                                             </p>
                                         </div>
+                                        @endif
                                     @else                                            
                                         <span class="badge text-bg-danger">Anda sudah merevisi Ajuan ini</span>
                                     @endif

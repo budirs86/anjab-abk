@@ -5,7 +5,7 @@
         <h1 class="display-3 mb-5"> Selamat Datang, {{ Auth::user()->name }}</h1>
         <div class="btn-group">
             @can('make ajuan')
-                <a href="{{ route('anjab.ajuan.create') }}" class="btn btn-outline-primary">Buat Ajuan Anjab ABK Baru</a>
+                <a href="{{ route('anjab.ajuan.create') }}" class="btn btn-outline-primary">Buat Ajuan Analisis Jabatan Baru</a>
             @endcan
             <a href="{{ route('anjab.ajuan.index') }}" class="btn btn-outline-primary">Lihat Daftar Ajuan Analisis jabatan</a>
             <a href="{{ route('abk.ajuans') }}" class="btn btn-outline-primary">Lihat Daftar Ajuan Analisis Beban Kerja</a>

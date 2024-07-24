@@ -42,7 +42,7 @@ Breadcrumbs::for('lihat-ajuan-anjab-jabatan', function (BreadcrumbTrail $trail, 
 });
 Breadcrumbs::for('edit-ajuan-anjab', function (BreadcrumbTrail $trail, $ajuan) {
     $trail->parent('ajuan-analisis-jabatan');
-    $trail->push('Edit Ajuan Analisis Jabatan '. $ajuan->tahun, route('anjab.ajuan.edit',$ajuan));
+    $trail->push('Edit Ajuan Analisis Jabatan '. $ajuan->tahun, route('anjab.ajuan.edit',['id' => $ajuan->id, 'tahun' => $ajuan->tahun]));
 });
 Breadcrumbs::for('edit-ajuan-anjab-jabatan', function (BreadcrumbTrail $trail, $ajuan, $jabatan) {
     $trail->parent('edit-ajuan-anjab', $ajuan);
@@ -70,15 +70,15 @@ Breadcrumbs::for('data-jabatan', function (BreadcrumbTrail $trail) {
 });
 
 // create a breadcrumb for ubah informasi jabatan page, parent-ing the data jabatan breadcrumb
-Breadcrumbs::for('ubah-informasi-jabatan', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
+Breadcrumbs::for('ubah-informasi-jabatan', function (BreadcrumbTrail $trail, $jabatan) {
     $trail->parent('buat-ajuan');
     $trail->push('Ubah Informasi Jabatan ' . $jabatan->nama, route('anjab.jabatan.edit.1', $jabatan));
 });
-Breadcrumbs::for('isi-informasi-umum', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
+Breadcrumbs::for('isi-informasi-umum', function (BreadcrumbTrail $trail, $jabatan) {
     $trail->parent('ubah-informasi-jabatan', $jabatan);
     $trail->push('Isi Informasi Umum', route('anjab.jabatan.edit.1', $jabatan));
 });
-Breadcrumbs::for('isi-detail-jabatan', function (BreadcrumbTrail $trail, Jabatan $jabatan) {
+Breadcrumbs::for('isi-detail-jabatan', function (BreadcrumbTrail $trail, $jabatan) {
     $trail->parent('isi-informasi-umum', $jabatan);
     $trail->push('Isi Detail Jabatan', route('anjab.jabatan.edit.2', $jabatan));
 });

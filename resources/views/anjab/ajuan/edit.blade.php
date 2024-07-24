@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('container')
-    {{-- <div class="">
+    <div class="">
         {{ Breadcrumbs::render('edit-ajuan-anjab', $ajuan) }}
-    </div> --}}
+    </div>
     <div class="card-head mb-3">
         <h1 class="fw-light fs-4 d-inline nav-item">Edit Ajuan Analisis Jabatan {{ $ajuan->tahun }}</h1>
     </div>
