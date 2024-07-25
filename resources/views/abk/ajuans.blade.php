@@ -37,7 +37,7 @@
                             <p>{{ $ajuan->tahun }}</p>
                             @can('make ajuan')
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="{{ route('abk.ajuan', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
+                                    <a href="{{ route('abk.ajuan.show', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
                                 </div>
                             @endcan
                         </div>
@@ -84,7 +84,7 @@
                         </td>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="{{ route('abk.ajuan', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
+                                <a href="{{ route('abk.ajuan.show', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
                                 <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                     data-bs-target="#modalTerima">Terima</button>
                                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"

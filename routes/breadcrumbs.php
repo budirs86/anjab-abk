@@ -108,7 +108,7 @@ Breadcrumbs::for('edit-ajuan-abk-jabatan', function (BreadcrumbTrail $trail, $aj
 // create a breadcrumb for daftar ajuan abk page, parent-ing the home breadcrumb
 Breadcrumbs::for('daftar-ajuan-abk', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push('Daftar Ajuan ABK', "/abk/ajuans");
+    $trail->push('Daftar Ajuan ABK', "/abk/ajuan");
 });
 
 
