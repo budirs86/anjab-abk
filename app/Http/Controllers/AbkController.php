@@ -11,22 +11,22 @@ use Illuminate\Http\Request;
 
 class AbkController extends Controller
 {
-    public function index()
-    {
-        
-        return view('abk.ajuans', [
-            'title' => 'Daftar Ajuan ABK',
-            'ajuans' => Ajuan::all()
-        ]);
-    }
+  public function index()
+  {
 
-    public function createAjuan()
-    {
-        return view('abk.buat-ajuan', [
-            'title' => 'Buat Ajuan ABK',
-            'jabatans' => Jabatan::all()
-        ]);
-    }
+    return view('abk.ajuans', [
+      'title' => 'Daftar Ajuan ABK',
+      'ajuans' => Ajuan::where('jenis', 'abk')->get()
+    ]);
+  }
+
+  public function createAjuan()
+  {
+    return view('abk.buat-ajuan', [
+      'title' => 'Buat Ajuan ABK',
+      'jabatans' => Jabatan::all()
+    ]);
+  }
 
   public function storeAjuan(Ajuan $ajuan)
   {
