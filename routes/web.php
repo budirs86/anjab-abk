@@ -86,18 +86,8 @@ Route::prefix('abk')->middleware('auth')->group(function () {
   Route::get('/ajuan', [AbkController::class, 'index'])->name('abk.ajuans');
   Route::get('/ajuan/create', [AbkController::class, 'createAjuan'])->name('abk.ajuan.create');
   Route::post('/ajuan/store/{ajuan}', [AbkController::class, 'storeAjuan'])->name('abk.ajuan.store');
-  Route::get('/ajuan/{ajuan}', function (Ajuan $ajuan) {
-    $jabatans = Jabatan::all();
+  Route::get('ajuan/{ajuan}', [AbkController::class, 'showAjuan'])->name('abk.ajuan.show');
 
-    return view('abk.ajuan', [
-      'title' => 'Ajuan Jabatan',
-      'ajuan' => $ajuan,
-      'periode' => $ajuan->tahun,
-      'jabatans' => $jabatans,
-      'unit_kerjas' => UnitKerja::all(),
-    ]);
-  })->name('abk.ajuan');
-  
   Route::get('/jabatan/{jabatan:id}/create', function (Jabatan $jabatan) {
     return view('abk.jabatan.create', [
       'jabatan' => $jabatan,

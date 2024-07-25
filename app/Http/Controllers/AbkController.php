@@ -53,4 +53,16 @@ class AbkController extends Controller
 
     return redirect()->route('abk.ajuans');
   }
+
+  public function showAjuan(Ajuan $ajuan)
+  {
+    $jabatans = Jabatan::all();
+    $title = 'Ajuan ABK';
+    $ajuan = $ajuan;
+    $periode = $ajuan->tahun;
+    $jabatans = $jabatans;
+    $unit_kerjas = UnitKerja::all();
+
+    return view('abk.ajuan', compact('title', 'ajuan', 'periode', 'jabatans', 'unit_kerjas'));
+  }
 }

@@ -115,7 +115,7 @@ Breadcrumbs::for('daftar-ajuan-abk', function (BreadcrumbTrail $trail) {
 // create a breadcrumb for lihat ajuan abk page, parent-ing the buat ajuan abk breadcrumb
 Breadcrumbs::for('lihat-ajuan-abk', function (BreadcrumbTrail $trail, $ajuan) {
     $trail->parent('daftar-ajuan-abk');
-    $trail->push('Ajuan ABK ' . $ajuan->tahun, route('abk.ajuan', $ajuan->id));
+    $trail->push('Ajuan ABK ' . $ajuan->tahun, route('abk.ajuan.show', $ajuan->id));
 });
 Breadcrumbs::for('ajuan-abk-unitkerja', function (BreadcrumbTrail $trail, $periode, $unit_kerja) {
     $trail->parent('lihat-ajuan-abk' , $periode);
