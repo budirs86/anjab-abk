@@ -9,7 +9,7 @@
     </div>
     <div class="card dropdown-divider mb-4"></div>
     <div class="mb-3">
-        <a href="{{ route('abk.ajuan',$ajuan) }}" class="btn btn-primary header1"><img src="" alt="" data-feather="arrow-left" width="20px"> Kembali</a>
+        <a href="{{ route('abk.ajuan.show',$ajuan) }}" class="btn btn-primary header1"><img src="" alt="" data-feather="arrow-left" width="20px"> Kembali</a>
     </div>
     @can('make ajuan')
         <div class="">

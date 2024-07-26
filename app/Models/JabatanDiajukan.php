@@ -82,4 +82,9 @@ class JabatanDiajukan extends Model
   {
     return $this->hasOne(SyaratJabatan::class, 'jabatan_id');
   }
+
+  public function unitKerja()
+  {
+    return $this->belongsTo(UnitKerja::class);
+  }
 }
