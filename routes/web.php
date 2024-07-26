@@ -86,6 +86,7 @@ Route::prefix('abk')->middleware('auth')->group(function () {
   Route::get('/ajuan', [AbkController::class, 'index'])->name('abk.ajuans');
   Route::get('/ajuan/create', [AbkController::class, 'createAjuan'])->name('abk.ajuan.create');
   Route::post('/ajuan/store/{ajuan}', [AbkController::class, 'storeAjuan'])->name('abk.ajuan.store');
+  Route::get('/ajuan/{ajuan}', [AbkController::class, 'showAjuan'])->name('abk.ajuan.show');
   Route::get('/ajuan/{ajuan}/unit/{unit_kerja}', [AbkController::class, 'showUnitKerja'])->name('abk.unitkerja.show');
 
   Route::get('/jabatan/{jabatan:id}/create', function (Jabatan $jabatan) {
@@ -107,7 +108,7 @@ Route::prefix('abk')->middleware('auth')->group(function () {
     ]);
   });
 
-
+  
   Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}', function (Ajuan $ajuan, UnitKerja $unit_kerja, Jabatan $jabatan) {
     // $jabatans = Jabatan::tree()->get()->toTree();
 

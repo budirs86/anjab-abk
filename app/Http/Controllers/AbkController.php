@@ -63,12 +63,20 @@ class AbkController extends Controller
 
   public function showAjuan(Ajuan $ajuan)
   {
-    $jabatans = Jabatan::all();
     $title = 'Ajuan ABK';
     $ajuan = $ajuan;
     $periode = $ajuan->tahun;
-    $jabatans = $jabatans;
+    // if the logged in user has role "Admin Kepegawaian", display all unit kerja
+    // else, display only the unit kerja of the logged in user
+    if (auth()->user()->hasRole('Admin Kepegawaian')) {
     $unit_kerjas = UnitKerja::all();
+    } else if (auth()->user()->hasRole('Operator Unit Kerja')) {
+      $unit_kerjas = UnitKerja::where('id', auth()->user()->unit_kerja_id)->get();
+    }
+
+    return view('abk.ajuan', compact('title', 'ajuan', 'periode', 'unit_kerjas'));
+  }
+
   public function showUnitKerja(Ajuan $ajuan, UnitKerja $unit_kerja)
   {
     $title = 'Lihat Informasi ABK';
