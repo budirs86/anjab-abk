@@ -18,7 +18,7 @@ class RolePermissionSeeder extends Seeder
         $can_make_ajuan = Permission::create(['name' => 'make ajuan']);
         $can_make_abk = Permission::create(['name' => 'make abk']);
 
-        Role::create(['name' => 'Operator'])->givePermissionTo($can_make_ajuan);
+        Role::create(['name' => 'Admin Kepegawaian'])->givePermissionTo($can_make_ajuan);
         Role::create(['name' => 'Operator Unit Kerja'])->givePermissionTo($can_make_abk);
 
         // level 1

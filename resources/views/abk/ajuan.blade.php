@@ -13,7 +13,7 @@
         <thead >
             <th class="fw-semibold text-muted">No</th>
             <th class="fw-semibold text-muted">Unit Kerja/Lembaga/Sekolah</th>
-            @can('make ajuan')
+            @can('make abk')
                 <th class="fw-semibold text-muted">Status</th>
                 <th class="fw-semibold text-muted">Catatan Perbaikan</th>
             @elsecan('verify ajuan')
@@ -31,13 +31,13 @@
                             {{-- create edit and lihat button group --}}
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="{{ route('abk.unitkerja.show', [$ajuan, $unit_kerja]) }}" class="btn btn-outline-primary">Lihat</a>
-                                @can('make ajuan')
+                                @can('make abk')
                                     <a href="{{ route('abk.unitkerja.edit',[$ajuan, $unit_kerja]) }}" class="btn btn-outline-secondary">Edit</a>
                                 @endcan
                             </div>
                         </div>
                     </td>
-                    @can('make ajuan')
+                    @can('make abk')
                         <td class="w-25">
                         <div class="alert alert-success w-100">
                             <div class="alert-heading d-flex">

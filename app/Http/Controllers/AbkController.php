@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AbkAnjab;
 use App\Models\Ajuan;
 use App\Models\AjuanUnitKerja;
 use App\Models\Jabatan;
 use App\Models\JabatanDiajukan;
+use App\Models\Role;
 use App\Models\UnitKerja;
 use Illuminate\Http\Request;
 
@@ -13,11 +15,14 @@ class AbkController extends Controller
 {
   public function index()
   {
+    $title = 'Daftar Ajuan ABK';
+    // display ajuan anjab that has been approved by wakil rektor 2
+    $wakilRektorRoleId = Role::where('name', 'Wakil Rektor 2')->first()->id;
+    $ajuans = Ajuan::where('jenis', 'anjab')->whereHas('role_verifikasi', function ($query) use ($wakilRektorRoleId) {
+      $query->where('role_id', $wakilRektorRoleId)->where('is_approved', true);
+    })->get();
 
-    return view('abk.ajuans', [
-      'title' => 'Daftar Ajuan ABK',
-      'ajuans' => Ajuan::where('jenis', 'abk')->get()
-    ]);
+    return view('abk.ajuans', compact('title', 'ajuans'));
   }
 
   public function createAjuan()
@@ -39,15 +44,21 @@ class AbkController extends Controller
     // for each unit kerja on the anjab, 
     // create ajuan with current year as 'tahun' and abk as 'jenis'
     foreach ($unitKerjas as $unitKerja) {
-      $ajuan = Ajuan::create([
+      $abk = Ajuan::create([
         'tahun' => now()->year,
         'jenis' => 'abk'
       ]);
 
       // also create ajuan unit kerja with the ajuan id and unit kerja id
       AjuanUnitKerja::create([
-        'ajuan_id' => $ajuan->id,
+        'ajuan_id' => $abk->id,
         'unit_kerja_id' => $unitKerja->id
+      ]);
+
+      // also create instance of abk_anjab to map which ones are the abk for an anjab
+      AbkAnjab::create([
+        'abk_id' => $abk->id,
+        'anjab_id' => $ajuan->id
       ]);
     }
 
@@ -56,13 +67,37 @@ class AbkController extends Controller
 
   public function showAjuan(Ajuan $ajuan)
   {
-    $jabatans = Jabatan::all();
     $title = 'Ajuan ABK';
     $ajuan = $ajuan;
     $periode = $ajuan->tahun;
-    $jabatans = $jabatans;
-    $unit_kerjas = UnitKerja::all();
+    // if the logged in user has role "Admin Kepegawaian", display all unit kerja
+    // else, display only the unit kerja of the logged in user
+    if (auth()->user()->hasRole('Admin Kepegawaian')) {
+      $unit_kerjas = UnitKerja::all();
+    } else if (auth()->user()->hasRole('Operator Unit Kerja')) {
+      $unit_kerjas = UnitKerja::where('id', auth()->user()->unit_kerja_id)->get();
+    }
 
-    return view('abk.ajuan', compact('title', 'ajuan', 'periode', 'jabatans', 'unit_kerjas'));
+    return view('abk.ajuan', compact('title', 'ajuan', 'periode', 'unit_kerjas'));
+  }
+
+  public function showUnitKerja(Ajuan $ajuan, UnitKerja $unit_kerja)
+  {
+    $title = 'Lihat Informasi ABK';
+    $ajuan = $ajuan;
+    $unit_kerja = $unit_kerja;
+    $jabatans = Jabatan::where('unit_kerja_id', $unit_kerja->id)->get();
+
+    return view('abk.unitkerja.show', compact('title', 'ajuan', 'unit_kerja', 'jabatans'));
+  }
+
+  public function showJabatan(Ajuan $ajuan, UnitKerja $unit_kerja, Jabatan $jabatan)
+  {
+    $title = 'Lihat Informasi ABK';
+    $ajuan = $ajuan;
+    $unit_kerja = $unit_kerja;
+    $jabatan = $jabatan;
+
+    return view('abk.jabatan.show', compact('title', 'ajuan', 'unit_kerja', 'jabatan'));
   }
 }
