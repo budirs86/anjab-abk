@@ -86,7 +86,7 @@ Route::prefix('abk')->middleware('auth')->group(function () {
   Route::get('/ajuan', [AbkController::class, 'index'])->name('abk.ajuans');
   Route::get('/ajuan/create', [AbkController::class, 'createAjuan'])->name('abk.ajuan.create');
   Route::post('/ajuan/store/{ajuan}', [AbkController::class, 'storeAjuan'])->name('abk.ajuan.store');
-  Route::get('ajuan/{ajuan}', [AbkController::class, 'showAjuan'])->name('abk.ajuan.show');
+  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}', [AbkController::class, 'showUnitKerja'])->name('abk.unitkerja.show');
 
   Route::get('/jabatan/{jabatan:id}/create', function (Jabatan $jabatan) {
     return view('abk.jabatan.create', [
@@ -107,17 +107,6 @@ Route::prefix('abk')->middleware('auth')->group(function () {
     ]);
   });
 
-  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}', function (Ajuan $ajuan, UnitKerja $unit_kerja) {
-    // $jabatans = Jabatan::tree()->get()->toTree();
-
-    return view('abk.unitkerja.show', [
-
-      'title' => 'Lihat Informasi ABK',
-      'ajuan' => $ajuan,
-      'unit_kerja' => $unit_kerja,
-      'jabatans' => Jabatan::where('unit_kerja_id', $unit_kerja->id)->get(),
-    ]);
-  })->name('abk.unitkerja.show');
 
   Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}', function (Ajuan $ajuan, UnitKerja $unit_kerja, Jabatan $jabatan) {
     // $jabatans = Jabatan::tree()->get()->toTree();

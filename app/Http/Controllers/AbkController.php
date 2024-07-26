@@ -62,7 +62,13 @@ class AbkController extends Controller
     $periode = $ajuan->tahun;
     $jabatans = $jabatans;
     $unit_kerjas = UnitKerja::all();
+  public function showUnitKerja(Ajuan $ajuan, UnitKerja $unit_kerja)
+  {
+    $title = 'Lihat Informasi ABK';
+    $ajuan = $ajuan;
+    $unit_kerja = $unit_kerja;
+    $jabatans = Jabatan::where('unit_kerja_id', $unit_kerja->id)->get();
 
-    return view('abk.ajuan', compact('title', 'ajuan', 'periode', 'jabatans', 'unit_kerjas'));
+    return view('abk.unitkerja.show', compact('title', 'ajuan', 'unit_kerja', 'jabatans'));
   }
 }
