@@ -40,14 +40,14 @@ class AbkController extends Controller
     // for each unit kerja on the anjab, 
     // create ajuan with current year as 'tahun' and abk as 'jenis'
     foreach ($unitKerjas as $unitKerja) {
-      $ajuan = Ajuan::create([
+      $abk = Ajuan::create([
         'tahun' => now()->year,
         'jenis' => 'abk'
       ]);
 
       // also create ajuan unit kerja with the ajuan id and unit kerja id
       AjuanUnitKerja::create([
-        'ajuan_id' => $ajuan->id,
+        'ajuan_id' => $abk->id,
         'unit_kerja_id' => $unitKerja->id
       ]);
 
