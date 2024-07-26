@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AbkAnjab;
 use App\Models\Ajuan;
 use App\Models\AjuanUnitKerja;
 use App\Models\Jabatan;
@@ -48,6 +49,12 @@ class AbkController extends Controller
       AjuanUnitKerja::create([
         'ajuan_id' => $ajuan->id,
         'unit_kerja_id' => $unitKerja->id
+      ]);
+
+      // also create instance of abk_anjab to map which ones are the abk for an anjab
+      AbkAnjab::create([
+        'abk_id' => $abk->id,
+        'anjab_id' => $ajuan->id
       ]);
     }
 
