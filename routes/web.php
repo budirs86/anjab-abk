@@ -1,16 +1,6 @@
 <?php
 
-use Carbon\Unit;
-use App\Models\Ajuan;
 use App\Models\Jabatan;
-use App\Models\UnitKerja;
-use App\Models\BakatKerja;
-use App\Models\MinatKerja;
-use App\Models\UpayaFisik;
-use App\Models\JenisJabatan;
-use GuzzleHttp\Psr7\Request;
-use App\Models\FungsiPekerjaan;
-use App\Models\TemperamenKerja;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AbkController;
 use App\Http\Controllers\AdminUserController;
@@ -90,42 +80,9 @@ Route::prefix('abk')->middleware('auth')->group(function () {
   Route::get('/ajuan/{ajuan}/unit/{unit_kerja}', [AbkController::class, 'showUnitKerja'])->name('abk.unitkerja.show');
   Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}', [AbkController::class, 'showJabatan'])->name('abk.jabatan.show');
   Route::get('/jabatan/{jabatan:id}/create', [AbkController::class, 'createJabatan'])->name('abk.jabatan.create');
-
-  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/edit', function (Ajuan $ajuan, UnitKerja $unit_kerja) {
-    // $jabatans = Jabatan::tree()->get()->toTree();
-
-    return view('abk.unitkerja.edit', [
-
-      'title' => 'Lihat Informasi ABK',
-      'ajuan' => $ajuan,
-      'unit_kerja' => $unit_kerja,
-      'jabatans' => Jabatan::where('unit_kerja_id', $unit_kerja->id)->get(),
-    ]);
-  })->name('abk.unitkerja.edit');
-
-  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}/edit', function (Ajuan $ajuan, UnitKerja $unit_kerja, Jabatan $jabatan) {
-    // $jabatans = Jabatan::tree()->get()->toTree();
-
-    return view('abk.jabatan.edit', [
-
-      'title' => 'Lihat Informasi ABK',
-      'ajuan' => $ajuan,
-      'unit_kerja' => $unit_kerja,
-      'jabatan' => $jabatan,
-    ]);
-  })->name('abk.jabatan.edit');
+  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/edit', [AbkController::class, 'editUnitKerja'])->name('abk.unitkerja.edit');
+  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}/edit', [AbkController::class, 'editJabatan'])->name('abk.jabatan.edit');
 });
-
-
-Route::get('/petajabatan', function () {
-
-  $jabatans = Jabatan::tree()->get()->toTree();
-  // dd($jabatans);
-  return view("anjab.petajabatan.petajabatan", [
-    'title' => "Peta Jabatan",
-    'jabatans' => $jabatans
-  ]);
-})->middleware('auth');
 
 Route::prefix('admin')->name('admin.')->middleware('role:superadmin')->group(function () {
   Route::get('/dashboard', function () {
@@ -144,3 +101,12 @@ Route::prefix('admin')->name('admin.')->middleware('role:superadmin')->group(fun
     });
   });
 });
+
+Route::get('/petajabatan', function () {
+  $jabatans = Jabatan::tree()->get()->toTree();
+  // dd($jabatans);
+  return view("anjab.petajabatan.petajabatan", [
+    'title' => "Peta Jabatan",
+    'jabatans' => $jabatans
+  ]);
+})->middleware('auth');

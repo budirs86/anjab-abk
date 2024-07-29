@@ -91,6 +91,16 @@ class AbkController extends Controller
     return view('abk.unitkerja.show', compact('title', 'ajuan', 'unit_kerja', 'jabatans'));
   }
 
+  public function editUnitKerja(Ajuan $ajuan, UnitKerja $unit_kerja)
+  {
+    $title = 'Edit Informasi ABK';
+    $ajuan = $ajuan;
+    $unit_kerja = $unit_kerja;
+    $jabatans = Jabatan::where('unit_kerja_id', $unit_kerja->id)->get();
+
+    return view('abk.unitkerja.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatans'));
+  }
+
   public function createJabatan(Jabatan $jabatan)
   {
     return view('abk.jabatan.create', [
@@ -107,5 +117,15 @@ class AbkController extends Controller
     $jabatan = $jabatan;
 
     return view('abk.jabatan.show', compact('title', 'ajuan', 'unit_kerja', 'jabatan'));
+  }
+
+  public function editJabatan(Ajuan $ajuan, UnitKerja $unit_kerja, Jabatan $jabatan)
+  {
+    $title = 'Edit Informasi ABK';
+    $ajuan = $ajuan;
+    $unit_kerja = $unit_kerja;
+    $jabatan = $jabatan;
+
+    return view('abk.jabatan.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatan'));
   }
 }
