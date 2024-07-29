@@ -72,16 +72,18 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
   });
 });
 
-Route::prefix('abk')->middleware('auth')->group(function () {
-  Route::get('/ajuan', [AbkController::class, 'index'])->name('abk.ajuans');
-  Route::get('/ajuan/create', [AbkController::class, 'createAjuan'])->name('abk.ajuan.create');
-  Route::post('/ajuan/store/{ajuan}', [AbkController::class, 'storeAjuan'])->name('abk.ajuan.store');
-  Route::get('/ajuan/{ajuan}', [AbkController::class, 'showAjuan'])->name('abk.ajuan.show');
-  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}', [AbkController::class, 'showUnitKerja'])->name('abk.unitkerja.show');
-  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}', [AbkController::class, 'showJabatan'])->name('abk.jabatan.show');
-  Route::get('/jabatan/{jabatan:id}/create', [AbkController::class, 'createJabatan'])->name('abk.jabatan.create');
-  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/edit', [AbkController::class, 'editUnitKerja'])->name('abk.unitkerja.edit');
-  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}/edit', [AbkController::class, 'editJabatan'])->name('abk.jabatan.edit');
+Route::prefix('abk/ajuan')->middleware('auth')->name('abk.')->group(function () {
+  Route::get('/', [AbkController::class, 'index'])->name('ajuans');
+  Route::get('/create', [AbkController::class, 'createAjuan'])->name('ajuan.create');
+  Route::post('/store/{ajuan}', [AbkController::class, 'storeAjuan'])->name('ajuan.store');
+  Route::prefix('{ajuan}')->group(function () {
+    Route::get('/', [AbkController::class, 'showAjuan'])->name('ajuan.show');
+    Route::get('/unit/{unit_kerja}', [AbkController::class, 'showUnitKerja'])->name('unitkerja.show');
+    Route::get('/unit/{unit_kerja}/edit', [AbkController::class, 'editUnitKerja'])->name('unitkerja.edit');
+    Route::get('/unit/{unit_kerja}/jabatan/{jabatan}', [AbkController::class, 'showJabatan'])->name('jabatan.show');
+    Route::get('/unit/{unit_kerja}/jabatan/{jabatan}/create', [AbkController::class, 'createJabatan'])->name('jabatan.create');
+    Route::get('/unit/{unit_kerja}/jabatan/{jabatan}/edit', [AbkController::class, 'editJabatan'])->name('jabatan.edit');
+  });
 });
 
 Route::prefix('admin')->name('admin.')->middleware('role:superadmin')->group(function () {
