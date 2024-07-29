@@ -19,9 +19,13 @@
             <tr>
                 <th style="width: 10%">No</th>
                 <th>Periode</th>
-                @can('make abk')
+                @if (auth()->user()->roles[0]->name == 'Admin Kepegawaian')
                     <th>Status</th>
+                    <th>Diajukan Tanggal</th>
+                    <th>Aksi</th>
                     <th>Catatan</th>
+                @endif
+                @can('make abk')
                 @elsecan('verify ajuan')
                     <th>Diajukan Tanggal</th>
                     <th>Aksi</th>
@@ -35,42 +39,28 @@
                     <td class="w-25">
                         <div class="d-flex justify-content-between">
                             <p>{{ $ajuan->tahun }}</p>
-                            @can('make abk')
+                            @if (auth()->user()->roles[0]->name == 'Operator Unit Kerja')
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="{{ route('abk.ajuan.show', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
+                                    <a href="{{ route('abk.ajuan.show', $ajuan) }}"
+                                        class="btn btn-outline-primary">Lihat</a>
                                 </div>
-                            @endcan
+                            @endif
                         </div>
                     </td>
-                    @can('make abk')
-                        <td class="w-25">
-                            <div class="alert alert-success w-100">
-                                <div class="alert-heading d-flex">
-                                    <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
-                                    <p class="m-0 p-0">Disetujui</p>
-                                </div>
-                                <hr>
-                                <p class="m-0 p-0">Manajer Tata Usaha/Kepegawaian</p>
-                            </div>
-                            <div class="alert alert-info w-100">
-                                <div class="alert-heading d-flex">
-                                    <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
-                                    <p class="m-0 p-0">Menunggu Diperiksa</p>
-                                </div>
-                                <hr>
-                                <p class="m-0 p-0">Kepala Biro, Wakil Dekan 2, Sekretaris Lembaga</p>
-                            </div>
-                            <div class="alert alert-warning w-100">
-                                <div class="alert-heading d-flex">
-                                    <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
-                                    <p class="m-0 p-0">Perlu Perbaikan</p>
-                                </div>
-                                <hr>
-                                <p class="m-0 p-0">Kepala Biro, Wakil Dekan 2, Sekretaris Lembaga</p>
+                    @if (auth()->user()->roles[0]->name == 'Admin Kepegawaian')
+                        <td>
+                            {{ $ajuan->created_at }}
+                        </td>
+                        <td>
+                            2/10
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a href="{{ route('abk.ajuan.show', ['ajuan' => $ajuan->id]) }}"
+                                    class="btn btn-outline-primary">Lihat</a>
                             </div>
                         </td>
                         <td>Tidak ada catatan.
-
                             <ul>
                                 <li>Lorem ipsum dolor sit amet.</li>
                                 <li>Lorem ipsum dolor sit amet.</li>
@@ -78,6 +68,8 @@
                             </ul>
 
                         </td>
+                    @endif
+                    @can('make abk')
                     @elsecan('verify ajuan')
                         <td>
                             <p>{{ now()->format('d-m-Y') }}</p>
