@@ -74,7 +74,7 @@
                         </ul>
                     </li>
 
-                    <li><a class="nav-link" href="#"><img data-feather="file" width="20px"></img> Laporan</a>
+                    <li><a class="nav-link" href="{{ route('laporan.index') }}"><img data-feather="file" width="20px"></img> Laporan</a>
                     </li>
                     @if (auth()->user()->hasRole('superadmin'))
                         <li class="nav-item dropdown">

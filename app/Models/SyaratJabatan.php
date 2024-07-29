@@ -18,4 +18,24 @@ class SyaratJabatan extends Model
     public function syaratBakat(){
         return $this->hasMany(SyaratBakat::class);
     }
+
+    // create hasmany relation with temperamenkerja
+    public function SyaratTemperamens(){
+        return $this->hasMany(SyaratTemperamen::class);
+    }
+
+    // create hasmany relation with syaratminat
+    public function SyaratMinats(){
+        return $this->hasMany(SyaratMinat::class);
+    }
+
+    // create hasmany relation with syaratupaya
+    public function SyaratUpayas(){
+        return $this->hasMany(SyaratUpaya::class);
+    }
+
+    // create hasmany relation with syaratfungsi
+    public function SyaratFungsis(){
+        return $this->hasMany(SyaratFungsi::class);
+    }
 }

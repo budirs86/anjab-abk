@@ -10,4 +10,12 @@ class SyaratUpaya extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function syaratJabatan(){
+        return $this->belongsTo(SyaratJabatan::class);
+    }
+
+    public function upayaFisik(){
+        return $this->belongsTo(UpayaFisik::class);
+    }
 }

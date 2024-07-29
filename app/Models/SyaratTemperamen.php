@@ -12,4 +12,13 @@ class SyaratTemperamen extends Model
     protected $table = 'syarat_temperamens';
 
     protected $guarded = ['id'];
+
+    // create relationship with syarat_jabatan and temperamen kerja
+    public function syaratJabatan(){
+        return $this->belongsTo(SyaratJabatan::class);
+    }
+
+    public function temperamenKerja(){
+        return $this->belongsTo(TemperamenKerja::class);
+    }
 }

@@ -25,6 +25,7 @@ use App\Http\Controllers\RisikoBahayaController;
 use App\Http\Controllers\TanggungJawabController;
 use App\Http\Controllers\UraianTugasController;
 use App\Http\Controllers\WewenangController;
+use App\Models\JabatanDiajukan;
 
 Route::get('/', function () {
   return view('home', [
@@ -183,4 +184,20 @@ Route::prefix('admin')->name('admin.')->middleware('role:superadmin')->group(fun
       Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
     });
   });
+});
+
+Route::prefix('/laporan')->name('laporan.')->middleware('auth')->group(function() {
+  Route::get('/', function () {
+    $title = 'Laporan';
+    $ajuans = Ajuan::all();
+
+    return view('laporan.index', compact('title', 'ajuans'));
+  })->name('index');
+
+  Route::get('anjab/{tahun}/{ajuan}', function($tahun, Ajuan $ajuan) {
+    $title = 'Laporan Analisis Jabatan' . $ajuan->tahun;
+    $jabatans = JabatanDiajukan::where('ajuan_id', $ajuan->id)->get();
+
+    return view('laporan.anjab', compact('title', 'ajuan', 'jabatans'));
+  })->name('anjab');
 });
