@@ -154,6 +154,15 @@ Breadcrumbs::for('user-edit', function (BreadcrumbTrail $trail, $user) {
     $trail->push('Edit User ' . $user->name, route('admin.users.edit',['user' => $user]));
 });
 
+// create breadcrumbs for laporan page, not parenting any breadcrumb
+Breadcrumbs::for('laporan', function (BreadcrumbTrail $trail) {
+    $trail->push('Laporan', route('laporan.index'));
+});
+Breadcrumbs::for('laporan-anjab', function (BreadcrumbTrail $trail, $ajuan) {
+    $trail->parent('laporan');
+    $trail->push('Analisis Jabatan ' . $ajuan->tahun, route('laporan.anjab', ['tahun' => $ajuan->tahun, 'ajuan' => $ajuan]));
+});
+
 
 // Home > Blog
 Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {

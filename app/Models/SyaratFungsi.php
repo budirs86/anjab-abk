@@ -10,4 +10,11 @@ class SyaratFungsi extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    // create relationship with fungsi pekerjaan
+    public function fungsiPekerjaan(){
+        return $this->belongsTo(FungsiPekerjaan::class);
+    }
+
+
 }
