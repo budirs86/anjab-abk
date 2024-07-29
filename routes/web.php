@@ -87,7 +87,9 @@ Route::prefix('abk')->middleware('auth')->group(function () {
   Route::get('/ajuan', [AbkController::class, 'index'])->name('abk.ajuans');
   Route::get('/ajuan/create', [AbkController::class, 'createAjuan'])->name('abk.ajuan.create');
   Route::post('/ajuan/store/{ajuan}', [AbkController::class, 'storeAjuan'])->name('abk.ajuan.store');
-  Route::get('ajuan/{ajuan}', [AbkController::class, 'showAjuan'])->name('abk.ajuan.show');
+  Route::get('/ajuan/{ajuan}', [AbkController::class, 'showAjuan'])->name('abk.ajuan.show');
+  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}', [AbkController::class, 'showUnitKerja'])->name('abk.unitkerja.show');
+  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}', [AbkController::class, 'showJabatan'])->name('abk.jabatan.show');
 
   Route::get('/jabatan/{jabatan:id}/create', function (Jabatan $jabatan) {
     return view('abk.jabatan.create', [
@@ -95,42 +97,6 @@ Route::prefix('abk')->middleware('auth')->group(function () {
       'title' => 'Buat Informasi Beban Kerja'
     ]);
   })->name('abk.jabatan.create');
-
-  Route::get('/ajuan/{id}/edit', function ($id) {
-    // $jabatans = Jabatan::tree()->get()->toTree();
-    $jabatans = Jabatan::all();
-
-    return view('abk.ajuan', [
-      'title' => 'Ajuan ABK',
-      'jabatans' => $jabatans,
-      'editable' => true,
-      'abk' => true
-    ]);
-  });
-
-  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}', function (Ajuan $ajuan, UnitKerja $unit_kerja) {
-    // $jabatans = Jabatan::tree()->get()->toTree();
-
-    return view('abk.unitkerja.show', [
-
-      'title' => 'Lihat Informasi ABK',
-      'ajuan' => $ajuan,
-      'unit_kerja' => $unit_kerja,
-      'jabatans' => Jabatan::where('unit_kerja_id', $unit_kerja->id)->get(),
-    ]);
-  })->name('abk.unitkerja.show');
-
-  Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}', function (Ajuan $ajuan, UnitKerja $unit_kerja, Jabatan $jabatan) {
-    // $jabatans = Jabatan::tree()->get()->toTree();
-
-    return view('abk.jabatan.show', [
-
-      'title' => 'Lihat Informasi ABK',
-      'ajuan' => $ajuan,
-      'unit_kerja' => $unit_kerja,
-      'jabatan' => $jabatan,
-    ]);
-  })->name('abk.jabatan.show');
 
   Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/edit', function (Ajuan $ajuan, UnitKerja $unit_kerja) {
     // $jabatans = Jabatan::tree()->get()->toTree();

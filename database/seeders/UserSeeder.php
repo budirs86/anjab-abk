@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'name' => 'Alif Rachmat',
             'email' => 'alip@gmail.com',
             'password' => bcrypt('password')
-        ])->assignRole('Operator');
+        ])->assignRole('Admin Kepegawaian');
 
         User::create([
             'name' => 'Operator Fakultas Teknik',

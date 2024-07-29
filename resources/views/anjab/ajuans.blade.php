@@ -56,7 +56,7 @@
                                 @can('make ajuan')
                                     <a href="{{ route('anjab.ajuan.show', $ajuan->tahun) }}"
                                         class="btn btn-outline-primary">Lihat</a>
-                                    @if (!$ajuan->latest_verifikasi()->is_approved && $ajuan->next_verificator()->role->name == 'Operator')
+                                    @if (!$ajuan->latest_verifikasi()->is_approved && $ajuan->next_verificator()->role->name == 'Admin Kepegawaian')
                                         <a href="{{ route('anjab.ajuan.edit', ['tahun' => $ajuan->tahun, 'id' => $ajuan->id]) }}"
                                             class="btn btn-outline-primary">Edit</a>
                                     @endif
@@ -104,7 +104,7 @@
                             @endif
 
                             {{-- if there is still someone to verify, display alert info --}}
-                            @if ($ajuan->next_verificator() && $ajuan->next_verificator()->role->name != 'Operator')
+                            @if ($ajuan->next_verificator() && $ajuan->next_verificator()->role->name != 'Admin Kepegawaian')
                                 <div class="alert alert-info w-100">
                                     <div class="alert-heading d-flex">
                                         <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>

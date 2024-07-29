@@ -19,7 +19,7 @@
             <tr>
                 <th style="width: 10%">No</th>
                 <th>Periode</th>
-                @can('make ajuan')
+                @can('make abk')
                     <th>Status</th>
                     <th>Catatan</th>
                 @elsecan('verify ajuan')
@@ -35,14 +35,14 @@
                     <td class="w-25">
                         <div class="d-flex justify-content-between">
                             <p>{{ $ajuan->tahun }}</p>
-                            @can('make ajuan')
+                            @can('make abk')
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="{{ route('abk.ajuan.show', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
                                 </div>
                             @endcan
                         </div>
                     </td>
-                    @can('make ajuan')
+                    @can('make abk')
                         <td class="w-25">
                             <div class="alert alert-success w-100">
                                 <div class="alert-heading d-flex">

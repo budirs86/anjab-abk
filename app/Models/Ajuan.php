@@ -22,10 +22,10 @@ class Ajuan extends Model
   }
 
   // Ajuan for manajer kepegawaian
-  // Get ajuan where jenis = anjab and already approved by operator
+  // Get ajuan where jenis = anjab and already approved by admin
   public static function anjab_for_manajer_kepegawaian()
   {
-    $previousVerificatorId = Role::where('name', 'Operator')->first()->id;
+    $previousVerificatorId = Role::where('name', 'Admin Kepegawaian')->first()->id;
     $roleId = auth()->user()->id;
     return Ajuan::where('jenis', 'anjab')
       ->whereHas('role_verifikasi', function ($query) use ($previousVerificatorId) {
@@ -81,12 +81,12 @@ class Ajuan extends Model
     return $this->verifikasi()->latest()->first();
   }
 
-  // Get the latest verifikasi (excluding operator)
-  public function latest_verifikasi_without_operator()
+  // Get the latest verifikasi (excluding admin)
+  public function latest_verifikasi_without_admin()
   {
-    $operatorIds = ModelHasRole::where('role_id', 1)->pluck('model_id');
+    $adminIds = ModelHasRole::where('role_id', 1)->pluck('model_id');
 
-    return $this->verifikasi()->whereNotIn('verificator_id', $operatorIds)->latest()->first();
+    return $this->verifikasi()->whereNotIn('verificator_id', $adminIds)->latest()->first();
   }
 
   // get the latest verifikasi by current user
