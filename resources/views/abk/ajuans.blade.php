@@ -19,8 +19,8 @@
             <tr>
                 <th style="width: 10%">No</th>
                 <th>Periode</th>
-                <th>Status</th>
                 @if (auth()->user()->roles[0]->name == 'Admin Kepegawaian')
+                    <th>Status</th>
                     <th>Diajukan Tanggal</th>
                     <th>Aksi</th>
                     <th>Catatan</th>
@@ -70,32 +70,6 @@
                         </td>
                     @endif
                     @can('make abk')
-                        <td class="w-25">
-                            <div class="alert alert-success w-100">
-                                <div class="alert-heading d-flex">
-                                    <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
-                                    <p class="m-0 p-0">Disetujui</p>
-                                </div>
-                                <hr>
-                                <p class="m-0 p-0">Manajer Tata Usaha/Kepegawaian</p>
-                            </div>
-                            <div class="alert alert-info w-100">
-                                <div class="alert-heading d-flex">
-                                    <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
-                                    <p class="m-0 p-0">Menunggu Diperiksa</p>
-                                </div>
-                                <hr>
-                                <p class="m-0 p-0">Kepala Biro, Wakil Dekan 2, Sekretaris Lembaga</p>
-                            </div>
-                            <div class="alert alert-warning w-100">
-                                <div class="alert-heading d-flex">
-                                    <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
-                                    <p class="m-0 p-0">Perlu Perbaikan</p>
-                                </div>
-                                <hr>
-                                <p class="m-0 p-0">Kepala Biro, Wakil Dekan 2, Sekretaris Lembaga</p>
-                            </div>
-                        </td>
                     @elsecan('verify ajuan')
                         <td>
                             <p>{{ now()->format('d-m-Y') }}</p>

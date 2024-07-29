@@ -9,6 +9,7 @@ use App\Models\Jabatan;
 use App\Models\JabatanDiajukan;
 use App\Models\Role;
 use App\Models\UnitKerja;
+use App\Models\UraianTugas;
 use Illuminate\Http\Request;
 
 class AbkController extends Controller
@@ -122,7 +123,8 @@ class AbkController extends Controller
   public function editJabatan(Ajuan $ajuan, UnitKerja $unit_kerja, JabatanDiajukan $jabatan)
   {
     $title = 'Edit Informasi ABK';
+    $uraians = $jabatan->uraianTugas;
 
-    return view('abk.jabatan.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatan'));
+    return view('abk.jabatan.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatan', 'uraians'));
   }
 }

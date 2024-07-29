@@ -2,10 +2,10 @@
 
 @section('container')
     <div class="">
-        {{ Breadcrumbs::render('edit-ajuan-abk-jabatan',$ajuan, $unit_kerja, $jabatan) }}
+        {{ Breadcrumbs::render('edit-ajuan-abk-jabatan', $ajuan, $unit_kerja, $jabatan) }}
     </div>
     <div class="card-head mb-3">
-        <h1 class="fw-light fs-4 d-inline nav-item">Edit Analisis Beban Kerja {{ $jabatan->nama }}</h1>                
+        <h1 class="fw-light fs-4 d-inline nav-item">Edit Analisis Beban Kerja {{ $jabatan->nama }}</h1>
     </div>
     <hr>
     <label for="uraian_tugas_table" class="form-label">Uraian Tugas</label>
@@ -21,30 +21,54 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($uraians as $uraian)
+                    <tr>
+                        <td>
+                            {{ $uraian->nama_tugas }}
+                        </td>
+                        <td class="">
+                            {{-- create a text input and labelfor "hasil kerja" --}}
+                            <input type="text" class="form-control" name="hasil_kerja" id="hasil_kerja"
+                                value="{{ $uraian->hasil_kerja }}">
+                        </td>
+                        <td class="d-flex">
+                            <input type="text" class="form-control" name="beban_kerja" id="beban_kerja" value="{{ $uraian->beban_kerja }}">
+                        </td>
+                        <td class="">
+                            <input type="text" class="form-control" name="waktu_penyelesaian" id="waktu_penyelesaian"
+                                value="{{ $uraian->waktu_penyelesaian }}">
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-primary"><i data-feather="save"></i> Simpan</button>
+                        </td>
+                    </tr>
+                @endforeach
                 <tr>
                     <td>
                         Membuat Rencana Strategis
                     </td>
                     <td class="">
                         {{-- create a text input and labelfor "hasil kerja" --}}
-                        <input type="text" class="form-control" name="hasil_kerja" id="hasil_kerja" value="Rencana Strategis">
+                        <input type="text" class="form-control" name="hasil_kerja" id="hasil_kerja"
+                            value="Rencana Strategis">
                     </td>
-                    <td class="d-flex">   
+                    <td class="d-flex">
                         <input type="text" class="form-control" name="beban_kerja" id="beban_kerja" value="1">
                     </td>
-                    <td class="">   
-                        <input type="text" class="form-control" name="waktu_penyelesaian" id="waktu_penyelesaian" value="16">
+                    <td class="">
+                        <input type="text" class="form-control" name="waktu_penyelesaian" id="waktu_penyelesaian"
+                            value="16">
                     </td>
-                    <td class="text-center">   
+                    <td class="text-center">
                         <button class="btn btn-primary"><i data-feather="save"></i> Simpan</button>
                     </td>
-                </tr>   
+                </tr>
             </tbody>
         </table>
     </div>
     <div class="mb-3">
         <h2 class="fs-5">Perhitungan Jumlah Kebutuhan Pegawai</h2>
-    
+
         <div class="col-md-6">
             <div class="row">
                 <div class="col">Total Waktu Penyelesaian Tugas (WPT)</div>
@@ -61,6 +85,7 @@
         </div>
     </div>
     <div class="">
-        <a href="{{ url()->previous() }}" class="btn btn-primary header1"><img src="" alt="" data-feather="arrow-left" width="20px"> Kembali</a>
-    </div>  
+        <a href="{{ url()->previous() }}" class="btn btn-primary header1"><img src="" alt=""
+                data-feather="arrow-left" width="20px"> Kembali</a>
+    </div>
 @endsection
