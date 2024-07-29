@@ -29,7 +29,7 @@ class AbkController extends Controller
   {
     return view('abk.buat-ajuan', [
       'title' => 'Buat Ajuan ABK',
-      'jabatans' => Jabatan::all()
+      'jabatans' => JabatanDiajukan::all()
     ]);
   }
 
@@ -86,7 +86,7 @@ class AbkController extends Controller
     $title = 'Lihat Informasi ABK';
     $ajuan = $ajuan;
     $unit_kerja = $unit_kerja;
-    $jabatans = Jabatan::where('unit_kerja_id', $unit_kerja->id)->get();
+    $jabatans = JabatanDiajukan::where('unit_kerja_id', $unit_kerja->id)->get();
 
     return view('abk.unitkerja.show', compact('title', 'ajuan', 'unit_kerja', 'jabatans'));
   }
@@ -96,12 +96,12 @@ class AbkController extends Controller
     $title = 'Edit Informasi ABK';
     $ajuan = $ajuan;
     $unit_kerja = $unit_kerja;
-    $jabatans = Jabatan::where('unit_kerja_id', $unit_kerja->id)->get();
+    $jabatans = JabatanDiajukan::where('unit_kerja_id', $unit_kerja->id)->get();
 
     return view('abk.unitkerja.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatans'));
   }
 
-  public function createJabatan(Jabatan $jabatan)
+  public function createJabatan(JabatanDiajukan $jabatan)
   {
     return view('abk.jabatan.create', [
       'jabatan' => $jabatan,
@@ -109,7 +109,7 @@ class AbkController extends Controller
     ]);
   }
 
-  public function showJabatan(Ajuan $ajuan, UnitKerja $unit_kerja, Jabatan $jabatan)
+  public function showJabatan(Ajuan $ajuan, UnitKerja $unit_kerja, JabatanDiajukan $jabatan)
   {
     $title = 'Lihat Informasi ABK';
     $ajuan = $ajuan;
@@ -119,12 +119,9 @@ class AbkController extends Controller
     return view('abk.jabatan.show', compact('title', 'ajuan', 'unit_kerja', 'jabatan'));
   }
 
-  public function editJabatan(Ajuan $ajuan, UnitKerja $unit_kerja, Jabatan $jabatan)
+  public function editJabatan(Ajuan $ajuan, UnitKerja $unit_kerja, JabatanDiajukan $jabatan)
   {
     $title = 'Edit Informasi ABK';
-    $ajuan = $ajuan;
-    $unit_kerja = $unit_kerja;
-    $jabatan = $jabatan;
 
     return view('abk.jabatan.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatan'));
   }
