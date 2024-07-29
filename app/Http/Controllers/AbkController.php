@@ -91,6 +91,14 @@ class AbkController extends Controller
     return view('abk.unitkerja.show', compact('title', 'ajuan', 'unit_kerja', 'jabatans'));
   }
 
+  public function createJabatan(Jabatan $jabatan)
+  {
+    return view('abk.jabatan.create', [
+      'jabatan' => $jabatan,
+      'title' => 'Buat Informasi Beban Kerja'
+    ]);
+  }
+
   public function showJabatan(Ajuan $ajuan, UnitKerja $unit_kerja, Jabatan $jabatan)
   {
     $title = 'Lihat Informasi ABK';

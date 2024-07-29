@@ -89,13 +89,7 @@ Route::prefix('abk')->middleware('auth')->group(function () {
   Route::get('/ajuan/{ajuan}', [AbkController::class, 'showAjuan'])->name('abk.ajuan.show');
   Route::get('/ajuan/{ajuan}/unit/{unit_kerja}', [AbkController::class, 'showUnitKerja'])->name('abk.unitkerja.show');
   Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/jabatan/{jabatan}', [AbkController::class, 'showJabatan'])->name('abk.jabatan.show');
-
-  Route::get('/jabatan/{jabatan:id}/create', function (Jabatan $jabatan) {
-    return view('abk.jabatan.create', [
-      'jabatan' => $jabatan,
-      'title' => 'Buat Informasi Beban Kerja'
-    ]);
-  })->name('abk.jabatan.create');
+  Route::get('/jabatan/{jabatan:id}/create', [AbkController::class, 'createJabatan'])->name('abk.jabatan.create');
 
   Route::get('/ajuan/{ajuan}/unit/{unit_kerja}/edit', function (Ajuan $ajuan, UnitKerja $unit_kerja) {
     // $jabatans = Jabatan::tree()->get()->toTree();
