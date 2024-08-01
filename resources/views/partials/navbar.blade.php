@@ -83,9 +83,11 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item me-3 my-1" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                                 <li><a class="dropdown-item me-3 my-1" href="{{ route('admin.users.index') }}">Manage Users</a></li>
+                                <li><a class="dropdown-item me-3 my-1" href="{{ route('admin.jabatans.index') }}">Manage Jabatans</a></li>
                                 
                             </ul>
                         </li>
+                        
                     @endif
                 </ul>
             </div>
