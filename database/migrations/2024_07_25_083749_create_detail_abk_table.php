@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('abk_jabatans', function (Blueprint $table) {
+        Schema::create('detail_abk', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jabatan_id')->constrained();
-            $table->foreignId('ajuan_id')->constrained();
-            $table->integer('total_beban_kerja');
-            $table->integer('kebutuhan_pegawai');
             $table->timestamps();
         });
     }
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('abk_jabatans');
+        Schema::dropIfExists('detail_abk');
     }
 };

@@ -13,16 +13,29 @@ return new class extends Migration
   {
     Schema::create('jabatan_diajukan', function (Blueprint $table) {
       $table->id();
-      $table->unsignedBigInteger('parent_id')->nullable();
-      $table->foreignId('ajuan_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-      $table->foreignId('jenis_jabatan_id')->constrained()->nullable();
-      $table->foreignId('unit_kerja_id')->constrained()->nullable();
+      $table->foreignId('jabatan_id')->constrained()->cascadeOnDelete();
+      $table->foreignId('ajuan_id')->constrained()->cascadeOnDelete();
+      $table->foreignId('jenis_jabatan_id')->constrained()->cascadeOnDelete();
+      $table->unsignedBigInteger('parent_id');
       $table->string('nama');
       $table->string('kode');
-      $table->integer('kelas_jabatan')->nullable();
-      $table->text('ikhtisar')->nullable();
-      $table->text('prestasi')->nullable();
-      $table->text('tanggung_jawab')->nullable();
+      $table->text('ikhtisar');
+      $table->text('prestasi');
+      $table->enum('jenis_kelamin', ['L', 'P']);
+      $table->integer('umur');
+      $table->integer('tinggi_badan');
+      $table->string('postur_badan');
+      $table->string('penampilan');
+      $table->string('keterampilan');
+      $table->integer('berat_badan');
+      $table->string('getaran');
+      $table->string('suhu');
+      $table->string('suara');
+      $table->string('penerangan');
+      $table->string('letak');
+      $table->string('tempat');
+      $table->string('udara');
+      $table->string('keadaan_ruangan');
       $table->timestamps();
 
       $table->foreign('parent_id')->references('id')->on('jabatan_diajukan')->onDelete('cascade');
