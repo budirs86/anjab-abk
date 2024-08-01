@@ -3,6 +3,7 @@
 use App\Models\Jabatan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AbkController;
+use App\Http\Controllers\AdminJabatanController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AjuanController;
 use App\Http\Controllers\LoginController;
@@ -102,6 +103,9 @@ Route::prefix('admin')->name('admin.')->middleware('role:superadmin')->group(fun
       Route::put('/update', [AdminUserController::class, 'update'])->name('update');
       Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
     });
+    });
+  Route::prefix('jabatans')->name('jabatans.')->group(function() {
+    Route::get('/',[AdminJabatanController::class, 'index'])->name('index');
   });
 });
 

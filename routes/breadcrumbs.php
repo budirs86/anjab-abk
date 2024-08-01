@@ -154,6 +154,12 @@ Breadcrumbs::for('user-edit', function (BreadcrumbTrail $trail, $user) {
     $trail->push('Edit User ' . $user->name, route('admin.users.edit',['user' => $user]));
 });
 
+// create breadcrumbs for Jabatan Dashboard, parenting the admin dashboard breadcrumb
+Breadcrumbs::for('jabatan-dashboard', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin-dashboard');
+    $trail->push('Jabatan Dashboard', route('admin.jabatans.index'));
+});
+
 // create breadcrumbs for laporan page, not parenting any breadcrumb
 Breadcrumbs::for('laporan', function (BreadcrumbTrail $trail) {
     $trail->push('Laporan', route('laporan.index'));

@@ -6,7 +6,6 @@ use function Livewire\Volt\{state, with};
 state([
     'selectedJabatanId' => null,
     'jabatans',
-    
 ]);
 
 with([
