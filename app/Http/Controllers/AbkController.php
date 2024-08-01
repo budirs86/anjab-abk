@@ -9,6 +9,7 @@ use App\Models\Jabatan;
 use App\Models\JabatanDiajukan;
 use App\Models\Role;
 use App\Models\UnitKerja;
+use App\Models\UraianTugas;
 use Illuminate\Http\Request;
 
 class AbkController extends Controller
@@ -29,7 +30,7 @@ class AbkController extends Controller
   {
     return view('abk.buat-ajuan', [
       'title' => 'Buat Ajuan ABK',
-      'jabatans' => Jabatan::all()
+      'jabatans' => JabatanDiajukan::all()
     ]);
   }
 
@@ -86,12 +87,30 @@ class AbkController extends Controller
     $title = 'Lihat Informasi ABK';
     $ajuan = $ajuan;
     $unit_kerja = $unit_kerja;
-    $jabatans = Jabatan::where('unit_kerja_id', $unit_kerja->id)->get();
+    $jabatans = JabatanDiajukan::where('unit_kerja_id', $unit_kerja->id)->get();
 
     return view('abk.unitkerja.show', compact('title', 'ajuan', 'unit_kerja', 'jabatans'));
   }
 
-  public function showJabatan(Ajuan $ajuan, UnitKerja $unit_kerja, Jabatan $jabatan)
+  public function editUnitKerja(Ajuan $ajuan, UnitKerja $unit_kerja)
+  {
+    $title = 'Edit Informasi ABK';
+    $ajuan = $ajuan;
+    $unit_kerja = $unit_kerja;
+    $jabatans = JabatanDiajukan::where('unit_kerja_id', $unit_kerja->id)->get();
+
+    return view('abk.unitkerja.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatans'));
+  }
+
+  public function createJabatan(JabatanDiajukan $jabatan)
+  {
+    return view('abk.jabatan.create', [
+      'jabatan' => $jabatan,
+      'title' => 'Buat Informasi Beban Kerja'
+    ]);
+  }
+
+  public function showJabatan(Ajuan $ajuan, UnitKerja $unit_kerja, JabatanDiajukan $jabatan)
   {
     $title = 'Lihat Informasi ABK';
     $ajuan = $ajuan;
@@ -99,5 +118,13 @@ class AbkController extends Controller
     $jabatan = $jabatan;
 
     return view('abk.jabatan.show', compact('title', 'ajuan', 'unit_kerja', 'jabatan'));
+  }
+
+  public function editJabatan(Ajuan $ajuan, UnitKerja $unit_kerja, JabatanDiajukan $jabatan)
+  {
+    $title = 'Edit Informasi ABK';
+    $uraians = $jabatan->uraianTugas;
+
+    return view('abk.jabatan.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatan', 'uraians'));
   }
 }
