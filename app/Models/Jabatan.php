@@ -12,7 +12,7 @@ class Jabatan extends Model
 
     protected $guarded = ['id'];
 
-    protected $with = ['ancestors'];
+    protected $table = 'jabatan';
 
     public function getParentKeyName()
     {

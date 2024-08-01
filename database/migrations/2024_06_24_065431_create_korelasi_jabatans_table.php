@@ -20,6 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('jabatan_relasi_id');
             $table->string('dalam_hal');
             $table->timestamps();
+
+            $table->foreign('jabatan_relasi_id')->references('id')->on('jabatan_diajukan')->cascadeOnDelete();
         });
     }
 
