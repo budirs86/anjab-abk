@@ -26,6 +26,7 @@ use App\Models\UpayaFisik;
 use App\Models\User;
 use App\Models\Verifikasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class AjuanController extends Controller
 {
@@ -58,32 +59,39 @@ class AjuanController extends Controller
     $jenisJabatan = JenisJabatan::all();
     $unitKerjas = UnitKerja::all();
 
+    // fetch the JSON data
+    $response = Http::get('http://anjab-abk.test/api/jabatans');
+    $jabatans = $response->json();
+
+    // if the request isn't successful or the data isn't found, redirect back with an error message
+    if (!($response->successful() && isset($jabatans['data']))) {
+      return redirect()->back()->with('error', 'Data Jabatan tidak ditemukan');
+    }
+
+    // convert the JSON array to an array of objects
+    $jabatans = json_decode(json_encode($jabatans['data']));
+    
     // check if there is an ajuan draft
-    // if there is no draft, get data from 'jabatan' table and put them in 'jabatan_diajukan' table
+    // if there is no draft, create instance of JabatanDiajukan with fetched data
     // if there is a draft already, simply get data from 'jabatan_diajukan' table
     if (!JabatanDiajukan::is_draft_exist()) {
-      foreach (Jabatan::all() as $dataJabatan) {
+      foreach ($jabatans as $dataJabatan) {
+        // convert array to object
+        $dataJabatan = json_decode(json_encode($dataJabatan));
+
         $jabatan = JabatanDiajukan::create([
-          // 'ajuan_id' => null,
+          'jabatan_id' => $dataJabatan->id,
+          'ajuan_id' => null,
           'parent_id' => $dataJabatan->parent_id,
-          'jenis_jabatan_id' => $dataJabatan->jenis_jabatan_id,
-          'unit_kerja_id' => $dataJabatan->unit_kerja_id,
           'nama' => $dataJabatan->nama,
           'kode' => $dataJabatan->kode,
-          'kelas_jabatan' => $dataJabatan->kelas_jabatan,
           'ikhtisar' => $dataJabatan->ikhtisar,
           'prestasi' => $dataJabatan->prestasi,
-          'tanggung_jawab' => $dataJabatan->tanggung_jawab
         ]);
 
         // Instances of KualifikasiJabatan, KondisiLingkunganKerja, and SyaratJabatan
         // also needs to be created because each Jabatan has one of each.
         KualifikasiJabatan::create(
-          [
-            'jabatan_id' => $jabatan->id
-          ]
-        );
-        KondisiLingkunganKerja::create(
           [
             'jabatan_id' => $jabatan->id
           ]
