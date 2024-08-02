@@ -35,7 +35,7 @@ return new class extends Migration
       $table->string('keadaan_ruangan'); 
       $table->timestamps();
 
-      $table->foreign('parent_id')->references('id')->on('jabatan_diajukan')->onDelete('cascade');
+      $table->foreign('parent_id')->references('id')->on('jabatan')->onDelete('cascade');
     });
   }
 

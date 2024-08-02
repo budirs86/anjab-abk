@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use function Laravel\Prompts\table;
+
 return new class extends Migration
 {
     /**
@@ -11,14 +13,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('risiko_bahayas', function (Blueprint $table) {
+        Schema::create('jenis_jabatan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jabatan_id')->constrained(
-                'jabatan_diajukan',
-                'id'
-            )->cascadeOnDelete();
-            $table->string('bahaya_fisik');
-            $table->string('penyebab');
+            $table->string('nama');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('risiko_bahayas');
+        Schema::dropIfExists('jenis_jabatan');
     }
 };

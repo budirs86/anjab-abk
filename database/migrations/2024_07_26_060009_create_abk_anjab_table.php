@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('abk_anjab', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('anjab_id')->constrained('ajuan')->cascadeOnDelete();
+            $table->foreignId('abk_id')->constrained('ajuan')->cascadeOnDelete();
             $table->timestamps();
-            $table->foreignId('anjab_id')->constrained('ajuans')->cascadeOnDelete();
-            $table->foreignId('abk_id')->constrained('ajuans')->cascadeOnDelete();
         });
     }
 

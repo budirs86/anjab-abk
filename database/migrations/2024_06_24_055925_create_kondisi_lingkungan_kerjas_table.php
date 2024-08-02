@@ -18,13 +18,13 @@ return new class extends Migration
                 'id'
             )->cascadeOnDelete();
             $table->string('nama')->nullable();
-            $table->enum('getaran', ['rendah', 'sedang', 'tinggi'])->nullable();
-            $table->enum('suara', ['senyap', 'bising'])->nullable();
-            $table->enum('penerangan', ['redup', 'terang'])->nullable();
-            $table->enum('letak', ['dalam ruangan', 'luar ruangan'])->nullable();
-            $table->enum('keadaan_ruangan', ['sesak', 'lega'])->nullable();
-            $table->enum('udara', ['kering', 'lembab'])->nullable();
-            $table->enum('suhu', ['dingin', 'panas'])->nullable();
+            $table->string('getaran')->nullable();
+            $table->string('suara')->nullable();
+            $table->string('penerangan')->nullable();
+            $table->string('letak')->nullable();
+            $table->string('keadaan_ruangan')->nullable();
+            $table->string('udara')->nullable();
+            $table->string('suhu')->nullable();
             $table->string('tempat')->nullable();
             $table->timestamps();
         });

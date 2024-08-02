@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role_verifikasis', function (Blueprint $table) {
+        Schema::create('verifikasi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ajuan_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('role_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('ajuan_id')->constrained('ajuan');
+            $table->foreignId('user_id')->constrained('user');
             $table->boolean('is_approved')->nullable();
+            $table->text('catatan')->nullable();
             $table->timestamps();
+            
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('role_verifikasis');
+        Schema::dropIfExists('verifikasi');
     }
 };

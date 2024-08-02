@@ -88,11 +88,6 @@ class AjuanController extends Controller
             'jabatan_id' => $jabatan->id
           ]
         );
-        SyaratJabatan::create(
-          [
-            'jabatan_id' => $jabatan->id
-          ]
-        );
       }
     }
     $jabatans = JabatanDiajukan::where('ajuan_id', null)->get();
