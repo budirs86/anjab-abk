@@ -2,78 +2,50 @@
     {
         "parent_id": 1,
         "nama": "Penyusun Rencana Keuangan",
-        "unit_kerja_id": 1,
-        "jenis_jabatan_id": 1,
         "kode": "",
-        "kelas_jabatan": 1,
         "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "prestasi": ""
     },
     {
         "parent_id": 1,
         "nama": "Pengelola Data dan Informasi",
-        "unit_kerja_id": 1,
-        "jenis_jabatan_id": 1,
         "kode": "",
-        "kelas_jabatan": 1,
         "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "prestasi": ""
     },
     {
         "parent_id": 1,
         "nama": "Bendahara",
-        "unit_kerja_id": 1,
-        "jenis_jabatan_id": 1,
         "kode": "",
-        "kelas_jabatan": 1,
         "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "prestasi": ""
     },
     {
         "parent_id": 1,
         "nama": "Analis Bidang Pengawasan",
-        "unit_kerja_id": 1,
-        "jenis_jabatan_id": 1,
         "kode": "",
-        "kelas_jabatan": 1,
         "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "prestasi": ""
     },
     {
         "parent_id": 1,
         "nama": "Pengadministrasi Umum",
-        "unit_kerja_id": 1,
-        "jenis_jabatan_id": 1,
         "kode": "",
-        "kelas_jabatan": 1,
         "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "prestasi": ""
     },
     {
         "parent_id": 1,
         "nama": "Pengadministrasi data Peraturan Perundang-undangan",
-        "unit_kerja_id": 1,
-        "jenis_jabatan_id": 1,
         "kode": "",
-        "kelas_jabatan": 1,
         "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "prestasi": ""
     },
     {
         "parent_id": 1,
         "nama": "Teknisi Sarana dan Prasarana",
-        "unit_kerja_id": 1,
-        "jenis_jabatan_id": 1,
         "kode": "",
-        "kelas_jabatan": 1,
         "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "prestasi": ""
     }
 ]

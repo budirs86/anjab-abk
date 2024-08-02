@@ -9,6 +9,7 @@ class KualifikasiJabatan extends Model
 {
     use HasFactory;
 
+    protected $table = 'kualifikasi_jabatan';
     protected $guarded = ['id'];
 
     public function jabatan() {

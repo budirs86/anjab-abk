@@ -9,6 +9,7 @@ class UraianTugas extends Model
 {
     use HasFactory;
 
+    protected $table = 'uraian_tugas';
     protected $guarded = ['id'];
 
     public function jabatan() {

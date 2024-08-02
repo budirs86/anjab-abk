@@ -9,6 +9,7 @@ class KondisiLingkunganKerja extends Model
 {
     use HasFactory;
 
+    protected $table = 'kondisi_lingkungan_kerja';
     protected $guarded = ['id'];
 
     public function jabatan(){

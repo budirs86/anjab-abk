@@ -9,6 +9,7 @@ class Verifikasi extends Model
 {
     use HasFactory;
 
+    protected $table = 'verifikasi';
     protected $guarded = ['id'];
 
     public function ajuan()

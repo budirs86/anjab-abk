@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('unit_kerja', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->foreignId('unsur_id')->constrained('unsur')->cascadeOnDelete();
+            $table->foreignId('unsur_id')->nullable()->constrained('unsur')->cascadeOnDelete();
             $table->timestamps();
         });
     }

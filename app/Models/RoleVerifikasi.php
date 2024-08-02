@@ -10,6 +10,7 @@ class RoleVerifikasi extends Model
 {
     use HasFactory;
 
+    protected $table = 'role_verifikasi';
     protected $guarded = ['id'];
 
     public function ajuan()

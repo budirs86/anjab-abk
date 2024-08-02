@@ -9,6 +9,7 @@ class BahanKerja extends Model
 {
     use HasFactory;
 
+    protected $table = 'bahan_kerja';
     protected $guarded = ['id'];
 
     public function jabatan() {
