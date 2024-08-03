@@ -38,7 +38,7 @@
                 <th>Aksi</th>
             </thead>
             <tbody>
-                @foreach ($jabatan->kualifikasi->pendidikanFormals as $pendidikan)
+                @foreach ($jabatan->pendidikanFormals as $pendidikan)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $pendidikan->jenjang }}</td>
@@ -49,7 +49,7 @@
                                 method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->kualifikasi->id }}">
+                                <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->id }}">
                                 <button type="submit" class="btn btn-danger">
                                     <img width="20px" data-feather="trash"></img>
                                 </button>
@@ -62,7 +62,7 @@
                         method="POST">
                         @csrf
                         <td></td>
-                        <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->kualifikasi->id }}">
+                        <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->id }}">
                         <td>
                             <select name="jenjang" class="form-select" id="">
                                 <option value="" selected>Pilih Jenjang Pendidikan</option>
@@ -98,7 +98,7 @@
                 <th>Aksi</th>
             </thead>
             <tbody>
-                @foreach ($jabatan->kualifikasi->pengalamans as $pengalaman)
+                @foreach ($jabatan->pengalamans as $pengalaman)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $pengalaman->nama }}</td>
@@ -110,7 +110,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="kualifikasi_jabatan_id"
-                                    value="{{ $jabatan->kualifikasi->id }}">
+                                    value="{{ $jabatan->id }}">
                                 <button type="submit" class="btn btn-danger">
                                     <img width="20px" data-feather="trash"></img>
                                 </button>
@@ -122,7 +122,7 @@
                     <form action="{{ route('anjab.jabatan.pengalaman.store', ['jabatan' => $jabatan->id]) }}"
                         method="POST">
                         @csrf
-                        <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->kualifikasi->id }}">
+                        <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->id }}">
                         <td></td>
                         <td><input name="nama" type="text" class="form-control"
                                 placeholder="Masukkan Nama Pengalaman">
@@ -140,7 +140,7 @@
                 </tr>
             </tbody>
         </table> --}}
-        <livewire:pengalaman-table :jabatan="$jabatan"/>
+        <livewire:pengalaman-table :jabatan="$jabatan" />
         {{-- <table class="table 
                             table-bordered w-75" id="pelatihan">
             <caption class="caption-top"> Kualifikasi Jabatan | Pelatihan</caption>
@@ -150,7 +150,7 @@
                 <th>Aksi</th>
             </thead>
             <tbody>
-                @foreach ($jabatan->kualifikasi->pendidikanPelatihans as $pelatihan)
+                @foreach ($jabatan->pendidikanPelatihans as $pelatihan)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $pelatihan->nama }}</td>
@@ -161,7 +161,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="kualifikasi_jabatan_id"
-                                    value="{{ $jabatan->kualifikasi->id }}">
+                                    value="{{ $jabatan->id }}">
                                 <button type="submit" class="btn btn-danger">
                                     <img width="20px" data-feather="trash"></img>
                                 </button>
@@ -173,7 +173,7 @@
                     <form action="{{ route('anjab.jabatan.pelatihan.store', ['jabatan' => $jabatan->id]) }}"
                         method="POST">
                         @csrf
-                        <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->kualifikasi->id }}">
+                        <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->id }}">
                         <td></td>
                         <td class="d-flex justify-content-between">
                             <input name="nama" type="text" class="form-control w-50"
@@ -194,7 +194,7 @@
     </div>
     <livewire:uraian-tugas-table :jabatan="$jabatan" />
     <livewire:bahan-kerja-table :jabatan="$jabatan" />
-    
+
     <livewire:perangkat-kerja-table :jabatan="$jabatan" />
     <livewire:tanggungjawab-table :jabatan="$jabatan" />
     <livewire:wewenang-table :jabatan="$jabatan" />
@@ -219,51 +219,51 @@
                     <label for="letak" class="form-label">Letak</label>
                     <select name="kondisiLingkunganKerja[letak]" id="letak" class="form-select mb-3">
                         <option value="">Pilih Kondisi Lingkungan Kerja</option>
-                        <option value="dalam ruangan" @selected($jabatan->kondisiLingkunganKerja->letak == 'dalam ruangan')>Dalam Ruangan</option>
-                        <option value="luar ruangan" @selected($jabatan->kondisiLingkunganKerja->letak == 'luar ruangan')>Luar Ruangan</option>
+                        <option value="dalam ruangan" @selected($jabatan->letak == 'dalam ruangan')>Dalam Ruangan</option>
+                        <option value="luar ruangan" @selected($jabatan->letak == 'luar ruangan')>Luar Ruangan</option>
                     </select>
                     <label for="penerangan" class="form-label">Penerangan</label>
                     <select name="kondisiLingkunganKerja[penerangan]" id="penerangan" class="form-select mb-3">
                         <option value="">Pilih Kondisi Lingkungan Kerja</option>
-                        <option value="redup" @selected($jabatan->kondisiLingkunganKerja->penerangan == 'redup')>Redup</option>
-                        <option value="terang" @selected($jabatan->kondisiLingkunganKerja->penerangan == 'terang')>Terang</option>
+                        <option value="redup" @selected($jabatan->penerangan == 'redup')>Redup</option>
+                        <option value="terang" @selected($jabatan->penerangan == 'terang')>Terang</option>
                     </select>
                     <label for="suhu" class="form-label text-capitalize">suhu</label>
                     <select name="kondisiLingkunganKerja[suhu]" id="suhu" class="form-select mb-3">
                         <option value="">Pilih Kondisi Lingkungan Kerja</option>
-                        <option value="panas" @selected($jabatan->kondisiLingkunganKerja->suhu == 'panas')>Panas</option>
-                        <option value="dingin" @selected($jabatan->kondisiLingkunganKerja->suhu == 'dingin')>Dingin</option>
+                        <option value="panas" @selected($jabatan->suhu == 'panas')>Panas</option>
+                        <option value="dingin" @selected($jabatan->suhu == 'dingin')>Dingin</option>
                     </select>
                     <label for="getaran" class="form-label text-capitalize">getaran</label>
                     <select name="kondisiLingkunganKerja[getaran]" id="getaran" class="form-select mb-3">
                         <option value="">Pilih Kondisi Lingkungan Kerja</option>
-                        <option value="rendah" @selected($jabatan->kondisiLingkunganKerja->getaran == 'rendah')>Rendah</option>
-                        <option value="sedang" @selected($jabatan->kondisiLingkunganKerja->getaran == 'sedang')>Sedang</option>
-                        <option value="tinggi" @selected($jabatan->kondisiLingkunganKerja->getaran == 'tinggi')>Tinggi</option>
+                        <option value="rendah" @selected($jabatan->getaran == 'rendah')>Rendah</option>
+                        <option value="sedang" @selected($jabatan->getaran == 'sedang')>Sedang</option>
+                        <option value="tinggi" @selected($jabatan->getaran == 'tinggi')>Tinggi</option>
                     </select>
                 </div>
                 <div class="col-6">
                     <label for="suara" class="form-label text-capitalize">suara</label>
                     <select name="kondisiLingkunganKerja[suara]" id="suara" class="form-select mb-3">
                         <option value="">Pilih Kondisi Lingkungan Kerja</option>
-                        <option value="bising" @selected($jabatan->kondisiLingkunganKerja->suara == 'bising')>Bising</option>
-                        <option value="senyap" @selected($jabatan->kondisiLingkunganKerja->suara == 'senyap')>Senyap</option>
+                        <option value="bising" @selected($jabatan->suara == 'bising')>Bising</option>
+                        <option value="senyap" @selected($jabatan->suara == 'senyap')>Senyap</option>
                     </select>
                     <label for="keadaan_ruangan" class="form-label text-capitalize">keadaan ruangan</label>
                     <select name="kondisiLingkunganKerja[keadaan_ruangan]" id="keadaan_ruangan" class="form-select mb-3">
                         <option value="">Pilih Kondisi Lingkungan Kerja</option>
-                        <option value="sesak" @selected($jabatan->kondisiLingkunganKerja->keadaan_ruangan == 'sesak')>Sesak</option>
-                        <option value="lega" @selected($jabatan->kondisiLingkunganKerja->keadaan_ruangan == 'lega')>Lega</option>
+                        <option value="sesak" @selected($jabatan->keadaan_ruangan == 'sesak')>Sesak</option>
+                        <option value="lega" @selected($jabatan->keadaan_ruangan == 'lega')>Lega</option>
                     </select>
                     <label for="udara" class="form-label text-capitalize">udara</label>
                     <select name="kondisiLingkunganKerja[udara]" id="udara" class="form-select mb-3">
                         <option value="">Pilih Kondisi Lingkungan Kerja</option>
-                        <option value="kering" @selected($jabatan->kondisiLingkunganKerja->udara == 'kering')>Lembab</option>
-                        <option value="lembab" @selected($jabatan->kondisiLingkunganKerja->udara == 'lembab')>Kering</option>
+                        <option value="kering" @selected($jabatan->udara == 'kering')>Lembab</option>
+                        <option value="lembab" @selected($jabatan->udara == 'lembab')>Kering</option>
                     </select>
                     <label for="tempat" class="form-label text-capitalize">tempat</label>
                     <input type="text" class="form-control mb-3" id="tempat" name="kondisiLingkunganKerja[tempat]"
-                        value="{{ $jabatan->kondisiLingkunganKerja->tempat }}">
+                        value="{{ $jabatan->tempat }}">
                 </div>
             </div>
             <hr class="mb-3">
@@ -273,7 +273,7 @@
         <div class="" id="syarat_jabatan">
             {{-- create text input for keterampilan --}}
             <label for="keterampilan" class="text-capitalize form-label">keterampilan</label>
-            <textarea name="keterampilan" id="keterampilan" rows="4" class="form-control mb-3">{{ $jabatan->syaratJabatan->keterampilan }}</textarea>
+            <textarea name="keterampilan" id="keterampilan" rows="4" class="form-control mb-3">{{ $jabatan->keterampilan }}</textarea>
             {{-- create bakat kerja checkbox input, with options using options in /seeder/bakat_kerja.json --}}
             <label for="bakat_kerja" class="form-label">Bakat Kerja</label>
             <div class="mb-4" id="bakat_kerja">
@@ -335,30 +335,30 @@
                         <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                         <select name="jenis_kelamin" id="jenis_kelamin" class="form-select mb-3">
                             <option value="">Pilih Jenis Kelamin</option>
-                            <option value="L" @selected($jabatan->syaratJabatan->jenis_kelamin == 'L')>Laki-Laki</option>
-                            <option value="P" @selected($jabatan->syaratJabatan->jenis_kelamin == 'P')>Perempuan</option>
+                            <option value="L" @selected($jabatan->jenis_kelamin == 'L')>Laki-Laki</option>
+                            <option value="P" @selected($jabatan->jenis_kelamin == 'P')>Perempuan</option>
                         </select>
 
                         <label for="umur" class="form-label">Umur (Tahun)</label>
                         <input type="number" name="umur" class="form-control mb-3" id="umur"
-                            value="{{ $jabatan->syaratJabatan->umur }}">
+                            value="{{ $jabatan->umur }}">
 
                         <label for="tinggi_badan" class="form-label text-capitalize">tinggi badan (sentimeter)</label>
                         <input type="number" name="tinggi_badan" class="form-control mb-3" id="tinggi_badan"
-                            value="{{ $jabatan->syaratJabatan->tinggi_badan }}">
+                            value="{{ $jabatan->tinggi_badan }}">
                     </div>
                     <div class="col-6">
                         <label for="berat_badan" class="form-label text-capitalize">berat badan (kilogram)</label>
                         <input type="number" name="berat_badan" class="form-control mb-3" id="berat_badan"
-                            value="{{ $jabatan->syaratJabatan->berat_badan }}">
+                            value="{{ $jabatan->berat_badan }}">
 
                         <label for="postur_badan" class="form-label text-capitalize">postur badan</label>
                         <input type="text" name="postur_badan" class="form-control mb-3" id="postur_badan"
-                            value="{{ $jabatan->syaratJabatan->postur_badan }}">
+                            value="{{ $jabatan->postur_badan }}">
 
                         <label for="penampilan" class="form-label text-capitalize">penampilan</label>
                         <input type="text" name="penampilan" class="form-control mb-3" id="penampilan"
-                            value="{{ $jabatan->syaratJabatan->penampilan }}">
+                            value="{{ $jabatan->penampilan }}">
                     </div>
                 </div>
             </div>

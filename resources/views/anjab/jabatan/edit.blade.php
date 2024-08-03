@@ -3,7 +3,7 @@
 @section('container')
     <div class="card-head mb-3">
         <div class="">
-            {{ Breadcrumbs::render('ubah-informasi-jabatan',$jabatan) }}
+            {{ Breadcrumbs::render('ubah-informasi-jabatan', $jabatan) }}
         </div>
         <div class="mb-3">
             <h1 class="fw-light fs-4 d-inline nav-item">Ubah Informasi Jabatan | {{ $jabatan->nama }}</h1>
@@ -44,7 +44,7 @@
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        @foreach ($jabatan->kualifikasi->pendidikanFormals as $pendidikan)
+                        @foreach ($jabatan->pendidikanFormals as $pendidikan)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $pendidikan->jenjang }}</td>
@@ -55,8 +55,7 @@
                                         method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="hidden" name="kualifikasi_jabatan_id"
-                                            value="{{ $jabatan->kualifikasi->id }}">
+                                        <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->id }}">
                                         <button type="submit" class="btn btn-danger">
                                             <img width="20px" data-feather="trash"></img>
                                         </button>
@@ -69,8 +68,7 @@
                                 method="POST">
                                 @csrf
                                 <td></td>
-                                <input type="hidden" name="kualifikasi_jabatan_id"
-                                    value="{{ $jabatan->kualifikasi->id }}">
+                                <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->id }}">
                                 <td>
                                     <select name="jenjang" class="form-select" id="">
                                         <option value="" selected>Pilih Jenjang Pendidikan</option>
@@ -106,7 +104,7 @@
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        @foreach ($jabatan->kualifikasi->pengalamans as $pengalaman)
+                        @foreach ($jabatan->pengalamans as $pengalaman)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $pengalaman->nama }}</td>
@@ -117,8 +115,7 @@
                                         method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="hidden" name="kualifikasi_jabatan_id"
-                                            value="{{ $jabatan->kualifikasi->id }}">
+                                        <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->id }}">
                                         <button type="submit" class="btn btn-danger">
                                             <img width="20px" data-feather="trash"></img>
                                         </button>
@@ -130,8 +127,7 @@
                             <form action="{{ route('anjab.jabatan.pengalaman.store', ['jabatan' => $jabatan->id]) }}"
                                 method="POST">
                                 @csrf
-                                <input type="hidden" name="kualifikasi_jabatan_id"
-                                    value="{{ $jabatan->kualifikasi->id }}">
+                                <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->id }}">
                                 <td></td>
                                 <td><input name="nama" type="text" class="form-control"
                                         placeholder="Masukkan Nama Pengalaman">
@@ -158,7 +154,7 @@
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        @foreach ($jabatan->kualifikasi->pendidikanPelatihans as $pelatihan)
+                        @foreach ($jabatan->pendidikanPelatihans as $pelatihan)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $pelatihan->nama }}</td>
@@ -168,8 +164,7 @@
                                         method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="hidden" name="kualifikasi_jabatan_id"
-                                            value="{{ $jabatan->kualifikasi->id }}">
+                                        <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->id }}">
                                         <button type="submit" class="btn btn-danger">
                                             <img width="20px" data-feather="trash"></img>
                                         </button>
@@ -181,8 +176,7 @@
                             <form action="{{ route('anjab.jabatan.pelatihan.store', ['jabatan' => $jabatan->id]) }}"
                                 method="POST">
                                 @csrf
-                                <input type="hidden" name="kualifikasi_jabatan_id"
-                                    value="{{ $jabatan->kualifikasi->id }}">
+                                <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->id }}">
                                 <td></td>
                                 <td class="d-flex justify-content-between">
                                     <input name="nama" type="text" class="form-control w-50"
@@ -327,7 +321,8 @@
                             <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
                             <td></td>
                             <td>
-                                <input name="nama" type="text" class="form-control" placeholder="Masukkan Perangkat Kerja">
+                                <input name="nama" type="text" class="form-control"
+                                    placeholder="Masukkan Perangkat Kerja">
                             </td>
                             <td><button type="submit" class="btn btn-primary"><i data-feather="plus"></i>
                                     Tambah</button></td>

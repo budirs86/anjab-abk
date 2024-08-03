@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Ajuan;
 use App\Models\AjuanJabatan;
 use App\Models\BakatKerja;
+use App\Models\BakatKerjaJabatanDiajukan;
 use App\Models\FungsiPekerjaan;
+use App\Models\FungsiPekerjaanJabatanDiajukan;
 use App\Models\Jabatan;
 use App\Models\JabatanDiajukan;
 use App\Models\JenisJabatan;
 use App\Models\KondisiLingkunganKerja;
 use App\Models\KualifikasiJabatan;
 use App\Models\MinatKerja;
+use App\Models\MinatKerjaJabatanDiajukan;
 use App\Models\Role;
 use App\Models\RoleVerifikasi;
 use App\Models\SyaratBakat;
@@ -21,8 +24,10 @@ use App\Models\SyaratMinat;
 use App\Models\SyaratTemperamen;
 use App\Models\SyaratUpaya;
 use App\Models\TemperamenKerja;
+use App\Models\TemperamenKerjaJabatanDiajukan;
 use App\Models\UnitKerja;
 use App\Models\UpayaFisik;
+use App\Models\UpayaFisikJabatanDiajukan;
 use App\Models\User;
 use App\Models\Verifikasi;
 use Illuminate\Http\Request;
@@ -70,7 +75,7 @@ class AjuanController extends Controller
 
     // convert the JSON array to an array of objects
     $jabatans = json_decode(json_encode($jabatans['data']));
-    
+
     // check if there is an ajuan draft
     // if there is no draft, create instance of JabatanDiajukan with fetched data
     // if there is a draft already, simply get data from 'jabatan_diajukan' table
@@ -239,11 +244,11 @@ class AjuanController extends Controller
 
     // get necessary data for checkboxes
     // checkboxes are checked if the data is found in the database
-    $checkedBakatKerja = SyaratBakat::where('syarat_jabatan_id', $jabatan->syaratJabatan->id)->get()->pluck('bakat_kerja_id')->toArray();
-    $checkedTemperamenKerja = SyaratTemperamen::where('syarat_jabatan_id', $jabatan->syaratJabatan->id)->get()->pluck('temperamen_kerja_id')->toArray();
-    $checkedMinatKerja = SyaratMinat::where('syarat_jabatan_id', $jabatan->syaratJabatan->id)->get()->pluck('minat_kerja_id')->toArray();
-    $checkedUpayaFisik = SyaratUpaya::where('syarat_jabatan_id', $jabatan->syaratJabatan->id)->get()->pluck('upaya_fisik_id')->toArray();
-    $checkedFungsiPekerjaan = SyaratFungsi::where('syarat_jabatan_id', $jabatan->syaratJabatan->id)->get()->pluck('fungsi_pekerjaan_id')->toArray();
+    $checkedBakatKerja = BakatKerjaJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('bakat_kerja_id')->toArray();
+    $checkedTemperamenKerja = TemperamenKerjaJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('temperamen_kerja_id')->toArray();
+    $checkedMinatKerja = MinatKerjaJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('minat_kerja_id')->toArray();
+    $checkedUpayaFisik = UpayaFisikJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('upaya_fisik_id')->toArray();
+    $checkedFungsiPekerjaan = FungsiPekerjaanJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('fungsi_pekerjaan_id')->toArray();
 
     return view('anjab/jabatan/edit/step-2', compact(
       'ajuan',
@@ -363,7 +368,7 @@ class AjuanController extends Controller
     // and is_approved in RoleVerifikasi is set to true
     Verifikasi::create([
       'ajuan_id' => $ajuan->id,
-      'verificator_id' => auth()->user()->id,
+      'user_id' => auth()->user()->id,
       'is_approved' => true,
       'catatan' => null
     ]);
@@ -382,7 +387,7 @@ class AjuanController extends Controller
     // Create a new verification instance
     Verifikasi::create([
       'ajuan_id' => $ajuan->id,
-      'verificator_id' => auth()->user()->id,
+      'user_id' => auth()->user()->id,
       'is_approved' => false,
       'catatan' => request('catatan')
     ]);

@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\BahanKerja;
+use App\Models\BahanKerjaDiajukan;
 
 new class extends Component {
     public $jabatan;

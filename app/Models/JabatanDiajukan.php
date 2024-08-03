@@ -28,63 +28,53 @@ class JabatanDiajukan extends Model
     return $this->belongsTo(JenisJabatan::class);
   }
 
-  public function analisisJabatan()
+  public function pendidikanFormal()
   {
-    return $this->hasOne(AnalisisJabatan::class);
+    return $this->hasMany(PendidikanFormalDiajukan::class);
   }
 
-  public function kualifikasi()
+  public function pendidikanPelatihan()
   {
-    return $this->hasOne(KualifikasiJabatan::class, 'jabatan_id');
+    return $this->hasMany(PendidikanPelatihanDiajukan::class);
+  }
+
+  public function pengalaman()
+  {
+    return $this->hasMany(PengalamanDiajukan::class);
   }
 
   public function uraianTugas()
   {
-    return $this->hasMany(UraianTugas::class, 'jabatan_id');
+    return $this->hasMany(UraianTugasDiajukan::class);
   }
 
   public function bahanKerja()
   {
-    return $this->hasMany(BahanKerja::class, 'jabatan_id');
+    return $this->hasMany(BahanKerjaDiajukan::class);
   }
 
   public function perangkatKerja()
   {
-    return $this->hasMany(PerangkatKerja::class, 'jabatan_id');
+    return $this->hasMany(PerangkatKerjaDiajukan::class);
   }
 
   public function tanggungJawab()
   {
-    return $this->hasMany(TanggungJawab::class, 'jabatan_id');
+    return $this->hasMany(TanggungJawabDiajukan::class);
   }
 
   public function wewenang()
   {
-    return $this->hasMany(Wewenang::class, 'jabatan_id');
+    return $this->hasMany(WewenangDiajukan::class);
   }
 
   public function korelasiJabatan()
   {
-    return $this->hasMany(KorelasiJabatan::class, 'jabatan_id');
+    return $this->hasMany(KorelasiJabatanDiajukan::class);
   }
 
   public function risikoBahaya()
   {
-    return $this->hasMany(RisikoBahaya::class, 'jabatan_id');
-  }
-
-  public function kondisiLingkunganKerja()
-  {
-    return $this->hasOne(KondisiLingkunganKerja::class, 'jabatan_id');
-  }
-
-  public function syaratJabatan()
-  {
-    return $this->hasOne(SyaratJabatan::class, 'jabatan_id');
-  }
-
-  public function unitKerja()
-  {
-    return $this->belongsTo(UnitKerja::class);
+    return $this->hasMany(RisikoBahayaDiajukan::class);
   }
 }
