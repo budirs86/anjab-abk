@@ -13,10 +13,7 @@ return new class extends Migration
   {
     Schema::create('korelasi_jabatan_diajukan', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('jabatan_id')->constrained(
-        'jabatan_diajukan',
-        'id'
-      )->cascadeOnDelete();
+      $table->foreignId('jabatan_diajukan_id')->constrained('jabatan_diajukan')->cascadeOnDelete();
       $table->unsignedBigInteger('jabatan_relasi_id');
       $table->string('dalam_hal');
       $table->timestamps();
