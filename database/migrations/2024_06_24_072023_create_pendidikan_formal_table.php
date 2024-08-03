@@ -11,7 +11,7 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('pendidikan_formals', function (Blueprint $table) {
+    Schema::create('pendidikan_formal', function (Blueprint $table) {
       $table->id();
       $table->foreignId('kualifikasi_jabatan_id')->constrained('jabatan');
       $table->enum('jenjang', ['D3', 'S1', 'S2', 'S3']);
@@ -25,6 +25,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('pendidikan_formals');
+    Schema::dropIfExists('pendidikan_formal');
   }
 };
