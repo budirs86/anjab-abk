@@ -88,14 +88,6 @@ class AjuanController extends Controller
           'ikhtisar' => $dataJabatan->ikhtisar,
           'prestasi' => $dataJabatan->prestasi,
         ]);
-
-        // Instances of KualifikasiJabatan, KondisiLingkunganKerja, and SyaratJabatan
-        // also needs to be created because each Jabatan has one of each.
-        KualifikasiJabatan::create(
-          [
-            'jabatan_id' => $jabatan->id
-          ]
-        );
       }
     }
     $jabatans = JabatanDiajukan::where('ajuan_id', null)->get();
