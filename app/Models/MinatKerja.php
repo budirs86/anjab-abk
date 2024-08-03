@@ -10,4 +10,5 @@ class MinatKerja extends Model
     use HasFactory;
 
     protected $table = 'minat_kerja';
+    protected $guarded = ['id'];
 }

@@ -10,4 +10,5 @@ class TanggungJawabDiajukan extends Model
     use HasFactory;
 
     protected $table = 'tanggung_jawab_diajukan';
+    protected $guarded = ['id'];
 }

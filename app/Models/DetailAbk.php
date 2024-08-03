@@ -10,4 +10,5 @@ class DetailAbk extends Model
     use HasFactory;
 
     protected $table = 'detail_abk';
+    protected $guarded = ['id'];
 }

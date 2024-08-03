@@ -10,4 +10,5 @@ class PendidikanFormalDiajukan extends Model
     use HasFactory;
 
     protected $table = 'pendidikan_formal_diajukan';
+    protected $guarded = ['id'];
 }

@@ -10,4 +10,5 @@ class BahanKerjaDiajukan extends Model
     use HasFactory;
 
     protected $table = 'bahan_kerja_diajukan';
+    protected $guarded = ['id'];
 }

@@ -10,4 +10,5 @@ class PengalamanDiajukan extends Model
     use HasFactory;
 
     protected $table = 'pengalaman_diajukan';
+    protected $guarded = ['id'];
 }

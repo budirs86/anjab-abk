@@ -10,4 +10,5 @@ class UpayaFisikJabatanDiajukan extends Model
     use HasFactory;
 
     protected $table = 'upaya_fisik_jabatan_diajukan';
+    protected $guarded = ['id'];
 }

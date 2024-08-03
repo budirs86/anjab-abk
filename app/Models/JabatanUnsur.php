@@ -10,4 +10,5 @@ class JabatanUnsur extends Model
     use HasFactory;
 
     protected $table = 'jabatan_unsur';
+    protected $guarded = ['id'];
 }

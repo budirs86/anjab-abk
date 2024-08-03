@@ -10,4 +10,5 @@ class KorelasiJabatanDiajukan extends Model
     use HasFactory;
 
     protected $table = 'korelasi_jabatan_diajukan';
+    protected $guarded = ['id'];
 }

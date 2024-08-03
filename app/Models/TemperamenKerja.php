@@ -10,4 +10,5 @@ class TemperamenKerja extends Model
     use HasFactory;
 
     protected $table = 'temperamen_kerja';
+    protected $guarded = ['id'];
 }

@@ -10,4 +10,5 @@ class RisikoBahayaDiajukan extends Model
     use HasFactory;
 
     protected $table = 'risiko_bahaya_diajukan';
+    protected $guarded = ['id'];
 }

@@ -10,4 +10,5 @@ class WewenangDiajukan extends Model
     use HasFactory;
 
     protected $table = 'wewenang_diajukan';
+    protected $guarded = ['id'];
 }

@@ -10,4 +10,5 @@ class FungsiPekerjaanJabatanDiajukan extends Model
     use HasFactory;
 
     protected $table = 'fungsi_pekerjaan_jabatan_diajukan';
+    protected $guarded = ['id'];
 }
