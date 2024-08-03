@@ -112,7 +112,7 @@ class AjuanController extends Controller
 
     Verifikasi::create([
       'ajuan_id' => $ajuan->id,
-      'verificator_id' => auth()->user()->id,
+      'user_id' => auth()->user()->id,
       'is_approved' => true,
       'catatan' => null
     ]);
@@ -168,7 +168,7 @@ class AjuanController extends Controller
   {
     Verifikasi::create([
       'ajuan_id' => $ajuan->id,
-      'verificator_id' => auth()->user()->id,
+      'user_id' => auth()->user()->id,
       'is_approved' => true,
       'catatan' => null
     ]);

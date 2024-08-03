@@ -30,13 +30,13 @@ class Ajuan extends Model
     $roleId = auth()->user()->id;
     return Ajuan::where('jenis', 'anjab')
       ->whereHas('role_verifikasi', function ($query) use ($previousVerificatorId) {
-      $query->where('role_id', $previousVerificatorId)->where('is_approved', true);
-    })
+        $query->where('role_id', $previousVerificatorId)->where('is_approved', true);
+      })
       ->orWhereHas('verifikasi', function ($query) use ($roleId) {
-      $query->whereHas('verificator', function ($query) use ($roleId) {
-        $query->where('id', $roleId);
-      });
-    })
+        $query->whereHas('user', function ($query) use ($roleId) {
+          $query->where('id', $roleId);
+        });
+      })
       ->get();
   }
 
@@ -48,13 +48,13 @@ class Ajuan extends Model
     $roleId = auth()->user()->id;
     return Ajuan::where('jenis', 'anjab')
       ->whereHas('role_verifikasi', function ($query) use ($previousVerificatorId) {
-      $query->where('role_id', $previousVerificatorId)->where('is_approved', true);
-    })
+        $query->where('role_id', $previousVerificatorId)->where('is_approved', true);
+      })
       ->orWhereHas('verifikasi', function ($query) use ($roleId) {
-      $query->whereHas('verificator', function ($query) use ($roleId) {
-        $query->where('id', $roleId);
-      });
-    })
+        $query->whereHas('user', function ($query) use ($roleId) {
+          $query->where('id', $roleId);
+        });
+      })
       ->get();
   }
 
@@ -66,13 +66,13 @@ class Ajuan extends Model
     $roleId = auth()->user()->id;
     return Ajuan::where('jenis', 'anjab')
       ->whereHas('role_verifikasi', function ($query) use ($previousVerificatorId) {
-      $query->where('role_id', $previousVerificatorId)->where('is_approved', true);
-    })
+        $query->where('role_id', $previousVerificatorId)->where('is_approved', true);
+      })
       ->orWhereHas('verifikasi', function ($query) use ($roleId) {
-      $query->whereHas('verificator', function ($query) use ($roleId) {
-        $query->where('id', $roleId);
-      });
-    })
+        $query->whereHas('user', function ($query) use ($roleId) {
+          $query->where('id', $roleId);
+        });
+      })
       ->get();
   }
 
@@ -87,19 +87,19 @@ class Ajuan extends Model
   {
     $adminIds = ModelHasRole::where('role_id', 1)->pluck('model_id');
 
-    return $this->verifikasi()->whereNotIn('verificator_id', $adminIds)->latest()->first();
+    return $this->verifikasi()->whereNotIn('user_id', $adminIds)->latest()->first();
   }
 
   // get the latest verifikasi by current user
   public function latest_verifikasi_by_current_user()
   {
-    return $this->verifikasi()->where('verificator_id', auth()->user()->id)->latest()->first();
+    return $this->verifikasi()->where('user_id', auth()->user()->id)->latest()->first();
   }
 
   // Get the role name of the verificator who verifed the latest verifikasi
   public function latest_verificator()
   {
-    $id = $this->latest_verifikasi()->verificator_id;
+    $id = $this->latest_verifikasi()->user_id;
     $verificator = User::find($id);
     return $verificator->getRoleNames()->first();
   }
