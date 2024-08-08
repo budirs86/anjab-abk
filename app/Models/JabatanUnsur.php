@@ -11,4 +11,14 @@ class JabatanUnsur extends Model
 
     protected $table = 'jabatan_unsur';
     protected $guarded = ['id'];
+
+    public function jabatan()
+    {
+        return $this->belongsTo(JabatanDiajukan::class);
+    }
+
+    public function unsur()
+    {
+        return $this->belongsTo(Unsur::class);
+    }
 }

@@ -77,4 +77,9 @@ class JabatanDiajukan extends Model
   {
     return $this->hasMany(RisikoBahayaDiajukan::class);
   }
+
+  public function jabatanUnsur()
+  {
+    return $this->hasMany(JabatanUnsur::class);
+  }
 }

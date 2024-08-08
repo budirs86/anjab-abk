@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\AbkAnjab;
 use App\Models\Ajuan;
 use App\Models\AjuanUnitKerja;
+use App\Models\DetailAbk;
 use App\Models\Jabatan;
 use App\Models\JabatanDiajukan;
 use App\Models\Role;
 use App\Models\UnitKerja;
 use App\Models\UraianTugas;
+use App\Models\UraianTugasDiajukan;
 use Illuminate\Http\Request;
 
 class AbkController extends Controller
@@ -36,13 +38,10 @@ class AbkController extends Controller
 
   public function storeAjuan(Ajuan $ajuan)
   {
-    // get all jabatan from the anjab
-    $jabatans = JabatanDiajukan::where('ajuan_id', $ajuan->id)->get();
     // get all unique unit kerja from the jabatan
-    $unitKerjas = $jabatans->map(function ($jabatan) {
-      return $jabatan->unitKerja;
-    })->unique();
-    // for each unit kerja on the anjab, 
+    $unitKerjas = UnitKerja::all();
+
+    // for each unit kerja, 
     // create ajuan with current year as 'tahun' and abk as 'jenis'
     foreach ($unitKerjas as $unitKerja) {
       $abk = Ajuan::create([
@@ -50,17 +49,22 @@ class AbkController extends Controller
         'jenis' => 'abk'
       ]);
 
-      // also create ajuan unit kerja with the ajuan id and unit kerja id
-      AjuanUnitKerja::create([
-        'ajuan_id' => $abk->id,
-        'unit_kerja_id' => $unitKerja->id
-      ]);
-
       // also create instance of abk_anjab to map which ones are the abk for an anjab
       AbkAnjab::create([
         'abk_id' => $abk->id,
         'anjab_id' => $ajuan->id
       ]);
+
+      // also create detail ABK for each ajuan in the unit kerja with the ajuan id and unit kerja id
+      $jabatanUnitKerjas = $unitKerja->jabatansWithin();
+      foreach ($jabatanUnitKerjas as $jabatanUnitKerja) {
+        DetailAbk::create([
+          'ajuan_id' => $abk->id,
+          'unit_kerja_id' => $unitKerja->id,
+          'jabatan_id' => $jabatanUnitKerja->jabatan_diajukan_id,
+          'uraian_tugas' => UraianTugasDiajukan::where('jabatan_diajukan_id', $jabatanUnitKerja->jabatan_diajukan_id)->get()
+        ]);
+      }
     }
 
     return redirect()->route('abk.ajuans');

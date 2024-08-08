@@ -13,8 +13,8 @@ class UnitKerja extends Model
 
     protected $guarded = ['id'];
 
-    public function jabatan()
-    {
-        return $this->hasMany(JabatanDiajukan::class);
+    public function jabatansWithin() {
+        // return JabatanUnsur instances where unsur_id = $this->id
+        return $this->hasMany(JabatanUnsur::class, 'unsur_id');
     }
 }
