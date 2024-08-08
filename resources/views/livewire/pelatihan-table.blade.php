@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\PendidikanPelatihan;
+use App\Models\PendidikanPelatihanDiajukan;
 
 new class extends Component {
     public $jabatan;
@@ -19,14 +19,14 @@ new class extends Component {
             'pelatihan' => 'required|string',
         ]);
 
-        $this->jabatan->pendidikanPelatihans()->create([
+        $this->jabatan->pendidikanPelatihan()->create([
             'nama' => $this->pelatihan,
         ]);
 
         $this->reset('pelatihan');
     }
 
-    public function deletePelatihan(PendidikanPelatihan $pelatihan)
+    public function deletePelatihan(PendidikanPelatihanDiajukan $pelatihan)
     {
         $pelatihan->delete();
     }

@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Pengalaman;
+use App\Models\PengalamanDiajukan;
 
 new class extends Component {
     public $jabatan;
@@ -24,11 +24,11 @@ new class extends Component {
             'lama' => 'required',
         ]);
 
-        $this->jabatan->pengalamans()->create($validated);
+        $this->jabatan->pengalaman()->create($validated);
         $this->reset(['nama', 'lama']);
     }
 
-    public function deletePengalaman(Pengalaman $pengalaman)
+    public function deletePengalaman(PengalamanDiajukan $pengalaman)
     {
         $pengalaman->delete();
     }

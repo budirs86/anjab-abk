@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\UraianTugas;
+use App\Models\UraianTugasDiajukan;
 
 new class extends Component {
     public $jabatan;
@@ -25,7 +25,7 @@ new class extends Component {
     
     }
 
-    public function deleteUraianTugas(UraianTugas $uraian) {
+    public function deleteUraianTugas(UraianTugasDiajukan $uraian) {
         $uraian->delete();
     }
 }; ?>

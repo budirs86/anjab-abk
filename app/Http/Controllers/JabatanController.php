@@ -166,7 +166,12 @@ class JabatanController extends Controller
     $kondisi = [];
     foreach ($request->input('kondisiLingkunganKerja') as $key => $value) {
       $kondisi[$key] = $value;
+      $jabatan->$key = $value;
+      $jabatan->save();
     }
+
+    $jabatan->keterampilan = $request->input('keterampilan');
+    $jabatan->save();
 
     // UPDATING SYARAT BAKAT
     // delete SyaratBakat instances with syarat_jabatan_id = $syaratJabatan->id
@@ -227,6 +232,15 @@ class JabatanController extends Controller
         ]);
       }
     }
+
+    // Updating Kondisi Fisik
+    $jabatan->jenis_kelamin = $request->input('jenis_kelamin');
+    $jabatan->umur = $request->input('umur');
+    $jabatan->tinggi_badan = $request->input('tinggi_badan');
+    $jabatan->berat_badan = $request->input('berat_badan');
+    $jabatan->postur_badan = $request->input('postur_badan');
+    $jabatan->penampilan = $request->input('penampilan');
+    $jabatan->save();
 
     // UPDATING SYARAT FUNGSI
     // delete FungsiPekerjaan instances with jabatan_diajukan_id = $syaratJabatan->id

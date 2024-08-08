@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Wewenang;
+use App\Models\WewenangDiajukan;
 
 new class extends Component {
     public $jabatan;
@@ -23,7 +23,7 @@ new class extends Component {
         $this->reset('nama');
     }
 
-    public function deleteWewenang(Wewenang $wewenang) {
+    public function deleteWewenang(WewenangDiajukan $wewenang) {
         $wewenang->delete();
     
     }

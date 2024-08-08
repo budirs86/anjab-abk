@@ -23,7 +23,7 @@ new class extends Component {
         $this->reset('nama');
     }
 
-    public function deleteBahanKerja(BahanKerja $bahanKerja) {
+    public function deleteBahanKerja(BahanKerjaDiajukan $bahanKerja) {
         $bahanKerja->delete();
 
     }

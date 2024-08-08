@@ -7,8 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class KorelasiJabatanDiajukan extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $table = 'korelasi_jabatan_diajukan';
-    protected $guarded = ['id'];
+  protected $table = 'korelasi_jabatan_diajukan';
+  protected $guarded = ['id'];
+
+  public function jabatanRelasi()
+  {
+    return $this->belongsTo(JabatanDiajukan::class, 'jabatan_relasi_id');
+  }
 }

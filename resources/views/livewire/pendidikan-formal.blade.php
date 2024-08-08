@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\PendidikanFormal;
+use App\Models\PendidikanFormalDiajukan;
 
 new class extends Component {
     public $jabatan;
@@ -22,11 +22,11 @@ new class extends Component {
             'jurusan' => 'required',
         ]);
 
-        $this->jabatan->pendidikanFormals()->create($validated);
+        $this->jabatan->pendidikanFormal()->create($validated);
         $this->reset(['jenjang', 'jurusan']);
     }
 
-    public function deletePendidikan(PendidikanFormal $pendidikan)
+    public function deletePendidikan(PendidikanFormalDiajukan $pendidikan)
     {
         $pendidikan->delete();
     }
