@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignId('ajuan_id')->constrained('ajuan');
             $table->foreignId('unit_kerja_id')->constrained('unit_kerja');
             $table->foreignId('jabatan_id')->constrained('jabatan');
-            $table->foreignId('uraian_tugas_id')->constrained('uraian_tugas');
-            $table->integer('waktu_penyelesaian');
-            $table->integer('hasil_kerja');
-            $table->integer('jumlah_hasil_kerja');
+            $table->foreignId('uraian_tugas_id')->nullable()->constrained('uraian_tugas');
+            $table->integer('waktu_penyelesaian')->nullable();
+            $table->integer('hasil_kerja')->nullable();
+            $table->integer('jumlah_hasil_kerja')->nullable();
             $table->timestamps();
         });
     }

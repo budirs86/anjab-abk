@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class UnitKerja extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $table = 'unit_kerja';
+  protected $table = 'unit_kerja';
 
-    protected $guarded = ['id'];
+  protected $guarded = ['id'];
 
-    public function jabatansWithin() {
-        // return JabatanUnsur instances where unsur_id = $this->id
-        return $this->hasMany(JabatanUnsur::class, 'unsur_id');
-    }
+  public function jabatansWithin()
+  {
+    // return JabatanUnsur instances where unsur_id = $this->id
+    return  JabatanUnsur::where('unsur_id', $this->unsur_id)->get();
+  }
 }

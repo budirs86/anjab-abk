@@ -61,8 +61,8 @@ class AbkController extends Controller
         DetailAbk::create([
           'ajuan_id' => $abk->id,
           'unit_kerja_id' => $unitKerja->id,
-          'jabatan_id' => $jabatanUnitKerja->jabatan_diajukan_id,
-          'uraian_tugas' => UraianTugasDiajukan::where('jabatan_diajukan_id', $jabatanUnitKerja->jabatan_diajukan_id)->get()
+          'jabatan_id' => $jabatanUnitKerja->jabatan_id,
+          'uraian_tugas' => UraianTugasDiajukan::where('jabatan_diajukan_id', $jabatanUnitKerja->jabatan_id)->get()
         ]);
       }
     }
@@ -89,9 +89,8 @@ class AbkController extends Controller
   public function showUnitKerja(Ajuan $ajuan, UnitKerja $unit_kerja)
   {
     $title = 'Lihat Informasi ABK';
-    $ajuan = $ajuan;
-    $unit_kerja = $unit_kerja;
-    $jabatans = JabatanDiajukan::where('unit_kerja_id', $unit_kerja->id)->get();
+    $jabatanUnitKerjaIds = $unit_kerja->jabatansWithin()->pluck('jabatan_id');
+    $jabatans = JabatanDiajukan::whereIn('id', $jabatanUnitKerjaIds)->get();
 
     return view('abk.unitkerja.show', compact('title', 'ajuan', 'unit_kerja', 'jabatans'));
   }
