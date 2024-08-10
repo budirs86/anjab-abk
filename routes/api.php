@@ -10,3 +10,6 @@ Route::get('/user', function (Request $request) {
 
 //jabatans
 Route::apiResource('/jabatans', App\Http\Controllers\Api\JabatanController::class);
+
+//uraian tugas
+Route::apiResource('/uraian-tugas', App\Http\Controllers\Api\UraianTugasController::class);
