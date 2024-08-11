@@ -28,6 +28,8 @@ use App\Models\TemperamenKerjaJabatanDiajukan;
 use App\Models\UnitKerja;
 use App\Models\UpayaFisik;
 use App\Models\UpayaFisikJabatanDiajukan;
+use App\Models\UraianTugas;
+use App\Models\UraianTugasDiajukan;
 use App\Models\User;
 use App\Models\Verifikasi;
 use Illuminate\Http\Request;
@@ -68,33 +70,39 @@ class AjuanController extends Controller
     if (!JabatanDiajukan::is_draft_exist()) {
       // if no draft exists, fetch the JSON data
       $response = Http::get('http://anjab-abk.test/api/jabatans');
-      $jabatans = $response->json();
 
       // if the request isn't successful or the data isn't found, redirect back with an error message
-      if (!($response->successful() && isset($jabatans['data']))) {
+      if (!$response->successful() || !isset($response['data'])) {
         return redirect()->back()->with('error', 'Data Jabatan tidak ditemukan');
       }
 
-      // convert the JSON array to an array of objects
-      $jabatans = json_decode(json_encode($jabatans['data']));
+      $jabatans = $response['data'];
 
       foreach ($jabatans as $dataJabatan) {
-        // convert array to object
-        $dataJabatan = json_decode(json_encode($dataJabatan));
-        $jabatan = JabatanDiajukan::create([
-          'jabatan_id' => $dataJabatan->id,
+        $jabatanData[] = [
+          'jabatan_id' => $dataJabatan['id'],
           'ajuan_id' => null,
-          'parent_id' => $dataJabatan->parent_id,
-          'nama' => $dataJabatan->nama,
-          'kode' => $dataJabatan->kode,
-          'ikhtisar' => $dataJabatan->ikhtisar,
-          'prestasi' => $dataJabatan->prestasi,
-        ]);
+          'parent_id' => $dataJabatan['parent_id'],
+          'nama' => $dataJabatan['nama'],
+          'kode' => $dataJabatan['kode'],
+          'ikhtisar' => $dataJabatan['ikhtisar'],
+          'prestasi' => $dataJabatan['prestasi'],
+        ];
+
+        foreach ($dataJabatan['uraian_tugas'] as $uraianTugas) {
+          $uraianTugasData[] = [
+            'jabatan_diajukan_id' => $dataJabatan['id'],
+            'nama_tugas' => $uraianTugas['nama_tugas'],
+          ];
+        }
       }
+
+      JabatanDiajukan::insert($jabatanData);
+      UraianTugasDiajukan::insert($uraianTugasData);
     }
 
     // fetch the existing or newly created drafts
-    $jabatans = JabatanDiajukan::where('ajuan_id', null)->get();
+    $jabatans = JabatanDiajukan::where('ajuan_id', null)->with('uraianTugas')->get();
 
     return view('anjab.buat-ajuan', compact('title', 'jabatans', 'jenisJabatan', 'unitKerjas'));
   }
