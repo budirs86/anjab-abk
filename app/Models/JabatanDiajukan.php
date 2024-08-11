@@ -82,4 +82,9 @@ class JabatanDiajukan extends Model
   {
     return $this->hasMany(JabatanUnsur::class);
   }
+
+  public function detailAbk()
+  {
+    return $this->hasMany(DetailAbk::class);
+  }
 }

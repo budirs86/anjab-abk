@@ -11,4 +11,14 @@ class DetailAbk extends Model
 
     protected $table = 'detail_abk';
     protected $guarded = ['id'];
+
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class);
+    }
+
+    public function uraianTugasDiajukan()
+    {
+        return $this->belongsTo(UraianTugasDiajukan::class);
+    }
 }

@@ -11,4 +11,9 @@ class UraianTugasDiajukan extends Model
 
     protected $table = 'uraian_tugas_diajukan';
     protected $guarded = ['id'];
+
+    public function detailAbk()
+    {
+        return $this->hasMany(DetailAbk::class);
+    }
 }

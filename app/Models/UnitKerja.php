@@ -16,6 +16,6 @@ class UnitKerja extends Model
   public function jabatansWithin()
   {
     // return JabatanUnsur instances where unsur_id = $this->id
-    return  JabatanUnsur::where('unsur_id', $this->unsur_id)->get();
+    return JabatanUnsur::where('unsur_id', $this->unsur_id)->get();
   }
 }

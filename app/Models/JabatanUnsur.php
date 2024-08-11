@@ -14,7 +14,7 @@ class JabatanUnsur extends Model
 
     public function jabatan()
     {
-        return $this->belongsTo(JabatanDiajukan::class);
+        return $this->belongsTo(JabatanDiajukan::class, 'jabatan_id');
     }
 
     public function unsur()
