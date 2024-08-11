@@ -16,10 +16,14 @@ class JabatanController extends Controller
    */
   public function index()
   {
-    //get all jabatans
-    $jabatans = Jabatan::latest()->get();
+    // Get all jabatans
+    $jabatans = Jabatan::with(['uraianTugas'])->get();
 
-    //return a collection of jabatans as a resource
-    return new JabatanResource(true, 'List Data Jabatan', $jabatans);
+    // Return a collection of jabatans as a resource
+    return response()->json([
+      'success' => true,
+      'message' => 'List Data Jabatan',
+      'data' => JabatanResource::collection($jabatans)
+    ]);
   }
 }

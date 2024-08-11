@@ -13,6 +13,6 @@ class UraianTugas extends Model
     protected $guarded = ['id'];
 
     public function jabatan() {
-        return $this->belongsTo(JabatanDiajukan::class);
+        return $this->belongsTo(Jabatan::class);
     }
 }

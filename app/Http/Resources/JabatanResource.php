@@ -7,38 +7,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class JabatanResource extends JsonResource
 {
-  //define property
-  public $status;
-  public $message;
-  public $resource;
-
-  /**
-   * __construct
-   *
-   * @param  mixed $status
-   * @param  mixed $message
-   * @param  mixed $resource
-   * @return void
-   */
-  public function __construct($status, $message, $resource)
-  {
-    parent::__construct($resource);
-    $this->status  = $status;
-    $this->message = $message;
-  }
-
-  /**
-   * toArray
-   *
-   * @param  mixed $request
-   * @return array
-   */
   public function toArray(Request $request): array
   {
-    return [
-      'success'   => $this->status,
-      'message'   => $this->message,
-      'data'      => $this->resource
-    ];
+    return array_merge(parent::toArray($request), [
+      'uraian_tugas' => UraianTugasResource::collection($this->whenLoaded('uraianTugas')),
+    ]);
   }
 }

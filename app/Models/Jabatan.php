@@ -18,4 +18,9 @@ class Jabatan extends Model
     {
         return 'parent_id';
     }
+
+    public function uraianTugas()
+    {
+        return $this->hasMany(UraianTugas::class);
+    }
 }
