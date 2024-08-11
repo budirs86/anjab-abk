@@ -164,8 +164,8 @@
                     <td>
                         {{-- check if latest verification has catatan and catatan is not from current user, if true show the catatan --}}
                         @if ($ajuan->latest_verifikasi()->catatan)
-                            <p>Catatan dari {{ $ajuan->latest_verifikasi()->verificator->name }}
-                                ({{ $ajuan->latest_verifikasi()->verificator->getRolenames()->first() }})
+                            <p>Catatan dari {{ $ajuan->latest_verifikasi()->user->name }}
+                                ({{ $ajuan->latest_verifikasi()->user->getRolenames()->first() }})
                             </p>
                             <p>{{ $ajuan->latest_verifikasi()->created_at }}</p>
                             <hr>

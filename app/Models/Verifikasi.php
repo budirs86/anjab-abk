@@ -9,6 +9,7 @@ class Verifikasi extends Model
 {
     use HasFactory;
 
+    protected $table = 'verifikasi';
     protected $guarded = ['id'];
 
     public function ajuan()
@@ -21,7 +22,7 @@ class Verifikasi extends Model
         return $this->belongsTo(Role::class);
     }
 
-    public function verificator()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }

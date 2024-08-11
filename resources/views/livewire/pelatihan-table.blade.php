@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\PendidikanPelatihan;
+use App\Models\PendidikanPelatihanDiajukan;
 
 new class extends Component {
     public $jabatan;
@@ -16,17 +16,17 @@ new class extends Component {
     public function addPelatihan()
     {
         $this->validate([
-            'pelatihan' => 'required|string'
+            'pelatihan' => 'required|string',
         ]);
 
-        $this->jabatan->kualifikasi->pendidikanPelatihans()->create([
-            'nama' => $this->pelatihan
+        $this->jabatan->pendidikanPelatihan()->create([
+            'nama' => $this->pelatihan,
         ]);
 
         $this->reset('pelatihan');
     }
 
-    public function deletePelatihan(PendidikanPelatihan $pelatihan)
+    public function deletePelatihan(PendidikanPelatihanDiajukan $pelatihan)
     {
         $pelatihan->delete();
     }
@@ -41,19 +41,19 @@ new class extends Component {
             <th>Aksi</th>
         </thead>
         <tbody>
-            @foreach ($jabatan->kualifikasi->pendidikanPelatihans as $pelatihan)
+            @foreach ($jabatan->pendidikanPelatihan as $pelatihan)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $pelatihan->nama }}</td>
                     <td class="d-flex gap-1">
-                            <button wire:click="deletePelatihan({{ $pelatihan }})" class="btn btn-danger">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                        <button wire:click="deletePelatihan({{ $pelatihan }})" class="btn btn-danger">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
                     </td>
                 </tr>
             @endforeach
             <tr>
-                <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->kualifikasi->id }}">
+                <input type="hidden" name="kualifikasi_jabatan_id" value="{{ $jabatan->id }}">
                 <td></td>
                 <td class="d-flex justify-content-between">
                     <input name="nama" type="text" class="form-control w-100"
@@ -67,5 +67,5 @@ new class extends Component {
                 </td>
             </tr>
         </tbody>
-    </table>    
+    </table>
 </div>

@@ -1,8 +1,10 @@
 [
     {
-        "nama": "Satuan Pengawas Internal"
+        "unsur_id": 2,
+        "nama": "Fakultas Teknik"
     },
     {
-        "nama": "Fakultas Teknik"
+        "unsur_id": 9,
+        "nama": "Satuan Pengawas Internal"
     }
 ]

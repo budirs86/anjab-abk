@@ -9,6 +9,7 @@ class KorelasiJabatan extends Model
 {
     use HasFactory;
 
+    protected $table = 'korelasi_jabatan';
     protected $guarded = ['id'];
 
     public function jabatan() {

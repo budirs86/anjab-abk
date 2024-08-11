@@ -9,5 +9,7 @@ class Unsur extends Model
 {
     use HasFactory;
 
+    protected $table = 'unsur';
+
     protected $fillable = ['nama'];
 }

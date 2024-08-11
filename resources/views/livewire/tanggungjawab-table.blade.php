@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\TanggungJawab;
+use App\Models\TanggungJawabDiajukan;
 
 new class extends Component {
     public $jabatan;
@@ -23,7 +23,7 @@ new class extends Component {
         $this->reset('nama');
     }
 
-    public function deleteTanggungJawab(TanggungJawab $tanggungjawab) {
+    public function deleteTanggungJawab(TanggungJawabDiajukan $tanggungjawab) {
         $tanggungjawab->delete();
     
     }

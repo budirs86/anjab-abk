@@ -13,14 +13,8 @@ return new class extends Migration
   {
     Schema::create('uraian_tugas', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('jabatan_id')->constrained(
-        'jabatan_diajukan',
-        'id'
-      )->cascadeOnDelete();
+      $table->foreignId('jabatan_id')->constrained('jabatan')->cascadeOnDelete();
       $table->string('nama_tugas');
-      $table->string('hasil_kerja')->nullable();
-      $table->integer('beban_kerja')->nullable();
-      $table->integer('waktu_penyelesaian')->nullable();
       $table->timestamps();
     });
   }

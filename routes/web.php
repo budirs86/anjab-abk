@@ -16,6 +16,7 @@ use App\Http\Controllers\RisikoBahayaController;
 use App\Http\Controllers\TanggungJawabController;
 use App\Http\Controllers\UraianTugasController;
 use App\Http\Controllers\WewenangController;
+use App\Models\Ajuan;
 use App\Models\JabatanDiajukan;
 
 Route::get('/', function () {

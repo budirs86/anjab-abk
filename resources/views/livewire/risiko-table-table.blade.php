@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\RisikoBahaya;
+use App\Models\RisikoBahayaDiajukan;
 
 new class extends Component {
     public $jabatan;
@@ -26,7 +26,7 @@ new class extends Component {
         $this->reset('bahaya_fisik', 'penyebab');
     }
 
-    public function deleteRisikoBahaya(RisikoBahaya $RisikoBahaya) {
+    public function deleteRisikoBahaya(RisikoBahayaDiajukan $RisikoBahaya) {
         $RisikoBahaya->delete();
     
     }

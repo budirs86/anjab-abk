@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class JabatanUnsur extends Model
 {
     use HasFactory;
+
+    protected $table = 'jabatan_unsur';
+    protected $guarded = ['id'];
+
+    public function jabatan()
+    {
+        return $this->belongsTo(JabatanDiajukan::class, 'jabatan_id');
+    }
+
+    public function unsur()
+    {
+        return $this->belongsTo(Unsur::class);
+    }
 }

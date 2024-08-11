@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Pengalaman;
+use App\Models\PengalamanDiajukan;
 
 new class extends Component {
     public $jabatan;
@@ -9,24 +9,27 @@ new class extends Component {
     public $nama;
     public $lama;
 
-    public function mount($jabatan){
+    public function mount($jabatan)
+    {
         $this->jabatan = $jabatan;
-        $this->id = $this->jabatan->kualifikasi->id;
+        $this->id = $this->jabatan->id;
         $this->nama = '';
         $this->lama = '';
     }
 
-    public function addPengalaman(){
+    public function addPengalaman()
+    {
         $validated = $this->validate([
             'nama' => 'required',
-            'lama' => 'required'
+            'lama' => 'required',
         ]);
 
-        $this->jabatan->kualifikasi->pengalamans()->create($validated);
+        $this->jabatan->pengalaman()->create($validated);
         $this->reset(['nama', 'lama']);
     }
 
-    public function deletePengalaman(Pengalaman $pengalaman){
+    public function deletePengalaman(PengalamanDiajukan $pengalaman)
+    {
         $pengalaman->delete();
     }
 }; ?>
@@ -41,7 +44,7 @@ new class extends Component {
             <th>Aksi</th>
         </thead>
         <tbody>
-            @foreach ($jabatan->kualifikasi->pengalamans as $pengalaman)
+            @foreach ($jabatan->pengalaman as $pengalaman)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $pengalaman->nama }}</td>
@@ -56,9 +59,11 @@ new class extends Component {
             <tr>
                 <form wire:submit="addPengalaman">
                     <td></td>
-                    <td><input name="nama" type="text" class="form-control" placeholder="Masukkan Nama Pengalaman" wire:model="nama">
+                    <td><input name="nama" type="text" class="form-control" placeholder="Masukkan Nama Pengalaman"
+                            wire:model="nama">
                     </td>
-                    <td><input name="lama" type="text" class="form-control" placeholder="Masukkan Lama Pengalaman" wire:model="lama">
+                    <td><input name="lama" type="text" class="form-control" placeholder="Masukkan Lama Pengalaman"
+                            wire:model="lama">
                     </td>
                     <td>
                         <button type="submit" class="btn btn-primary">

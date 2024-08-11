@@ -9,6 +9,7 @@ class PendidikanFormal extends Model
 {
     use HasFactory;
 
+    protected $table = 'pendidikan_formal';
     protected $guarded = ['id'];
 
     public function kualifikasiJabatan() {

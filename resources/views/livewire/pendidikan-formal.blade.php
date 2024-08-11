@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\PendidikanFormal;
+use App\Models\PendidikanFormalDiajukan;
 
 new class extends Component {
     public $jabatan;
@@ -12,21 +12,22 @@ new class extends Component {
     public function mount($jabatan)
     {
         $this->jabatan = $jabatan;
-        $this->id = $this->jabatan->kualifikasi->id;
+        $this->id = $this->jabatan->id;
     }
 
     public function addPendidikanFormal()
     {
         $validated = $this->validate([
             'jenjang' => 'required',
-            'jurusan' => 'required'
+            'jurusan' => 'required',
         ]);
 
-        $this->jabatan->kualifikasi->pendidikanFormals()->create($validated);
+        $this->jabatan->pendidikanFormal()->create($validated);
         $this->reset(['jenjang', 'jurusan']);
     }
 
-    public function deletePendidikan(PendidikanFormal $pendidikan) {
+    public function deletePendidikan(PendidikanFormalDiajukan $pendidikan)
+    {
         $pendidikan->delete();
     }
 }; ?>
@@ -42,22 +43,22 @@ new class extends Component {
             <th>Aksi</th>
         </thead>
         <tbody>
-            @foreach ($jabatan->kualifikasi->pendidikanFormals as $pendidikan)
+            @foreach ($jabatan->pendidikanFormal as $pendidikan)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $pendidikan->jenjang }}</td>
                     <td>{{ $pendidikan->jurusan }}</td>
                     <td class="d-flex gap-1">
-                            <button type="submit" class="btn btn-danger" wire:click="deletePendidikan({{ $pendidikan->id }})">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                        <button type="submit" class="btn btn-danger" wire:click="deletePendidikan({{ $pendidikan->id }})">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
                         </form>
                     </td>
                 </tr>
             @endforeach
             <tr>
-                    <td></td>
-                    <form action="" wire:submit="addPendidikanFormal">
+                <td></td>
+                <form action="" wire:submit="addPendidikanFormal">
                     <td>
                         <select name="jenjang" class="form-select" id="" wire:model="jenjang">
                             <option value="" selected>Pilih Jenjang Pendidikan</option>
@@ -70,7 +71,8 @@ new class extends Component {
                         </select>
                     </td>
                     <td>
-                        <input type="text" name="jurusan" class="form-control" placeholder="Masukkan Jurusan" wire:model="jurusan">
+                        <input type="text" name="jurusan" class="form-control" placeholder="Masukkan Jurusan"
+                            wire:model="jurusan">
                     </td>
                     <td>
                         <button type="submit" class="btn btn-primary">
@@ -78,9 +80,9 @@ new class extends Component {
                             Tambah
                         </button>
                     </td>
-                    </form>
+                </form>
                 </form>
             </tr>
         </tbody>
-    </table> 
+    </table>
 </div>

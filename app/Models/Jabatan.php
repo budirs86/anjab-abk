@@ -12,10 +12,15 @@ class Jabatan extends Model
 
     protected $guarded = ['id'];
 
-    protected $with = ['ancestors'];
+    protected $table = 'jabatan';
 
     public function getParentKeyName()
     {
         return 'parent_id';
+    }
+
+    public function uraianTugas()
+    {
+        return $this->hasMany(UraianTugas::class);
     }
 }

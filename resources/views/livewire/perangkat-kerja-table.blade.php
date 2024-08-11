@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\PerangkatKerja;
+use App\Models\PerangkatKerjaDiajukan;
 
 new class extends Component {
     public $jabatan;
@@ -24,7 +24,7 @@ new class extends Component {
         $this->reset('nama');
     }
 
-    public function deletePerangkatKerja(PerangkatKerja $perangkatKerja) {
+    public function deletePerangkatKerja(PerangkatKerjaDiajukan $perangkatKerja) {
         $perangkatKerja->delete();
     
     }

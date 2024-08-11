@@ -2,342 +2,218 @@
     {
         "parent_id": null,
         "nama": "Pranata Lab. Pendidikan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pranata Lab. Pendidikan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengelola Informasi Akademik",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengelola Informasi Akademik",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengadministrasi Perpustakaan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengadministrasi Perpustakaan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengelola Barang Milik Negara",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengelola Barang Milik Negara",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pustakawan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pustakawan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengelola Gaji",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengelola Gaji",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengolah data",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengolah data",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengadministrasi Akademik",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengadministrasi Akademik",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengelola Perbendaharaan dan Pelayanan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengelola Perbendaharaan dan Pelayanan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Teknisi Lab.",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Teknisi Lab.",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengelola Keuangan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengelola Keuangan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengolah data Pengelolaan Keuangan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengolah data Pengelolaan Keuangan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pramu Bakti",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pramu Bakti",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengadministrasi Keuangan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengadministrasi Keuangan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Teknisi Peralatan Kantor",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Teknisi Peralatan Kantor",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengelola Informasi Akademik",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengelola Informasi Akademik",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pembuat Daftar Gaji",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pembuat Daftar Gaji",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Penyusun Laporan Keuangan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Penyusun Laporan Keuangan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengelola Sistem dan Jaringan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengelola Sistem dan Jaringan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengolah data Tenaga Kependidikan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengolah data Tenaga Kependidikan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengadministrasi Layanan Kegiatan Kemahasiswaan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengadministrasi Layanan Kegiatan Kemahasiswaan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengolah Data Program, Anggaran, dan Laporan Keuangan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengolah Data Program, Anggaran, dan Laporan Keuangan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengadministrasi barang milik Undip",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengadministrasi barang milik Undip",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Penyusun dokumen Perencanaan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Penyusun dokumen Perencana",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Penyusun Program Anggaran dan Pelaporan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Penyusun Program Anggaran dan Pelaporan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Sekretaris",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Sekretaris",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Teknisi Komputer",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Teknisi Komputer",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengadministrasi data Peraturan perundang-undangan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengadministrasi data Peraturan perundang-undangan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Pengadministrasi Kepegawaian",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Pengadministrasi Kepegawaian",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Petugas Kearsipan",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Petugas Kearsipan",
+        "prestasi": ""
     },
     {
         "parent_id": null,
         "nama": "Petugas Humas",
-        "jenis_jabatan_id": 1,
-        "unit_kerja_id": 2,
         "kode": "",
-        "kelas_jabatan": 1,
-        "ikhtisar": "",
-        "prestasi": "",
-        "tanggung_jawab": ""
+        "ikhtisar": "Ikhtisar Petugas Humas",
+        "prestasi": ""
     }
 ]

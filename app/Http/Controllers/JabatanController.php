@@ -20,7 +20,12 @@ use App\Models\FungsiPekerjaan;
 use App\Models\TemperamenKerja;
 use App\Http\Requests\CreateJabatanRequest;
 use App\Models\Ajuan;
+use App\Models\BakatKerjaJabatanDiajukan;
+use App\Models\FungsiPekerjaanJabatanDiajukan;
 use App\Models\JabatanDiajukan;
+use App\Models\MinatKerjaJabatanDiajukan;
+use App\Models\TemperamenKerjaJabatanDiajukan;
+use App\Models\UpayaFisikJabatanDiajukan;
 use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Route;
@@ -130,11 +135,11 @@ class JabatanController extends Controller
 
     // get necessary data for checkboxes
     // checkboxes are checked if the data is found in the database
-    $checkedBakatKerja = SyaratBakat::where('syarat_jabatan_id', $jabatan->syaratJabatan->id)->get()->pluck('bakat_kerja_id')->toArray();
-    $checkedTemperamenKerja = SyaratTemperamen::where('syarat_jabatan_id', $jabatan->syaratJabatan->id)->get()->pluck('temperamen_kerja_id')->toArray();
-    $checkedMinatKerja = SyaratMinat::where('syarat_jabatan_id', $jabatan->syaratJabatan->id)->get()->pluck('minat_kerja_id')->toArray();
-    $checkedUpayaFisik = SyaratUpaya::where('syarat_jabatan_id', $jabatan->syaratJabatan->id)->get()->pluck('upaya_fisik_id')->toArray();
-    $checkedFungsiPekerjaan = SyaratFungsi::where('syarat_jabatan_id', $jabatan->syaratJabatan->id)->get()->pluck('fungsi_pekerjaan_id')->toArray();
+    $checkedBakatKerja = BakatKerjaJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('bakat_kerja_id')->toArray();
+    $checkedTemperamenKerja = TemperamenKerjaJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('temperamen_kerja_id')->toArray();
+    $checkedMinatKerja = MinatKerjaJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('minat_kerja_id')->toArray();
+    $checkedUpayaFisik = UpayaFisikJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('upaya_fisik_id')->toArray();
+    $checkedFungsiPekerjaan = FungsiPekerjaanJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('fungsi_pekerjaan_id')->toArray();
 
     return view('anjab/jabatan/edit/step-2', compact(
       'title',
@@ -161,23 +166,23 @@ class JabatanController extends Controller
     $kondisi = [];
     foreach ($request->input('kondisiLingkunganKerja') as $key => $value) {
       $kondisi[$key] = $value;
+      $jabatan->$key = $value;
+      $jabatan->save();
     }
-    $kondisiLingkunganKerja = KondisiLingkunganKerja::where('jabatan_id', $jabatan->id)->first();
-    $kondisiLingkunganKerja->update($kondisi);
 
-    $syaratJabatan = SyaratJabatan::where('jabatan_id', $jabatan->id)->first();
-    $syaratJabatan->update($request->all());
+    $jabatan->keterampilan = $request->input('keterampilan');
+    $jabatan->save();
 
     // UPDATING SYARAT BAKAT
     // delete SyaratBakat instances with syarat_jabatan_id = $syaratJabatan->id
     // loop through $request->input('bakatKerja') and create new SyaratBakat instances
     // this is done so that when user uncheck an input, the data is deleted from the database
-    SyaratBakat::where('syarat_jabatan_id', $syaratJabatan->id)->delete();
+    BakatKerjaJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->delete();
     $bakatKerja = $request->input('bakatKerja');
     if ($bakatKerja) {
       foreach ($bakatKerja as $bakatKerjaId) {
-        SyaratBakat::create([
-          'syarat_jabatan_id' => $syaratJabatan->id,
+        BakatKerjaJabatanDiajukan::create([
+          'jabatan_diajukan_id' => $jabatan->id,
           'bakat_kerja_id' => $bakatKerjaId
         ]);
       }
@@ -187,12 +192,12 @@ class JabatanController extends Controller
     // delete SyaratTemperamen instances with syarat_jabatan_id = $syaratJabatan->id
     // loop through $request->input('temperamenKerja') and create new SyaratTemperamen instances
     // this is done so that when user uncheck an input, the data is deleted from the database
-    SyaratTemperamen::where('syarat_jabatan_id', $syaratJabatan->id)->delete();
+    TemperamenKerjaJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->delete();
     $temperamenKerja = $request->input('temperamenKerja');
     if ($temperamenKerja) {
       foreach ($temperamenKerja as $temperamenKerjaId) {
-        SyaratTemperamen::create([
-          'syarat_jabatan_id' => $syaratJabatan->id,
+        TemperamenKerjaJabatanDiajukan::create([
+          'jabatan_diajukan_id' => $jabatan->id,
           'temperamen_kerja_id' => $temperamenKerjaId
         ]);
       }
@@ -202,42 +207,51 @@ class JabatanController extends Controller
     // delete MinatKerja instances with syarat_jabatan_id = $syaratJabatan->id
     // loop through $request->input('minatKerja') and create new MinatKerja instances
     // this is done so that when user uncheck an input, the data is deleted from the database
-    SyaratMinat::where('syarat_jabatan_id', $syaratJabatan->id)->delete();
+    MinatKerjaJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->delete();
     $minatKerja = $request->input('minatKerja');
     if ($minatKerja) {
       foreach ($minatKerja as $minatKerjaId) {
-        SyaratMinat::create([
-          'syarat_jabatan_id' => $syaratJabatan->id,
+        MinatKerjaJabatanDiajukan::create([
+          'jabatan_diajukan_id' => $jabatan->id,
           'minat_kerja_id' => $minatKerjaId
         ]);
       }
     }
 
     // UPDATING SYARAT UPAYA
-    // delete UpayaFisik instances with syarat_jabatan_id = $syaratJabatan->id
+    // delete UpayaFisik instances with jabatan_diajukan_id = $syaratJabatan->id
     // loop through $request->input('upayaFisik') and create new UpayaFisik instances
     // this is done so that when user uncheck an input, the data is deleted from the database
-    SyaratUpaya::where('syarat_jabatan_id', $syaratJabatan->id)->delete();
+    UpayaFisikJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->delete();
     $upayaFisik = $request->input('upayaFisik');
     if ($upayaFisik) {
       foreach ($upayaFisik as $upayaFisikId) {
-        SyaratUpaya::create([
-          'syarat_jabatan_id' => $syaratJabatan->id,
+        UpayaFisikJabatanDiajukan::create([
+          'jabatan_diajukan_id' => $jabatan->id,
           'upaya_fisik_id' => $upayaFisikId
         ]);
       }
     }
 
+    // Updating Kondisi Fisik
+    $jabatan->jenis_kelamin = $request->input('jenis_kelamin');
+    $jabatan->umur = $request->input('umur');
+    $jabatan->tinggi_badan = $request->input('tinggi_badan');
+    $jabatan->berat_badan = $request->input('berat_badan');
+    $jabatan->postur_badan = $request->input('postur_badan');
+    $jabatan->penampilan = $request->input('penampilan');
+    $jabatan->save();
+
     // UPDATING SYARAT FUNGSI
-    // delete FungsiPekerjaan instances with syarat_jabatan_id = $syaratJabatan->id
+    // delete FungsiPekerjaan instances with jabatan_diajukan_id = $syaratJabatan->id
     // loop through $request->input('fungsiPekerjaan') and create new FungsiPekerjaan instances
     // this is done so that when user uncheck an input, the data is deleted from the database
-    SyaratFungsi::where('syarat_jabatan_id', $syaratJabatan->id)->delete();
+    FungsiPekerjaanJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->delete();
     $fungsiPekerjaan = $request->input('fungsiPekerjaan');
     if ($fungsiPekerjaan) {
       foreach ($fungsiPekerjaan as $fungsiPekerjaanId) {
-        SyaratFungsi::create([
-          'syarat_jabatan_id' => $syaratJabatan->id,
+        FungsiPekerjaanJabatanDiajukan::create([
+          'jabatan_diajukan_id' => $jabatan->id,
           'fungsi_pekerjaan_id' => $fungsiPekerjaanId
         ]);
       }

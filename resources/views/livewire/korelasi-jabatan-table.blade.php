@@ -10,16 +10,18 @@ new class extends Component {
     public $jabatanKorelasi;
     public $jabatan_relasi_id;
     public $dalam_hal;
-    
-    public function mount($jabatan) {
+
+    public function mount($jabatan)
+    {
         $this->jabatan = $jabatan;
         $this->nama = '';
-        $this->jabatanKorelasi = JabatanDiajukan::all();      
+        $this->jabatanKorelasi = JabatanDiajukan::all();
         $this->jabatan_relasi_id = null;
         $this->dalam_hal = '';
     }
 
-    public function addKorelasiJabatan() {
+    public function addKorelasiJabatan()
+    {
         $validated = $this->validate([
             'jabatan_relasi_id' => 'required|string',
             'dalam_hal' => 'required|string',
@@ -30,9 +32,9 @@ new class extends Component {
         $this->reset('jabatan_relasi_id', 'dalam_hal');
     }
 
-    public function deleteKorelasiJabatan(KorelasiJabatan $korelasiJabatan) {
+    public function deleteKorelasiJabatan(KorelasiJabatan $korelasiJabatan)
+    {
         $korelasiJabatan->delete();
-    
     }
 }; ?>
 
@@ -71,7 +73,7 @@ new class extends Component {
                     <td>{{ $korelasi->dalam_hal }}</td>
                     <td>
                         <button class="btn btn-danger" wire:click="deleteKorelasiJabatan({{ $korelasi }})">
-                            <i class="fa-solid fa-trash"></i> 
+                            <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>
                 </tr>
@@ -89,7 +91,8 @@ new class extends Component {
                         </select>
                     </td>
                     <td>
-                        <input type="text" class="form-control" placeholder="Masukkan Korelasi Jabatan" wire:model="dalam_hal">
+                        <input type="text" class="form-control" placeholder="Masukkan Korelasi Jabatan"
+                            wire:model="dalam_hal">
                     </td>
                     <td>
                         <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Tambah</button>
