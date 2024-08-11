@@ -64,26 +64,23 @@ class AjuanController extends Controller
     $jenisJabatan = JenisJabatan::all();
     $unitKerjas = UnitKerja::all();
 
-    // fetch the JSON data
-    $response = Http::get('http://anjab-abk.test/api/jabatans');
-    $jabatans = $response->json();
-
-    // if the request isn't successful or the data isn't found, redirect back with an error message
-    if (!($response->successful() && isset($jabatans['data']))) {
-      return redirect()->back()->with('error', 'Data Jabatan tidak ditemukan');
-    }
-
-    // convert the JSON array to an array of objects
-    $jabatans = json_decode(json_encode($jabatans['data']));
-
     // check if there is an ajuan draft
-    // if there is no draft, create instance of JabatanDiajukan with fetched data
-    // if there is a draft already, simply get data from 'jabatan_diajukan' table
     if (!JabatanDiajukan::is_draft_exist()) {
+      // if no draft exists, fetch the JSON data
+      $response = Http::get('http://anjab-abk.test/api/jabatans');
+      $jabatans = $response->json();
+
+      // if the request isn't successful or the data isn't found, redirect back with an error message
+      if (!($response->successful() && isset($jabatans['data']))) {
+        return redirect()->back()->with('error', 'Data Jabatan tidak ditemukan');
+      }
+
+      // convert the JSON array to an array of objects
+      $jabatans = json_decode(json_encode($jabatans['data']));
+
       foreach ($jabatans as $dataJabatan) {
         // convert array to object
         $dataJabatan = json_decode(json_encode($dataJabatan));
-
         $jabatan = JabatanDiajukan::create([
           'jabatan_id' => $dataJabatan->id,
           'ajuan_id' => null,
@@ -95,6 +92,8 @@ class AjuanController extends Controller
         ]);
       }
     }
+
+    // fetch the existing or newly created drafts
     $jabatans = JabatanDiajukan::where('ajuan_id', null)->get();
 
     return view('anjab.buat-ajuan', compact('title', 'jabatans', 'jenisJabatan', 'unitKerjas'));
@@ -123,17 +122,17 @@ class AjuanController extends Controller
     RoleVerifikasi::create([
       'ajuan_id' => $ajuan->id,
       'role_id' => Role::where('name', 'Manajer Kepegawaian')->first()->id,
-      'is_approved' => false
+      'is_approved' => true
     ]);
     RoleVerifikasi::create([
       'ajuan_id' => $ajuan->id,
       'role_id' => Role::where('name', 'Kepala BUK')->first()->id,
-      'is_approved' => false
+      'is_approved' => true
     ]);
     RoleVerifikasi::create([
       'ajuan_id' => $ajuan->id,
       'role_id' => Role::where('name', 'Wakil Rektor 2')->first()->id,
-      'is_approved' => false
+      'is_approved' => true
     ]);
 
     $jabatans = JabatanDiajukan::where('ajuan_id', null)->get();
