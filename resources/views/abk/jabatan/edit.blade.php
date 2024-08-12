@@ -21,48 +21,40 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($uraians as $uraian)
+                @foreach ($jabatan->detailAbk as $detail)
                     <tr>
-                        <td>
-                            {{ $uraian->nama_tugas }}
-                        </td>
-                        <td class="">
-                            {{-- create a text input and labelfor "hasil kerja" --}}
-                            <input type="text" class="form-control" name="hasil_kerja" id="hasil_kerja"
-                                value="{{ $uraian->hasil_kerja }}">
-                        </td>
-                        <td class="d-flex">
-                            <input type="text" class="form-control" name="beban_kerja" id="beban_kerja" value="{{ $uraian->beban_kerja }}">
-                        </td>
-                        <td class="">
-                            <input type="text" class="form-control" name="waktu_penyelesaian" id="waktu_penyelesaian"
-                                value="{{ $uraian->waktu_penyelesaian }}">
-                        </td>
-                        <td class="text-center">
-                            <button class="btn btn-primary"><i data-feather="save"></i> Simpan</button>
-                        </td>
+                        <form
+                            action="{{ route('abk.detail_abk.store', [
+                                'ajuan' => $ajuan->id,
+                                'jabatan' => $jabatan->id,
+                                'unit_kerja' => $unit_kerja->id,
+                                'detail_abk' => $detail->id,
+                            ]) }}"
+                            method="POST">
+                            @csrf
+                            @method('put')
+                            <td>
+                                {{ $detail->uraianTugasDiajukan->nama_tugas }}
+                            </td>
+                            <td class="">
+                                {{-- create a text input and labelfor "hasil kerja" --}}
+                                <input type="text" class="form-control" name="hasil_kerja" id="hasil_kerja"
+                                    value="{{ $detail->hasil_kerja }}">
+                            </td>
+                            <td class="d-flex">
+                                <input type="text" class="form-control" name="jumlah_hasil_kerja" id="jumlah_hasil_kerja"
+                                    value="{{ $detail->jumlah_hasil_kerja }}">
+                            </td>
+                            <td class="">
+                                <input type="text" class="form-control" name="waktu_penyelesaian" id="waktu_penyelesaian"
+                                    value="{{ $detail->waktu_penyelesaian }}">
+                            </td>
+                            <td class="text-center">
+                                <button type="submit" class="btn btn-primary"><i data-feather="save"></i> Simpan</button>
+                            </td>
+                        </form>
                     </tr>
                 @endforeach
-                <tr>
-                    <td>
-                        Membuat Rencana Strategis
-                    </td>
-                    <td class="">
-                        {{-- create a text input and labelfor "hasil kerja" --}}
-                        <input type="text" class="form-control" name="hasil_kerja" id="hasil_kerja"
-                            value="Rencana Strategis">
-                    </td>
-                    <td class="d-flex">
-                        <input type="text" class="form-control" name="beban_kerja" id="beban_kerja" value="1">
-                    </td>
-                    <td class="">
-                        <input type="text" class="form-control" name="waktu_penyelesaian" id="waktu_penyelesaian"
-                            value="16">
-                    </td>
-                    <td class="text-center">
-                        <button class="btn btn-primary"><i data-feather="save"></i> Simpan</button>
-                    </td>
-                </tr>
             </tbody>
         </table>
     </div>

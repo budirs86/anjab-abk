@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('unit_kerja_id')->constrained('unit_kerja');
             $table->foreignId('jabatan_diajukan_id')->constrained('jabatan_diajukan');
             $table->foreignId('uraian_tugas_diajukan_id')->nullable()->constrained('uraian_tugas_diajukan');
+            $table->string('hasil_kerja')->nullable();
             $table->integer('waktu_penyelesaian')->nullable();
-            $table->integer('hasil_kerja')->nullable();
             $table->integer('jumlah_hasil_kerja')->nullable();
             $table->timestamps();
         });

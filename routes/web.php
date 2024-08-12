@@ -77,15 +77,16 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
 
 Route::prefix('abk/ajuan')->middleware('auth')->name('abk.')->group(function () {
   Route::get('/', [AbkController::class, 'index'])->name('ajuans');
-  Route::get('/create', [AbkController::class, 'createAjuan'])->name('ajuan.create');
-  Route::post('/store/{ajuan}', [AbkController::class, 'storeAjuan'])->name('ajuan.store');
   Route::prefix('{ajuan}')->group(function () {
     Route::get('/', [AbkController::class, 'showAjuan'])->name('ajuan.show');
+    Route::post('/store', [AbkController::class, 'storeAjuan'])->name('ajuan.store');
     Route::get('/unit/{unit_kerja}', [AbkController::class, 'showUnitKerja'])->name('unitkerja.show');
     Route::get('/unit/{unit_kerja}/edit', [AbkController::class, 'editUnitKerja'])->name('unitkerja.edit');
+    Route::post('/unit/{unit_kerja}/update', [AbkController::class, 'updateAjuan'])->name('ajuan.update');
     Route::get('/unit/{unit_kerja}/jabatan/{jabatan}', [AbkController::class, 'showJabatan'])->name('jabatan.show');
     Route::get('/unit/{unit_kerja}/jabatan/{jabatan}/create', [AbkController::class, 'createJabatan'])->name('jabatan.create');
     Route::get('/unit/{unit_kerja}/jabatan/{jabatan}/edit', [AbkController::class, 'editJabatan'])->name('jabatan.edit');
+    Route::put('/unit/{unit_kerja}/jabatan/{jabatan}/edit/{detail_abk}/store', [AbkController::class, 'storeDetailAbk'])->name('detail_abk.store');
   });
 });
 

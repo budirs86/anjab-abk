@@ -21,13 +21,16 @@ class RolePermissionSeeder extends Seeder
         Role::create(['name' => 'Admin Kepegawaian'])->givePermissionTo($can_make_ajuan);
         Role::create(['name' => 'Operator Unit Kerja'])->givePermissionTo($can_make_abk);
 
-        // level 1
-        Role::create(['name' => 'Manajer Kepegawaian'])->givePermissionTo($can_verify);
+        Role::create(['name' => 'Manajer Unit Kerja']);
         Role::create(['name' => 'Manajer Tata Usaha'])->givePermissionTo($can_verify);;
+        
+        // level 1
+        Role::create(['name' => 'Kepala Unit Kerja']);
+        Role::create(['name' => 'Wakil Dekan 2'])->givePermissionTo($can_verify);;
+        Role::create(['name' => 'Manajer Kepegawaian'])->givePermissionTo($can_verify);
 
         // level 2
-        Role::create(['name' => 'Wakil Dekan 2'])->givePermissionTo($can_verify);;
-        Role::create(['name' => 'Sekretaris Lembaga'])->givePermissionTo($can_verify);;
+        Role::create(['name' => 'Manajer Lembaga'])->givePermissionTo($can_verify);;
         Role::create(['name' => 'Kepala BUK'])->givePermissionTo($can_verify);;
 
         // level 3

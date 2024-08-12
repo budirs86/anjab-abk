@@ -33,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($ajuans as $ajuan)
+            @forelse ($ajuans as $ajuan)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td class="w-25">
@@ -86,7 +86,11 @@
                     @endcan
                     {{-- <td>{{  ? <p class="bad"></p> : "Revisi" }}</td> --}}
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="6" class="text-center">Mohon maaf, ABK belum bisa dibuat karena Ajuan Analisis Jabatan belum dibuat atau belum disetujui.</td>
+                </tr>
+            @endforelse
             {{-- please  --}}
         </tbody>
     </table>
