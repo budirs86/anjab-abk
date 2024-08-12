@@ -121,4 +121,8 @@ class Ajuan extends Model
   {
     return $this->role_verifikasi()->where('is_approved', true)->count() == $this->role_verifikasi()->count();
   }
+
+  public function abk() {
+    return $this->belongsToMany(Ajuan::class, 'abk_anjab', 'anjab_id', 'abk_id');
+  }
 }

@@ -60,15 +60,15 @@
                                         <a href="{{ route('anjab.ajuan.edit', ['tahun' => $ajuan->tahun, 'id' => $ajuan->id]) }}"
                                             class="btn btn-outline-primary">Edit</a>
                                     @endif
-                                    @if ($ajuan->is_approved())
-                                        <form action="{{ route('abk.ajuan.store', ['ajuan' => $ajuan->id]) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-outline-success" aria-disabled="true">Buat
-                                                Ajuan ABK</button>
-                                        </form>
-                                    @endif
+                                    @if ($ajuan->is_approved() && !$ajuan->abk->count())
+                                        <button type="submit" class="btn btn-outline-success" aria-disabled="true" onclick="event.preventDefault(); document.getElementById('submit-ajuan-form{{ $ajuan->id }}').submit();">Buat Ajuan ABK</button>
+                                        @endif
+                                        {{-- <p>{{  }}</p> --}}
                                 @endcan
                             </div>
+                            <form id="submit-ajuan-form{{ $ajuan->id }}" action="{{ route('abk.ajuan.store', ['ajuan' => $ajuan->id]) }}" method="POST">
+                                @csrf
+                            </form>
                         </div>
                     </td>
                     @can('make ajuan')
