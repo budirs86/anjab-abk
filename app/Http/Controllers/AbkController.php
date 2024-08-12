@@ -100,9 +100,8 @@ class AbkController extends Controller
   public function editUnitKerja(Ajuan $ajuan, UnitKerja $unit_kerja)
   {
     $title = 'Edit Informasi ABK';
-    $ajuan = $ajuan;
-    $unit_kerja = $unit_kerja;
-    $jabatans = JabatanDiajukan::where('unit_kerja_id', $unit_kerja->id)->get();
+    $jabatanUnitKerjaIds = $unit_kerja->jabatansWithin()->pluck('jabatan_id');
+    $jabatans = JabatanDiajukan::whereIn('id', $jabatanUnitKerjaIds)->get();
 
     return view('abk.unitkerja.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatans'));
   }
@@ -128,5 +127,16 @@ class AbkController extends Controller
     $uraians = $jabatan->uraianTugas;
 
     return view('abk.jabatan.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatan', 'uraians'));
+  }
+
+  public function storeDetailAbk(Request $request, Ajuan $ajuan, UnitKerja $unit_kerja, JabatanDiajukan $jabatan, DetailAbk $detail_abk)
+  {
+    $detail_abk->update([
+      'hasil_kerja' => $request->hasil_kerja,
+      'jumlah_hasil_kerja' => $request->jumlah_hasil_kerja,
+      'waktu_penyelesaian' => $request->waktu_penyelesaian,
+    ]);
+
+    return redirect()->back()->with('success', 'Detail ABK berhasil disimpan');
   }
 }
