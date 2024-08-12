@@ -9,9 +9,11 @@ use App\Models\DetailAbk;
 use App\Models\Jabatan;
 use App\Models\JabatanDiajukan;
 use App\Models\Role;
+use App\Models\RoleVerifikasi;
 use App\Models\UnitKerja;
 use App\Models\UraianTugas;
 use App\Models\UraianTugasDiajukan;
+use App\Models\Verifikasi;
 use Illuminate\Http\Request;
 
 class AbkController extends Controller
@@ -19,10 +21,8 @@ class AbkController extends Controller
   public function index()
   {
     $title = 'Daftar Ajuan ABK';
-    // display ajuan anjab that has been approved by wakil rektor 2
-    $wakilRektorRoleId = Role::where('name', 'Wakil Rektor 2')->first()->id;
-    $ajuans = Ajuan::where('jenis', 'anjab')->whereHas('role_verifikasi', function ($query) use ($wakilRektorRoleId) {
-      $query->where('role_id', $wakilRektorRoleId)->where('is_approved', true);
+    $ajuans = Ajuan::where('jenis', 'abk')->whereHas('detailAbk', function ($query) {
+      $query->where('unit_kerja_id', auth()->user()->unit_kerja_id);
     })->get();
 
     return view('abk.ajuans', compact('title', 'ajuans'));
@@ -75,7 +75,6 @@ class AbkController extends Controller
   public function showAjuan(Ajuan $ajuan)
   {
     $title = 'Ajuan ABK';
-    $ajuan = $ajuan;
     $periode = $ajuan->tahun;
     // if the logged in user has role "Admin Kepegawaian", display all unit kerja
     // else, display only the unit kerja of the logged in user
@@ -102,8 +101,9 @@ class AbkController extends Controller
     $title = 'Edit Informasi ABK';
     $jabatanUnitKerjaIds = $unit_kerja->jabatansWithin()->pluck('jabatan_id');
     $jabatans = JabatanDiajukan::whereIn('id', $jabatanUnitKerjaIds)->get();
+    $abkId = DetailAbk::where('unit_kerja_id', $unit_kerja->id)->latest()->first()->ajuan_id;
 
-    return view('abk.unitkerja.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatans'));
+    return view('abk.unitkerja.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatans', 'abkId'));
   }
 
   public function createJabatan(JabatanDiajukan $jabatan)
