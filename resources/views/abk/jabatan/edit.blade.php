@@ -55,26 +55,6 @@
                         </form>
                     </tr>
                 @endforeach
-                <tr>
-                    <td>
-                        Membuat Rencana Strategis
-                    </td>
-                    <td class="">
-                        {{-- create a text input and labelfor "hasil kerja" --}}
-                        <input type="text" class="form-control" name="hasil_kerja" id="hasil_kerja"
-                            value="Rencana Strategis">
-                    </td>
-                    <td class="d-flex">
-                        <input type="text" class="form-control" name="beban_kerja" id="beban_kerja" value="1">
-                    </td>
-                    <td class="">
-                        <input type="text" class="form-control" name="waktu_penyelesaian" id="waktu_penyelesaian"
-                            value="16">
-                    </td>
-                    <td class="text-center">
-                        <button class="btn btn-primary"><i data-feather="save"></i> Simpan</button>
-                    </td>
-                </tr>
             </tbody>
         </table>
     </div>
