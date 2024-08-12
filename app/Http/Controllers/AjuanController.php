@@ -183,7 +183,7 @@ class AjuanController extends Controller
     return redirect()->route('anjab.ajuan.index')->with('success', 'Data Ajuan berhasil Diubah');
   }
 
-  public function anjabShowJabatan(Ajuan $ajuan, Jabatan $jabatan)
+  public function anjabShowJabatan(Ajuan $ajuan, JabatanDiajukan $jabatan)
   {
     $title = 'Lihat Informasi Jabatan';
     $bakat_kerjas = BakatKerja::all();
@@ -192,6 +192,11 @@ class AjuanController extends Controller
     $temperamens = TemperamenKerja::all();
     $upaya_fisiks = UpayaFisik::all();
     $fungsi_pekerjaans = FungsiPekerjaan::all();
+    $checkedBakatKerja = BakatKerjaJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('bakat_kerja_id')->toArray();
+    $checkedTemperamenKerja = TemperamenKerjaJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('temperamen_kerja_id')->toArray();
+    $checkedMinatKerja = MinatKerjaJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('minat_kerja_id')->toArray();
+    $checkedUpayaFisik = UpayaFisikJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('upaya_fisik_id')->toArray();
+    $checkedFungsiPekerjaan = FungsiPekerjaanJabatanDiajukan::where('jabatan_diajukan_id', $jabatan->id)->get()->pluck('fungsi_pekerjaan_id')->toArray();
     return view('anjab.jabatan.show', compact(
       'ajuan',
       'jabatan',
@@ -201,7 +206,12 @@ class AjuanController extends Controller
       'jenis_jabatan',
       'temperamens',
       'upaya_fisiks',
-      'fungsi_pekerjaans'
+      'fungsi_pekerjaans',
+      'checkedBakatKerja',
+      'checkedTemperamenKerja',
+      'checkedMinatKerja',
+      'checkedUpayaFisik',
+      'checkedFungsiPekerjaan'
     ));
   }
 
