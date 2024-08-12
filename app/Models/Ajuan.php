@@ -121,4 +121,14 @@ class Ajuan extends Model
   {
     return $this->role_verifikasi()->where('is_approved', true)->count() == $this->role_verifikasi()->count();
   }
+
+  public function abkAnjab()
+  {
+    return $this->hasMany(AbkAnjab::class);
+  }
+
+  public function detailAbk()
+  {
+    return $this->hasMany(DetailAbk::class);
+  }
 }

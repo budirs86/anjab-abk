@@ -21,4 +21,9 @@ class DetailAbk extends Model
     {
         return $this->belongsTo(UraianTugasDiajukan::class);
     }
+
+    public function ajuan()
+    {
+        return $this->belongsTo(Ajuan::class);
+    }
 }

@@ -18,4 +18,9 @@ class UnitKerja extends Model
     // return JabatanUnsur instances where unsur_id = $this->id
     return JabatanUnsur::where('unsur_id', $this->unsur_id)->get();
   }
+
+  public function unsur()
+  {
+    return $this->belongsTo(Unsur::class);
+  }
 }

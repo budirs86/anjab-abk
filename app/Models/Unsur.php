@@ -12,4 +12,9 @@ class Unsur extends Model
     protected $table = 'unsur';
 
     protected $fillable = ['nama'];
+
+    public function unitKerja()
+    {
+        return $this->hasMany(UnitKerja::class);
+    }
 }
