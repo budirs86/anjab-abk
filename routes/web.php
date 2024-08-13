@@ -34,7 +34,7 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
     Route::get('/', [AjuanController::class, 'anjabIndex'])->name('index');
     Route::get('/create', [AjuanController::class, 'anjabCreate'])->name('create');
     Route::post('/store', [AjuanController::class, 'anjabStore'])->name('store');
-    Route::get('/{ajuan:tahun}', [AjuanController::class, 'anjabShow'])->name('show');
+    Route::get('/{ajuan:tahun}/{id}', [AjuanController::class, 'anjabShow'])->name('show');
     Route::get('/{tahun}/{id}/edit', [AjuanController::class, 'anjabEdit'])->name('edit');
     Route::post('/{ajuan}/update', [AjuanController::class, 'anjabUpdate'])->name('update');
     Route::get('/{ajuan:tahun}/jabatan/{jabatan}', [AjuanController::class, 'anjabShowJabatan'])->name('jabatan.show');

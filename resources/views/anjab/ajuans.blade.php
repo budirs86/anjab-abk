@@ -54,7 +54,7 @@
                             <p>{{ $ajuan->tahun }} </p>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 @can('make ajuan')
-                                    <a href="{{ route('anjab.ajuan.show', $ajuan->tahun) }}"
+                                    <a href="{{ route('anjab.ajuan.show', ['ajuan' => $ajuan->tahun, 'id' => $ajuan->id]) }}"
                                         class="btn btn-outline-primary">Lihat</a>
                                     @if (!$ajuan->latest_verifikasi()->is_approved && $ajuan->next_verificator()->role->name == 'Admin Kepegawaian')
                                         <a href="{{ route('anjab.ajuan.edit', ['tahun' => $ajuan->tahun, 'id' => $ajuan->id]) }}"

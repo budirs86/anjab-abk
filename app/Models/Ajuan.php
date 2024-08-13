@@ -110,6 +110,11 @@ class Ajuan extends Model
     return $this->role_verifikasi()->where('is_approved', false)->first();
   }
 
+  public function current_verificator()
+  {
+    return $this->role_verifikasi()->where('is_approved', false)->first();
+  }
+
   // Get all verificator that has approved the ajuan, but exclude role_verifikasi with role_id = 1
   public function approved_verificator()
   {
