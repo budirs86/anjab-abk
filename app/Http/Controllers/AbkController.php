@@ -25,6 +25,11 @@ class AbkController extends Controller
       $query->where('unit_kerja_id', auth()->user()->unit_kerja_id);
     })->get();
 
+    if (auth()->user()->hasRole('Admin Kepegawaian')) {
+      // $ajuans = Ajuan::where('jenis', 'anjab')->whereHas('abk')->get();
+      $ajuans = Ajuan::where('jenis','anjab')->whereHas('abk')->get();
+    }
+
     return view('abk.ajuans', compact('title', 'ajuans'));
   }
 
@@ -168,22 +173,22 @@ class AbkController extends Controller
       RoleVerifikasi::create([
         'ajuan_id' => $ajuan->id,
         'role_id' => Role::where('name', 'Manajer Unit Kerja')->first()->id,
-        'is_approved' => true
+        'is_approved' => false
       ]);
       RoleVerifikasi::create([
         'ajuan_id' => $ajuan->id,
         'role_id' => Role::where('name', 'Kepala Unit Kerja')->first()->id,
-        'is_approved' => true
+        'is_approved' => false
       ]);
       RoleVerifikasi::create([
         'ajuan_id' => $ajuan->id,
         'role_id' => Role::where('name', 'Admin Kepegawaian')->first()->id,
-        'is_approved' => true
+        'is_approved' => false
       ]);
       RoleVerifikasi::create([
         'ajuan_id' => $ajuan->id,
         'role_id' => Role::where('name', 'Wakil Rektor 2')->first()->id,
-        'is_approved' => true
+        'is_approved' => false
       ]);
     }
 
@@ -197,22 +202,22 @@ class AbkController extends Controller
       RoleVerifikasi::create([
         'ajuan_id' => $ajuan->id,
         'role_id' => Role::where('name', 'Manajer Tata Usaha')->first()->id,
-        'is_approved' => true
+        'is_approved' => false
       ]);
       RoleVerifikasi::create([
         'ajuan_id' => $ajuan->id,
         'role_id' => Role::where('name', 'Wakil Dekan 2')->first()->id,
-        'is_approved' => true
+        'is_approved' => false
       ]);
       RoleVerifikasi::create([
         'ajuan_id' => $ajuan->id,
         'role_id' => Role::where('name', 'Admin Kepegawaian')->first()->id,
-        'is_approved' => true
+        'is_approved' => false
       ]);
       RoleVerifikasi::create([
         'ajuan_id' => $ajuan->id,
         'role_id' => Role::where('name', 'Wakil Rektor 2')->first()->id,
-        'is_approved' => true
+        'is_approved' => false
       ]);
     }
 
