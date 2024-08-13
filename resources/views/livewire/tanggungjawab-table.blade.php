@@ -5,13 +5,13 @@ use App\Models\TanggungJawabDiajukan;
 
 new class extends Component {
     public $jabatan;
-    public $nama;
+    public $nama = '';
+    public $editedTanggungJawab = null;
+    public $editedNama = '';
 
     public function mount($jabatan) {
         $this->jabatan = $jabatan;
-        $this->nama = '';
-
-    }
+        }
 
     public function addTanggungJawab() {
         $validated = $this->validate([
@@ -27,6 +27,23 @@ new class extends Component {
         $tanggungjawab->delete();
     
     }
+
+    public function editTanggungJawab(TanggungJawabDiajukan $tanggungJawab) {
+        $this->editedTanggungJawab = $tanggungJawab->id;
+        $this->editedNama = $tanggungJawab->nama;
+    }
+
+    public function storeTanggungJawab(TanggungJawabDiajukan $tanggungJawab) {
+        // dd('test');
+        $validated = $this->validate([
+            'editedNama' => 'required',
+        ]);
+        
+        $tanggungJawab->update([
+            'nama' => $validated['editedNama'],
+        ]);
+        $this->reset('editedTanggungJawab', 'editedNama');
+    }
 }; ?> 
 
 <div class="mb-3">
@@ -39,17 +56,37 @@ new class extends Component {
         </thead>
         <tbody>
             @foreach ($jabatan->tanggungJawab as $tanggungJawab)
+                @if ($editedTanggungJawab == $tanggungJawab->id)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td class="">
+                            <input name="nama" type="text" class="form-control @error('editedNama') is-invalid @enderror"
+                                placeholder="Masukkan Uraian Tugas" wire:model="editedNama" id="editedNama">
+                            @error('editedNama')
+                                <label class="invalid-feedback form-label" for="editedNama" >{{ $message }}</label>
+                            @enderror  
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-primary"  wire:click="storeTanggungJawab({{ $tanggungJawab }})"><i class="fa-solid fa-floppy-disk"></i>
+                                Simpan</button>
+                        </td>
+                    </tr>
+                @else
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td class="d-flex justify-content-between">
                         <p>{{ $tanggungJawab->nama }}</p>
                     </td>
                     <td>
+                        <button type="submit" class="btn btn-warning" wire:click="editTanggungJawab({{ $tanggungJawab }})">
+                            <i class="fa-solid fa-edit"></i>
+                        </button>
                         <button wire:click="deleteTanggungJawab({{ $tanggungJawab }})" class="btn btn-danger">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>
                 </tr>
+                @endif
             @endforeach
             <tr>
                 <form wire:submit="addTanggungJawab" method="POST">
