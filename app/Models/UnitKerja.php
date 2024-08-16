@@ -23,4 +23,15 @@ class UnitKerja extends Model
   {
     return $this->belongsTo(Unsur::class);
   }
+
+  public function detailAbk()
+  {
+    return $this->hasMany(DetailAbk::class);
+  }
+
+  // return the latest detailAbk instance
+  public function latestDetailAbk()
+  {
+    return $this->detailAbk()->latest()->first();
+  }
 }

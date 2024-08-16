@@ -21,13 +21,14 @@ class AbkController extends Controller
   public function index()
   {
     $title = 'Daftar Ajuan ABK';
+
     $ajuans = Ajuan::where('jenis', 'abk')->whereHas('detailAbk', function ($query) {
       $query->where('unit_kerja_id', auth()->user()->unit_kerja_id);
     })->get();
 
     if (auth()->user()->hasRole('Admin Kepegawaian')) {
       // $ajuans = Ajuan::where('jenis', 'anjab')->whereHas('abk')->get();
-      $ajuans = Ajuan::where('jenis','anjab')->whereHas('abk')->get();
+      $ajuans = Ajuan::where('jenis', 'anjab')->whereHas('abk')->get();
     }
 
     return view('abk.ajuans', compact('title', 'ajuans'));
@@ -77,10 +78,10 @@ class AbkController extends Controller
     return redirect()->route('abk.ajuans');
   }
 
-  public function showAjuan(Ajuan $ajuan)
+  public function showAjuan(Ajuan $anjab)
   {
     $title = 'Ajuan ABK';
-    $periode = $ajuan->tahun;
+    $periode = $anjab->tahun;
     // if the logged in user has role "Admin Kepegawaian", display all unit kerja
     // else, display only the unit kerja of the logged in user
     if (auth()->user()->hasRole('Admin Kepegawaian')) {
@@ -89,26 +90,26 @@ class AbkController extends Controller
       $unit_kerjas = UnitKerja::where('id', auth()->user()->unit_kerja_id)->get();
     }
 
-    return view('abk.ajuan', compact('title', 'ajuan', 'periode', 'unit_kerjas'));
+    return view('abk.ajuan', compact('title', 'anjab', 'periode', 'unit_kerjas'));
   }
 
-  public function showUnitKerja(Ajuan $ajuan, UnitKerja $unit_kerja)
+  public function showUnitKerja(Ajuan $anjab, Ajuan $abk)
   {
     $title = 'Lihat Informasi ABK';
-    $jabatanUnitKerjaIds = $unit_kerja->jabatansWithin()->pluck('jabatan_id');
-    $jabatans = JabatanDiajukan::whereIn('id', $jabatanUnitKerjaIds)->get();
+    $unit_kerja = $abk->detailAbk()->latest()->first()->unitKerja;
+    $jabatans = $unit_kerja->jabatansWithin();
 
-    return view('abk.unitkerja.show', compact('title', 'ajuan', 'unit_kerja', 'jabatans'));
+    return view('abk.unitkerja.show', compact('title', 'anjab', 'abk', 'jabatans', 'unit_kerja'));
   }
 
-  public function editUnitKerja(Ajuan $ajuan, UnitKerja $unit_kerja)
+  public function editUnitKerja(Ajuan $anjab, Ajuan $abk)
   {
     $title = 'Edit Informasi ABK';
+    $unit_kerja = $abk->detailAbk()->latest()->first()->unitKerja;
     $jabatanUnitKerjaIds = $unit_kerja->jabatansWithin()->pluck('jabatan_id');
     $jabatans = JabatanDiajukan::whereIn('id', $jabatanUnitKerjaIds)->get();
-    $abkId = DetailAbk::where('unit_kerja_id', $unit_kerja->id)->latest()->first()->ajuan_id;
 
-    return view('abk.unitkerja.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatans', 'abkId'));
+    return view('abk.unitkerja.edit', compact('title', 'anjab', 'unit_kerja', 'jabatans', 'abk'));
   }
 
   public function createJabatan(JabatanDiajukan $jabatan)
@@ -119,22 +120,22 @@ class AbkController extends Controller
     ]);
   }
 
-  public function showJabatan(Ajuan $ajuan, UnitKerja $unit_kerja, JabatanDiajukan $jabatan)
+  public function showJabatan(Ajuan $anjab, Ajuan $abk, JabatanDiajukan $jabatan)
   {
     $title = 'Lihat Informasi ABK';
 
-    return view('abk.jabatan.show', compact('title', 'ajuan', 'unit_kerja', 'jabatan'));
+    return view('abk.jabatan.show', compact('title', 'anjab', 'abk', 'jabatan'));
   }
 
-  public function editJabatan(Ajuan $ajuan, UnitKerja $unit_kerja, JabatanDiajukan $jabatan)
+  public function editJabatan(Ajuan $anjab, Ajuan $abk, JabatanDiajukan $jabatan)
   {
     $title = 'Edit Informasi ABK';
     $uraians = $jabatan->uraianTugas;
 
-    return view('abk.jabatan.edit', compact('title', 'ajuan', 'unit_kerja', 'jabatan', 'uraians'));
+    return view('abk.jabatan.edit', compact('title', 'anjab', 'abk', 'jabatan', 'uraians', 'wpt'));
   }
 
-  public function storeDetailAbk(Request $request, Ajuan $ajuan, UnitKerja $unit_kerja, JabatanDiajukan $jabatan, DetailAbk $detail_abk)
+  public function storeDetailAbk(Request $request, Ajuan $anjab, Ajuan $abk, JabatanDiajukan $jabatan, DetailAbk $detail_abk)
   {
     $detail_abk->update([
       'hasil_kerja' => $request->hasil_kerja,
@@ -145,10 +146,10 @@ class AbkController extends Controller
     return redirect()->back()->with('success', 'Detail ABK berhasil disimpan');
   }
 
-  public function updateAjuan(Ajuan $ajuan, UnitKerja $unit_kerja)
+  public function updateAjuan(Ajuan $anjab, Ajuan $abk)
   {
     Verifikasi::create([
-      'ajuan_id' => $ajuan->id,
+      'ajuan_id' => $abk->id,
       'user_id' => auth()->user()->id,
       'is_approved' => true,
       'catatan' => null

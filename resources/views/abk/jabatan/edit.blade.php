@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="">
-        {{ Breadcrumbs::render('edit-ajuan-abk-jabatan', $ajuan, $unit_kerja, $jabatan) }}
+        {{-- {{ Breadcrumbs::render('edit-ajuan-abk-jabatan', $anjab, $unit_kerja, $jabatan) }} --}}
     </div>
     <div class="card-head mb-3">
         <h1 class="fw-light fs-4 d-inline nav-item">Edit Analisis Beban Kerja {{ $jabatan->nama }}</h1>
@@ -23,11 +23,13 @@
             <tbody>
                 @foreach ($jabatan->detailAbk as $detail)
                     <tr>
+
+                        {{-- @dd($detail->id) --}}
                         <form
                             action="{{ route('abk.detail_abk.store', [
-                                'ajuan' => $ajuan->id,
+                                'anjab' => $anjab->id,
+                                'abk' => $abk->id,
                                 'jabatan' => $jabatan->id,
-                                'unit_kerja' => $unit_kerja->id,
                                 'detail_abk' => $detail->id,
                             ]) }}"
                             method="POST">

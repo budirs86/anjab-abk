@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="">
-        {{ Breadcrumbs::render('ajuan-abk-jabatan', $ajuan, $unit_kerja, $jabatan) }}
+        {{-- {{ Breadcrumbs::render('ajuan-abk-jabatan', $ajuan, $unit_kerja, $jabatan) }} --}}
     </div>
     <div class="card-head mb-3">
         <h1 class="fw-light fs-4 d-inline nav-item">Analisis Beban Kerja {{ $jabatan->nama }}</h1>
@@ -58,7 +58,7 @@
         </div>
     </div>
     <div class="">
-        <a href="{{ route('abk.unitkerja.show', [$ajuan, $unit_kerja]) }}" class="btn btn-primary header1"><img
+        <a href="{{ route('abk.unitkerja.show', ['anjab' => $anjab, 'abk' => $abk]) }}" class="btn btn-primary header1"><img
                 src="" alt="" data-feather="arrow-left" width="20px"> Kembali</a>
     </div>
 @endsection

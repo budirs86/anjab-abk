@@ -137,7 +137,13 @@ class Ajuan extends Model
     return $this->hasMany(DetailAbk::class);
   }
 
+  // return abk instances for an anjab
   public function abk() {
     return $this->belongsToMany(Ajuan::class, 'abk_anjab', 'anjab_id', 'abk_id');
+  }
+
+  // return anjab instance of the anjab
+  public function anjab() {
+    return $this->belongsToMany(Ajuan::class, 'abk_anjab', 'abk_id', 'anjab_id');
   }
 }

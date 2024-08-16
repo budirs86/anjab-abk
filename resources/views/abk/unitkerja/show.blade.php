@@ -66,7 +66,9 @@
                         <div class="d-flex justify-content-between">
                             <p>{{ $jabatan->nama }}</p>
                             <div class="">
-                                <a href="{{ route('abk.jabatan.show',[$ajuan, $unit_kerja, $jabatan]) }}" class="btn btn-sm btn-primary ms-auto"><img width="20px" data-feather="eye"></img> Lihat Analisis Beban Kerja</a>
+                                <a href="{{ route('abk.jabatan.show', ['anjab' => $anjab, 'abk' => $abk, 'jabatan' => $jabatan]) }}"
+                                    class="btn btn-sm btn-primary ms-auto"><img width="20px" data-feather="eye"></img>
+                                    Lihat Analisis Beban Kerja</a>
                             </div>
                         </div>
                     </td>
