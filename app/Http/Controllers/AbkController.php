@@ -191,14 +191,16 @@ class AbkController extends Controller
   public function showJabatan(Ajuan $anjab, Ajuan $abk, JabatanDiajukan $jabatan)
   {
     $title = 'Lihat Informasi ABK';
+    $wpt = DetailAbk::where('jabatan_diajukan_id', $jabatan->id)->selectRaw('SUM(waktu_penyelesaian * jumlah_hasil_kerja) as total_value')->value('total_value');
 
-    return view('abk.jabatan.show', compact('title', 'anjab', 'abk', 'jabatan'));
+    return view('abk.jabatan.show', compact('title', 'anjab', 'abk', 'jabatan', 'wpt'));
   }
 
   public function editJabatan(Ajuan $anjab, Ajuan $abk, JabatanDiajukan $jabatan)
   {
     $title = 'Edit Informasi ABK';
     $uraians = $jabatan->uraianTugas;
+    $wpt = DetailAbk::where('jabatan_diajukan_id', $jabatan->id)->selectRaw('SUM(waktu_penyelesaian * jumlah_hasil_kerja) as total_value')->value('total_value');
 
     return view('abk.jabatan.edit', compact('title', 'anjab', 'abk', 'jabatan', 'uraians', 'wpt'));
   }

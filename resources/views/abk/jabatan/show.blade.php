@@ -45,7 +45,7 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col">Total Waktu Penyelesaian Tugas (WPT)</div>
-                <div class="col">7116 jam</div>
+                <div class="col">{{ $wpt }} jam</div>
             </div>
             <div class="row">
                 <div class="col">Total Waktu Kerja Efektif</div>
@@ -53,7 +53,7 @@
             </div>
             <div class="row">
                 <div class="col">Jumlah Kebutuhan Pegawai</div>
-                <div class="col">6 orang</div>
+                <div class="col">{{ ceil($wpt / 1250) }} orang</div>
             </div>
         </div>
     </div>
