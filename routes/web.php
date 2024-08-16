@@ -77,7 +77,7 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
 
 Route::get('/abk/ajuan', [AbkController::class, 'index'])->name('abk.ajuans');
 Route::get('/anjab/{anjab}/abk/store', [AbkController::class, 'storeAjuan'])->name('abk.ajuan.store');
-Route::prefix('/anjab{anjab}/abk/ajuan')->name('abk.')->group(function () {
+Route::prefix('/anjab/{anjab}/abk/ajuan')->name('abk.')->group(function () {
   Route::get('/', [AbkController::class, 'showAjuan'])->name('ajuan.show');
   Route::get('/{abk}', [AbkController::class, 'showUnitKerja'])->name('unitkerja.show');
   Route::get('/{abk}/edit', [AbkController::class, 'editUnitKerja'])->name('unitkerja.edit');
