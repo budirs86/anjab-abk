@@ -26,4 +26,9 @@ class DetailAbk extends Model
     {
         return $this->belongsTo(Ajuan::class);
     }
+
+    public function unitKerja()
+    {
+        return $this->belongsTo(UnitKerja::class);
+    }    
 }

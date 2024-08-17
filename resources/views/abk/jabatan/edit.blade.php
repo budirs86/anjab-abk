@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="">
-        {{ Breadcrumbs::render('edit-ajuan-abk-jabatan', $ajuan, $unit_kerja, $jabatan) }}
+        {{-- {{ Breadcrumbs::render('edit-ajuan-abk-jabatan', $anjab, $unit_kerja, $jabatan) }} --}}
     </div>
     <div class="card-head mb-3">
         <h1 class="fw-light fs-4 d-inline nav-item">Edit Analisis Beban Kerja {{ $jabatan->nama }}</h1>
@@ -25,9 +25,9 @@
                     <tr>
                         <form
                             action="{{ route('abk.detail_abk.store', [
-                                'ajuan' => $ajuan->id,
+                                'anjab' => $anjab->id,
+                                'abk' => $abk->id,
                                 'jabatan' => $jabatan->id,
-                                'unit_kerja' => $unit_kerja->id,
                                 'detail_abk' => $detail->id,
                             ]) }}"
                             method="POST">
@@ -64,7 +64,7 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col">Total Waktu Penyelesaian Tugas (WPT)</div>
-                <div class="col">7116 jam</div>
+                <div class="col">{{ $wpt }} jam</div>
             </div>
             <div class="row">
                 <div class="col">Total Waktu Kerja Efektif</div>
@@ -72,12 +72,12 @@
             </div>
             <div class="row">
                 <div class="col">Jumlah Kebutuhan Pegawai</div>
-                <div class="col">6 orang</div>
+                <div class="col">{{ ceil($wpt / 1250) }} orang</div>
             </div>
         </div>
     </div>
     <div class="">
-        <a href="{{ url()->previous() }}" class="btn btn-primary header1"><img src="" alt=""
+        <a href="{{ route('abk.unitkerja.edit', ['anjab' => $anjab, 'abk' => $abk]) }}" class="btn btn-primary header1"><img src="" alt=""
                 data-feather="arrow-left" width="20px"> Kembali</a>
     </div>
 @endsection

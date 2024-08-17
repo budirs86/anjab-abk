@@ -118,7 +118,11 @@ class Ajuan extends Model
   // Get all verificator that has approved the ajuan, but exclude role_verifikasi with role_id = 1
   public function approved_verificator()
   {
-    return $this->role_verifikasi()->where('is_approved', true)->where('role_id', '!=', 1)->get();
+    if ($this->jenis == 'anjab') {
+      return $this->role_verifikasi()->where('is_approved', true)->where('role_id', '!=', 1)->get();
+    } elseif ($this->jenis == 'abk') {
+      return $this->role_verifikasi()->where('is_approved', true)->where('role_id', '!=', 2)->get();
+    }
   }
 
   // Check if all verificator has approved the ajuan
@@ -137,7 +141,24 @@ class Ajuan extends Model
     return $this->hasMany(DetailAbk::class);
   }
 
+  // return abk instances for an anjab
   public function abk() {
     return $this->belongsToMany(Ajuan::class, 'abk_anjab', 'anjab_id', 'abk_id');
+  }
+
+  // return anjab instance of the anjab
+  public function anjab() {
+    return $this->belongsToMany(Ajuan::class, 'abk_anjab', 'abk_id', 'anjab_id');
+  }
+
+  // return the count of approved abk for an anjab
+  public function approvedAbkCount() {
+    $roleIdWD2 = Role::where('name', 'Wakil Dekan 2')->first()->id;
+    $roleIdKepalaUnit = Role::where('name', 'Kepala Unit Kerja')->first()->id;
+
+    // return $this->abk() whereHas 'role_verifikasi' approved by wakil dekan 2 or kepala unit kerja
+    return $this->abk()->whereHas('role_verifikasi', function ($query) use ($roleIdWD2, $roleIdKepalaUnit) {
+      $query->where('role_id', $roleIdWD2)->where('is_approved', true)->orWhere('role_id', $roleIdKepalaUnit)->where('is_approved', true);
+    })->count();
   }
 }
