@@ -4,10 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use \Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;  
 
 class JabatanDiajukan extends Model
 {
   use HasFactory;
+  use HasRecursiveRelationships;
+
+  public function getParentKeyName()
+    {
+        return 'parent_id';
+    }
 
   // table name is 'jabatan_diajukan'
   protected $table = 'jabatan_diajukan';
@@ -20,7 +27,9 @@ class JabatanDiajukan extends Model
     // if model does not have instance, return false
     // if model has instance and its latest instance's 'ajuan_id' is not null, return false
     // if model has instance and its latest instance's 'ajuan_id' is null, return true
-    return JabatanDiajukan::count() == 0 ? false : JabatanDiajukan::latest()->first()->ajuan_id == null;
+    // return JabatanDiajukan::count() == 0 ? false : JabatanDiajukan::latest()->first()->ajuan_id == null;
+
+    return JabatanDiajukan::where('ajuan_id', null)->exists();
   }
 
   public function jenisJabatan()
