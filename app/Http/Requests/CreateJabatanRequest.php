@@ -24,13 +24,9 @@ class CreateJabatanRequest extends FormRequest
         return [
             'nama' => 'required|string|max:255',
             'jenis_jabatan_id' => 'required',
-            'kode' => 'nullable',
-            'unit_kerja_id' => 'required',
+            'kode' => 'required',
+            'unsur_id' => 'required',
             'parent_id' => 'nullable',
-            // 'kelas_jabatan' => 'required',
-            // 'ikhtisar' => 'required',
-            // 'prestasi' => 'required',
-            // 'tanggung_jawab' => 'required',
         ];
     }
 }

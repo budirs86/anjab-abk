@@ -13,7 +13,7 @@ return new class extends Migration
   {
     Schema::create('jabatan_diajukan', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('jabatan_id')->constrained('jabatan')->cascadeOnDelete();
+      $table->foreignId('jabatan_id')->nullable()->constrained('jabatan')->cascadeOnDelete();
       $table->foreignId('ajuan_id')->nullable()->constrained('ajuan')->cascadeOnDelete();
       $table->foreignId('jenis_jabatan_id')->nullable()->constrained('jenis_jabatan')->cascadeOnDelete();
       $table->unsignedBigInteger('parent_id')->nullable();

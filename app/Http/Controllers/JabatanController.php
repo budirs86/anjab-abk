@@ -62,8 +62,7 @@ class JabatanController extends Controller
   public function store(CreateJabatanRequest $request)
   {
     $validatedData = $request->validated();
-
-    Jabatan::create($validatedData);
+    $jabatan = JabatanDiajukan::create($validatedData);
 
 
     return back()->with('success', 'Data Jabatan berhasil Ditambahkan');
