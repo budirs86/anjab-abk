@@ -26,6 +26,7 @@ use App\Models\SyaratUpaya;
 use App\Models\TemperamenKerja;
 use App\Models\TemperamenKerjaJabatanDiajukan;
 use App\Models\UnitKerja;
+use App\Models\Unsur;
 use App\Models\UpayaFisik;
 use App\Models\UpayaFisikJabatanDiajukan;
 use App\Models\UraianTugas;
@@ -103,9 +104,9 @@ class AjuanController extends Controller
     }
 
     // fetch the existing or newly created drafts
-    $jabatans = JabatanDiajukan::where('ajuan_id', null)->with('uraianTugas')->get();
+    $jabatans = JabatanDiajukan::where('ajuan_id', null)->with('uraianTugas')->tree()->get()->toTree();
 
-    return view('anjab.buat-ajuan', compact('title', 'jabatans', 'jenisJabatan', 'unitKerjas'));
+    return view('anjab.buat-ajuan', compact('title', 'jabatans', 'jenisJabatan', 'unsurs'));
   }
 
   public function anjabStore()
