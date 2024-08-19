@@ -65,7 +65,7 @@ class JabatanController extends Controller
     $jabatan = JabatanDiajukan::create($validatedData);
 
 
-    return back()->with('success', 'Data Jabatan berhasil Ditambahkan');
+    return back()->with('success', 'Data Jabatan ' . $jabatan->nama . ' berhasil Ditambahkan');
   }
 
   public function edit(JabatanDiajukan $jabatan)

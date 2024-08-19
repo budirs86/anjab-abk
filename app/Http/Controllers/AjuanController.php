@@ -64,7 +64,8 @@ class AjuanController extends Controller
   {
     $title = 'Buat Ajuan Baru';
     $jenisJabatan = JenisJabatan::all();
-    $unitKerjas = UnitKerja::all();
+    // $unitKerjas = UnitKerja::all();
+    $unsurs = Unsur::all();
 
     // check if there is an ajuan draft
     if (!JabatanDiajukan::is_draft_exist()) {
