@@ -42,15 +42,33 @@ class AbkController extends Controller
     ]);
   }
 
-  public function storeAjuan(Ajuan $ajuan)
-  {
+    public function storeAjuan(Ajuan $anjab)
+    {
+        // create a parent ABK
+        $parentAbk = Ajuan::create([
+            'tahun' => now()->year,
+            'jenis' => 'abk'
+        ]);
+
+        // define who can verify the parent ABK
+        RoleVerifikasi::create([
+            'ajuan_id' => $parentAbk->id,
+            'role_id' => Role::where('name', 'Admin Kepegawaian')->first()->id,
+            'is_approved' => false
+        ]);
+        RoleVerifikasi::create([
+            'ajuan_id' => $parentAbk->id,
+            'role_id' => Role::where('name', 'Wakil Rektor 2')->first()->id,
+            'is_approved' => false
+        ]);
+
     // get all unique unit kerja from the jabatan
     $unitKerjas = UnitKerja::all();
-
     // for each unit kerja, 
-    // create ajuan with current year as 'tahun' and abk as 'jenis'
+        // create ABK with current year as 'tahun' and abk as 'jenis'
     foreach ($unitKerjas as $unitKerja) {
       $abk = Ajuan::create([
+                'parent_id' => $parentAbk->id,
         'tahun' => now()->year,
         'jenis' => 'abk'
       ]);
@@ -58,7 +76,7 @@ class AbkController extends Controller
       // also create instance of abk_anjab to map which ones are the abk for an anjab
       AbkAnjab::create([
         'abk_id' => $abk->id,
-        'anjab_id' => $ajuan->id
+                'anjab_id' => $anjab->id
       ]);
 
       // also create role verifikasi for each abk based on unsur of the unit kerja
