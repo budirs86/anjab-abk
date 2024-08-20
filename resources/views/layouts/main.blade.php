@@ -26,8 +26,17 @@
 
     {{-- OrgChart JS --}}
     <script src="/js/orgchart.js"></script>
+
+    {{-- bootstrap js --}}
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+    ></script>
+    
 </head>
 <body class="bg-body-tertiary">
+    
     @if (Request::is('login'))
         @include('login.partials.navbar')
         @yield('container')
@@ -37,12 +46,7 @@
             @yield('container')
         </div>
     @endif
-    {{-- bootstrap js --}}
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"
-    ></script>
+    
     <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
     <script src="bootstrap-autocomplete.min.js"></script>
 

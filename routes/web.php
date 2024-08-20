@@ -48,7 +48,6 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
   
   Route::prefix('jabatan')->name('anjab.jabatan.')->group(function () {
     Route::post('/store', [JabatanController::class, 'store'])->name('store');
-
     Route::prefix('/{jabatan}')->group(function () {
     Route::get('/', [JabatanController::class, 'show'])->name('show');
     Route::get('/edit', [JabatanController::class, 'edit'])->name('edit');
@@ -77,6 +76,9 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
     Route::post('/risiko-bahaya/store', [RisikoBahayaController::class, 'storeRisikoBahaya'])->name('risikoBahaya.store');
     Route::delete('/risiko-bahaya/{risikoBahaya}/delete', [RisikoBahayaController::class, 'deleteRisikoBahaya'])->name('risikoBahaya.delete');
   });
+    
+  });
+  
 });
 
 Route::prefix('abk/ajuan')->middleware('auth')->name('abk.')->group(function () {

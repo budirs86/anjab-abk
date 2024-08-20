@@ -15,7 +15,7 @@
                     <span class="badge text-bg-warning">Informasi Jabatan Belum Lengkap</span>
                     <a href="{{ route('anjab.jabatan.edit.1', ['jabatan'=> $jabatan->id]) }}" class="btn btn-sm btn-primary ms-auto add-button "><i class="fa-solid fa-edit"></i> Ubah Informasi Jabatan</a>
                     <button class="btn btn-sm btn-success ms-auto add-button" data-bs-toggle="modal" data-bs-target="#modalJabatan" id="addButton" data-bs-atasan="{{ $jabatan->id }}"><i class="fa-solid fa-plus"></i> Tambah Jabatan Bawahan</button>
-                    <button wire:click="test" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                    <button data-bs-target="#deleteJabatanModal" data-bs-toggle="modal" class="btn btn-danger btn-sm" wire:click="deleteJabatan({{ $jabatan }})"><i class="fa-solid fa-trash"></i> Hapus Jabatan</button>
                 </div>
             @elseif ($type == 'show')
                 <div class="div">

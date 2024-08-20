@@ -24,6 +24,15 @@
         {{-- <livewire:lihat-jabatan-table/> --}}
     </div>
     @include('anjab.partials.modaljabatan')
+    @if ($errors->any())
+        {{-- BANG ERROR --}}
+        <script>
+            const myModal = document.getElementById('modalJabatan');
+            const bootstrapModal = new bootstrap.Modal(myModal);
+            bootstrapModal.show();
+        </script>
+    @endif
+
     
     <div class="">
         <form action="{{ route('anjab.ajuan.store') }}" method="POST">
@@ -33,13 +42,7 @@
     </div>
 
     {{-- non ajax --}}
-    @if ($errors->any())
-        <script>
-            $(document).ready(function() {
-                $('#modalJabatan').modal('show')
-            });
-        </script>
-    @endif
+    
     
     <script>
         const modal = document.getElementById('modalJabatan');
@@ -63,45 +66,4 @@
             search: true
         });
 
-        
-    </script>
-        {{-- ajax --}}
-        {{-- <script>
-            
-            $(document).ready(function() {
-                $('#submitJabatan').click(function(event) {
-                    event.preventDefault();
-
-                    $.ajax({
-                        url : "/anjab/data-jabatan",
-                        method : 'POST',
-                        data : $('#jabatanForm').serialize(),
-                        dataType: "json",
-                        success: function(response){
-                            console.log("Response:", response);
-                            if(response.success) {
-
-                                $('#modalExample').modal('hide');
-                            }
-                            else {
-                                const errors = response.errors;
-
-                                // Loop through errors and update form fields
-                                for (const field in errors) {
-                                    const errorMessage = errors[field][0];
-                                    $(`#${field}`).addClass('is-invalid');
-                                    $(`#${field} + .invalid-feedback`).text(errorMessage);
-                                }
-
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            // Handle any errors during the AJAX request
-                            console.error("Error:", textStatus, errorThrown);
-                        }
-                    })
-                })
-            })
-
-        </script> --}}
 @endsection
