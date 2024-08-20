@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use \Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;  
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -99,6 +100,10 @@ class Ajuan extends Model
   // Get the role name of the verificator who verifed the latest verifikasi
   public function latest_verificator()
   {
+    if (!$this->latest_verifikasi()) {
+      return null;
+    }
+    
     $id = $this->latest_verifikasi()->user_id;
     $verificator = User::find($id);
     return $verificator->getRoleNames()->first();
