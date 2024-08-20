@@ -22,14 +22,14 @@ class AbkController extends Controller
   {
     $title = 'Daftar Ajuan ABK';
 
+        if (auth()->user()->hasRole('Admin Kepegawaian') || auth()->user()->hasRole('Wakil Rektor 2')) {
+            $ajuans = Ajuan::where('jenis', 'anjab')->whereHas('abk')->get();
+            return view('abk.ajuans2', compact('title', 'ajuans'));
+        }
+
     $ajuans = Ajuan::where('jenis', 'abk')->whereHas('detailAbk', function ($query) {
       $query->where('unit_kerja_id', auth()->user()->unit_kerja_id);
     })->get();
-
-    if (auth()->user()->hasRole('Admin Kepegawaian')) {
-      // $ajuans = Ajuan::where('jenis', 'anjab')->whereHas('abk')->get();
-      $ajuans = Ajuan::where('jenis', 'anjab')->whereHas('abk')->get();
-    }
 
     return view('abk.ajuans', compact('title', 'ajuans'));
   }
