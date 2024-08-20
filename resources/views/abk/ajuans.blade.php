@@ -55,9 +55,7 @@
                                     <a href="{{ route('abk.unitkerja.show', ['anjab' => $ajuan->anjab->first(), 'abk' => $ajuan]) }}"
                                         class="btn btn-outline-primary">Lihat</a>
                                     @if (
-                                        $ajuan->latest_verificator() != 'Operator Unit Kerja' &&
-                                            ($ajuan->next_verificator()->role->name == 'Manajer Unit Kerja' ||
-                                                $ajuan->next_verificator()->role->name == 'Manajer Tata Usaha'))
+                                        $ajuan->next_verificator()->role->name == 'Operator Unit Kerja')
                                         <a href="{{ route('abk.unitkerja.edit', ['anjab' => $ajuan->anjab->first(), 'abk' => $ajuan]) }}"
                                             class="btn btn-outline-secondary">Edit</a>
                                     @endif
@@ -81,7 +79,7 @@
                             @endif
 
                             {{-- if someone has verified the ajuan, display alert success --}}
-                            @if ($ajuan->approved_verificator()->count())
+                            @if ($ajuan->approved_verificator()->count() && $ajuan->approved_verificator)
                                 <div class="alert alert-success w-100">
                                     <div class="alert-heading d-flex">
                                         <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
@@ -99,7 +97,7 @@
                             @endif
 
                             {{-- if there is still someone to verify, display alert info --}}
-                            @if ($ajuan->next_verificator() && $ajuan->next_verificator()->role->name != 'Admin Kepegawaian')
+                            @if ($ajuan->next_verificator() && $ajuan->next_verificator()->role->name != 'Operator Unit Kerja')
                                 <div class="alert alert-info w-100">
                                     <div class="alert-heading d-flex">
                                         <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
@@ -125,7 +123,7 @@
                                         $ajuan->latest_verificator() != auth()->user()->getRoleNames()->first() &&
                                         $ajuan->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{ route('abk.ajuan.show', ['anjab' => $ajuan->id]) }}"
+                                        <a href="{{ route('abk.unitkerja.show', ['anjab' => $ajuan->anjab->first()->id, 'abk' => $ajuan->id]) }}"
                                             class="btn btn-outline-primary">Lihat</a>
                                         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                             data-bs-target="#modalTerima{{ $loop->index }}">Terima</button>

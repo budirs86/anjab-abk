@@ -40,6 +40,7 @@
                     <th>Diajukan Tanggal</th>
                     <th>Aksi</th>
                 @endcan
+                <th>Catatan</th>
             </tr>
         </thead>
         <tbody>
@@ -64,65 +65,18 @@
                             </div>
                         </div>
                     </td>
-
                     @can('make abk')
-                        <td class="w-25">
-                            {{-- check if latest verification exists, if exists and latest verification is not approved, show alert warning --}}
-                            @if (!empty($ajuan->latest_verifikasi()) && !$ajuan->latest_verifikasi()->is_approved)
-                                <div class="alert alert-warning w-100">
-                                    <div class="alert-heading d-flex">
-                                        <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
-                                        <p class="m-0 p-0">Perlu Perbaikan</p>
-                                    </div>
-                                    <hr>
-                                    <p class="m-0 p-0">{{ $ajuan->latest_verificator() }}</p>
-                                </div>
-                            @endif
-
-                            {{-- if someone has verified the ajuan, display alert success --}}
-                            @if ($ajuan->approved_verificator()->count())
-                                <div class="alert alert-success w-100">
-                                    <div class="alert-heading d-flex">
-                                        <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
-                                        <p class="m-0 p-0">Disetujui</p>
-                                    </div>
-                                    <hr>
-                                    <ul>
-                                        @foreach ($ajuan->approved_verificator() as $verificator)
-                                            <li>
-                                                {{ $verificator->role->name }}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-
-                            {{-- if there is still someone to verify, display alert info --}}
-                            @if ($ajuan->next_verificator() && $ajuan->next_verificator()->role->name != 'Admin Kepegawaian')
-                                <div class="alert alert-info w-100">
-                                    <div class="alert-heading d-flex">
-                                        <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
-                                        <p class="m-0 p-0">Menunggu Diperiksa</p>
-                                    </div>
-                                    <hr>
-                                    <p class="m-0 p-0">
-                                        {{ $ajuan->next_verificator()->role->name }}
-                                    </p>
-                                </div>
-                            @endif
-                        </td>
                     @elsecan('verify abk')
                         <td>
                             <p>{{ $ajuan->created_at }}</p>
                         </td>
-                        @if ($ajuan->approvedAbkCount() == $ajuan->abk->count())
+                        @if ($ajuan->approvedAbkCount() == $ajuan->children()->count())
                             <td>
                                 {{-- check if current verificator HAS NOT accept/reject the ajuan YET, show "Terima" and "Revisi" buttons --}}
                                 @if (
-                                    !empty($ajuan->abk->first()->latest_verificator()) &&
-                                        !empty($ajuan->abk->first()->next_verificator()) &&
-                                        $ajuan->abk->first()->latest_verificator() != auth()->user()->getRoleNames()->first() &&
-                                        $ajuan->abk->first()->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
+                                    !empty($ajuan->next_verificator()) &&
+                                        $ajuan->latest_verificator() != auth()->user()->getRoleNames()->first() &&
+                                        $ajuan->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <a href="{{ route('abk.ajuan.show', ['anjab' => $ajuan->id]) }}"
                                             class="btn btn-outline-primary">Lihat</a>
@@ -157,12 +111,26 @@
                         @else
                             <td>
                                 <p>Aksi belum dapat dilakukan.</p>
-                                <p>({{ $ajuan->approvedAbkCount() }} dari {{ $ajuan->abk->count() }} ajuan ABK unit kerja
+                                <p>({{ $ajuan->approvedAbkCount() }} dari {{ $ajuan->children()->count() }} ajuan ABK unit
+                                    kerja
                                     disetujui)
                                 </p>
                             </td>
                         @endif
                     @endcan
+                    <td>
+                        {{-- check if latest verification has catatan and catatan is not from current user, if true show the catatan --}}
+                        @if ($ajuan->latest_verifikasi() && $ajuan->latest_verifikasi()->catatan)
+                            <p>Catatan dari {{ $ajuan->latest_verifikasi()->user->name }}
+                                ({{ $ajuan->latest_verifikasi()->user->getRolenames()->first() }})
+                            </p>
+                            <p>{{ $ajuan->latest_verifikasi()->created_at }}</p>
+                            <hr>
+                            <p>{{ $ajuan->latest_verifikasi()->catatan }}</p>
+                        @else
+                            <p>Tidak ada catatan.</p>
+                        @endif
+                    </td>
                 </tr>
 
                 {{-- Modals are placed here so that it can pass $ajuan->id when the buttons are clicked --}}
@@ -209,8 +177,7 @@
                                     <textarea class="form-control" name="catatan" id="catatan" cols="30" rows="10"></textarea>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Simpan</button>
+                                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Simpan</button>
                                 </div>
                             </form>
                         </div>
