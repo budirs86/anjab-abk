@@ -34,11 +34,12 @@
             <tr>
                 <th style="width: 10%">No</th>
                 <th>Periode</th>
-                <th>Status</th>
-                {{-- @if (auth()->user()->roles[0]->name == 'Admin Kepegawaian')
+                @can('make abk')
+                    <th>Status</th>
+                @elsecan('verify abk')
                     <th>Diajukan Tanggal</th>
                     <th>Aksi</th>
-                @endif --}}
+                @endcan
                 <th>Catatan</th>
             </tr>
         </thead>
@@ -50,117 +51,119 @@
                         <div class="d-flex flex-column justify-content-between">
                             <p>{{ $ajuan->tahun }} </p>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                @if (auth()->user()->roles[0]->name == 'Admin Kepegawaian')
-                                    <a href="{{ route('abk.ajuan.show', ['anjab' => $ajuan->id]) }}"
-                                        class="btn btn-outline-primary">Lihat</a>
-                                @endif
-                                @if (auth()->user()->roles[0]->name == 'Operator Unit Kerja')
+                                @can('make abk')
                                     <a href="{{ route('abk.unitkerja.show', ['anjab' => $ajuan->anjab->first(), 'abk' => $ajuan]) }}"
                                         class="btn btn-outline-primary">Lihat</a>
-                                    @if ($ajuan->latest_verificator() != 'Operator Unit Kerja' && ($ajuan->next_verificator()->role->name == 'Manajer Unit Kerja' || $ajuan->next_verificator()->role->name == 'Manajer Tata Usaha'))
+                                    @if (
+                                        $ajuan->latest_verificator() != 'Operator Unit Kerja' &&
+                                            ($ajuan->next_verificator()->role->name == 'Manajer Unit Kerja' ||
+                                                $ajuan->next_verificator()->role->name == 'Manajer Tata Usaha'))
                                         <a href="{{ route('abk.unitkerja.edit', ['anjab' => $ajuan->anjab->first(), 'abk' => $ajuan]) }}"
                                             class="btn btn-outline-secondary">Edit</a>
                                     @endif
-                                @endif
+                                @endcan
                             </div>
                         </div>
                     </td>
-                    @if (auth()->user()->roles[0]->name == 'Admin Kepegawaian' || auth()->user()->roles[0]->name == 'Operator Unit Kerja')
+
+                    @can('make abk')
                         <td class="w-25">
-                            @if ($ajuan->approvedAbkCount() < $ajuan->abk->count() && auth()->user()->roles[0]->name == 'Admin Kepegawaian')
-                                <p>{{ $ajuan->approvedAbkCount() }} dari {{ $ajuan->abk->count() }} ajuan ABK sudah
-                                    disetujui.
-                                </p>
-                            @else
-                                {{-- check if latest verification exists, if exists and latest verification is not approved, show alert warning --}}
-                                @if (!empty($ajuan->latest_verifikasi()) && !$ajuan->latest_verifikasi()->is_approved)
-                                    <div class="alert alert-warning w-100">
-                                        <div class="alert-heading d-flex">
-                                            <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
-                                            <p class="m-0 p-0">Perlu Perbaikan</p>
-                                        </div>
-                                        <hr>
-                                        <p class="m-0 p-0">{{ $ajuan->latest_verificator() }}</p>
+                            {{-- check if latest verification exists, if exists and latest verification is not approved, show alert warning --}}
+                            @if (!empty($ajuan->latest_verifikasi()) && !$ajuan->latest_verifikasi()->is_approved)
+                                <div class="alert alert-warning w-100">
+                                    <div class="alert-heading d-flex">
+                                        <img width="20px" data-feather="alert-triangle" class="m-0 p-0 me-2"></img>
+                                        <p class="m-0 p-0">Perlu Perbaikan</p>
                                     </div>
-                                @endif
+                                    <hr>
+                                    <p class="m-0 p-0">{{ $ajuan->latest_verificator() }}</p>
+                                </div>
+                            @endif
 
-                                {{-- if someone has verified the ajuan, display alert success --}}
-                                @if ($ajuan->approved_verificator()->count())
-                                    <div class="alert alert-success w-100">
-                                        <div class="alert-heading d-flex">
-                                            <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
-                                            <p class="m-0 p-0">Disetujui</p>
-                                        </div>
-                                        <hr>
-                                        <ul>
-                                            @foreach ($ajuan->approved_verificator() as $verificator)
-                                                <li>
-                                                    {{ $verificator->role->name }}
-                                                </li>
-                                            @endforeach
-                                        </ul>
+                            {{-- if someone has verified the ajuan, display alert success --}}
+                            @if ($ajuan->approved_verificator()->count())
+                                <div class="alert alert-success w-100">
+                                    <div class="alert-heading d-flex">
+                                        <img width="20px" data-feather="check-circle" class="m-0 p-0 me-2"></img>
+                                        <p class="m-0 p-0">Disetujui</p>
                                     </div>
-                                @endif
+                                    <hr>
+                                    <ul>
+                                        @foreach ($ajuan->approved_verificator() as $verificator)
+                                            <li>
+                                                {{ $verificator->role->name }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
 
-                                {{-- if there is still someone to verify, display alert info --}}
-                                @if ($ajuan->next_verificator()->role->name != 'Admin Kepegawaian' && $ajuan->verifikasi->count() > 0)
-                                    <div class="alert alert-info w-100">
-                                        <div class="alert-heading d-flex">
-                                            <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
-                                            <p class="m-0 p-0">Menunggu Diperiksa</p>
-                                        </div>
-                                        <hr>
-                                        <p class="m-0 p-0">
-                                            {{ $ajuan->next_verificator()->role->name }}
-                                        </p>
+                            {{-- if there is still someone to verify, display alert info --}}
+                            @if ($ajuan->next_verificator() && $ajuan->next_verificator()->role->name != 'Admin Kepegawaian')
+                                <div class="alert alert-info w-100">
+                                    <div class="alert-heading d-flex">
+                                        <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
+                                        <p class="m-0 p-0">Menunggu Diperiksa</p>
                                     </div>
-                                @endif
+                                    <hr>
+                                    <p class="m-0 p-0">
+                                        {{ $ajuan->next_verificator()->role->name }}
+                                    </p>
+                                </div>
                             @endif
                         </td>
-                    @elseif (auth()->user()->roles[0]->name == 'Admin Unit Kerja')
+                    @elsecan('verify abk')
                         <td>
                             <p>{{ $ajuan->created_at }}</p>
                         </td>
-                        <td>
-                            {{-- check if current verificator HAS NOT accept/reject the ajuan YET, show "Terima" and "Revisi" buttons --}}
-                            @if (
-                                !empty($ajuan->latest_verificator()) &&
-                                    !empty($ajuan->next_verificator()) &&
-                                    $ajuan->latest_verificator() != auth()->user()->getRoleNames()->first() &&
-                                    $ajuan->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="{{ route('anjab.ajuan.show', $ajuan) }}"
-                                        class="btn btn-outline-primary">Lihat</a>
-                                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                        data-bs-target="#modalTerima{{ $loop->index }}">Terima</button>
-                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                        data-bs-target="#modalRevisi{{ $loop->index }}">Revisi</button>
-                                </div>
-                            @else
-                                {{-- if current verificator HAS accepted/rejected the ajuan, show them that they accepted/rejected the ajuan  --}}
-
-                                @if (!empty($ajuan->latest_verifikasi_by_current_user()))
-                                    @if ($ajuan->latest_verifikasi_by_current_user()->is_approved)
-                                        <p class="badge text-bg-success">Anda sudah menerima Ajuan ini</p>
-                                        @if (!empty($ajuan->next_verificator()))
-                                            <div class="alert alert-info w-100">
-                                                <div class="alert-heading d-flex">
-                                                    <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
-                                                    <p class="m-0 p-0">Menunggu Diperiksa</p>
+                        @if ($ajuan->approvedAbkCount() == $ajuan->abk->count())
+                            <td>
+                                {{-- check if current verificator HAS NOT accept/reject the ajuan YET, show "Terima" and "Revisi" buttons --}}
+                                @if (
+                                    !empty($ajuan->latest_verificator()) &&
+                                        !empty($ajuan->next_verificator()) &&
+                                        $ajuan->latest_verificator() != auth()->user()->getRoleNames()->first() &&
+                                        $ajuan->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a href="{{ route('abk.ajuan.show', ['anjab' => $ajuan->id]) }}"
+                                            class="btn btn-outline-primary">Lihat</a>
+                                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                            data-bs-target="#modalTerima{{ $loop->index }}">Terima</button>
+                                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modalRevisi{{ $loop->index }}">Revisi</button>
+                                    </div>
+                                @else
+                                    {{-- if current verificator HAS accepted/rejected the ajuan, show them that they accepted/rejected the ajuan  --}}
+                                    @if (!empty($ajuan->latest_verifikasi_by_current_user()))
+                                        @if ($ajuan->latest_verifikasi_by_current_user()->is_approved)
+                                            <p class="badge text-bg-success">Anda sudah menerima Ajuan ini</p>
+                                            @if (!empty($ajuan->next_verificator()))
+                                                <div class="alert alert-info w-100">
+                                                    <div class="alert-heading d-flex">
+                                                        <img width="20px" data-feather="clock" class="m-0 p-0 me-2"></img>
+                                                        <p class="m-0 p-0">Menunggu Diperiksa</p>
+                                                    </div>
+                                                    <hr>
+                                                    <p class="m-0 p-0">
+                                                        {{ $ajuan->next_verificator()->role->name ?? '' }}
+                                                    </p>
                                                 </div>
-                                                <hr>
-                                                <p class="m-0 p-0">
-                                                    {{ $ajuan->next_verificator()->role->name ?? '' }}
-                                                </p>
-                                            </div>
+                                            @endif
+                                        @else
+                                            <span class="badge text-bg-danger">Anda sudah merevisi Ajuan ini</span>
                                         @endif
-                                    @else
-                                        <span class="badge text-bg-danger">Anda sudah merevisi Ajuan ini</span>
                                     @endif
                                 @endif
-                            @endif
-                        </td>
-                    @endif
+                            </td>
+                        @else
+                            <td>
+                                <p>Aksi belum dapat dilakukan.</p>
+                                <p>({{ $ajuan->approvedAbkCount() }} dari {{ $ajuan->abk->count() }} ajuan ABK unit kerja
+                                    disetujui)
+                                </p>
+                            </td>
+                        @endif
+                    @endcan
 
                     <td>
                         {{-- check if latest verification has catatan and catatan is not from current user, if true show the catatan --}}
@@ -198,8 +201,7 @@
                                     berikutnya.</p>
                             </div>
                             <div class="modal-footer">
-                                <form action="{{ route('anjab.ajuan.verifikasi', ['ajuan' => $ajuan->id]) }}"
-                                    method="POST">
+                                <form action="{{ route('abk.ajuan.verifikasi', ['abk' => $ajuan->id]) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-primary">Ya</button>
                                 </form>
@@ -219,7 +221,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <form action="{{ route('anjab.ajuan.revisi', ['ajuan' => $ajuan->id]) }}" method="POST">
+                            <form action="{{ route('abk.ajuan.revisi', ['abk' => $ajuan->id]) }}" method="POST">
                                 @csrf
                                 <div class="modal-body">
                                     <label for="catatan" class="form-label">Berikan Catatan tentang ajuan untuk

@@ -16,7 +16,7 @@
             @can('make abk')
                 <th class="fw-semibold text-muted">Status</th>
                 <th class="fw-semibold text-muted">Catatan Perbaikan</th>
-            @elsecan('verify ajuan')
+            @elsecan('verify anjab')
                 <th class="fw-semibold text-muted">Diajukan Tanggal</th>
             @endcan
 
