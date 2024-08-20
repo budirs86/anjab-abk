@@ -123,10 +123,13 @@ class Ajuan extends Model
   // Get all verificator that has approved the ajuan, but exclude role_verifikasi with role_id = 1
   public function approved_verificator()
   {
+    $adminId = Role::where('name', 'Admin Kepegawaian')->first()->id;
+    $operatorId = Role::where('name', 'Operator Unit Kerja')->first()->id;
+
     if ($this->jenis == 'anjab') {
-      return $this->role_verifikasi()->where('is_approved', true)->where('role_id', '!=', 1)->get();
+      return $this->role_verifikasi()->where('is_approved', true)->where('role_id', '!=', $adminId)->get();
     } elseif ($this->jenis == 'abk') {
-      return $this->role_verifikasi()->where('is_approved', true)->where('role_id', '!=', 2)->get();
+      return $this->role_verifikasi()->where('is_approved', true)->where('role_id', '!=', $operatorId)->get();
     }
   }
 
