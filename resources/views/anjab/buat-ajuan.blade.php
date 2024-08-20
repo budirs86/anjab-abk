@@ -65,5 +65,6 @@
         select(unitKerja, {
             search: true
         });
+    </script>
 
 @endsection
