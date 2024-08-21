@@ -179,7 +179,7 @@ class Ajuan extends Model
     public static function abk_for_verificator_after($previousVerificatorId)
     {
         $roleId = auth()->user()->id;
-        return Ajuan::where('jenis', 'anjab')
+        return Ajuan::where('jenis', 'abk')
             ->whereHas('role_verifikasi', function ($query) use ($previousVerificatorId) {
                 $query->where('role_id', $previousVerificatorId)->where('is_approved', true);
             })
