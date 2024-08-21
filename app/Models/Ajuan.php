@@ -173,4 +173,21 @@ class Ajuan extends Model
             $query->where('role_id', $roleIdWD2)->where('is_approved', true)->orWhere('role_id', $roleIdKepalaUnit)->where('is_approved', true);
         })->count();
     }
+
+    // Ajuan for manajer kepegawaian
+    // Get ajuan where jenis = anjab and already approved by admin
+    public static function abk_for_verificator_after($previousVerificatorId)
+    {
+        $roleId = auth()->user()->id;
+        return Ajuan::where('jenis', 'anjab')
+            ->whereHas('role_verifikasi', function ($query) use ($previousVerificatorId) {
+                $query->where('role_id', $previousVerificatorId)->where('is_approved', true);
+            })
+            ->orWhereHas('verifikasi', function ($query) use ($roleId) {
+                $query->whereHas('user', function ($query) use ($roleId) {
+                    $query->where('id', $roleId);
+                });
+            })
+            ->get();
+    }
 }

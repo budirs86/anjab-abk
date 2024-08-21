@@ -27,10 +27,23 @@ class AbkController extends Controller
             return view('abk.ajuans2', compact('title', 'ajuans'));
         }
 
-        $ajuans = Ajuan::where('jenis', 'abk')->whereHas('detailAbk', function ($query) {
-            $query->where('unit_kerja_id', auth()->user()->unit_kerja_id);
-        })->get();
+        if (auth()->user()->hasRole('Operator Unit Kerja')) {
+            $ajuans = Ajuan::where('jenis', 'abk')->whereHas('detailAbk', function ($query) {
+                $query->where('unit_kerja_id', auth()->user()->unit_kerja_id);
+            })->get();
 
+            return view('abk.ajuans', compact('title', 'ajuans'));
+        }
+
+        if (auth()->user()->hasRole('Manajer Unit Kerja') || auth()->user()->hasRole('Manajer Tata Usaha')) {
+            $previousVerificatorId = Role::where('name', 'Operator Unit Kerja')->first()->id;
+        } elseif (auth()->user()->hasRole('Kepala Unit Kerja')) {
+            $previousVerificatorId = Role::where('name', 'Manajer Unit Kerja')->first()->id;
+        } elseif (auth()->user()->hasRole('Wakil Dekan 2')) {
+            $previousVerificatorId = Role::where('name', 'Manajer Tata Usaha')->first()->id;
+        }
+        $ajuans = Ajuan::abk_for_verificator_after($previousVerificatorId);
+        dd($ajuans);
 
         return view('abk.ajuans', compact('title', 'ajuans'));
     }
