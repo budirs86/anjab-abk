@@ -22,8 +22,12 @@ class AbkController extends Controller
     {
         $title = 'Daftar Ajuan ABK';
 
-        if (auth()->user()->hasRole('Admin Kepegawaian') || auth()->user()->hasRole('Wakil Rektor 2')) {
+        if (auth()->user()->hasRole('Admin Kepegawaian')) {
             $ajuans = Ajuan::isRoot()->where('jenis', 'abk')->get();
+            return view('abk.ajuans2', compact('title', 'ajuans'));
+        } elseif (auth()->user()->hasRole('Wakil Rektor 2')) {
+            $previousVerificatorId = Role::where('name', 'Admin Kepegawaian')->first()->id;
+            $ajuans = Ajuan::abk_for_verificator_after($previousVerificatorId);
             return view('abk.ajuans2', compact('title', 'ajuans'));
         }
 
@@ -43,7 +47,6 @@ class AbkController extends Controller
             $previousVerificatorId = Role::where('name', 'Manajer Tata Usaha')->first()->id;
         }
         $ajuans = Ajuan::abk_for_verificator_after($previousVerificatorId);
-        dd($ajuans);
 
         return view('abk.ajuans', compact('title', 'ajuans'));
     }
