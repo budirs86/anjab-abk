@@ -38,7 +38,7 @@
                 <th>Periode</th>
                 @can('make anjab')
                     <th>Status</th>
-                @elsecan('verify ajuan')
+                @elsecan('verify anjab')
                     <th>Diajukan Tanggal</th>
                     <th>Aksi</th>
                 @endcan
@@ -117,7 +117,7 @@
                                 </div>
                             @endif
                         </td>
-                    @elsecan('verify ajuan')
+                    @elsecan('verify anjab')
                         <td>
                             <p>{{ $ajuan->created_at }}</p>
                         </td>
@@ -266,7 +266,7 @@
                         </div>
                     </td>
                     <td>Tidak ada catatan.</td>
-                @elsecan('verify ajuan')
+                @elsecan('verify anjab')
                     <td>
                         <p>{{ now()->format('d-m-Y') }}</p>
                     </td>
@@ -316,7 +316,7 @@
                             <li>Lorem ipsum dolor doloran</li>
                         </ul>
                     </td>
-                @elsecan('verify ajuan')
+                @elsecan('verify anjab')
                     <td>
                         <p>{{ now()->format('d-m-Y') }}</p>
                     </td>

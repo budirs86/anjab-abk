@@ -34,6 +34,6 @@ class RolePermissionSeeder extends Seeder
 
         Role::create(['name' => 'Wakil Rektor 2'])->givePermissionTo([$canVerifyAnjab, $canVerifyAbk]);
 
-        Role::create(['name' => 'superadmin'])->givePermissionTo(['verify ajuan', 'make ajuan']);
+        Role::create(['name' => 'superadmin'])->givePermissionTo(['verify anjab', 'make anjab', 'verify abk', 'make abk']);
     }
 }
