@@ -37,7 +37,7 @@ use App\Models\Verifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class AjuanController extends Controller
+class AnjabController extends Controller
 {
   public function anjabIndex()
   {

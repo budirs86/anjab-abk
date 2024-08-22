@@ -11,4 +11,9 @@ class FungsiPekerjaanJabatanDiajukan extends Model
 
     protected $table = 'fungsi_pekerjaan_jabatan_diajukan';
     protected $guarded = ['id'];
+
+    public function jabatan()
+    {
+        return $this->belongsTo(JabatanDiajukan::class);
+    }
 }

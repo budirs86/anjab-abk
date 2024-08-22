@@ -11,4 +11,9 @@ class UpayaFisikJabatanDiajukan extends Model
 
     protected $table = 'upaya_fisik_jabatan_diajukan';
     protected $guarded = ['id'];
+
+    public function jabatan()
+    {
+        return $this->belongsTo(JabatanDiajukan::class);
+    }
 }

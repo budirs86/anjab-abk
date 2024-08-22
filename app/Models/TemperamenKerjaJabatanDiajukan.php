@@ -11,4 +11,9 @@ class TemperamenKerjaJabatanDiajukan extends Model
 
     protected $table = 'temperamen_kerja_jabatan_diajukan';
     protected $guarded = ['id'];
+
+    public function jabatan()
+    {
+        return $this->belongsTo(JabatanDiajukan::class);
+    }
 }

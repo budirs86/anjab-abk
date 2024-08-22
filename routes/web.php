@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AbkController;
 use App\Http\Controllers\AdminJabatanController;
 use App\Http\Controllers\AdminUserController;
-use App\Http\Controllers\AjuanController;
+use App\Http\Controllers\AnjabController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\BahanKerjaController;
@@ -31,55 +31,53 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
 Route::prefix('anjab')->middleware('auth')->group(function () {
 
-  Route::prefix('ajuan')->name('anjab.ajuan.')->group(function () {
-    Route::get('/', [AjuanController::class, 'anjabIndex'])->name('index');
-    Route::get('/create', [AjuanController::class, 'anjabCreate'])->name('create');
-    Route::post('/store', [AjuanController::class, 'anjabStore'])->name('store');
-    Route::get('/{ajuan:tahun}/{id}', [AjuanController::class, 'anjabShow'])->name('show');
-    Route::get('/{tahun}/{id}/edit', [AjuanController::class, 'anjabEdit'])->name('edit');
-    Route::post('/{ajuan}/update', [AjuanController::class, 'anjabUpdate'])->name('update');
-    Route::get('/{ajuan:tahun}/jabatan/{jabatan}', [AjuanController::class, 'anjabShowJabatan'])->name('jabatan.show');
-    Route::get('/{ajuan:tahun}/jabatan/{jabatan}/edit/1', [AjuanController::class, 'anjabEditJabatan1'])->name('jabatan.edit.1');
-    Route::put('/{ajuan:tahun}/jabatan/{jabatan}/update/1', [AjuanController::class, 'anjabUpdateJabatan1'])->name('jabatan.update.1');
-    Route::get('/{ajuan:tahun}/jabatan/{jabatan}/edit/2', [AjuanController::class, 'anjabEditJabatan2'])->name('jabatan.edit.2');
-    Route::put('/{ajuan:tahun}/jabatan/{jabatan}/update/2', [AjuanController::class, 'anjabUpdateJabatan2'])->name('jabatan.update.2');
-    Route::post('/{ajuan}/verifikasi', [AjuanController::class, 'anjabVerifikasi'])->name('verifikasi');
-    Route::post('/revisi', [AjuanController::class, 'anjabRevisi'])->name('revisi');
-  });
-  
-  Route::prefix('jabatan')->name('anjab.jabatan.')->group(function () {
-    Route::post('/store', [JabatanController::class, 'store'])->name('store');
-    Route::prefix('/{jabatan}')->group(function () {
-    Route::get('/', [JabatanController::class, 'show'])->name('show');
-    Route::get('/edit', [JabatanController::class, 'edit'])->name('edit');
-    Route::get('/edit/1', [JabatanController::class, 'edit1'])->name('edit.1');
-    Route::put('/update/1', [JabatanController::class, 'update1'])->name('update.1');
-    Route::get('/edit/2', [JabatanController::class, 'edit2'])->name('edit.2');
-    Route::put('/update/2', [JabatanController::class, 'update2'])->name('update.2');
-    Route::post('/pendidikan/store', [KualifikasiController::class, 'storePendidikan'])->name('pendidikan.store');
-    Route::delete('/pendidikan/{pendidikan}/delete', [KualifikasiController::class, 'deletePendidikan'])->name('pendidikan.delete');
-    Route::post('/pengalaman/store', [KualifikasiController::class, 'storePengalaman'])->name('pengalaman.store');
-    Route::delete('/pengalaman/{pengalaman}/delete', [KualifikasiController::class, 'deletePengalaman'])->name('pengalaman.delete');
-    Route::post('/pelatihan/store', [KualifikasiController::class, 'storePelatihan'])->name('pelatihan.store');
-    Route::delete('/pelatihan/{pelatihan}/delete', [KualifikasiController::class, 'deletePelatihan'])->name('pelatihan.delete');
-    Route::post('/uraian/store', [UraianTugasController::class, 'storeUraian'])->name('uraian.store');
-    Route::delete('/uraian/{uraian}/delete', [UraianTugasController::class, 'deleteUraian'])->name('uraian.delete');
-    Route::post('/bahan-kerja/store', [BahanKerjaController::class, 'storeBahanKerja'])->name('bahanKerja.store');
-    Route::delete('/bahan-kerja/{bahanKerja}/delete', [BahanKerjaController::class, 'deleteBahanKerja'])->name('bahanKerja.delete');
-    Route::post('/perangkat-kerja/store', [PerangkatKerjaController::class, 'storePerangkatKerja'])->name('perangkatKerja.store');
-    Route::delete('/perangkat-kerja/{perangkatKerja}/delete', [PerangkatKerjaController::class, 'deletePerangkatKerja'])->name('perangkatKerja.delete');
-    Route::post('/tanggung-jawab/store', [TanggungJawabController::class, 'storeTanggungJawab'])->name('tanggungJawab.store');
-    Route::delete('/tanggung-jawab/{tanggungJawab}/delete', [TanggungJawabController::class, 'deleteTanggungJawab'])->name('tanggungJawab.delete');
-    Route::post('/wewenang/store', [WewenangController::class, 'storeWewenang'])->name('wewenang.store');
-    Route::delete('/wewenang/{wewenang}/delete', [WewenangController::class, 'deleteWewenang'])->name('wewenang.delete');
-    Route::post('/korelasi-jabatan/store', [KorelasiJabatanController::class, 'storeKorelasiJabatan'])->name('korelasiJabatan.store');
-    Route::delete('/korelasi-jabatan/{korelasiJabatan}/delete', [KorelasiJabatanController::class, 'deleteKorelasiJabatan'])->name('korelasiJabatan.delete');
-    Route::post('/risiko-bahaya/store', [RisikoBahayaController::class, 'storeRisikoBahaya'])->name('risikoBahaya.store');
-    Route::delete('/risiko-bahaya/{risikoBahaya}/delete', [RisikoBahayaController::class, 'deleteRisikoBahaya'])->name('risikoBahaya.delete');
-  });
-    
-  });
-  
+    Route::prefix('ajuan')->name('anjab.ajuan.')->group(function () {
+        Route::get('/', [AnjabController::class, 'anjabIndex'])->name('index');
+        Route::get('/create', [AnjabController::class, 'anjabCreate'])->name('create');
+        Route::post('/store', [AnjabController::class, 'anjabStore'])->name('store');
+        Route::get('/{ajuan:tahun}/{id}', [AnjabController::class, 'anjabShow'])->name('show');
+        Route::get('/{tahun}/{id}/edit', [AnjabController::class, 'anjabEdit'])->name('edit');
+        Route::post('/{ajuan}/update', [AnjabController::class, 'anjabUpdate'])->name('update');
+        Route::get('/{ajuan:tahun}/jabatan/{jabatan}', [AnjabController::class, 'anjabShowJabatan'])->name('jabatan.show');
+        Route::get('/{ajuan:tahun}/jabatan/{jabatan}/edit/1', [AnjabController::class, 'anjabEditJabatan1'])->name('jabatan.edit.1');
+        Route::put('/{ajuan:tahun}/jabatan/{jabatan}/update/1', [AnjabController::class, 'anjabUpdateJabatan1'])->name('jabatan.update.1');
+        Route::get('/{ajuan:tahun}/jabatan/{jabatan}/edit/2', [AnjabController::class, 'anjabEditJabatan2'])->name('jabatan.edit.2');
+        Route::put('/{ajuan:tahun}/jabatan/{jabatan}/update/2', [AnjabController::class, 'anjabUpdateJabatan2'])->name('jabatan.update.2');
+        Route::post('/{ajuan}/verifikasi', [AnjabController::class, 'anjabVerifikasi'])->name('verifikasi');
+        Route::post('/revisi', [AnjabController::class, 'anjabRevisi'])->name('revisi');
+    });
+
+    Route::prefix('jabatan')->name('anjab.jabatan.')->group(function () {
+        Route::post('/store', [JabatanController::class, 'store'])->name('store');
+        Route::prefix('/{jabatan}')->group(function () {
+            Route::get('/', [JabatanController::class, 'show'])->name('show');
+            Route::get('/edit', [JabatanController::class, 'edit'])->name('edit');
+            Route::get('/edit/1', [JabatanController::class, 'edit1'])->name('edit.1');
+            Route::put('/update/1', [JabatanController::class, 'update1'])->name('update.1');
+            Route::get('/edit/2', [JabatanController::class, 'edit2'])->name('edit.2');
+            Route::put('/update/2', [JabatanController::class, 'update2'])->name('update.2');
+            Route::post('/pendidikan/store', [KualifikasiController::class, 'storePendidikan'])->name('pendidikan.store');
+            Route::delete('/pendidikan/{pendidikan}/delete', [KualifikasiController::class, 'deletePendidikan'])->name('pendidikan.delete');
+            Route::post('/pengalaman/store', [KualifikasiController::class, 'storePengalaman'])->name('pengalaman.store');
+            Route::delete('/pengalaman/{pengalaman}/delete', [KualifikasiController::class, 'deletePengalaman'])->name('pengalaman.delete');
+            Route::post('/pelatihan/store', [KualifikasiController::class, 'storePelatihan'])->name('pelatihan.store');
+            Route::delete('/pelatihan/{pelatihan}/delete', [KualifikasiController::class, 'deletePelatihan'])->name('pelatihan.delete');
+            Route::post('/uraian/store', [UraianTugasController::class, 'storeUraian'])->name('uraian.store');
+            Route::delete('/uraian/{uraian}/delete', [UraianTugasController::class, 'deleteUraian'])->name('uraian.delete');
+            Route::post('/bahan-kerja/store', [BahanKerjaController::class, 'storeBahanKerja'])->name('bahanKerja.store');
+            Route::delete('/bahan-kerja/{bahanKerja}/delete', [BahanKerjaController::class, 'deleteBahanKerja'])->name('bahanKerja.delete');
+            Route::post('/perangkat-kerja/store', [PerangkatKerjaController::class, 'storePerangkatKerja'])->name('perangkatKerja.store');
+            Route::delete('/perangkat-kerja/{perangkatKerja}/delete', [PerangkatKerjaController::class, 'deletePerangkatKerja'])->name('perangkatKerja.delete');
+            Route::post('/tanggung-jawab/store', [TanggungJawabController::class, 'storeTanggungJawab'])->name('tanggungJawab.store');
+            Route::delete('/tanggung-jawab/{tanggungJawab}/delete', [TanggungJawabController::class, 'deleteTanggungJawab'])->name('tanggungJawab.delete');
+            Route::post('/wewenang/store', [WewenangController::class, 'storeWewenang'])->name('wewenang.store');
+            Route::delete('/wewenang/{wewenang}/delete', [WewenangController::class, 'deleteWewenang'])->name('wewenang.delete');
+            Route::post('/korelasi-jabatan/store', [KorelasiJabatanController::class, 'storeKorelasiJabatan'])->name('korelasiJabatan.store');
+            Route::delete('/korelasi-jabatan/{korelasiJabatan}/delete', [KorelasiJabatanController::class, 'deleteKorelasiJabatan'])->name('korelasiJabatan.delete');
+            Route::post('/risiko-bahaya/store', [RisikoBahayaController::class, 'storeRisikoBahaya'])->name('risikoBahaya.store');
+            Route::delete('/risiko-bahaya/{risikoBahaya}/delete', [RisikoBahayaController::class, 'deleteRisikoBahaya'])->name('risikoBahaya.delete');
+        });
+    });
 });
 
 Route::get('/abk/ajuan', [AbkController::class, 'index'])->name('abk.ajuans');

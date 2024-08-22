@@ -67,7 +67,7 @@
                                         
                                 @endcan
                             </div>
-                            <form id="submit-ajuan-form{{ $ajuan->id }}" action="{{ route('abk.ajuan.store', ['ajuan' => $ajuan->id]) }}" method="POST">
+                            <form id="submit-ajuan-form{{ $ajuan->id }}" action="{{ route('abk.ajuan.store', ['anjab' => $ajuan->id]) }}" method="POST">
                                 @csrf
                             </form>
                         </div>
