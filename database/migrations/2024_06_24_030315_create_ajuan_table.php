@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('ajuan', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->year('tahun');
             $table->enum('jenis', ['anjab', 'abk']);
             $table->timestamps();
+
+            $table->foreign('parent_id')->references('id')->on('ajuan')->onDelete('cascade');
         });
     }
 

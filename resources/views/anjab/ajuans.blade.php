@@ -7,7 +7,7 @@
     <div class="card-head mb-3">
         <h1 class="fw-light fs-4 d-inline nav-item">Daftar Ajuan Analisis Jabatan</h1>
     </div>
-    @can('make ajuan')
+    @can('make anjab')
         @if (Request::has('abk'))
             <div class="alert alert-info alert-dismissible fade show">
                 <div class="alert-heading d-flex justify-content-between">
@@ -27,7 +27,7 @@
         </div>
     @endcan
     <div class="card dropdown-divider mb-3"></div>
-    @can('make ajuan')
+    @can('make anjab')
         <a type="button" class="btn-primary btn mb-3" href="{{ route('anjab.ajuan.create') }}"><i data-feather="plus"></i> Buat
             Ajuan Baru</a>
     @endcan
@@ -36,9 +36,9 @@
             <tr>
                 <th style="width: 10%">No</th>
                 <th>Periode</th>
-                @can('make ajuan')
+                @can('make anjab')
                     <th>Status</th>
-                @elsecan('verify ajuan')
+                @elsecan('verify anjab')
                     <th>Diajukan Tanggal</th>
                     <th>Aksi</th>
                 @endcan
@@ -53,17 +53,18 @@
                         <div class="d-flex flex-column justify-content-between">
                             <p>{{ $ajuan->tahun }} </p>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                @can('make ajuan')
+                                @can('make anjab')
                                     <a href="{{ route('anjab.ajuan.show', ['ajuan' => $ajuan->tahun, 'id' => $ajuan->id]) }}"
                                         class="btn btn-outline-primary">Lihat</a>
                                     @if (!$ajuan->latest_verifikasi()->is_approved && $ajuan->next_verificator()->role->name == 'Admin Kepegawaian')
                                         <a href="{{ route('anjab.ajuan.edit', ['tahun' => $ajuan->tahun, 'id' => $ajuan->id]) }}"
                                             class="btn btn-outline-primary">Edit</a>
                                     @endif
+                                    
                                     @if ($ajuan->is_approved() && !$ajuan->abk->count())
                                         <button type="submit" class="btn btn-outline-success" aria-disabled="true" onclick="event.preventDefault(); document.getElementById('submit-ajuan-form{{ $ajuan->id }}').submit();">Buat Ajuan ABK</button>
                                         @endif
-                                        {{-- <p>{{  }}</p> --}}
+                                        
                                 @endcan
                             </div>
                             <form id="submit-ajuan-form{{ $ajuan->id }}" action="{{ route('abk.ajuan.store', ['ajuan' => $ajuan->id]) }}" method="POST">
@@ -71,7 +72,7 @@
                             </form>
                         </div>
                     </td>
-                    @can('make ajuan')
+                    @can('make anjab')
                         <td class="w-25">
                             {{-- check if latest verification exists, if exists and latest verification is not approved, show alert warning --}}
                             @if (!empty($ajuan->latest_verifikasi()) && !$ajuan->latest_verifikasi()->is_approved)
@@ -117,7 +118,7 @@
                                 </div>
                             @endif
                         </td>
-                    @elsecan('verify ajuan')
+                    @elsecan('verify anjab')
                         <td>
                             <p>{{ $ajuan->created_at }}</p>
                         </td>
@@ -130,7 +131,9 @@
                                     $ajuan->latest_verificator() != auth()->user()->getRoleNames()->first() &&
                                     $ajuan->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
                                 <div class="btn-group" role="group" aria-label="Basic example">
+
                                     <a href="{{ route('anjab.ajuan.show', ['ajuan' => $ajuan, 'id' => $ajuan->id]) }}" class="btn btn-outline-primary">Lihat</a>
+
                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                         data-bs-target="#modalTerima{{ $loop->index }}">Terima</button>
                                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
@@ -210,9 +213,7 @@
                     </div>
                 </div>
                 {{-- Modal Terima End --}}
-            @endforeach
-
-            
+            @endforeach            
         </tbody>
     </table>
 

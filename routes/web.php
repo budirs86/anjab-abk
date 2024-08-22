@@ -20,9 +20,9 @@ use App\Models\Ajuan;
 use App\Models\JabatanDiajukan;
 
 Route::get('/', function () {
-  return view('home', [
-    'title' => 'Dashboard'
-  ]);
+    return view('home', [
+        'title' => 'Dashboard'
+    ]);
 })->middleware('auth')->name('home');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -30,6 +30,7 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
 Route::prefix('anjab')->middleware('auth')->group(function () {
+
   Route::prefix('ajuan')->name('anjab.ajuan.')->group(function () {
     Route::get('/', [AjuanController::class, 'anjabIndex'])->name('index');
     Route::get('/create', [AjuanController::class, 'anjabCreate'])->name('create');
@@ -81,64 +82,63 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
   
 });
 
-Route::prefix('abk/ajuan')->middleware('auth')->name('abk.')->group(function () {
-  Route::get('/', [AbkController::class, 'index'])->name('ajuans');
-  Route::prefix('{ajuan}')->group(function () {
+Route::get('/abk/ajuan', [AbkController::class, 'index'])->name('abk.ajuans');
+Route::post('/anjab/{anjab}/abk/store', [AbkController::class, 'storeAjuan'])->name('abk.ajuan.store');
+Route::prefix('/anjab/{anjab}/abk/ajuan')->name('abk.')->group(function () {
     Route::get('/', [AbkController::class, 'showAjuan'])->name('ajuan.show');
-    Route::post('/store', [AbkController::class, 'storeAjuan'])->name('ajuan.store');
-    Route::get('/unit/{unit_kerja}', [AbkController::class, 'showUnitKerja'])->name('unitkerja.show');
-    Route::get('/unit/{unit_kerja}/edit', [AbkController::class, 'editUnitKerja'])->name('unitkerja.edit');
-    Route::post('/unit/{unit_kerja}/update', [AbkController::class, 'updateAjuan'])->name('ajuan.update');
-    Route::get('/unit/{unit_kerja}/jabatan/{jabatan}', [AbkController::class, 'showJabatan'])->name('jabatan.show');
-    Route::get('/unit/{unit_kerja}/jabatan/{jabatan}/create', [AbkController::class, 'createJabatan'])->name('jabatan.create');
-    Route::get('/unit/{unit_kerja}/jabatan/{jabatan}/edit', [AbkController::class, 'editJabatan'])->name('jabatan.edit');
-    Route::put('/unit/{unit_kerja}/jabatan/{jabatan}/edit/{detail_abk}/store', [AbkController::class, 'storeDetailAbk'])->name('detail_abk.store');
-  });
+    Route::get('/{abk}', [AbkController::class, 'showUnitKerja'])->name('unitkerja.show');
+    Route::get('/{abk}/edit', [AbkController::class, 'editUnitKerja'])->name('unitkerja.edit');
+    Route::post('/{abk}/update', [AbkController::class, 'updateAjuan'])->name('ajuan.update');
+    Route::get('/{abk}/jabatan/{jabatan}', [AbkController::class, 'showJabatan'])->name('jabatan.show');
+    Route::get('/{abk}/jabatan/{jabatan}/edit', [AbkController::class, 'editJabatan'])->name('jabatan.edit');
+    Route::put('/{abk}/jabatan/{jabatan}/edit/{detail_abk}/store', [AbkController::class, 'storeDetailAbk'])->name('detail_abk.store');
 });
+Route::post('/{abk}/verifikasi', [AbkController::class, 'abkVerifikasi'])->name('abk.ajuan.verifikasi');
+Route::post('/{abk}/revisi', [AbkController::class, 'abkRevisi'])->name('abk.ajuan.revisi');
 
 Route::prefix('admin')->name('admin.')->middleware('role:superadmin')->group(function () {
-  Route::get('/dashboard', function () {
-    return view('admin.dashboard', [
-      'title' => 'Dashboard Admin'
-    ]);
-  })->name('dashboard');
-  Route::prefix('users')->name('users.')->group(function () {
-    Route::get('/', [AdminUserController::class, 'index'])->name('index');
-    Route::get('/create', [AdminUserController::class, 'create'])->name('create');
-    Route::post('/store', [AdminUserController::class, 'store'])->name('store');
-    Route::prefix('{user}')->group(function () {
-      Route::get('/edit', [AdminUserController::class, 'edit'])->name('edit');
-      Route::put('/update', [AdminUserController::class, 'update'])->name('update');
-      Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard', [
+            'title' => 'Dashboard Admin'
+        ]);
+    })->name('dashboard');
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('/', [AdminUserController::class, 'index'])->name('index');
+        Route::get('/create', [AdminUserController::class, 'create'])->name('create');
+        Route::post('/store', [AdminUserController::class, 'store'])->name('store');
+        Route::prefix('{user}')->group(function () {
+            Route::get('/edit', [AdminUserController::class, 'edit'])->name('edit');
+            Route::put('/update', [AdminUserController::class, 'update'])->name('update');
+            Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
+        });
     });
+    Route::prefix('jabatans')->name('jabatans.')->group(function () {
+        Route::get('/', [AdminJabatanController::class, 'index'])->name('index');
     });
-  Route::prefix('jabatans')->name('jabatans.')->group(function() {
-    Route::get('/',[AdminJabatanController::class, 'index'])->name('index');
-  });
 });
 
 
 Route::get('/petajabatan', function () {
-  $jabatans = Jabatan::tree()->get()->toTree();
-  // dd($jabatans);
-  return view("anjab.petajabatan.petajabatan", [
-    'title' => "Peta Jabatan",
-    'jabatans' => $jabatans
-  ]);
+    $jabatans = Jabatan::tree()->get()->toTree();
+    // dd($jabatans);
+    return view("anjab.petajabatan.petajabatan", [
+        'title' => "Peta Jabatan",
+        'jabatans' => $jabatans
+    ]);
 })->middleware('auth');
 
-Route::prefix('/laporan')->name('laporan.')->middleware('auth')->group(function() {
-  Route::get('/', function () {
-    $title = 'Laporan';
-    $ajuans = Ajuan::all();
+Route::prefix('/laporan')->name('laporan.')->middleware('auth')->group(function () {
+    Route::get('/', function () {
+        $title = 'Laporan';
+        $ajuans = Ajuan::all();
 
-    return view('laporan.index', compact('title', 'ajuans'));
-  })->name('index');
+        return view('laporan.index', compact('title', 'ajuans'));
+    })->name('index');
 
-  Route::get('anjab/{tahun}/{ajuan}', function($tahun, Ajuan $ajuan) {
-    $title = 'Laporan Analisis Jabatan' . $ajuan->tahun;
-    $jabatans = JabatanDiajukan::where('ajuan_id', $ajuan->id)->get();
+    Route::get('anjab/{tahun}/{ajuan}', function ($tahun, Ajuan $ajuan) {
+        $title = 'Laporan Analisis Jabatan' . $ajuan->tahun;
+        $jabatans = JabatanDiajukan::where('ajuan_id', $ajuan->id)->get();
 
-    return view('laporan.anjab', compact('title', 'ajuan', 'jabatans'));
-  })->name('anjab');
+        return view('laporan.anjab', compact('title', 'ajuan', 'jabatans'));
+    })->name('anjab');
 });

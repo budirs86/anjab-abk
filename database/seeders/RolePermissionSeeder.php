@@ -14,28 +14,26 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $can_verify = Permission::create(['name' => 'verify ajuan']);
-        $can_make_ajuan = Permission::create(['name' => 'make ajuan']);
-        $can_make_abk = Permission::create(['name' => 'make abk']);
+        $canMakeAnjab = Permission::create(['name' => 'make anjab']);
+        $canVerifyAnjab = Permission::create(['name' => 'verify anjab']);
+        $canMakeAbk = Permission::create(['name' => 'make abk']);
+        $canVerifyAbk = Permission::create(['name' => 'verify abk']);
 
-        Role::create(['name' => 'Admin Kepegawaian'])->givePermissionTo($can_make_ajuan);
-        Role::create(['name' => 'Operator Unit Kerja'])->givePermissionTo($can_make_abk);
 
-        Role::create(['name' => 'Manajer Unit Kerja']);
-        Role::create(['name' => 'Manajer Tata Usaha'])->givePermissionTo($can_verify);;
-        
-        // level 1
-        Role::create(['name' => 'Kepala Unit Kerja']);
-        Role::create(['name' => 'Wakil Dekan 2'])->givePermissionTo($can_verify);;
-        Role::create(['name' => 'Manajer Kepegawaian'])->givePermissionTo($can_verify);
+        // anjab
+        Role::create(['name' => 'Admin Kepegawaian'])->givePermissionTo([$canMakeAnjab, $canVerifyAbk]);
+        Role::create(['name' => 'Manajer Kepegawaian'])->givePermissionTo($canVerifyAnjab);
+        Role::create(['name' => 'Kepala BUK'])->givePermissionTo($canVerifyAnjab);
 
-        // level 2
-        Role::create(['name' => 'Manajer Lembaga'])->givePermissionTo($can_verify);;
-        Role::create(['name' => 'Kepala BUK'])->givePermissionTo($can_verify);;
+        // abk
+        Role::create(['name' => 'Operator Unit Kerja'])->givePermissionTo($canMakeAbk);
+        Role::create(['name' => 'Manajer Unit Kerja'])->givePermissionTo($canVerifyAbk);
+        Role::create(['name' => 'Kepala Unit Kerja'])->givePermissionTo($canVerifyAbk);
+        Role::create(['name' => 'Manajer Tata Usaha'])->givePermissionTo($canVerifyAbk);
+        Role::create(['name' => 'Wakil Dekan 2'])->givePermissionTo($canVerifyAbk);
 
-        // level 3
-        Role::create(['name' => 'Wakil Rektor 2'])->givePermissionTo($can_verify);;
+        Role::create(['name' => 'Wakil Rektor 2'])->givePermissionTo([$canVerifyAnjab, $canVerifyAbk]);
 
-        Role::create(['name' => 'superadmin'])->givePermissionTo(['verify ajuan', 'make ajuan']);
+        Role::create(['name' => 'superadmin'])->givePermissionTo(['verify anjab', 'make anjab', 'verify abk', 'make abk']);
     }
 }

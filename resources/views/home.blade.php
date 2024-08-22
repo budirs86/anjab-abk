@@ -4,10 +4,10 @@
     <div class="container mb-3 d-flex flex-column align-items-center p-3">
         <h1 class="display-3 mb-5"> Selamat Datang, {{ Auth::user()->name }}</h1>
         <div class="btn-group">
-            @can('make ajuan')
+            @can('make anjab')
                 <a href="{{ route('anjab.ajuan.create') }}" class="btn btn-outline-primary">Buat Ajuan Analisis Jabatan Baru</a>
+                <a href="{{ route('anjab.ajuan.index') }}" class="btn btn-outline-primary">Lihat Daftar Ajuan Analisis jabatan</a>
             @endcan
-            <a href="{{ route('anjab.ajuan.index') }}" class="btn btn-outline-primary">Lihat Daftar Ajuan Analisis jabatan</a>
             <a href="{{ route('abk.ajuans') }}" class="btn btn-outline-primary">Lihat Daftar Ajuan Analisis Beban Kerja</a>
         </div>
 
