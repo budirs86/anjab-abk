@@ -7,6 +7,9 @@ new class extends Component {
     public $jabatan;
     public $bahaya_fisik;
     public $penyebab;
+    public $editedRisikoBahaya = null;
+    public $editedBahayaFisik = null;
+    public $editedPenyebab = null;
 
     
     public function mount($jabatan) {
@@ -26,9 +29,28 @@ new class extends Component {
         $this->reset('bahaya_fisik', 'penyebab');
     }
 
-    public function deleteRisikoBahaya(RisikoBahayaDiajukan $RisikoBahaya) {
-        $RisikoBahaya->delete();
+    public function deleteRisikoBahaya(RisikoBahayaDiajukan $risikoBahaya) {
+        $risikoBahaya->delete();
     
+    }
+    public function editRisikoBahaya(RisikoBahayaDiajukan $risikoBahaya) {
+        $this->editedRisikoBahaya = $risikoBahaya->id;
+        $this->editedBahayaFisik = $risikoBahaya->bahaya_fisik;
+        $this->editedPenyebab = $risikoBahaya->penyebab;
+    }
+
+    public function storeRisikoBahaya(RisikoBahayaDiajukan $risikoBahaya) {
+        // dd('test');
+        $validated = $this->validate([
+            'editedBahayaFisik' => 'required|string',
+            'editedPenyebab' => 'required|string',
+        ]);
+        
+        $risikoBahaya->update([
+            'bahaya_fisik' => $validated['editedBahayaFisik'],
+            'penyebab' => $validated['editedPenyebab'],
+        ]);
+        $this->reset('editedRisikoBahaya', 'editedBahayaFisik', 'editedPenyebab');
     }
 }; ?>
 
@@ -44,16 +66,44 @@ new class extends Component {
         </thead>
         <tbody>
             @foreach ($jabatan->risikoBahaya as $risikoBahaya)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $risikoBahaya->bahaya_fisik }}</td>
-                    <td>{{ $risikoBahaya->penyebab }}</td>
-                    <td class="d-flex gap-1">
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
+                @if ($editedRisikoBahaya === $risikoBahaya->id)
+                    <form >
+                        @csrf
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>    
+                                <input name="nama" type="text" class="form-control @error('editedBahayaFisik') is-invalid @enderror" placeholder="Masukkan Perangkat Kerja" wire:model="editedBahayaFisik">
+                                @error('editedBahayaFisik')
+                                    <label class="invalid-feedback form-label" for="editedBahayaFisik" >{{ $message }}</label>
+                                @enderror
+                            </td>
+                            <td>
+                                <input name="penggunaan" type="text" class="form-control @error('editedPenyebab') is-invalid @enderror" placeholder="Masukkan Perangkat Kerja" wire:model="editedPenyebab">
+                                @error('editedPenyebab')
+                                    <label class="invalid-feedback form-label" for="editedPenyebab" >{{ $message }}</label>
+                                @enderror
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-primary" wire:click="storeRisikoBahaya({{ $risikoBahaya }})"><i class="fa-solid fa-floppy-disk"></i>
+                                    Simpan</button>
+                            </td>
+                        </tr>
+                    </form>
+                @else
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $risikoBahaya->bahaya_fisik }}</td>
+                        <td>{{ $risikoBahaya->penyebab }}</td>
+                        <td class="d-flex gap-1">
+                            <button wire:click="editRisikoBahaya({{ $risikoBahaya }})" class="btn btn-warning">
+                                <i class="fa-solid fa-edit"></i>
+                            </button>
+                            <button wire:click="deleteRisikoBahaya({{ $risikoBahaya }})" type="submit" class="btn btn-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                @endif
             @endforeach
             <tr>
                 <form wire:submit="addRisikoBahaya()" method="POST">

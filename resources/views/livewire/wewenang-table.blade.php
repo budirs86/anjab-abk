@@ -6,6 +6,8 @@ use App\Models\WewenangDiajukan;
 new class extends Component {
     public $jabatan;
     public $nama;
+    public $editedWewenang = null;
+    public $editedNama = '';
 
     public function mount($jabatan) {
         $this->jabatan = $jabatan;
@@ -27,6 +29,23 @@ new class extends Component {
         $wewenang->delete();
     
     }
+
+    public function editWewenang(WewenangDiajukan $wewenang) {
+        $this->editedWewenang = $wewenang->id;
+        $this->editedNama = $wewenang->nama;
+    }
+
+    public function storeWewenang(WewenangDiajukan $wewenang) {
+        // dd('test');
+        $validated = $this->validate([
+            'editedNama' => 'required',
+        ]);
+        
+        $wewenang->update([
+            'nama' => $validated['editedNama'],
+        ]);
+        $this->reset('editedWewenang', 'editedNama');
+    }
 }; ?>
 
 <div class="mb-3">
@@ -39,17 +58,37 @@ new class extends Component {
         </thead>
         <tbody>
             @foreach ($jabatan->wewenang as $wewenang)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td class="d-flex justify-content-between">
-                        <p>{{ $wewenang->nama }}</p>
-                    </td>
-                    <td>
-                        <button type="submit" class="btn btn-danger" wire:click="deleteWewenang({{ $wewenang }})">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
+                @if ($editedWewenang == $wewenang->id)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td class="">
+                            <input name="nama" type="text" class="form-control @error('editedNama') is-invalid @enderror"
+                                placeholder="Masukkan Uraian Tugas" wire:model="editedNama" id="editedNama">
+                            @error('editedNama')
+                                <label class="invalid-feedback form-label" for="editedNama" >{{ $message }}</label>
+                            @enderror  
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-primary"  wire:click="storeWewenang({{ $wewenang }})"><i class="fa-solid fa-floppy-disk"></i>
+                                Simpan</button>
+                        </td>
+                    </tr>
+                @else
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td class="d-flex justify-content-between">
+                            <p>{{ $wewenang->nama }}</p>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-warning" wire:click="editWewenang({{ $wewenang }})">
+                                <i class="fa-solid fa-edit"></i>
+                            </button>
+                            <button type="submit" class="btn btn-danger" wire:click="deleteWewenang({{ $wewenang }})">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                @endif
             @endforeach
             <tr>
                 <form wire:submit="addWewenang" method="POST">

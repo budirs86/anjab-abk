@@ -26,8 +26,17 @@
 
     {{-- OrgChart JS --}}
     <script src="/js/orgchart.js"></script>
+
+    {{-- bootstrap js --}}
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+    ></script>
+    
 </head>
 <body class="bg-body-tertiary">
+    
     @if (Request::is('login'))
         @include('login.partials.navbar')
         @yield('container')
@@ -37,12 +46,7 @@
             @yield('container')
         </div>
     @endif
-    {{-- bootstrap js --}}
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"
-    ></script>
+    
     <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
     <script src="bootstrap-autocomplete.min.js"></script>
 
@@ -50,6 +54,23 @@
 
     {{-- feathericons js --}}
     <script>feather.replace();</script>
+
+    {{-- Select2 CDN --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    {{-- feathericons js --}}
+    <script>feather.replace();</script>
+
+    {{-- select2 script --}}
+    {{-- replaces all inputs with "select2" class into a select2 input--}}
+    <script>
+                $(document).ready(function() {
+            $('.select2').select2({
+                dropdownParent: '#modalRevisi'
+            });
+        });
+    </script>
 </body>
 
     

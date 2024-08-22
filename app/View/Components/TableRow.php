@@ -2,7 +2,7 @@
 
 namespace App\View\Components;
 
-use App\Models\Jabatan;
+use App\Models\JabatanDiajukan;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -14,8 +14,8 @@ class TableRow extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public Jabatan $jabatan,
-        public array $buttons = []
+        public JabatanDiajukan $jabatan,
+        public string $type
     )
     {
         //

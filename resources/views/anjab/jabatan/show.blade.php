@@ -20,8 +20,8 @@
                 </div>
                 <div class="card dropdown-divider mb-4"></div>
                 <div class="mb-3">
-                    <a href=" {{ Route::currentRouteName() == 'anjab.ajuan.jabatan.show' ? route('anjab.ajuan.show', ['ajuan' => $ajuan->tahun]) : route('anjab.ajuan.create') }} "
-                     class="btn btn-sm btn-secondary align-baseline"><i data-feather="chevron-left"></i>Kembali</a>
+                    {{-- <button type="submit" class="btn btn-primary header1"><img src="" alt="" data-feather="save" width="20px"> Simpan</button> --}}
+                    <a href="{{ route('anjab.ajuan.show', ['ajuan' => $ajuan->tahun, 'id' => $ajuan->id]) }}" class="btn btn-primary header1"><img src="" alt="" data-feather="arrow-left" width="20px"> Kembali</a>
                 </div>
                 <form action="/anjab/analisis-jabatan" method="POST">
                     <fieldset disabled> 
@@ -40,7 +40,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="ikhtisar" class="form-label">Ikhtisar Jabatan</label>  
-                            <textarea class="form-control"  placeholder="Masukkan Ikhtisar" id="ikhtisar" style="height:100px" ></textarea>
+                            <textarea class="form-control" placeholder="Masukkan Ikhtisar" value="{{ $jabatan->ikhtisar }}" id="ikhtisar" style="height:100px" >{{ $jabatan->ikhtisar }}</textarea>
                         </div>
                         <div class="mb-3">
                         <hr>
@@ -56,11 +56,13 @@
                                         
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>S-1</td>
-                                            <td>Manajemen</td>
-                                        </tr>
+                                        @foreach ($jabatan->pendidikanFormal as $pendidikan)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $pendidikan->jenjang }}</td>
+                                                <td>{{ $pendidikan->jurusan }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 <table class="table 
@@ -73,29 +75,31 @@
                                         
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Manajer</td>
-                                            <td>1 Tahun</td>
-    
-                                        </tr>
+                                        @forelse ($jabatan->pengalaman as $pengalaman)
+                                            <tr>
+                                                <td style="width: 10%">{{ $loop->iteration }}</td>
+                                                <td>{{ $pengalaman->nama }}</td>
+                                                <td>{{ $pengalaman->lama . " Tahun" }}</td>
+                                            </tr>
+                                        @empty
+
+                                        @endforelse
                                     </tbody>
                                 </table>
                                 <table class="table 
                                 table-bordered w-75">
                                     <caption class="caption-top"> Kualifikasi Jabatan | Pelatihan</caption>
-                                    <thead class="table-primary">
+                               <thead class="table-primary">
                                         <th>No</th>
                                         <th>Jenis Pelatihan</th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td class="d-flex justify-content-between">
-                                                <p>Pelatihan Manajemen Organisasi</p>
-                                            </td>
-                                        </tr>
-                                        
+                                        @foreach ($jabatan->pendidikanPelatihan as $pelatihan)
+                                            <tr>
+                                                <td style="width: 10%">{{ $loop->iteration }}</td>
+                                                <td>{{ $pelatihan->nama }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -109,15 +113,14 @@
                                         <th>Uraian Tugas</th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td class="d-flex justify-content-between">
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro modi ad nam vero ea temporibus.</p>
-                                                <div class="">
-                                                    
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @forelse ($jabatan->uraianTugas as $tugas)
+                                            <tr>
+                                                <td style="width: 10%">{{ $loop->iteration }}</td>
+                                                <td>{{$tugas->nama_tugas}}</td>
+                                            </tr>
+                                        @empty
+                                            <td colspan="2">Tidak ada data.</td>
+                                        @endforelse
                                     </tbody>
                                 </table>
                         </div>
@@ -132,13 +135,13 @@
                                         
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Alat Tulis</td>
-                                            <td>Menulis</td>
-                                            
-                                        </tr>
-                                        
+                                        @foreach ($jabatan->bahanKerja as $bahan)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $bahan->nama }}</td>
+                                                <td>{{ $bahan->penggunaan }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                             </table>
                         </div>
@@ -153,12 +156,13 @@
                                         
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            
-                                        </tr>
+                                        @foreach ($jabatan->perangkatKerja as $perangkat)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $perangkat->nama }}</td>
+                                                <td>{{ $perangkat->penggunaan }}</td>
+                                            </tr>
+                                        @endforeach
                                         
                                     </tbody>
                             </table>
@@ -171,12 +175,14 @@
                                         <th>Uraian</th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td class="d-flex justify-content-between">
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro modi ad nam vero ea temporibus.</p>
-                                            </td>
-                                        </tr>
+                                        @foreach ($jabatan->tanggungJawab as $tanggungJawab)
+                                            <tr>
+                                                <td style="width: 10%">{{ $loop->iteration }}</td>
+                                                <td class="d-flex justify-content-between">
+                                                    {{ $tanggungJawab->nama }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                         </div>
@@ -186,18 +192,16 @@
                                     <thead class="table-info">
                                         <th>No</th>
                                         <th>Uraian</th>
-                                    </thead>
+                                    </thead>    
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td class="d-flex justify-content-between">
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro modi ad nam vero ea temporibus.</p>
-                                                <div class="">
-                                                    
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        
+                                        @foreach ($jabatan->wewenang as $wewenang)
+                                            <tr>
+                                                <td style="width: 10%">{{ $loop->iteration }}</td>
+                                                <td class="d-flex justify-content-between">
+                                                    {{ $wewenang->nama }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                         </div>                   
@@ -212,12 +216,17 @@
                                                     
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Lorem ipsum dolor sit amet.</td>
-                                                        <td>Lorem ipsum dolor sit amet.</td>
-                                                        <td>Lorem ipsum dolor sit amet.</td>
-                                                    </tr>
+                                                    @foreach ($jabatan->korelasiJabatan as $korelasi)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $korelasi->jabatanRelasi->unsurs[0]->nama }}</td>
+                                                            <td>{{ $korelasi->jabatanRelasi->nama }}</td>
+                                                            <td>{{ $korelasi->dalam_hal }}</td>
+                                                            {{-- <td>{{ $korelasi->unit_kerja }}</td>
+                                                            <td>{{ $korelasi->jabatan }}</td>
+                                                            <td>{{ $korelasi->dalam_hal }}</td> --}}
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                         </div>
@@ -232,12 +241,13 @@
                                         
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            
-                                        </tr>
+                                        @foreach ($jabatan->risikoBahaya as $risiko)
+                                            <tr>
+                                                <td style="width: 10%">{{ $loop->iteration }}</td>
+                                                <td>{{ $risiko->bahaya_fisik }}</td>
+                                                <td>{{ $risiko->penyebab }}</td>
+                                            </tr>
+                                        @endforeach
                                         
                                     </tbody>
                             </table>
@@ -249,46 +259,47 @@
                                 <div class="col-6">
                                     <label for="lokasi" class="form-label">Letak</label>
                                     <select name="" id="lokasi" class="form-select mb-3">
-                                        <option value="">Dalam Ruangan</option>
-                                        <option value="">Luar Ruangan</option>
+                                        <option value="" @selected($jabatan->lokasi == "dalam ruangan")>Dalam Ruangan</option>
+                                        <option value="" @selected($jabatan->lokasi == "luar ruangan")>Luar Ruangan</option>
                                     </select>
                                     <label for="penerangan" class="form-label">Penerangan</label>
                                     <select name="" id="penerangan" class="form-select mb-3">
-                                        <option value="">Redup</option>
-                                        <option value="">Terang</option>
+                                        <option value="" @selected($jabatan->penerangan == "redup")>Redup</option>
+                                        <option value="" @selected($jabatan->penerangan == "terang")>Terang</option>
                                     </select>
                                     <label for="suhu" class="form-label text-capitalize">suhu</label>
                                     <select name="" id="suhu" class="form-select mb-3">
-                                        <option value="">Panas</option>
-                                        <option value="">Dingin</option>
+                                        <option value="" @selected($jabatan->suhu == "panas")>Panas</option>
+                                        <option value="" @selected($jabatan->suhu == "dingin")>Dingin</option>
                                     </select>
                                     <label for="getaran" class="form-label text-capitalize">getaran</label>
                                     <select name="" id="getaran" class="form-select mb-3">
-                                        <option value="">Rendah</option>
-                                        <option value="">Sedang</option>
-                                        <option value="">Tinggi</option>
+                                        <option value="" @selected($jabatan->getaran == "rendah")>Rendah</option>
+                                        <option value="" @selected($jabatan->getaran == "sedang")>Sedang</option>
+                                        <option value="" @selected($jabatan->getaran == "tinggi")>Tinggi</option>
                                     </select>
                                 </div>
                                 <div class="col-6">
                                     <label for="suara" class="form-label text-capitalize">suara</label>
                                     <select name="" id="suara" class="form-select mb-3">
-                                        <option value="">Bising</option>
-                                        <option value="">Senyap</option>
+                                        <option value="" @selected($jabatan->suara == 'bising')>Bising</option>
+                                        <option value="" @selected($jabatan->suara == 'senyap')>Senyap</option>
                                     </select>
                                     <label for="keadaan_ruangan" class="form-label text-capitalize">keadaan ruangan</label>
                                     <select name="" id="keadaan_ruangan" class="form-select mb-3">
-                                        <option value="">Sesak</option>
-                                        <option value="">Lega</option>
+                                        <option value="" @selected($jabatan->keadaan_ruangan == 'sesak')>Sesak</option>
+                                        <option value="" @selected($jabatan->keadaan_ruangan == 'lega')>Lega</option>
                                     </select>
                                     {{-- create select input for udara with options "lembab", "kering" --}}
                                     <label for="udara" class="form-label text-capitalize">udara</label>
                                     <select name="" id="udara" class="form-select mb-3">
-                                        <option value="">Lembab</option>
-                                        <option value="">Kering</option>
+                                        {{-- for each option, add appropriate selected blade directive --}}
+                                        <option value="" @selected($jabatan->udara == 'lembab')>Lembab</option>
+                                        <option value="" @selected($jabatan->udara == 'kering')>Kering</option>
                                     </select>
                                     {{-- create text input for tempat --}}
                                     <label for="tempat" class="form-label text-capitalize">tempat</label>
-                                    <input type="text" class="form-control mb-3" id="tempat">
+                                    <input type="text" class="form-control mb-3" id="tempat" value="{{ $jabatan->tempat }}">
                                 </div>
                             </div>
                             <hr class="mb-3">
@@ -297,7 +308,7 @@
                         <div class="" id="syarat_jabatan">
                             {{-- create text input for keterampilan --}}
                             <label for="keterampilan" class="text-capitalize form-label">keterampilan</label>
-                            <textarea name="keterampilan" id="keterampilan" rows="4" class="form-control mb-3"></textarea>
+                            <textarea name="keterampilan" id="keterampilan" rows="4" class="form-control mb-3">{{ $jabatan->keterampilan }}</textarea>
                             {{-- create bakat kerja checkbox input, with options using options in /seeder/bakat_kerja.json --}}
                             <label for="bakat_kerja" class="form-label">Bakat Kerja</label>
                             <div class="mb-4" id="bakat_kerja">
@@ -306,7 +317,7 @@
                                 @foreach ($bakat_kerjas as $bakat)
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="{{   $bakat->kode }}" id="{{ $bakat->nama }}">
+                                        <input class="form-check-input" type="checkbox" value="{{ $bakat->kode }}" id="{{ $bakat->id }}" @checked(in_array($bakat->id, $checkedBakatKerja))>
                                         <label class="form-check-label" for="{{ $bakat->nama }}">{{ $bakat->nama }}</label>
                                     </div>
                                 </div>
@@ -318,7 +329,7 @@
                                 @foreach ($temperamens as $temperamen)
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="{{   $temperamen->kode }}" id="{{ $temperamen->nama }}">
+                                        <input class="form-check-input" type="checkbox" value="{{   $temperamen->kode }}" id="{{ $temperamen->nama }}" @checked(in_array($temperamen->id, $checkedTemperamenKerja))>
                                         <label class="form-check-label" for="{{ $temperamen->nama }}">{{ $temperamen->nama }}</label>
                                     </div>
                                 </div>
@@ -330,7 +341,7 @@
                                 @foreach ($upaya_fisiks as $upaya_fisik)
                                 <div class="col-4">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="{{   $upaya_fisik->kode }}" id="{{ $upaya_fisik->nama }}">
+                                        <input class="form-check-input" type="checkbox" value="{{   $upaya_fisik->kode }}" id="{{ $upaya_fisik->nama }}" @checked(in_array($upaya_fisik->id, $checkedUpayaFisik))>
                                         <label class="form-check-label" for="{{ $upaya_fisik->nama }}">{{ $upaya_fisik->nama }}</label>
                                     </div>
                                 </div>
@@ -345,25 +356,25 @@
                                 <div class="col-6">
                                     <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                                     <select name="jenis_kelamin" id="jenis_kelamin" class="form-select mb-3">
-                                        <option value="L">Laki-Laki</option>
-                                        <option value="P">Perempuan</option>
+                                        <option value="L" @selected($jabatan->jenis_kelamin == 'L')>Laki-Laki</option>
+                                        <option value="P" @selected($jabatan->jenis_kelamin == 'P')>Perempuan</option>
                                     </select>
 
                                     <label for="umur" class="form-label">Umur (Tahun)</label>
-                                    <input type="text" class="form-control mb-3" id="umur">
+                                    <input type="text" class="form-control mb-3" id="umur" value="{{ $jabatan->umur }}">
 
                                     <label for="tinggi_badan" class="form-label text-capitalize">tinggi badan (sentimeter)</label>
-                                    <input type="number" class="form-control mb-3" id="tinggi_badan">
+                                    <input type="number" class="form-control mb-3" id="tinggi_badan" value="{{ $jabatan->tinggi_badan }}">
                                 </div>
                                 <div class="col-6">
                                     <label for="berat_badan" class="form-label text-capitalize">berat badan (kilogram)</label>
-                                    <input type="number" class="form-control mb-3" id="berat_badan">
+                                    <input type="number" class="form-control mb-3" id="berat_badan" value="{{ $jabatan->berat_badan }}">
 
                                     <label for="postur_badan" class="form-label text-capitalize">postur badan</label>
-                                    <input type="text" class="form-control mb-3" id="postur_badan">
+                                    <input type="text" class="form-control mb-3" id="postur_badan" value="{{ $jabatan->postur_badan }}">
 
                                     <label for="penampilan" class="form-label text-capitalize">penampilan</label>
-                                    <input type="text" class="form-control mb-3" id="penampilan">
+                                    <input type="text" class="form-control mb-3" id="penampilan" value="{{ $jabatan->penampilan }}">
                                 </div>
                             </div>
                             <hr class="mb-3">
@@ -372,28 +383,21 @@
                             @foreach ($fungsi_pekerjaans as $fungsi_pekerjaan)
                             <div class="col-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="{{   $fungsi_pekerjaan->id }}" id="{{ $fungsi_pekerjaan->nama }}">
+                                    <input class="form-check-input" type="checkbox" value="{{   $fungsi_pekerjaan->id }}" id="{{ $fungsi_pekerjaan->nama }}" @checked(in_array($fungsi_pekerjaan->id, $checkedFungsiPekerjaan))>
                                     <label class="form-check-label" for="{{ $fungsi_pekerjaan->nama }}"> {{$fungsi_pekerjaan->kode . " " . $fungsi_pekerjaan->nama }}</label>
                                 </div>
                             </div>
                             @endforeach
                         </div>
                     
-                        <label for="prestasi" class="form-label text-capitalize">prestasi</label>
-                        <input type="text" class="form-control " id="prestasi">
-
-                        <label for="kelas_jabatan" class="form-label text-capitalize">kelas jabatan</label>
                         <div class="mb-3">
-                            <select class="form-select" id="kelas_jabatan">
-                                @for ($i = 1; $i <= 8; ++$i)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
+                            <label for="prestasi" class="form-label text-capitalize">prestasi</label>
+                            <input type="text" class="form-control " id="prestasi" value="{{ $jabatan->prestasi }}">
                         </div>
                         </fieldset>
                         <div class="">
                             {{-- <button type="submit" class="btn btn-primary header1"><img src="" alt="" data-feather="save" width="20px"> Simpan</button> --}}
-                            <a href="{{ route('anjab.ajuan.show', ['ajuan' => $ajuan->tahun]) }}" class="btn btn-primary header1"><img src="" alt="" data-feather="arrow-left" width="20px"> Kembali</a>
+                            <a href="{{ route('anjab.ajuan.show', ['ajuan' => $ajuan->tahun, 'id' => $ajuan->id]) }}" class="btn btn-primary header1"><img src="" alt="" data-feather="arrow-left" width="20px"> Kembali</a>
                         </div>
                     </fieldset>
                 </form>

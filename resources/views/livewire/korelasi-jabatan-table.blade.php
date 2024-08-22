@@ -3,13 +3,16 @@
 use Livewire\Volt\Component;
 use App\Models\UnitKerja;
 use App\Models\JabatanDiajukan;
-use App\Models\KorelasiJabatan;
+use App\Models\KorelasiJabatanDiajukan;
 
 new class extends Component {
     public $jabatan;
     public $jabatanKorelasi;
     public $jabatan_relasi_id;
     public $dalam_hal;
+    public $editedKorelasiJabatan = null;
+    public $editedJabatanRelasi = '';
+    public $editedDalamHal = '';
 
     public function mount($jabatan)
     {
@@ -32,9 +35,28 @@ new class extends Component {
         $this->reset('jabatan_relasi_id', 'dalam_hal');
     }
 
-    public function deleteKorelasiJabatan(KorelasiJabatan $korelasiJabatan)
+    public function deleteKorelasiJabatan(KorelasiJabatanDiajukan $korelasiJabatan)
     {
         $korelasiJabatan->delete();
+    }
+
+    public function editKorelasiJabatan(KorelasiJabatanDiajukan $korelasi) {
+        $this->editedKorelasiJabatan = $korelasi->id;
+        $this->editedJabatanRelasi = $korelasi->jabatan_relasi_id;
+        $this->editedDalamHal = $korelasi->dalam_hal;
+    }
+
+    public function storeKorelasiJabatan(KorelasiJabatanDiajukan $korelasi) {
+        $validated = $this->validate([
+            'editedJabatanRelasi' => 'required',
+            'editedDalamHal' => 'required',
+        ]);
+        
+        $korelasi->update([
+            'jenjang' => $validated['editedJabatanRelasi'],
+            'jurusan' => $validated['editedDalamHal'],
+        ]);
+        $this->reset('editedKorelasiJabatan', 'editedJabatanRelasi', 'editedDalamHal');
     }
 }; ?>
 
@@ -48,35 +70,50 @@ new class extends Component {
             <th>Aksi</th>
         </thead>
         <tbody>
-            {{-- @foreach ($jabatan->korelasiJabatan as $korelasiJabatan)
+            @foreach ($jabatan->korelasiJabatan as $korelasi)
+            @if ($editedKorelasiJabatan === $korelasi->id)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $perangkatKerja->nama }}</td>
-                    <td class="d-flex gap-1">
-                        <form
-                            action="{{ route('anjab.jabatan.perangkatKerja.delete', ['jabatan' => $jabatan->id, 'perangkatKerja' => $perangkatKerja->id]) }}"
-                            method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="hidden" name="jabatan_id" value="{{ $jabatan->id }}">
-                            <button type="submit" class="btn btn-danger">
-                                <img width="20px" data-feather="trash"></img>
-                            </button>
-                        </form>
-                    </td>
+                    <form wire:submit="storeKorelasiJabatan({{ $korelasi }})">
+                        @csrf
+                        <td>
+                            <select name="" id="" class="form-select @error('editedJabatanRelasi') is-invalid @enderror" wire:model.change="editedJabatanRelasi">
+                                <option value="">Pilih Jabatan Korelasi</option>
+                                @foreach ($jabatanKorelasi as $jabatan)
+                                    <option value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('editedJabatanRelasi')
+                                <label class="invalid-feedback form-label" for="jenjang" >{{ $message }}</label>
+                            @enderror 
+                        </td>
+                        <td>
+                            <input type="text" class="form-control @error('editedDalamHal') is-invalid @enderror" placeholder="Masukkan Korelasi Jabatan"
+                                wire:model.change="editedDalamHal">
+                            @error('editedDalamHal')
+                                <label class="invalid-feedback form-label" for="jenjang" >{{ $message }}</label>
+                            @enderror 
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-primary" wire:click="storeKorelasiJabatan({{ $korelasi }})"><i class="fa-solid fa-floppy-disk"></i> Simpan</button>
+                        </td>
+                    </form>
                 </tr>
-            @endforeach --}}
-            @foreach ($jabatan->korelasiJabatan as $korelasi)
+            @else
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $korelasi->jabatanRelasi->nama }}</td>
                     <td>{{ $korelasi->dalam_hal }}</td>
                     <td>
+                        <button class="btn btn-warning" wire:click="editKorelasiJabatan({{ $korelasi }})">
+                            <i class="fa-solid fa-edit"></i>
+                        </button>
                         <button class="btn btn-danger" wire:click="deleteKorelasiJabatan({{ $korelasi }})">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>
                 </tr>
+            @endif
             @endforeach
             <tr>
                 <td></td>
@@ -89,6 +126,7 @@ new class extends Component {
                                 <option value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>
                             @endforeach
                         </select>
+                        
                     </td>
                     <td>
                         <input type="text" class="form-control" placeholder="Masukkan Korelasi Jabatan"

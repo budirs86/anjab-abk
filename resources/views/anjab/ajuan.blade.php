@@ -74,7 +74,7 @@
             @endforeach
         </tbody>
     </table> --}}
-    <table class="table table-striped table-bordered">
+    {{-- <table class="table table-striped table-bordered">
             <thead >
                 <th class="fw-semibold text-muted">Kode</th>
                 <th class="fw-semibold text-muted">Jabatan</th>
@@ -93,6 +93,10 @@
                 @endforeach
                     
             </tbody>
-    </table>
+    </table> --}}
+    <livewire:lihat-jabatan-table :ajuan="$ajuan" mode="show"/>
+    {{-- <livewire:jabatan-table/> --}}
+
+
     <a href="{{ route('anjab.ajuan.index') }}" class="btn btn-primary header1"><i data-feather="arrow-left"></i> Kembali</a>
 @endsection

@@ -15,50 +15,24 @@
         </div>        
     @endif
     <div class="">
-        <div class="alert alert-info alert-dismissible fade show">
-                <div class="alert-heading d-flex justify-content-between">
-                    <div class="d-flex">
-                        <img width="20px" data-feather="info" class="m-0 p-0 me-2"></img>
-                        <p class="m-0 p-0">Perhatian</p>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                <hr>  
-                <p class="m-0 p-0">Silahkan Pilih Unit Kerja, lalu isi Jabatan dan Informasi Jabatan untuk tiap Unit Kerja</p>
-        </div>
         <div class="mb-3">
             <label for="periode" class="form-label">Periode</label>
             <input type="text" class="form-control" id="periode" name="periode" value="{{ now()->year }}" readonly>
         </div>        
-
-        <table class="table table-striped table-bordered">
-            <thead >
-                <th class="fw-semibold text-muted">Kode</th>
-                <th class="fw-semibold text-muted d-flex">Jabatan 
-                    <button class="btn btn-sm btn-success ms-auto add-button" data-bs-toggle="modal" data-bs-target="#modalJabatan" id="addButton" data-bs-atasan=""><img width="20px" data-feather="plus"></img> Tambah Jabatan</button>
-                </th>
-            </thead>
-            <tbody>
-                @foreach ($jabatans as $jabatan)
-                    <tr>
-                        <td>K - 123</td>
-                        <td class="d-flex justify-content-between">
-                            <div class="d-flex">
-                                <p class="" href="/anjab/analisis-jabatan/create" style="">{{ $jabatan->nama }}</p>
-                            </div>
-                            <div class="div">
-                                <span class="badge text-bg-warning">Informasi Jabatan Belum Lengkap</span>
-                                <a href="{{ route('anjab.jabatan.edit.1', ['jabatan'=> $jabatan->id]) }}" class="btn btn-sm btn-primary ms-auto add-button "><img width="20px" data-feather="edit-3"></img> Ubah Informasi Jabatan</a>
-                                {{-- <button class="btn btn-sm btn-success ms-auto add-button" data-bs-toggle="modal" data-bs-target="#modalJabatan" id="addButton" data-bs-atasan="{{ $jabatan->id }}"><img width="20px" data-feather="plus"></img> Tambah Jabatan Bawahan</button> --}}
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                    
-            </tbody>
-        </table>
+        
+        <livewire:jabatan-table/>
+        {{-- <livewire:lihat-jabatan-table/> --}}
     </div>
     @include('anjab.partials.modaljabatan')
+    @if ($errors->any())
+        {{-- BANG ERROR --}}
+        <script>
+            const myModal = document.getElementById('modalJabatan');
+            const bootstrapModal = new bootstrap.Modal(myModal);
+            bootstrapModal.show();
+        </script>
+    @endif
+
     
     <div class="">
         <form action="{{ route('anjab.ajuan.store') }}" method="POST">
@@ -68,13 +42,7 @@
     </div>
 
     {{-- non ajax --}}
-    @if ($errors->any())
-        <script>
-            $(document).ready(function() {
-                $('#modalJabatan').modal('show')
-            });
-        </script>
-    @endif
+    
     
     <script>
         const modal = document.getElementById('modalJabatan');
@@ -97,46 +65,6 @@
         select(unitKerja, {
             search: true
         });
-
-        
     </script>
-        {{-- ajax --}}
-        {{-- <script>
-            
-            $(document).ready(function() {
-                $('#submitJabatan').click(function(event) {
-                    event.preventDefault();
 
-                    $.ajax({
-                        url : "/anjab/data-jabatan",
-                        method : 'POST',
-                        data : $('#jabatanForm').serialize(),
-                        dataType: "json",
-                        success: function(response){
-                            console.log("Response:", response);
-                            if(response.success) {
-
-                                $('#modalExample').modal('hide');
-                            }
-                            else {
-                                const errors = response.errors;
-
-                                // Loop through errors and update form fields
-                                for (const field in errors) {
-                                    const errorMessage = errors[field][0];
-                                    $(`#${field}`).addClass('is-invalid');
-                                    $(`#${field} + .invalid-feedback`).text(errorMessage);
-                                }
-
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            // Handle any errors during the AJAX request
-                            console.error("Error:", textStatus, errorThrown);
-                        }
-                    })
-                })
-            })
-
-        </script> --}}
 @endsection

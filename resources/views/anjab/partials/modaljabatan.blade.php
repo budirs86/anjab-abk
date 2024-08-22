@@ -6,22 +6,37 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="/anjab/data-jabatan" method="POST" id="jabatanForm">
+                <form action="{{ route('anjab.jabatan.store') }}" method="POST" id="jabatanForm">
                     @csrf
-                    <input type="hidden" name="parent_id" id="parent_id" value="{{ old('parent_id', $jabatan->id) }}">
+                    <input type="hidden" name="parent_id" id="parent_id" value="{{ old('parent_id') }}">
                     <div class="mb-3">
-                        <label for="jenis_jabatan" class="form-label">Jenis Jabatan</label>
-                        <select class="form-select" name="jenis_jabatan_id" id="jenis_jabatan">
+                        <label for="nama" class="form-label">Nama Jabatan</label>
+                        <input type="text" class="form-control @error('nama') is-invalid @enderror"
+                            id="nama" name="nama" placeholder="Masukkan Nama Jabatan"
+                            value="{{ old('nama') }}">
+                        @error('nama')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="jenis_jabatan_id" class="form-label">Jenis Jabatan</label>
+                        <select class="form-select @error('jenis_jabatan_id') is-invalid @enderror" name="jenis_jabatan_id" id="jenis_jabatan_id">
+                            <option value="">Pilih Jenis Jabatan</option>
                             @foreach ($jenisJabatan as $jenis)
                                 <option value="{{ $jenis->id }}" @if ($jenis->id == old('jenis_jabatan_id')) selected @endif>
                                     {{ $jenis->nama }}</option>
                             @endforeach
                         </select>
+                        @error('jenis_jabatan_id')
+                            <label for="jenis_jabatan_id" class="invalid-feedback">{{ $message }}</label>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="kode" class="form-label">Kode</label>
                         <input type="text" class="form-control @error('kode') is-invalid @enderror" id="kode"
-                            name="kode" placeholder="Diisi Secara Otomatis" value="contoh">
+                            name="kode" placeholder="Masukkan Kode Jabatan" value="">
                         @error('kode')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -29,40 +44,27 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="unit_kerja" class="form-label">Unit Kerja</label>
-                        <select class="form-select @error('unit_kerja') is-invalid @enderror" id="unit_kerja"
-                            name="unit_kerja_id">
-                            @foreach ($unitKerjas as $unitKerja)
-                                <option value="{{ $unitKerja->id }}">{{ $unitKerja->nama }}</option>
+                        <label for="unsur" class="form-label">Unsur</label>
+                        <select class="form-select @error('unsur_id') is-invalid @enderror" id="unsur"
+                            name="unsur_id">
+                            <option value="">Pilih Unsur yang membawahi Jabatan</option>
+                            @foreach ($unsurs as $unsur)
+                                @if ($unsur != 'Wakil Rektor')
+                                    <option value="{{ $unsur->id }}">{{ $unsur->nama }}</option>
+                                @endif
                             @endforeach
                         </select>
-                        @error('unit_kerja')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                        @error('unsur_id')
+                            <label for="unsur_id" class="invalid-feedback">{{ $message }}</label>
                         @enderror
                     </div>
-                    <div class="mb-3">
-                        <label for="nama_jabatan" class="form-label">Nama Jabatan</label>
-                        <input type="text" class="form-control @error('nama_jabatan') is-invalid @enderror"
-                            id="nama_jabatan" name="nama" placeholder="Masukkan Nama Jabatan"
-                            value="{{ old('nama_jabatan') }}">
-                        @error('nama_jabatan')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <button class="btn btn-primary header1" type="submit" id="submitJabatan">Tambah
+                    <div class="">
+                        <button class="btn btn-primary header1" type="submit" id="submitJabatan"><i class="fa-solid fa-plus"></i>
+                            Tambah
                             Jabatan</button>
                     </div>
                 </form>
             </div>
-            {{-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> --}}
         </div>
     </div>
 </div>
