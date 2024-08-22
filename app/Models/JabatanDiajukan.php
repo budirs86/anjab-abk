@@ -100,4 +100,29 @@ class JabatanDiajukan extends Model
   public function unsurs() {
     return $this->belongsToMany(Unsur::class, 'jabatan_unsur', 'jabatan_id', 'unsur_id');
   }
+
+  public function bakatKerja()
+  {
+    return $this->hasMany(BakatKerjaJabatanDiajukan::class);
+  }
+
+  public function temperamenKerja()
+  {
+    return $this->hasMany(TemperamenKerjaJabatanDiajukan::class);
+  }
+
+  public function minatKerja()
+  {
+    return $this->hasMany(MinatKerjaJabatanDiajukan::class);
+  }
+
+  public function fungsiPekerjaan()
+  {
+    return $this->hasMany(FungsiPekerjaanJabatanDiajukan::class);
+  }
+
+  public function upayaFisik()
+  {
+    return $this->hasMany(UpayaFisikJabatanDiajukan::class);
+  }
 }
