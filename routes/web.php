@@ -11,6 +11,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\BahanKerjaController;
 use App\Http\Controllers\KorelasiJabatanController;
 use App\Http\Controllers\KualifikasiController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PerangkatKerjaController;
 use App\Http\Controllers\RisikoBahayaController;
 use App\Http\Controllers\TanggungJawabController;
@@ -126,17 +127,7 @@ Route::get('/petajabatan', function () {
 })->middleware('auth');
 
 Route::prefix('/laporan')->name('laporan.')->middleware('auth')->group(function () {
-    Route::get('/', function () {
-        $title = 'Laporan';
-        $ajuans = Ajuan::all();
+    Route::get('/', [LaporanController::class, 'index'])->name('index');
 
-        return view('laporan.index', compact('title', 'ajuans'));
-    })->name('index');
-
-    Route::get('anjab/{tahun}/{ajuan}', function ($tahun, Ajuan $ajuan) {
-        $title = 'Laporan Analisis Jabatan' . $ajuan->tahun;
-        $jabatans = JabatanDiajukan::where('ajuan_id', $ajuan->id)->get();
-
-        return view('laporan.anjab', compact('title', 'ajuan', 'jabatans'));
-    })->name('anjab');
+    Route::get('anjab/{tahun}/{anjab}', [LaporanController::class, 'showAnjab'])->name('anjab');
 });
