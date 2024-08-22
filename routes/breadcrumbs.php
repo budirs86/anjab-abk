@@ -164,9 +164,9 @@ Breadcrumbs::for('jabatan-dashboard', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('laporan', function (BreadcrumbTrail $trail) {
     $trail->push('Laporan', route('laporan.index'));
 });
-Breadcrumbs::for('laporan-anjab', function (BreadcrumbTrail $trail, $ajuan) {
+Breadcrumbs::for('laporan-anjab', function (BreadcrumbTrail $trail, $anjab) {
     $trail->parent('laporan');
-    $trail->push('Analisis Jabatan ' . $ajuan->tahun, route('laporan.anjab', ['tahun' => $ajuan->tahun, 'ajuan' => $ajuan]));
+    $trail->push('Analisis Jabatan ' . $anjab->tahun, route('laporan.anjab', ['tahun' => $anjab->tahun, 'anjab' => $anjab]));
 });
 
 

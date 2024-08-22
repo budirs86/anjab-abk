@@ -2,10 +2,10 @@
 
 @section('container')
     <div class="mb-3">
-        {{ Breadcrumbs::render('laporan-anjab', $ajuan) }}
+        {{ Breadcrumbs::render('laporan-anjab', $anjab) }}
     </div>
     <div class="card-head mb-3">
-        <h1 class="fw-light fs-4 d-inline nav-item">Laporan Hasil Anjab {{ $ajuan->tahun }}</h1>                
+        <h1 class="fw-light fs-4 d-inline nav-item">Laporan Hasil Anjab {{ $anjab->tahun }}</h1>                
     </div>
     <hr>
     <div class="">

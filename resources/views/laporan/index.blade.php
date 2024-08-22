@@ -27,7 +27,7 @@
                     <td class="d-flex justify-content-between">
                         <p>{{ $ajuan->tahun }}</p>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a href="{{ route('laporan.anjab', ['tahun' => $ajuan->tahun, 'ajuan' => $ajuan]) }}" class="btn btn-outline-primary">Lihat Laporan Anjab</a>
+                            <a href="{{ route('laporan.anjab', ['tahun' => $ajuan->tahun, 'anjab' => $ajuan]) }}" class="btn btn-outline-primary">Lihat Laporan Anjab</a>
                             <a href="" class="btn btn-outline-primary">Lihat Laporan ABK</a>
                             <a href="" class="btn btn-outline-primary">Lihat Peta Jabatan</a>
                         </div>  
