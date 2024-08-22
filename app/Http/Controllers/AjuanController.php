@@ -10,6 +10,7 @@ use App\Models\FungsiPekerjaan;
 use App\Models\FungsiPekerjaanJabatanDiajukan;
 use App\Models\Jabatan;
 use App\Models\JabatanDiajukan;
+use App\Models\JabatanDirevisi;
 use App\Models\JenisJabatan;
 use App\Models\KondisiLingkunganKerja;
 use App\Models\KualifikasiJabatan;
@@ -132,17 +133,17 @@ class AjuanController extends Controller
     RoleVerifikasi::create([
       'ajuan_id' => $ajuan->id,
       'role_id' => Role::where('name', 'Manajer Kepegawaian')->first()->id,
-      'is_approved' => true
+      'is_approved' => false
     ]);
     RoleVerifikasi::create([
       'ajuan_id' => $ajuan->id,
       'role_id' => Role::where('name', 'Kepala BUK')->first()->id,
-      'is_approved' => true
+      'is_approved' => false
     ]);
     RoleVerifikasi::create([
       'ajuan_id' => $ajuan->id,
       'role_id' => Role::where('name', 'Wakil Rektor 2')->first()->id,
-      'is_approved' => true
+      'is_approved' => false
     ]);
 
     $jabatans = JabatanDiajukan::where('ajuan_id', null)->get();
@@ -409,11 +410,19 @@ class AjuanController extends Controller
   // When user rejects the ajuan, verification instance is created, 
   // is_approved in RoleVerifikasi from the previous role is set to false
   // and is_approved in RoleVerifikasi from the current role is also set to false
-  public function anjabRevisi(Ajuan $ajuan)
-  {
+  public function anjabRevisi(Request $request) {
+
+    // dd(request()->all());
+    $request->validate([
+      'catatan' => 'required|string',
+      'jabatan_direvisi' => "array|min:1",
+    ]);
+
+    // get the Ajuan instance from the request
+    $ajuan = Ajuan::where('id', request('ajuan_id'))->first();
     // Create a new verification instance
-    Verifikasi::create([
-      'ajuan_id' => $ajuan->id,
+    $verifikasi = Verifikasi::create([
+      'ajuan_id' => request('ajuan_id'),
       'user_id' => auth()->user()->id,
       'is_approved' => false,
       'catatan' => request('catatan')
@@ -421,10 +430,10 @@ class AjuanController extends Controller
 
     // Get all role ids that can verify the ajuan
     $verificatorIds = RoleVerifikasi::where('ajuan_id', $ajuan->id)->get()->pluck('role_id')->toArray();
-    // Get the role id of the previous verificator
+    // // Get the role id of the previous verificator
     $previousVerificatorRoleId = $verificatorIds[array_search(auth()->user()->roles->first()->id, $verificatorIds) - 1];
 
-    // Set is_approved in RoleVerifikasi from the previous role to false
+    // // Set is_approved in RoleVerifikasi from the previous role to false
     RoleVerifikasi::where('ajuan_id', $ajuan->id)
       ->where('role_id', $previousVerificatorRoleId)
       ->update(['is_approved' => false]);
@@ -433,7 +442,26 @@ class AjuanController extends Controller
     RoleVerifikasi::where('ajuan_id', $ajuan->id)
       ->where('role_id', auth()->user()->roles->first()->id)
       ->update(['is_approved' => false]);
+    
 
+    // create JabatanDirevisi instance to store all the jabatans that require revisions
+    // if request has 'jabatan_direvisi' input, then create JabatanDirevisi instance for all of the 'jabatan_direvisi'
+    if (request()->has('jabatan_direvisi')){
+      foreach(request('jabatan_direvisi') as $key => $value){
+        JabatanDirevisi::create([
+          'verifikasi_id' => $verifikasi->id,
+          'jabatan_direvisi' => $value
+        ]);
+      }
+    }
+    else{
+      // else, create a single JabatanDirevisi instance that represents all of the jabatan
+
+      JabatanDirevisi::create([
+          'verifikasi_id' => $verifikasi->id,
+          'jabatan_direvisi' => 'Semua Jabatan'
+      ]);
+    }
     return redirect()->back()->with('success', 'Revisi berhasil');
   }
 }

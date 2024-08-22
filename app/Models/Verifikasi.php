@@ -26,4 +26,9 @@ class Verifikasi extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function jabatanDirevisi() {
+        // return $this->belongsToMany(JabatanDirevisi::class, 'jabatan_direvisi','verifikasi_id');
+        return $this->hasMany(JabatanDirevisi::class);
+    }
 }

@@ -43,7 +43,7 @@ Route::prefix('anjab')->middleware('auth')->group(function () {
     Route::get('/{ajuan:tahun}/jabatan/{jabatan}/edit/2', [AjuanController::class, 'anjabEditJabatan2'])->name('jabatan.edit.2');
     Route::put('/{ajuan:tahun}/jabatan/{jabatan}/update/2', [AjuanController::class, 'anjabUpdateJabatan2'])->name('jabatan.update.2');
     Route::post('/{ajuan}/verifikasi', [AjuanController::class, 'anjabVerifikasi'])->name('verifikasi');
-    Route::post('/{ajuan}/revisi', [AjuanController::class, 'anjabRevisi'])->name('revisi');
+    Route::post('/revisi', [AjuanController::class, 'anjabRevisi'])->name('revisi');
   });
   
   Route::prefix('jabatan')->name('anjab.jabatan.')->group(function () {

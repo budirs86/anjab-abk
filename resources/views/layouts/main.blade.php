@@ -54,6 +54,23 @@
 
     {{-- feathericons js --}}
     <script>feather.replace();</script>
+
+    {{-- Select2 CDN --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    {{-- feathericons js --}}
+    <script>feather.replace();</script>
+
+    {{-- select2 script --}}
+    {{-- replaces all inputs with "select2" class into a select2 input--}}
+    <script>
+                $(document).ready(function() {
+            $('.select2').select2({
+                dropdownParent: '#modalRevisi'
+            });
+        });
+    </script>
 </body>
 
     
