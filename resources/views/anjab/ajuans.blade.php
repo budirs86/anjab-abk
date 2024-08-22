@@ -7,7 +7,7 @@
     <div class="card-head mb-3">
         <h1 class="fw-light fs-4 d-inline nav-item">Daftar Ajuan Analisis Jabatan</h1>
     </div>
-    @can('make ajuan')
+    @can('make anjab')
         @if (Request::has('abk'))
             <div class="alert alert-info alert-dismissible fade show">
                 <div class="alert-heading d-flex justify-content-between">
@@ -27,7 +27,7 @@
         </div>
     @endcan
     <div class="card dropdown-divider mb-3"></div>
-    @can('make ajuan')
+    @can('make anjab')
         <a type="button" class="btn-primary btn mb-3" href="{{ route('anjab.ajuan.create') }}"><i data-feather="plus"></i> Buat
             Ajuan Baru</a>
     @endcan
@@ -36,7 +36,7 @@
             <tr>
                 <th style="width: 10%">No</th>
                 <th>Periode</th>
-                @can('make ajuan')
+                @can('make anjab')
                     <th>Status</th>
                 @elsecan('verify ajuan')
                     <th>Diajukan Tanggal</th>
@@ -53,7 +53,7 @@
                         <div class="d-flex flex-column justify-content-between">
                             <p>{{ $ajuan->tahun }} </p>
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                @can('make ajuan')
+                                @can('make anjab')
                                     <a href="{{ route('anjab.ajuan.show', ['ajuan' => $ajuan->tahun, 'id' => $ajuan->id]) }}"
                                         class="btn btn-outline-primary">Lihat</a>
                                     @if (!$ajuan->latest_verifikasi()->is_approved && $ajuan->next_verificator()->role->name == 'Admin Kepegawaian')
@@ -61,7 +61,7 @@
                                             class="btn btn-outline-primary">Edit</a>
                                     @endif
                                     @if ($ajuan->is_approved())
-                                        <form action="{{ route('abk.ajuan.store', ['ajuan' => $ajuan->id]) }}" method="POST">
+                                        <form action="{{ route('abk.ajuan.store', ['anjab' => $ajuan->id]) }}" method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-outline-success" aria-disabled="true">Buat
                                                 Ajuan ABK</button>
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                     </td>
-                    @can('make ajuan')
+                    @can('make anjab')
                         <td class="w-25">
                             {{-- check if latest verification exists, if exists and latest verification is not approved, show alert warning --}}
                             @if (!empty($ajuan->latest_verifikasi()) && !$ajuan->latest_verifikasi()->is_approved)
@@ -130,7 +130,8 @@
                                     $ajuan->latest_verificator() != auth()->user()->getRoleNames()->first() &&
                                     $ajuan->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="{{ route('anjab.ajuan.show', $ajuan) }}" class="btn btn-outline-primary">Lihat</a>
+                                    <a href="{{ route('anjab.ajuan.show', ['ajuan' => $ajuan, 'id' => $ajuan->id]) }}"
+                                        class="btn btn-outline-primary">Lihat</a>
                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                         data-bs-target="#modalTerima{{ $loop->index }}">Terima</button>
                                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
@@ -238,14 +239,14 @@
                     <div class="d-flex flex-column justify-content-between">
                         <p>2024</p>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            @can('make ajuan')
+                            @can('make anjab')
                                 <a href="{{ route('abk.ajuan.create', ['periode' => now()->year]) }}"
                                     class="btn btn-outline-success" aria-disabled="true">Buat Ajuan ABK</a>
                             @endcan
                         </div>
                     </div>
                 </td>
-                @can('make ajuan')
+                @can('make anjab')
                     <td class="w-25">
                         <div class="alert alert-success w-100">
                             <div class="alert-heading d-flex">
@@ -286,7 +287,7 @@
                     <div class="d-flex flex-column justify-content-between">
                         <p>2024</p>
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            @can('make ajuan')
+                            @can('make anjab')
                                 <a href="{{ route('anjab.ajuan', $ajuan->id) }}" class="btn btn-outline-primary">Lihat</a>
                                 <a href="{{ route('anjab.ajuan.edit', $ajuan->id) }}"
                                     class="btn btn-outline-primary">Edit</a>
@@ -296,7 +297,7 @@
                         </div>
                     </div>
                 </td>
-                @can('make ajuan')
+                @can('make anjab')
                     <td class="">
                         <div class="alert alert-warning w-100">
                             <div class="alert-heading d-flex">

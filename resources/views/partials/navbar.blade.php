@@ -55,8 +55,9 @@
                             <img src="" width=20px data-feather="edit" alt="">Anjab
                         </p>
                         <ul class="dropdown-menu">
-                            @can('make ajuan')
-                                <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.ajuan.create') }}">Buat Ajuan Informasi Jabatan Baru</a></li>
+                            @can('make anjab')
+                                <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.ajuan.create') }}">Buat Ajuan
+                                        Informasi Jabatan Baru</a></li>
                             @endcan
                             <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.ajuan.index') }}">Lihat
                                     Ajuan</a></li>
@@ -69,25 +70,29 @@
                         <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"><img
                                 data-feather="edit" width="20px"></img> ABK</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item me-3 my-1" href="{{ route('anjab.ajuan.index',['abk' => true]) }}">Buat Ajuan Baru</a></li>
+                            <li><a class="dropdown-item me-3 my-1"
+                                    href="{{ route('anjab.ajuan.index', ['abk' => true]) }}">Buat Ajuan Baru</a></li>
                             <li><a class="dropdown-item me-3 my-1" href="{{ route('abk.ajuans') }}">Lihat Ajuan</a></li>
                         </ul>
                     </li>
 
-                    <li><a class="nav-link" href="{{ route('laporan.index') }}"><img data-feather="file" width="20px"></img> Laporan</a>
+                    <li><a class="nav-link" href="{{ route('laporan.index') }}"><img data-feather="file"
+                                width="20px"></img> Laporan</a>
                     </li>
                     @if (auth()->user()->hasRole('superadmin'))
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"><img
                                     data-feather="user" width="20px"></img> Admin</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item me-3 my-1" href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                                <li><a class="dropdown-item me-3 my-1" href="{{ route('admin.users.index') }}">Manage Users</a></li>
-                                <li><a class="dropdown-item me-3 my-1" href="{{ route('admin.jabatans.index') }}">Manage Jabatans</a></li>
-                                
+                                <li><a class="dropdown-item me-3 my-1"
+                                        href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                                <li><a class="dropdown-item me-3 my-1" href="{{ route('admin.users.index') }}">Manage
+                                        Users</a></li>
+                                <li><a class="dropdown-item me-3 my-1" href="{{ route('admin.jabatans.index') }}">Manage
+                                        Jabatans</a></li>
+
                             </ul>
                         </li>
-                        
                     @endif
                 </ul>
             </div>
