@@ -89,7 +89,7 @@ class JabatanDiajukan extends Model
 
   public function jabatanUnsur()
   {
-    return $this->hasMany(JabatanUnsur::class);
+    return $this->hasMany(JabatanUnsurDiajukan::class,'jabatan_diajukan_id');
   }
 
   public function detailAbk()
@@ -98,7 +98,7 @@ class JabatanDiajukan extends Model
   }
 
   public function unsurs() {
-    return $this->belongsToMany(Unsur::class, 'jabatan_unsur', 'jabatan_id', 'unsur_id');
+    return $this->belongsToMany(Unsur::class, 'jabatan_unsur_diajukans', 'jabatan_id', 'unsur_id');
   }
 
   public function bakatKerja()
