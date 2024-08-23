@@ -17,7 +17,7 @@ with([
     <label for="jabatan" class="form-label">Pilih Berdasarkan Jabatan</label>
     <select name="jabatan" id="jabatan" wire:model.change="selectedJabatanId" class="form-select">
         <option value="">Pilih Jabatan</option>
-        @foreach ($jabatans as $jabatan)
+        @foreach ($jabatans ?? [] as $jabatan)
             <option value={{ $jabatan->id }}>{{ $jabatan->nama }}</option>
         @endforeach
     </select>
@@ -94,7 +94,7 @@ with([
                         <li>
                             <p>Pendidikan Formal</p>
                             <ul class="m-0">
-                                @forelse ($selectedJabatan->pendidikanFormals as $pendidikanFormal)
+                                @forelse ($selectedJabatan->pendidikanFormals ?? [] as $pendidikanFormal)
                                     <li>{{ $pendidikanFormal->jenjang . ' - ' . $pendidikanFormal->jurusan }}</li>
                                 @empty
                                     {{ '-' }}
@@ -104,7 +104,7 @@ with([
                         <li>
                             <p>Pendidikan dan Pelatihan</p>
                             <ul class="m-0">
-                                @forelse ($selectedJabatan->pendidikanPelatihans as $pendidikanPelatihan)
+                                @forelse ($selectedJabatan->pendidikanPelatihans ?? [] as $pendidikanPelatihan)
                                     <li>{{ $pendidikanPelatihan->nama }}</li>
                                 @empty
                                     {{ '-' }}
@@ -114,7 +114,7 @@ with([
                         <li>
                             <p>Pengalaman</p>
                             <ul class="m-0">
-                                @forelse ($selectedJabatan->pengalamans as $pengalaman)
+                                @forelse ($selectedJabatan->pengalamans ?? [] as $pengalaman)
                                     <li>{{ $pengalaman->nama }}</li>
                                 @empty
                                     {{ '-' }}
@@ -139,7 +139,7 @@ with([
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($selectedJabatan->uraianTugas as $uraianTugas)
+                            @forelse ($selectedJabatan->uraianTugas ?? [] as $uraianTugas)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $uraianTugas->nama_tugas }}</td>
@@ -170,7 +170,7 @@ with([
                 <li>
                     <p>Hasil Kerja</p>
                     <ol>
-                        @forelse ($selectedJabatan->uraianTugas as $uraianTugas)
+                        @forelse ($selectedJabatan->uraianTugas ?? [] as $uraianTugas)
                             <li>
                                 <p>{{ $uraianTugas->hasil_kerja ?? 'Data Belum diisi' }}</p>
                             </li>
@@ -190,7 +190,7 @@ with([
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($selectedJabatan->bahanKerja as $bahan_kerja)
+                            @forelse ($selectedJabatan->bahanKerja ?? [] as $bahan_kerja)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $bahan_kerja->nama }}</td>
@@ -215,7 +215,7 @@ with([
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($selectedJabatan->perangkatKerja as $perangkat_kerja)
+                            @forelse ($selectedJabatan->perangkatKerja ?? [] as $perangkat_kerja)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $perangkat_kerja->nama }}</td>
@@ -239,7 +239,7 @@ with([
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($selectedJabatan->tanggungJawab as $tanggungJawab)
+                            @forelse ($selectedJabatan->tanggungJawab ?? [] as $tanggungJawab)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $tanggungJawab->nama }}</td>
@@ -262,7 +262,7 @@ with([
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($selectedJabatan->wewenang as $wewenang)
+                            @forelse ($selectedJabatan->wewenang ?? [] as $wewenang)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $wewenang->nama }}</td>
@@ -287,7 +287,7 @@ with([
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($selectedJabatan->korelasiJabatan as $korelasiJabatan)
+                            @forelse ($selectedJabatan->korelasiJabatan ?? [] as $korelasiJabatan)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $korelasiJabatan->jabatanRelasi->nama }}</td>
@@ -313,7 +313,7 @@ with([
                         </thead>
                         <tbody>
                             {{-- loop through all attributes of kondisi lingkungan kerja as an associative array --}}
-                            @forelse ($selectedJabatan->getAttributes() as $aspek => $faktor)
+                            @forelse ($selectedJabatan->getAttributes() ?? [] as $aspek => $faktor)
                                 {{-- show all attributes except id, nama, jabatan_id, created_at, updated_at --}}
                                 @if (!in_array($aspek, ['id', 'nama', 'jabatan_id', 'created_at', 'updated_at']))
                                     <tr>
@@ -339,7 +339,7 @@ with([
                         </thead>
                         <tbody>
                             {{-- loop through all attributes of kondisi lingkungan kerja as an associative array --}}
-                            @forelse ($selectedJabatan->risikoBahaya as $risiko)
+                            @forelse ($selectedJabatan->risikoBahaya ?? [] as $risiko)
                                 {{-- show all attributes except id, nama, jabatan_id, created_at, updated_at --}}
                                 <tr>
                                     <td class="text-capitalize">{{ $loop->iteration }}</td>
@@ -362,7 +362,7 @@ with([
                         <li>
                             <p>Bakat Kerja</p>
                             <ul class="mb-3">
-                                @forelse ($selectedJabatan->syaratBakat as $bakat)
+                                @forelse ($selectedJabatan->syaratBakat ?? [] as $bakat)
                                     <li>{{ $bakat->bakatKerja->nama }}</li>
                                 @empty
                                     Data Tidak Ditemukan
@@ -372,7 +372,7 @@ with([
                         <li>
                             <p>Temperamen Kerja</p>
                             <ul class="mb-3">
-                                @forelse ($selectedJabatan->syaratTemperamens as $temperamen)
+                                @forelse ($selectedJabatan->syaratTemperamens ?? [] as $temperamen)
                                     <li>{{ $temperamen->temperamenKerja->nama }}</li>
                                 @empty
                                     Data Tidak Ditemukan
@@ -382,7 +382,7 @@ with([
                         <li>
                             <p>Minat Kerja</p>
                             <ul class="mb-3">
-                                @forelse ($selectedJabatan->syaratMinats as $minat)
+                                @forelse ($selectedJabatan->syaratMinats ?? [] as $minat)
                                     <li>{{ $minat->minatKerja->nama }}</li>
                                 @empty
                                     Data Tidak Ditemukan
@@ -392,7 +392,7 @@ with([
                         <li>
                             <p>Upaya Fisik :</p>
                             <ul class="mb-3">
-                                @forelse ($selectedJabatan->syaratUpayas as $upaya)
+                                @forelse ($selectedJabatan->syaratUpayas ?? [] as $upaya)
                                     <li>{{ $upaya->upayaFisik->nama }}</li>
                                 @empty
                                     Data Tidak Ditemukan
@@ -449,7 +449,7 @@ with([
                         <li>
                             <p>Fungsi Pekerjaan :</p>
                             <ul>
-                                @forelse ($selectedJabatan->SyaratFungsis as $fungsi)
+                                @forelse ($selectedJabatan->SyaratFungsis ?? [] as $fungsi)
                                     <li>{{ $fungsi->fungsiPekerjaan->nama }}</li>
                                 @empty
                                     Data Tidak Ditemukan
