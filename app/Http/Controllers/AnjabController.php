@@ -11,6 +11,7 @@ use App\Models\FungsiPekerjaanJabatanDiajukan;
 use App\Models\Jabatan;
 use App\Models\JabatanDiajukan;
 use App\Models\JabatanDirevisi;
+use App\Models\JabatanUnsurDiajukan;
 use App\Models\JenisJabatan;
 use App\Models\KondisiLingkunganKerja;
 use App\Models\KualifikasiJabatan;
@@ -62,6 +63,49 @@ class AnjabController extends Controller
     return view('anjab.ajuans', compact('title', 'ajuans'));
   }
 
+  
+  public function createJabatanDiajukan($dataJabatan, $parent_id = null) {
+    /* 
+    Create JabatanDiajukan instance
+    
+    takes the fetched Jabatan data and recursively creates JabatanDiajukan, UraianTugasDiajukan, and JabatanUnsurDiajukan instances in the database
+    
+    inputs : 
+    - $dataJabatan : a single row of Jabatan data fetched from the 'api.jabatans' API (see php artisan route:list)
+    - $parent_id : the parent_id of the JabatanDiajukan instance. If the JabatanDiajukan instance is a root, then $parent_id is null
+    the function expects the $dataJabatan input to be in the tree structure (use ->toTree() method)
+    */
+
+
+      $createdJabatan = JabatanDiajukan::create([
+          'jabatan_id' => $dataJabatan['id'],
+          'ajuan_id' => null,
+          'parent_id' => $parent_id,
+          'nama' => $dataJabatan['nama'],
+          'kode' => $dataJabatan['kode'],
+          'ikhtisar' => $dataJabatan['ikhtisar'],
+          'prestasi' => $dataJabatan['prestasi'],
+      ]);
+
+      foreach ($dataJabatan['uraian_tugas'] as $uraianTugas) {
+
+        UraianTugasDiajukan::create([
+        'jabatan_diajukan_id' => $createdJabatan->id,
+        'nama_tugas' => $uraianTugas['nama_tugas'],
+        ]);
+      }
+
+      foreach($dataJabatan['unsurs'] as $unsur){
+        JabatanUnsurDiajukan::create([
+          'jabatan_diajukan_id' => $createdJabatan->id,
+          'unsur_id' => $unsur['id'],
+        ]);
+      }
+
+      foreach ($dataJabatan['children'] as $child) {
+        $this->createJabatanDiajukan($child, $createdJabatan->id);
+      }
+  }       
   public function anjabCreate()
   {
     $title = 'Buat Ajuan Baru';
@@ -73,42 +117,24 @@ class AnjabController extends Controller
     if (!JabatanDiajukan::is_draft_exist()) {
       // if no draft exists, fetch the JSON data
       $response = Http::get('http://anjab-abk.test/api/jabatans');
-
       // if the request isn't successful or the data isn't found, redirect back with an error message
       if (!$response->successful() || !isset($response['data'])) {
         return redirect()->back()->with('error', 'Data Jabatan tidak ditemukan');
       }
-
+      
       $jabatans = $response['data'];
+      // dd($jabatans);
 
       foreach ($jabatans as $dataJabatan) {
-        $jabatanData[] = [
-          'jabatan_id' => $dataJabatan['id'],
-          'ajuan_id' => null,
-          'parent_id' => $dataJabatan['parent_id'],
-          'nama' => $dataJabatan['nama'],
-          'kode' => $dataJabatan['kode'],
-          'ikhtisar' => $dataJabatan['ikhtisar'],
-          'prestasi' => $dataJabatan['prestasi'],
-        ];
-
-        foreach ($dataJabatan['uraian_tugas'] as $uraianTugas) {
-          $uraianTugasData[] = [
-            'jabatan_diajukan_id' => $dataJabatan['id'],
-            'nama_tugas' => $uraianTugas['nama_tugas'],
-          ];
-        }
+        $this->createJabatanDiajukan($dataJabatan);
       }
-
-      JabatanDiajukan::insert($jabatanData);
-      UraianTugasDiajukan::insert($uraianTugasData);
     }
 
     // fetch the existing or newly created drafts
     $jabatans = JabatanDiajukan::where('ajuan_id', null)->with('uraianTugas')->tree()->get()->toTree();
 
     return view('anjab.buat-ajuan', compact('title', 'jabatans', 'jenisJabatan', 'unsurs'));
-  }
+    }
 
   public function anjabStore()
   {
@@ -149,7 +175,10 @@ class AnjabController extends Controller
     $jabatans = JabatanDiajukan::where('ajuan_id', null)->get();
     foreach ($jabatans as $jabatan) {
       $jabatan->update(['ajuan_id' => $ajuan->id]);
-    }
+      foreach($jabatan->jabatanUnsur as $unsur){
+        $unsur->update(['ajuan_id' => $ajuan->id]);
+      }
+    }    
 
     return redirect()->route('anjab.ajuan.index')->with('success', 'Ajuan Jabatan berhasil diajukan');
   }

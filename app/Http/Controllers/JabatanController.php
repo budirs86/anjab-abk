@@ -23,6 +23,7 @@ use App\Models\Ajuan;
 use App\Models\BakatKerjaJabatanDiajukan;
 use App\Models\FungsiPekerjaanJabatanDiajukan;
 use App\Models\JabatanDiajukan;
+use App\Models\JabatanUnsurDiajukan;
 use App\Models\MinatKerjaJabatanDiajukan;
 use App\Models\TemperamenKerjaJabatanDiajukan;
 use App\Models\UpayaFisikJabatanDiajukan;
@@ -61,9 +62,14 @@ class JabatanController extends Controller
 
   public function store(CreateJabatanRequest $request)
   {
+    
     $validatedData = $request->validated();
     $jabatan = JabatanDiajukan::create($validatedData);
 
+    JabatanUnsurDiajukan::create([
+      'jabatan_diajukan_id' => $jabatan->id,
+      'unsur_id' => $validatedData['unsur_id']
+    ]);
 
     return back()->with('success', 'Data Jabatan ' . $jabatan->nama . ' berhasil Ditambahkan');
   }
