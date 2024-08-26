@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreignId('jenis_jabatan_id')->constrained('jenis_jabatan')->onDelete('cascade');
+            $table->foreignId('unsur_id')->nullable()->constrained('unsur')->onDelete('cascade');
             $table->string('nama');
-            $table->string('kode');
+            $table->string('kode')->nullable();
             $table->timestamps();
 
             $table->foreign('parent_id')->references('id')->on('jabatan_tugas_tambahan')->onDelete('cascade');
