@@ -102,9 +102,6 @@ class AnjabController extends Controller
         ]);
       }
 
-      foreach ($dataJabatan['children'] as $child) {
-        $this->createJabatanDiajukan($child, $createdJabatan->id);
-      }
   }       
   public function anjabCreate()
   {
