@@ -42,8 +42,16 @@
     </div>
 
     {{-- non ajax --}}
-    
-    
+@endsection
+
+@section('scripts')
+    <script>
+        document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(button => {
+            button.addEventListener('click', function() {
+                this.querySelector('i').classList.toggle('fa-rotate-180');
+            });
+        });
+    </script>
     <script>
         const modal = document.getElementById('modalJabatan');
 
