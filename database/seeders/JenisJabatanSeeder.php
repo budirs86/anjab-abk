@@ -14,11 +14,10 @@ class JenisJabatanSeeder extends Seeder
     public function run(): void
     {
         $jenis_jabatan = [
-            "Jabatan Pimpinan Tinggi Utama",
-            "Jabatan Pimpinan Tinggi Madya",
-            "Jabatan Pimpinan Tinggi Pratama",
-            "Jabatan Administrasi Administrator",
-            "Jabatan Administrasi Pengawas",
+            "Setara Eselon I",
+            "Setara Eselon II",
+            "Setara Eselon III",
+            "Setara Eselon IV",
             "Jabatan Administrasi Pelaksana",
             "Jabatan Fungsional",
         ];
