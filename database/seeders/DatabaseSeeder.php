@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             UpayaFisikSeeder::class,
             JabatanUnsurSeeder::class,
             UraianTugasSeeder::class,
+            TutamSeeder::class,
         ]);
     }
 }
