@@ -17,7 +17,7 @@ class JabatanController extends Controller
   public function index()
   {
     // Get all jabatans
-    $jabatans = Jabatan::with(['uraianTugas'])->get();
+    $jabatans = Jabatan::with(['uraianTugas','unsurs'])->get();
 
     // Return a collection of jabatans as a resource
     return response()->json([
