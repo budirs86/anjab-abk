@@ -64,13 +64,6 @@
 
     {{-- select2 script --}}
     {{-- replaces all inputs with "select2" class into a select2 input--}}
-    <script>
-                $(document).ready(function() {
-            $('.select2').select2({
-                dropdownParent: '#modalRevisi'
-            });
-        });
-    </script>
 
     {{-- custom script --}}
     @yield('scripts')
