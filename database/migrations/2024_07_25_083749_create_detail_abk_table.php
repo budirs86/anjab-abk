@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ajuan_id')->constrained('ajuan');
             $table->foreignId('unit_kerja_id')->constrained('unit_kerja');
-            $table->foreignId('jabatan_diajukan_id')->constrained('jabatan_diajukan');
+            $table->foreignId('abk_jabatan_id')->constrained('abk_jabatan');
             $table->foreignId('uraian_tugas_diajukan_id')->nullable()->constrained('uraian_tugas_diajukan');
             $table->string('hasil_kerja')->nullable();
             $table->integer('waktu_penyelesaian')->nullable();
