@@ -71,6 +71,9 @@
             });
         });
     </script>
+
+    {{-- custom script --}}
+    @yield('scripts')
 </body>
 
     
