@@ -23,4 +23,12 @@ class LaporanController extends Controller
 
         return view('laporan.anjab', compact('title', 'anjab', 'jabatans'));
     }
+
+    public function showLaporanAnjab($tahun, Ajuan $anjab)
+    {
+        $title = 'Laporan Jabatan' . $anjab->tahun;
+        $jabatans = JabatanDiajukan::where('ajuan_id', $anjab->id)->get();
+
+        return view('laporan.anjabs', compact('title', 'jabatans'));
+    }
 }
