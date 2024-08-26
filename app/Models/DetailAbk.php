@@ -31,4 +31,9 @@ class DetailAbk extends Model
     {
         return $this->belongsTo(UnitKerja::class);
     }    
+
+    public function abkJabatan()
+    {
+        return $this->belongsTo(AbkJabatan::class);
+    }
 }
