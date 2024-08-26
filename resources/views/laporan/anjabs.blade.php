@@ -1,40 +1,20 @@
-<?php
+@extends('layouts.main')
 
-use function Livewire\Volt\{state, with};
-
-//
-state([
-    'selectedJabatanId' => null,
-    'jabatans',
-]);
-
-with([
-    'selectedJabatan' => fn() => $this->jabatans->find($this->selectedJabatanId),
-]);
-?>
-
-<div>
-    <label for="jabatan" class="form-label">Pilih Berdasarkan Jabatan</label>
-    <select name="jabatan" id="jabatan" wire:model.change="selectedJabatanId" class="form-select">
-        <option value="">Pilih Jabatan</option>
-        @foreach ($jabatans ?? [] as $jabatan)
-            <option value={{ $jabatan->id }}>{{ $jabatan->nama }}</option>
-        @endforeach
-    </select>
-    @if ($selectedJabatanId)
+@section('container')
+    @foreach ($jabatans ?? [] as $jabatan)
         <div class="my-3 mx-5">
             <h2 class="text-center mb-5">Informasi Jabatan</h2>
             <ol class="">
                 <li class="mb-2">
                     <div class="row">
                         <div class="col-2">Nama Jabatan</div>:
-                        <div class="col"> {{ $selectedJabatan->nama }}</div>
+                        <div class="col"> {{ $jabatan->nama }}</div>
                     </div>
                 </li>
                 <li class="mb-2">
                     <div class="row">
                         <div class="col-2">Kode Jabatan</div>:
-                        <div class="col"> {{ $selectedJabatan->kode }}</div>
+                        <div class="col"> {{ $jabatan->kode }}</div>
                     </div>
                 </li>
                 <li class="mb-2">
@@ -84,7 +64,7 @@ with([
                     <div class="row">
                         <div class="col-2">Ikhtisar Jabatan</div>:
                     </div>
-                    <p>{{ $selectedJabatan->ikhtisar ?? 'Lorem ipsum dolor sit amet consectetur.' }}</p>
+                    <p>{{ $jabatan->ikhtisar ?? 'Lorem ipsum dolor sit amet consectetur.' }}</p>
                 </li>
                 <li>
                     <div class="row">
@@ -94,7 +74,7 @@ with([
                         <li>
                             <p>Pendidikan Formal</p>
                             <ul class="m-0">
-                                @forelse ($selectedJabatan->pendidikanFormals ?? [] as $pendidikanFormal)
+                                @forelse ($jabatan->pendidikanFormals ?? [] as $pendidikanFormal)
                                     <li>{{ $pendidikanFormal->jenjang . ' - ' . $pendidikanFormal->jurusan }}</li>
                                 @empty
                                     {{ '-' }}
@@ -104,7 +84,7 @@ with([
                         <li>
                             <p>Pendidikan dan Pelatihan</p>
                             <ul class="m-0">
-                                @forelse ($selectedJabatan->pendidikanPelatihans ?? [] as $pendidikanPelatihan)
+                                @forelse ($jabatan->pendidikanPelatihans ?? [] as $pendidikanPelatihan)
                                     <li>{{ $pendidikanPelatihan->nama }}</li>
                                 @empty
                                     {{ '-' }}
@@ -114,7 +94,7 @@ with([
                         <li>
                             <p>Pengalaman</p>
                             <ul class="m-0">
-                                @forelse ($selectedJabatan->pengalamans ?? [] as $pengalaman)
+                                @forelse ($jabatan->pengalamans ?? [] as $pengalaman)
                                     <li>{{ $pengalaman->nama }}</li>
                                 @empty
                                     {{ '-' }}
@@ -139,7 +119,7 @@ with([
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($selectedJabatan->uraianTugas ?? [] as $uraianTugas)
+                            @forelse ($jabatan->uraianTugas ?? [] as $uraianTugas)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $uraianTugas->nama_tugas }}</td>
@@ -170,7 +150,7 @@ with([
                 <li>
                     <p>Hasil Kerja</p>
                     <ol>
-                        @forelse ($selectedJabatan->uraianTugas ?? [] as $uraianTugas)
+                        @forelse ($jabatan->uraianTugas ?? [] as $uraianTugas)
                             <li>
                                 <p>{{ $uraianTugas->hasil_kerja ?? 'Data Belum diisi' }}</p>
                             </li>
@@ -190,7 +170,7 @@ with([
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($selectedJabatan->bahanKerja ?? [] as $bahan_kerja)
+                            @forelse ($jabatan->bahanKerja ?? [] as $bahan_kerja)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $bahan_kerja->nama }}</td>
@@ -215,7 +195,7 @@ with([
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($selectedJabatan->perangkatKerja ?? [] as $perangkat_kerja)
+                            @forelse ($jabatan->perangkatKerja ?? [] as $perangkat_kerja)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $perangkat_kerja->nama }}</td>
@@ -239,7 +219,7 @@ with([
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($selectedJabatan->tanggungJawab ?? [] as $tanggungJawab)
+                            @forelse ($jabatan->tanggungJawab ?? [] as $tanggungJawab)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $tanggungJawab->nama }}</td>
@@ -262,7 +242,7 @@ with([
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($selectedJabatan->wewenang ?? [] as $wewenang)
+                            @forelse ($jabatan->wewenang ?? [] as $wewenang)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $wewenang->nama }}</td>
@@ -287,7 +267,7 @@ with([
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($selectedJabatan->korelasiJabatan ?? [] as $korelasiJabatan)
+                            @forelse ($jabatan->korelasiJabatan ?? [] as $korelasiJabatan)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $korelasiJabatan->jabatanRelasi->nama }}</td>
@@ -313,7 +293,7 @@ with([
                         </thead>
                         <tbody>
                             {{-- loop through all attributes of kondisi lingkungan kerja as an associative array --}}
-                            @forelse ($selectedJabatan->getAttributes() ?? [] as $aspek => $faktor)
+                            @forelse ($jabatan->getAttributes() ?? [] as $aspek => $faktor)
                                 {{-- show all attributes except id, nama, jabatan_id, created_at, updated_at --}}
                                 @if (!in_array($aspek, ['id', 'nama', 'jabatan_id', 'created_at', 'updated_at']))
                                     <tr>
@@ -339,7 +319,7 @@ with([
                         </thead>
                         <tbody>
                             {{-- loop through all attributes of kondisi lingkungan kerja as an associative array --}}
-                            @forelse ($selectedJabatan->risikoBahaya ?? [] as $risiko)
+                            @forelse ($jabatan->risikoBahaya ?? [] as $risiko)
                                 {{-- show all attributes except id, nama, jabatan_id, created_at, updated_at --}}
                                 <tr>
                                     <td class="text-capitalize">{{ $loop->iteration }}</td>
@@ -357,12 +337,12 @@ with([
                     <ol type="a">
                         <li>
                             <p>Keterampilan Kerja</p>
-                            <p>{{ $selectedJabatan->keterampilan }}</p>
+                            <p>{{ $jabatan->keterampilan }}</p>
                         </li>
                         <li>
                             <p>Bakat Kerja</p>
                             <ul class="mb-3">
-                                @forelse ($selectedJabatan->syaratBakat ?? [] as $bakat)
+                                @forelse ($jabatan->syaratBakat ?? [] as $bakat)
                                     <li>{{ $bakat->bakatKerja->nama }}</li>
                                 @empty
                                     Data Tidak Ditemukan
@@ -372,7 +352,7 @@ with([
                         <li>
                             <p>Temperamen Kerja</p>
                             <ul class="mb-3">
-                                @forelse ($selectedJabatan->syaratTemperamens ?? [] as $temperamen)
+                                @forelse ($jabatan->syaratTemperamens ?? [] as $temperamen)
                                     <li>{{ $temperamen->temperamenKerja->nama }}</li>
                                 @empty
                                     Data Tidak Ditemukan
@@ -382,7 +362,7 @@ with([
                         <li>
                             <p>Minat Kerja</p>
                             <ul class="mb-3">
-                                @forelse ($selectedJabatan->syaratMinats ?? [] as $minat)
+                                @forelse ($jabatan->syaratMinats ?? [] as $minat)
                                     <li>{{ $minat->minatKerja->nama }}</li>
                                 @empty
                                     Data Tidak Ditemukan
@@ -392,7 +372,7 @@ with([
                         <li>
                             <p>Upaya Fisik :</p>
                             <ul class="mb-3">
-                                @forelse ($selectedJabatan->syaratUpayas ?? [] as $upaya)
+                                @forelse ($jabatan->syaratUpayas ?? [] as $upaya)
                                     <li>{{ $upaya->upayaFisik->nama }}</li>
                                 @empty
                                     Data Tidak Ditemukan
@@ -408,40 +388,40 @@ with([
                                     <div class="row">
                                         <p class="col-2">Jenis Kelamin</p>:
                                         <p class="col">
-                                            {{ $selectedJabatan->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}
+                                            {{ $jabatan->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}
                                         </p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="row">
                                         <p class="col-2">Umur</p>:
-                                        <p class="col">{{ $selectedJabatan->umur . ' Tahun' }}</p>
+                                        <p class="col">{{ $jabatan->umur . ' Tahun' }}</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="row">
                                         <p class="col-2">Tinggi Badan</p>:
-                                        <p class="col">{{ $selectedJabatan->tinggi_badan . ' cm' }}
+                                        <p class="col">{{ $jabatan->tinggi_badan . ' cm' }}
                                         </p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="row">
                                         <p class="col-2">Berat Badan</p>:
-                                        <p class="col">{{ $selectedJabatan->berat_badan . ' kg' }}
+                                        <p class="col">{{ $jabatan->berat_badan . ' kg' }}
                                         </p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="row">
                                         <p class="col-2">Postur Badan</p>:
-                                        <p class="col">{{ $selectedJabatan->postur_badan }}</p>
+                                        <p class="col">{{ $jabatan->postur_badan }}</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="row">
                                         <p class="col-2">Postur Badan</p>:
-                                        <p class="col">{{ $selectedJabatan->penampilan }}</p>
+                                        <p class="col">{{ $jabatan->penampilan }}</p>
                                     </div>
                                 </li>
                             </ol>
@@ -449,7 +429,7 @@ with([
                         <li>
                             <p>Fungsi Pekerjaan :</p>
                             <ul>
-                                @forelse ($selectedJabatan->SyaratFungsis ?? [] as $fungsi)
+                                @forelse ($jabatan->SyaratFungsis ?? [] as $fungsi)
                                     <li>{{ $fungsi->fungsiPekerjaan->nama }}</li>
                                 @empty
                                     Data Tidak Ditemukan
@@ -460,9 +440,9 @@ with([
                 </li>
                 <li>
                     <p>Prestasi Kerja :</p>
-                    <p>{{ $selectedJabatan->prestasi }}</p>
+                    <p>{{ $jabatan->prestasi }}</p>
                 </li>
             </ol>
         </div>
-    @endif
-</div>
+    @endforeach
+@endsection
