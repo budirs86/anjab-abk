@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AbkAnjab;
+use App\Models\AbkUnitKerja;
 use App\Models\Ajuan;
 use App\Models\AjuanUnitKerja;
 use App\Models\DetailAbk;
@@ -32,7 +33,7 @@ class AbkController extends Controller
         }
 
         if (auth()->user()->hasRole('Operator Unit Kerja')) {
-            $ajuans = Ajuan::where('jenis', 'abk')->whereHas('detailAbk', function ($query) {
+            $ajuans = Ajuan::where('jenis', 'abk')->whereHas('abkUnitKerja', function ($query) {
                 $query->where('unit_kerja_id', auth()->user()->unit_kerja_id);
             })->get();
 
@@ -94,6 +95,12 @@ class AbkController extends Controller
             AbkAnjab::create([
                 'abk_id' => $abk->id,
                 'anjab_id' => $anjab->id
+            ]);
+
+            // also create instance of abk_unit_kerja to map which unit kerja the abk is for
+            AbkUnitKerja::create([
+                'abk_id' => $abk->id,
+                'unit_kerja_id' => $unitKerja->id
             ]);
 
             // also create role verifikasi for each abk based on unsur of the unit kerja
@@ -164,18 +171,18 @@ class AbkController extends Controller
                 ]);
             }
 
-            // also create detail ABK instance for each uraian tugas for each jabatan in the unit kerja
-            $jabatanUnitKerjas = $unitKerja->jabatansWithin();
-            foreach ($jabatanUnitKerjas as $jabatanUnitKerja) {
-                foreach ($jabatanUnitKerja->jabatan->uraianTugas as $uraianTugas) {
-                    DetailAbk::create([
-                        'ajuan_id' => $abk->id,
-                        'unit_kerja_id' => $unitKerja->id,
-                        'jabatan_diajukan_id' => $jabatanUnitKerja->jabatan_id,
-                        'uraian_tugas_diajukan_id' => $uraianTugas->id
-                    ]);
-                }
-            }
+            // // also create detail ABK instance for each uraian tugas for each jabatan in the unit kerja
+            // $jabatanUnitKerjas = $unitKerja->jabatansWithin();
+            // foreach ($jabatanUnitKerjas as $jabatanUnitKerja) {
+            //     foreach ($jabatanUnitKerja->jabatan->uraianTugas as $uraianTugas) {
+            //         DetailAbk::create([
+            //             'ajuan_id' => $abk->id,
+            //             'unit_kerja_id' => $unitKerja->id,
+            //             'jabatan_diajukan_id' => $jabatanUnitKerja->jabatan_id,
+            //             'uraian_tugas_diajukan_id' => $uraianTugas->id
+            //         ]);
+            //     }
+            // }
         }
 
         return redirect()->route('abk.ajuans');
