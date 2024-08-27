@@ -14,10 +14,9 @@
         <h1 class="fw-light fs-4 d-inline nav-item">Edit Analisis Beban Kerja {{ $anjab->tahun }} {{ $unit_kerja->nama }}
         </h1>
     </div>
-    <div class="card dropdown-divider mb-4"></div>
+    <div class="card dropdown-divider mb-3"></div>
+    <a href="{{ route('abk.ajuans') }}" class="btn btn-primary header1 mb-3"><i data-feather="arrow-left"></i> Kembali</a>
     <div class="">
-        <button class="btn btn-sm btn-success ms-auto add-button" data-bs-toggle="modal" data-bs-target="#modalJabatan"
-            id="addButton" data-bs-atasan=""><i class="fa-solid fa-plus"></i> Tambah Jabatan</button>
         <table class="table table-striped table-bordered">
             <thead>
                 <th>Kode</th>
