@@ -26,11 +26,9 @@ class AdminUserController extends Controller
     }
 
     public function store(Request $request) {
-        // dd($request->all());
-
         $validated = $request->validate([
             'name' => 'required|min:4|max:255',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:user',
             'password' => 'required|min:8|confirmed',
             'password_confirmation' => 'required',
             'role' => 'required'
