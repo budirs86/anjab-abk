@@ -207,4 +207,9 @@ class Ajuan extends Model
             })
             ->get();
     }
+
+    public function abkUnitKerja()
+    {
+        return $this->hasMany(AbkUnitKerja::class, 'abk_id');
+    }
 }

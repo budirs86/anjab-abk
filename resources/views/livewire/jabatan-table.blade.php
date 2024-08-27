@@ -70,7 +70,6 @@ new class extends Component {
             <th class="fw-semibold text-muted">Kode</th>
             <th class="fw-semibold text-muted d-flex">Jabatan
                 <button class="btn btn-sm btn-success ms-auto add-button" data-bs-toggle="modal" data-bs-target="#modalJabatan" id="addButton" data-bs-atasan=""><i class="fa-solid fa-plus"></i> Tambah Jabatan</button>
-
             </th>
         </thead>
         <tbody>
