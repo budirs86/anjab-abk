@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('detail_abk', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ajuan_id')->constrained('ajuan');
-            $table->foreignId('unit_kerja_id')->constrained('unit_kerja');
             $table->foreignId('abk_jabatan_id')->constrained('abk_jabatan');
             $table->foreignId('uraian_tugas_diajukan_id')->nullable()->constrained('uraian_tugas_diajukan');
             $table->string('hasil_kerja')->nullable();

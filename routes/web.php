@@ -96,10 +96,11 @@ Route::prefix('/anjab/{anjab}/abk/ajuan')
         Route::get('/', [AbkController::class, 'showAjuan'])->name('ajuan.show');
         Route::get('/{abk}', [AbkController::class, 'showUnitKerja'])->name('unitkerja.show');
         Route::get('/{abk}/edit', [AbkController::class, 'editUnitKerja'])->name('unitkerja.edit');
+        Route::post('/{abk}/abk-jabatan/store', [AbkController::class, 'storeAbkJabatan'])->name('abk-jabatan.store');
         Route::post('/{abk}/update', [AbkController::class, 'updateAjuan'])->name('ajuan.update');
-        Route::get('/{abk}/jabatan/{jabatan}', [AbkController::class, 'showJabatan'])->name('jabatan.show');
-        Route::get('/{abk}/jabatan/{jabatan}/edit', [AbkController::class, 'editJabatan'])->name('jabatan.edit');
-        Route::put('/{abk}/jabatan/{jabatan}/edit/{detail_abk}/store', [AbkController::class, 'storeDetailAbk'])->name('detail_abk.store');
+        Route::get('/{abk}/jabatan/{abk_jabatan}', [AbkController::class, 'showJabatan'])->name('jabatan.show');
+        Route::get('/{abk}/jabatan/{abk_jabatan}/edit', [AbkController::class, 'editJabatan'])->name('jabatan.edit');
+        Route::put('/{abk}/jabatan/{abk_jabatan}/edit/{detail_abk}/store', [AbkController::class, 'storeDetailAbk'])->name('detail_abk.store');
     });
 Route::post('/{abk}/verifikasi', [AbkController::class, 'abkVerifikasi'])->name('abk.ajuan.verifikasi');
 Route::post('/{abk}/revisi', [AbkController::class, 'abkRevisi'])->name('abk.ajuan.revisi');

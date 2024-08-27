@@ -75,6 +75,7 @@ new class extends Component {
         <input type="email" wire:model.live="search" class="form-control" id="search" placeholder="Cari Jabatan">
         <label for="search">Cari Nama Jabatan</label>
     </div>
+    
     @if (empty($this->search))
         <table class="table table-bordered">
             <thead>
@@ -245,5 +246,4 @@ new class extends Component {
             @endforelse
         </table>
     @endif
-
 </div>

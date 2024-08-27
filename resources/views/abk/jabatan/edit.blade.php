@@ -21,13 +21,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($jabatan->detailAbk as $detail)
+                @foreach ($abk_jabatan->detailAbk as $detail)
                     <tr>
                         <form
                             action="{{ route('abk.detail_abk.store', [
                                 'anjab' => $anjab->id,
                                 'abk' => $abk->id,
-                                'jabatan' => $jabatan->id,
+                                'abk_jabatan' => $abk_jabatan->id,
                                 'detail_abk' => $detail->id,
                             ]) }}"
                             method="POST">
