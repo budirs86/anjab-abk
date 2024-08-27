@@ -252,11 +252,12 @@ class AbkController extends Controller
     public function editJabatan(Ajuan $anjab, Ajuan $abk, AbkJabatan $abk_jabatan)
     {
         $title = 'Edit Informasi ABK';
+        $unit_kerja = $abk->abkUnitKerja->last()->unitKerja;
         $uraians = $abk_jabatan->jabatan->uraianTugas;
         $jabatan = $abk_jabatan->jabatan;
         $wpt = DetailAbk::where('abk_jabatan_id', $abk_jabatan->id)->selectRaw('SUM(waktu_penyelesaian * jumlah_hasil_kerja) as total_value')->value('total_value');
 
-        return view('abk.jabatan.edit', compact('title', 'anjab', 'abk', 'jabatan', 'uraians', 'wpt', 'abk_jabatan'));
+        return view('abk.jabatan.edit', compact('title', 'unit_kerja', 'anjab', 'abk', 'jabatan', 'uraians', 'wpt', 'abk_jabatan'));
     }
 
     public function storeDetailAbk(Request $request, Ajuan $anjab, Ajuan $abk, AbkJabatan $abk_jabatan, DetailAbk $detail_abk)
