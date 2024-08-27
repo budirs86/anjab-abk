@@ -300,7 +300,9 @@
         </script>
     @endif
 
-    <script>
+@endsection
+@section('scripts')
+        <script>
         const modalRevisi = document.getElementById('modalRevisi');
         modalRevisi.addEventListener('show.bs.modal', event => {
             console.log('NJIR DIPENCET');
@@ -343,6 +345,11 @@
             })
         })
     </script>
-
-
+    <script>
+                $(document).ready(function() {
+            $('.select2').select2({
+                dropdownParent: '#modalRevisi'
+            });
+        });
+    </script>
 @endsection
