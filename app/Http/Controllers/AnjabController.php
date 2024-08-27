@@ -180,11 +180,12 @@ class AnjabController extends Controller
     return redirect()->route('anjab.ajuan.index')->with('success', 'Ajuan Jabatan berhasil diajukan');
   }
 
-  public function anjabShow(Ajuan $ajuan)
+  public function anjabShow(Ajuan $ajuan, $id)
   {
     $title = 'Ajuan Jabatan';
+    $ajuan = Ajuan::find($id);
     $jabatans = JabatanDiajukan::where('ajuan_id', $ajuan->id)->get();
-    return view('anjab.ajuan', compact('title', 'ajuan', 'jabatans'));
+    return view('anjab.ajuan', compact('title', 'ajuan', 'jabatans' ));
   }
 
   public function anjabEdit($tahun, $id)
