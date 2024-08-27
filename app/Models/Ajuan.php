@@ -182,7 +182,7 @@ class Ajuan extends Model
 
         if ($previousVerificatorId == Role::where('name', 'Operator Unit Kerja')->first()->id) {
             return
-                Ajuan::whereHas('detailAbk', function ($query) {
+                Ajuan::whereHas('abkUnitKerja', function ($query) {
                     $query->where('unit_kerja_id', auth()->user()->unit_kerja_id);
                 })
                 ->whereHas('role_verifikasi', function ($query) use ($previousVerificatorId) {
