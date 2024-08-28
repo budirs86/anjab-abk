@@ -136,6 +136,7 @@ Route::prefix('admin')
             Route::post('/store', [SuperadminController::class, 'tugasTambahanStore'])->name('store');
             Route::get('/{tugasTambahan}/edit', [SuperadminController::class, 'tugasTambahanEdit'])->name('edit');
             Route::put('/{tugasTambahan}/update', [SuperadminController::class, 'tugasTambahanUpdate'])->name('update');
+            Route::delete('/{tugasTambahan}/destroy', [SuperadminController::class, 'tugasTambahanDestroy'])->name('destroy');
         });
     });
 

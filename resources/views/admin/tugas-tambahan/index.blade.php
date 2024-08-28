@@ -15,7 +15,8 @@
         </div>
     @endif
     <div class="mb-3">
-        <a href="{{ route('admin.tugas-tambahan.create') }}" class="btn btn-primary mb-3"><i data-feather="plus"></i>Tambah</a>
+        <a href="{{ route('admin.tugas-tambahan.create') }}" class="btn btn-primary mb-3"><i
+                data-feather="plus"></i>Tambah</a>
         <table class="table table-striped table-bordered">
             <thead>
                 <th>No</th>
@@ -36,10 +37,11 @@
                         </td>
                         <td>{{ $tutam->jenisJabatan->nama }}</td>
                         <td>
-                            <a href="{{ route('admin.tugas-tambahan.edit', ['tugasTambahan' => $tutam->id]) }}" type="button"
-                                class="btn btn-warning"><i data-feather="edit"></i></a>
+                            <a href="{{ route('admin.tugas-tambahan.edit', ['tugasTambahan' => $tutam->id]) }}"
+                                type="button" class="btn btn-warning"><i data-feather="edit"></i></a>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#modalHapusTugasTambahan{{ $tutam->id }}"><i data-feather="trash"></i></button>
+                                data-bs-target="#modalHapusTugasTambahan{{ $tutam->id }}"><i
+                                    data-feather="trash"></i></button>
                             <div class="modal fade" tabindex="-1" id="modalHapusTugasTambahan{{ $tutam->id }}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -52,15 +54,16 @@
                                             <p>Tugas Tambahan yang sudah dihapus tidak akan bisa dikembalikan lagi.</p>
                                         </div>
                                         <div class="modal-footer">
-                                            <form action="{{ route('admin.tugas-tambahan.destroy', ['tugasTambahan' => $tutam->id]) }}"
+                                            <form
+                                                action="{{ route('admin.tugas-tambahan.destroy', ['tugasTambahan' => $tutam->id]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <input type="hidden" value="{{ $tutam->id }}">
-                                                <button type="submit" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Ya</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Tidak</button>
+                                                <button type="submit" class="btn btn-primary">Ya</button>
                                             </form>
-                                            <button type="button" class="btn btn-primary">Tidak</button>
                                         </div>
                                     </div>
                                 </div>

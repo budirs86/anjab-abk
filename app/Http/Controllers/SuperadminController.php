@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jabatan;
 use App\Models\JabatanTugasTambahan;
 use App\Models\JenisJabatan;
 use App\Models\Unsur;
@@ -75,3 +76,11 @@ class SuperadminController extends Controller
         return redirect()->route('admin.tugas-tambahan.index')->with('success', 'Tugas Tambahan ' . $validated['nama'] . ' berhasil diubah');
     }
 
+    public function tugasTambahanDestroy(JabatanTugasTambahan $tugasTambahan)
+    {
+        $tugasTambahan->delete();
+
+        return redirect()->route('admin.tugas-tambahan.index')->with('success', 'Tugas Tambahan berhasil dihapus');
+    }
+    // Controller for tugas tambahan end
+}
