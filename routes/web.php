@@ -14,6 +14,7 @@ use App\Http\Controllers\KualifikasiController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PerangkatKerjaController;
 use App\Http\Controllers\RisikoBahayaController;
+use App\Http\Controllers\SuperadminController;
 use App\Http\Controllers\TanggungJawabController;
 use App\Http\Controllers\UraianTugasController;
 use App\Http\Controllers\WewenangController;
@@ -114,23 +115,29 @@ Route::prefix('admin')
                 'title' => 'Dashboard Admin',
             ]);
         })->name('dashboard');
-        Route::prefix('users')
-            ->name('users.')
-            ->group(function () {
-                Route::get('/', [AdminUserController::class, 'index'])->name('index');
-                Route::get('/create', [AdminUserController::class, 'create'])->name('create');
-                Route::post('/store', [AdminUserController::class, 'store'])->name('store');
-                Route::prefix('{user}')->group(function () {
-                    Route::get('/edit', [AdminUserController::class, 'edit'])->name('edit');
-                    Route::put('/update', [AdminUserController::class, 'update'])->name('update');
-                    Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
-                });
+        Route::prefix('users')->name('users.')->group(function () {
+            Route::get('/', [AdminUserController::class, 'index'])->name('index');
+            Route::get('/create', [AdminUserController::class, 'create'])->name('create');
+            Route::post('/store', [AdminUserController::class, 'store'])->name('store');
+            Route::prefix('{user}')->group(function () {
+                Route::get('/edit', [AdminUserController::class, 'edit'])->name('edit');
+                Route::put('/update', [AdminUserController::class, 'update'])->name('update');
+                Route::delete('/destroy', [AdminUserController::class, 'destroy'])->name('destroy');
             });
+        });
         Route::prefix('jabatans')
             ->name('jabatans.')
             ->group(function () {
                 Route::get('/', [AdminJabatanController::class, 'index'])->name('index');
             });
+        Route::prefix('tugas-tambahan')->name('tugas-tambahan.')->group(function () {
+            Route::get('/', [SuperadminController::class, 'tugasTambahanIndex'])->name('index');
+            Route::get('/create', [SuperadminController::class, 'tugasTambahanCreate'])->name('create');
+            Route::post('/store', [SuperadminController::class, 'tugasTambahanStore'])->name('store');
+            Route::get('/{tugasTambahan}/edit', [SuperadminController::class, 'tugasTambahanEdit'])->name('edit');
+            Route::put('/{tugasTambahan}/update', [SuperadminController::class, 'tugasTambahanUpdate'])->name('update');
+            Route::delete('/{tugasTambahan}/destroy', [SuperadminController::class, 'tugasTambahanDestroy'])->name('destroy');
+        });
     });
 
 Route::get('/petajabatan', function () {

@@ -15,4 +15,8 @@ class JenisJabatan extends Model
     public function jabatans() {
         return $this->hasMany(JabatanDiajukan::class);
     }
+
+    public function jabatanTugasTambahan() {
+        return $this->hasMany(JabatanTugasTambahan::class);
+    }
 }

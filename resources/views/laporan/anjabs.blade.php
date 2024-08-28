@@ -1,8 +1,36 @@
-@extends('layouts.main')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('container')
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js">
+    </script>
+    <script src="bootstrap-autocomplete.min.js"></script>
+    <title>Document</title>
+    <style>
+        @media print {
+            .page-break-after {
+                page-break-after: always;
+            }
+        }
+
+        @media print {
+            .page-break-after {
+                break-after: page;
+            }
+        }
+    </style>
+</head>
+
+<body>
     @foreach ($jabatans ?? [] as $jabatan)
-        <div class="my-3 mx-5">
+        <div class="my-3 mx-5" style="page-break-after: always">
             <h2 class="text-center mb-5">Informasi Jabatan</h2>
             <ol class="">
                 <li class="mb-2">
@@ -445,4 +473,10 @@
             </ol>
         </div>
     @endforeach
-@endsection
+
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js">
+    </script>
+    <script src="bootstrap-autocomplete.min.js"></script>
+</body>
+
+</html>
