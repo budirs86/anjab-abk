@@ -45,11 +45,13 @@
                         <li><a class="nav-link" href="{{ route('admin.users.index') }}"><img data-feather="user"
                                     width="20px"></img>User</a>
                         </li>
-                        <li><a class="nav-link" href="/"><img data-feather="edit" width="20px">Tugas
+                        <li><a class="nav-link" href="{{ route('admin.tugas-tambahan.index') }}"><img data-feather="edit" width="20px">Tugas
                                 Tambahan</a></li>
-                        <li><a class="nav-link" href="{{ route('admin.jabatans.index') }}"><img data-feather="file"
+                        <li><a class="nav-link" href="{{ route('admin.jabatan.index') }}"><img data-feather="file"
                                     width="20px">Jabatan</a></li>
-                        <li><a class="nav-link" href="/"><img data-feather="home" width="20px">Unsur & Unit Kerja</a>
+                        <li><a class="nav-link" href="{{ route('admin.unsur.index') }}"><img data-feather="home" width="20px">Unsur</a>
+                        </li>
+                        <li><a class="nav-link" href="{{ route('admin.unit-kerja.index') }}"><img data-feather="home" width="20px">Unit Kerja</a>
                         </li>
                     @else
                         <li><a class="nav-link" href="/"><img data-feather="home" width="20px"> Dashboard</a>
