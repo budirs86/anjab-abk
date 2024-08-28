@@ -83,4 +83,62 @@ class SuperadminController extends Controller
         return redirect()->route('admin.tugas-tambahan.index')->with('success', 'Tugas Tambahan berhasil dihapus');
     }
     // Controller for tugas tambahan end
+
+    // Controller for unsur start
+    public function unsurIndex()
+    {
+        $title = 'Dashboard Admin';
+        $unsurs = Unsur::all();
+
+        return view('admin.unsur.index', compact('title', 'unsurs'));
+    }
+
+    public function unsurCreate()
+    {
+        $title = 'Tambah Unsur';
+
+        return view('admin.unsur.create', compact('title'));
+    }
+
+    public function unsurStore(Request $request)
+    {
+        $validated = $request->validate([
+            'nama' => 'required|min:3|max:255',
+        ]);
+        
+        Unsur::create([
+            'nama' => $validated['nama'],
+        ]);
+
+        return redirect()->route('admin.unsur.index')->with('success', 'Unsur ' . $validated['nama'] . ' berhasil ditambahkan');
+    }
+
+    public function unsurEdit(Unsur $unsur)
+    {
+        $title = 'Edit Unsur';
+        $unsur = Unsur::find($unsur->id);
+
+        return view('admin.unsur.edit', compact('title', 'unsur'));
+    }
+
+    public function unsurUpdate(Request $request, Unsur $unsur)
+    {
+        $validated = $request->validate([
+            'nama' => 'required|min:3|max:255',
+        ]);
+
+        $unsur->update([
+            'nama' => $validated['nama'],
+        ]);
+
+        return redirect()->route('admin.unsur.index')->with('success', 'Unsur ' . $validated['nama'] . ' berhasil diubah');
+    }
+
+    public function unsurDestroy(Unsur $unsur)
+    {
+        $unsur->delete();
+
+        return redirect()->route('admin.unsur.index')->with('success', 'Unsur berhasil dihapus');
+    }
+    // Controller for unsur end
 }

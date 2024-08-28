@@ -138,6 +138,15 @@ Route::prefix('admin')
             Route::put('/{tugasTambahan}/update', [SuperadminController::class, 'tugasTambahanUpdate'])->name('update');
             Route::delete('/{tugasTambahan}/destroy', [SuperadminController::class, 'tugasTambahanDestroy'])->name('destroy');
         });
+
+        Route::prefix('unsur')->name('unsur.')->group(function () {
+            Route::get('/', [SuperadminController::class, 'unsurIndex'])->name('index');
+            Route::get('/create', [SuperadminController::class, 'unsurCreate'])->name('create');
+            Route::post('/store', [SuperadminController::class, 'unsurStore'])->name('store');
+            Route::get('/{unsur}/edit', [SuperadminController::class, 'unsurEdit'])->name('edit');
+            Route::put('/{unsur}/update', [SuperadminController::class, 'unsurUpdate'])->name('update');
+            Route::delete('/{unsur}/destroy', [SuperadminController::class, 'unsurDestroy'])->name('destroy');
+        });
     });
 
 Route::get('/petajabatan', function () {

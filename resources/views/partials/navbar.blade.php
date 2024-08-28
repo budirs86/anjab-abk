@@ -49,7 +49,7 @@
                                 Tambahan</a></li>
                         <li><a class="nav-link" href=""><img data-feather="file"
                                     width="20px">Jabatan</a></li>
-                        <li><a class="nav-link" href=""><img data-feather="home" width="20px">Unsur</a>
+                        <li><a class="nav-link" href="{{ route('admin.unsur.index') }}"><img data-feather="home" width="20px">Unsur</a>
                         </li>
                         <li><a class="nav-link" href=""><img data-feather="home" width="20px">Unit Kerja</a>
                         </li>
