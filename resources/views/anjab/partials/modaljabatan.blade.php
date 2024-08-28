@@ -11,9 +11,8 @@
                     <input type="hidden" name="parent_id" id="parent_id" value="{{ old('parent_id') }}">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama Jabatan</label>
-                        <input type="text" class="form-control @error('nama') is-invalid @enderror"
-                            id="nama" name="nama" placeholder="Masukkan Nama Jabatan"
-                            value="{{ old('nama') }}">
+                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
+                            name="nama" placeholder="Masukkan Nama Jabatan" value="{{ old('nama') }}">
                         @error('nama')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -22,7 +21,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="jenis_jabatan_id" class="form-label">Jenis Jabatan</label>
-                        <select class="form-select @error('jenis_jabatan_id') is-invalid @enderror" name="jenis_jabatan_id" id="jenis_jabatan_id">
+                        <select class="form-select @error('jenis_jabatan_id') is-invalid @enderror"
+                            name="jenis_jabatan_id" id="jenis_jabatan_id">
                             <option value="">Pilih Jenis Jabatan</option>
                             @foreach ($jenisJabatan as $jenis)
                                 <option value="{{ $jenis->id }}" @if ($jenis->id == old('jenis_jabatan_id')) selected @endif>
@@ -34,32 +34,35 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="kode" class="form-label">Kode</label>
-                        <input type="text" class="form-control @error('kode') is-invalid @enderror" id="kode"
-                            name="kode" placeholder="Masukkan Kode Jabatan" value="">
-                        @error('kode')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
                         <label for="unsur" class="form-label">Unsur</label>
-                        <select class="form-select @error('unsur_id') is-invalid @enderror" id="unsur"
-                            name="unsur_id">
-                            <option value="">Pilih Unsur yang membawahi Jabatan</option>
+                        
+                        <div class="">
+                            <select class="select2 form-select w-100 @error('unsur_id')
+                                is-invalid
+                            @enderror" id="select2input" multiple="multiple" name="unsur_id[]"
+                            placeholder="Pilih Unsur" style="width: 100%" >
                             @foreach ($unsurs as $unsur)
                                 @if ($unsur != 'Wakil Rektor')
                                     <option value="{{ $unsur->id }}">{{ $unsur->nama }}</option>
                                 @endif
                             @endforeach
                         </select>
-                        @error('unsur_id')
-                            <label for="unsur_id" class="invalid-feedback">{{ $message }}</label>
-                        @enderror
+                            <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Semua Unsur" id="semuaUnsurCheckbox" name="unsur_id">
+                            <label class="form-check-label" for="semuaUnsurCheckbox">
+                                Pilih Semua Unsur
+                            </label>
+                        </div>
+                        </div>
+                        @if ($errors->has('unsur_id'))
+                            <p class="" style="font-size: .875rem; margin-top: .25rem; color: var(--bs-form-invalid-color)">
+                                {{ $errors->first('unsur_id') }}
+                            </p>
+                        @endif
                     </div>
                     <div class="">
-                        <button class="btn btn-primary header1" type="submit" id="submitJabatan"><i class="fa-solid fa-plus"></i>
+                        <button class="btn btn-primary header1" type="submit" id="submitJabatan"><i
+                                class="fa-solid fa-plus"></i>
                             Tambah
                             Jabatan</button>
                     </div>
