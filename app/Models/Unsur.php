@@ -17,4 +17,9 @@ class Unsur extends Model
     {
         return $this->hasMany(UnitKerja::class);
     }
+
+    public function jabatanTugasTambahan()
+    {
+        return $this->hasMany(JabatanTugasTambahan::class);
+    }
 }
