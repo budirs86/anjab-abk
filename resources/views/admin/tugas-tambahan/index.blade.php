@@ -19,7 +19,8 @@
         <table class="table table-striped table-bordered">
             <thead>
                 <th>No</th>
-                <th>Nama Tugas Tambahan</th>
+                <th>Kode</th>
+                <th>Nama</th>
                 <th>Unsur</th>
                 <th>Jenis Jabatan</th>
                 <th>Aksi</th>
@@ -28,6 +29,7 @@
                 @foreach ($tutams as $tutam)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $tutam->kode }}</td>
                         <td>{{ $tutam->nama }}</td>
                         <td>
                             {{ $tutam->unsur->nama }}
