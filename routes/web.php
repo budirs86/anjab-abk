@@ -134,7 +134,8 @@ Route::prefix('admin')
             Route::get('/', [SuperadminController::class, 'tugasTambahanIndex'])->name('index');
             Route::get('/create', [SuperadminController::class, 'tugasTambahanCreate'])->name('create');
             Route::post('/store', [SuperadminController::class, 'tugasTambahanStore'])->name('store');
-            });
+            Route::get('/{tugasTambahan}/edit', [SuperadminController::class, 'tugasTambahanEdit'])->name('edit');
+            Route::put('/{tugasTambahan}/update', [SuperadminController::class, 'tugasTambahanUpdate'])->name('update');
         });
     });
 
