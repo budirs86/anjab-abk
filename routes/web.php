@@ -147,6 +147,15 @@ Route::prefix('admin')
             Route::put('/{unsur}/update', [SuperadminController::class, 'unsurUpdate'])->name('update');
             Route::delete('/{unsur}/destroy', [SuperadminController::class, 'unsurDestroy'])->name('destroy');
         });
+
+        Route::prefix('unit-kerja')->name('unit-kerja.')->group(function () {
+            Route::get('/', [SuperadminController::class, 'unitKerjaIndex'])->name('index');
+            Route::get('/create', [SuperadminController::class, 'unitKerjaCreate'])->name('create');
+            Route::post('/store', [SuperadminController::class, 'unitKerjaStore'])->name('store');
+            Route::get('/{unitKerja}/edit', [SuperadminController::class, 'unitKerjaEdit'])->name('edit');
+            Route::put('/{unitKerja}/update', [SuperadminController::class, 'unitKerjaUpdate'])->name('update');
+            Route::delete('/{unitKerja}/destroy', [SuperadminController::class, 'unitKerjaDestroy'])->name('destroy');
+        });
     });
 
 Route::get('/petajabatan', function () {
