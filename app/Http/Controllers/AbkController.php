@@ -35,9 +35,11 @@ class AbkController extends Controller
         }
 
         if (auth()->user()->hasRole('Operator Unit Kerja')) {
-            $ajuans = Ajuan::where('jenis', 'abk')->whereHas('abkUnitKerja', function ($query) {
-                $query->where('unit_kerja_id', auth()->user()->unit_kerja_id);
-            })->get();
+            $ajuans = Ajuan::where('jenis', 'abk')
+                ->whereHas('abkUnitKerja', function ($query) {
+                    $query->where('unit_kerja_id', auth()->user()->unit_kerja_id);
+                })
+                ->get();
 
             return view('abk.ajuans', compact('title', 'ajuans'));
         }
@@ -58,7 +60,7 @@ class AbkController extends Controller
     {
         return view('abk.buat-ajuan', [
             'title' => 'Buat Ajuan ABK',
-            'jabatans' => JabatanDiajukan::all()
+            'jabatans' => JabatanDiajukan::all(),
         ]);
     }
 
@@ -67,80 +69,71 @@ class AbkController extends Controller
         // create a parent ABK
         $parentAbk = Ajuan::create([
             'tahun' => now()->year,
-            'jenis' => 'abk'
+            'jenis' => 'abk',
         ]);
 
         // define who can verify the parent ABK
         RoleVerifikasi::create([
             'ajuan_id' => $parentAbk->id,
             'role_id' => Role::where('name', 'Admin Kepegawaian')->first()->id,
-            'is_approved' => false
+            'is_approved' => false,
         ]);
         RoleVerifikasi::create([
             'ajuan_id' => $parentAbk->id,
             'role_id' => Role::where('name', 'Wakil Rektor 2')->first()->id,
-            'is_approved' => false
+            'is_approved' => false,
         ]);
 
         // get all unique unit kerja from the jabatan
         $unitKerjas = UnitKerja::all();
-        // for each unit kerja, 
+        // for each unit kerja,
         // create ABK with current year as 'tahun' and abk as 'jenis'
         foreach ($unitKerjas as $unitKerja) {
             $abk = Ajuan::create([
                 'parent_id' => $parentAbk->id,
                 'tahun' => now()->year,
-                'jenis' => 'abk'
+                'jenis' => 'abk',
             ]);
 
             // also create instance of abk_anjab to map which ones are the abk for an anjab
             AbkAnjab::create([
                 'abk_id' => $abk->id,
-                'anjab_id' => $anjab->id
+                'anjab_id' => $anjab->id,
             ]);
 
             // also create instance of abk_unit_kerja to map which unit kerja the abk is for
             AbkUnitKerja::create([
                 'abk_id' => $abk->id,
-                'unit_kerja_id' => $unitKerja->id
+                'unit_kerja_id' => $unitKerja->id,
             ]);
 
             // also create role verifikasi for each abk based on unsur of the unit kerja
-            if (in_array($unitKerja->unsur->nama, [
-                'Lembaga',
-                'Badan',
-                'Biro',
-                'Direktorat',
-                'Unit Pelaksana Teknis',
-                'Kantor',
-                'Satuan Pengawas Internal',
-                'Dewan Penasihat Universitas'
-            ])) {
+            if (in_array($unitKerja->unsur->nama, ['Lembaga', 'Badan', 'Biro', 'Direktorat', 'Unit Pelaksana Teknis', 'Kantor', 'Satuan Pengawas Internal', 'Dewan Penasihat Universitas'])) {
                 // create roles that can verify the ajuan
                 RoleVerifikasi::create([
                     'ajuan_id' => $abk->id,
                     'role_id' => Role::where('name', 'Operator Unit Kerja')->first()->id,
-                    'is_approved' => false
+                    'is_approved' => false,
                 ]);
                 RoleVerifikasi::create([
                     'ajuan_id' => $abk->id,
                     'role_id' => Role::where('name', 'Manajer Unit Kerja')->first()->id,
-                    'is_approved' => false
+                    'is_approved' => false,
                 ]);
                 RoleVerifikasi::create([
                     'ajuan_id' => $abk->id,
                     'role_id' => Role::where('name', 'Kepala Unit Kerja')->first()->id,
-                    'is_approved' => false
+                    'is_approved' => false,
                 ]);
                 RoleVerifikasi::create([
                     'ajuan_id' => $abk->id,
                     'role_id' => Role::where('name', 'Admin Kepegawaian')->first()->id,
-                    'is_approved' => false
+                    'is_approved' => false,
                 ]);
                 RoleVerifikasi::create([
                     'ajuan_id' => $abk->id,
                     'role_id' => Role::where('name', 'Wakil Rektor 2')->first()->id,
-                    'is_approved' => false
+                    'is_approved' => false,
                 ]);
             }
 
@@ -149,27 +142,27 @@ class AbkController extends Controller
                 RoleVerifikasi::create([
                     'ajuan_id' => $abk->id,
                     'role_id' => Role::where('name', 'Operator Unit Kerja')->first()->id,
-                    'is_approved' => false
+                    'is_approved' => false,
                 ]);
                 RoleVerifikasi::create([
                     'ajuan_id' => $abk->id,
                     'role_id' => Role::where('name', 'Manajer Tata Usaha')->first()->id,
-                    'is_approved' => false
+                    'is_approved' => false,
                 ]);
                 RoleVerifikasi::create([
                     'ajuan_id' => $abk->id,
                     'role_id' => Role::where('name', 'Wakil Dekan 2')->first()->id,
-                    'is_approved' => false
+                    'is_approved' => false,
                 ]);
                 RoleVerifikasi::create([
                     'ajuan_id' => $abk->id,
                     'role_id' => Role::where('name', 'Admin Kepegawaian')->first()->id,
-                    'is_approved' => false
+                    'is_approved' => false,
                 ]);
                 RoleVerifikasi::create([
                     'ajuan_id' => $abk->id,
                     'role_id' => Role::where('name', 'Wakil Rektor 2')->first()->id,
-                    'is_approved' => false
+                    'is_approved' => false,
                 ]);
             }
         }
@@ -177,43 +170,47 @@ class AbkController extends Controller
         return redirect()->route('abk.ajuans');
     }
 
-    public function showAjuan(Ajuan $anjab)
+    public function showAjuan(Ajuan $abk)
     {
         $title = 'Ajuan ABK';
-        $periode = $anjab->tahun;
-        // if the logged in user has role "Admin Kepegawaian", display all unit kerja
-        // else, display only the unit kerja of the logged in user
-        if (auth()->user()->hasRole('Admin Kepegawaian')) {
-            $unit_kerjas = UnitKerja::all();
-        } else if (auth()->user()->hasRole('Operator Unit Kerja')) {
-            $unit_kerjas = UnitKerja::where('id', auth()->user()->unit_kerja_id)->get();
-        }
+        $abk_unit_kerja = $abk->children;
+        $periode = $abk->tahun;
+        
+        
 
-        return view('abk.ajuan', compact('title', 'anjab', 'periode', 'unit_kerjas'));
+        return view('abk.ajuan', compact('title', 'abk', 'abk_unit_kerja'));
     }
 
-    public function showUnitKerja(Ajuan $anjab, Ajuan $abk)
+    public function showUnitKerja(Ajuan $abk, UnitKerja $unit_kerja)
     {
         $title = 'Lihat Informasi ABK';
-        $unit_kerja = $abk->abkUnitKerja->last()->unitKerja;
-        $jabatans = $unit_kerja->jabatansWithin();
+        $abkunit = Ajuan::where('jenis','abk')->where('parent_id',$abk->id)->whereHas('abkUnitKerja', function ($query) use ($unit_kerja) {
+            $query->where('unit_kerja_id', $unit_kerja->id);
+        })->get()->first();
+        $tutams = JabatanTugasTambahan::with('AbkJabatan')->where('unsur_id', $unit_kerja->unsur_id)
+            ->where('jenis_jabatan_id', '>', '3')
+            ->get();
+        // $jabatans = $abkunit->abkJabatan;
 
-        return view('abk.unitkerja.show', compact('title', 'anjab', 'abk', 'jabatans', 'unit_kerja'));
+        return view('abk.unitkerja.show', compact('title', 'abk', 'unit_kerja','tutams','abk','abkunit'));
     }
 
-    public function editUnitKerja(Ajuan $anjab, Ajuan $abk)
+    public function editUnitKerja(Ajuan $abk, UnitKerja $unit_kerja)
     {
         $title = 'Edit Informasi ABK';
-        $unit_kerja = $abk->abkUnitKerja->last()->unitKerja;
-        $tutams = JabatanTugasTambahan::where('unsur_id', $unit_kerja->unsur_id)->where('jenis_jabatan_id', '>', '3')->get();
-        $jabatans = JabatanDiajukan::whereHas('jabatanUnsur', function ($query) use ($unit_kerja, $anjab) {
-            $query->where('unsur_id', $unit_kerja->unsur_id)->where('ajuan_id', $anjab->id);
+        $abkunit = Ajuan::where('jenis','abk')->where('parent_id',$abk->id)->whereHas('abkUnitKerja', function ($query) use ($unit_kerja) {
+            $query->where('unit_kerja_id', $unit_kerja->id);
+        })->get()->first();
+        $tutams = JabatanTugasTambahan::where('unsur_id', $unit_kerja->unsur_id)
+            ->where('jenis_jabatan_id', '>', '3')
+            ->get();
+        $jabatans = JabatanDiajukan::whereHas('jabatanUnsur', function ($query) use ($unit_kerja, $abkunit) {
+            $query->where('unsur_id', $unit_kerja->unsur_id)->where('ajuan_id', $abkunit->anjab->first()    ->id);
         })->get();
-
-        return view('abk.unitkerja.edit', compact('title', 'anjab', 'unit_kerja', 'tutams', 'jabatans', 'abk'));
+        return view('abk.unitkerja.edit', compact('title', 'abkunit', 'unit_kerja', 'tutams', 'jabatans', 'abk'));
     }
 
-    public function storeAbkJabatan(Request $request, Ajuan $anjab, Ajuan $abk)
+    public function storeAbkJabatan(Request $request, Ajuan $abk)
     {
         $abkJabatan = AbkJabatan::create([
             'abk_id' => $abk->id,
@@ -226,7 +223,7 @@ class AbkController extends Controller
             DetailAbk::create([
                 'ajuan_id' => $abk->id,
                 'abk_jabatan_id' => $abkJabatan->id,
-                'uraian_tugas_diajukan_id' => $uraianTugas->id
+                'uraian_tugas_diajukan_id' => $uraianTugas->id,
             ]);
         }
 
@@ -237,30 +234,35 @@ class AbkController extends Controller
     {
         return view('abk.jabatan.create', [
             'jabatan' => $jabatan,
-            'title' => 'Buat Informasi Beban Kerja'
+            'title' => 'Buat Informasi Beban Kerja',
         ]);
     }
 
-    public function showJabatan(Ajuan $anjab, Ajuan $abk, JabatanDiajukan $jabatan)
+    public function showJabatan(Ajuan $abk, UnitKerja $unit_kerja, AbkJabatan $abk_jabatan)
     {
         $title = 'Lihat Informasi ABK';
-        $wpt = DetailAbk::where('jabatan_diajukan_id', $jabatan->id)->selectRaw('SUM(waktu_penyelesaian * jumlah_hasil_kerja) as total_value')->value('total_value');
-
-        return view('abk.jabatan.show', compact('title', 'anjab', 'abk', 'jabatan', 'wpt'));
+        $jabatan = $abk_jabatan->jabatan;
+        $detail_abk = DetailAbk::where('abk_jabatan_id', $abk_jabatan->id)->get();
+        $wpt = DetailAbk::where('abk_jabatan_id', $abk_jabatan->id)
+            ->selectRaw('SUM(waktu_penyelesaian * jumlah_hasil_kerja) as total_value')
+            ->value('total_value');
+        
+        return view('abk.jabatan.show', compact('title', 'abk', 'jabatan', 'wpt', 'detail_abk','unit_kerja'));
     }
 
-    public function editJabatan(Ajuan $anjab, Ajuan $abk, AbkJabatan $abk_jabatan)
+    public function editJabatan(Ajuan $abk, UnitKerja $unit_kerja, AbkJabatan $abk_jabatan)
     {
         $title = 'Edit Informasi ABK';
-        $unit_kerja = $abk->abkUnitKerja->last()->unitKerja;
         $uraians = $abk_jabatan->jabatan->uraianTugas;
         $jabatan = $abk_jabatan->jabatan;
-        $wpt = DetailAbk::where('abk_jabatan_id', $abk_jabatan->id)->selectRaw('SUM(waktu_penyelesaian * jumlah_hasil_kerja) as total_value')->value('total_value');
+        $wpt = DetailAbk::where('abk_jabatan_id', $abk_jabatan->id)
+            ->selectRaw('SUM(waktu_penyelesaian * jumlah_hasil_kerja) as total_value')
+            ->value('total_value');
 
-        return view('abk.jabatan.edit', compact('title', 'unit_kerja', 'anjab', 'abk', 'jabatan', 'uraians', 'wpt', 'abk_jabatan'));
+        return view('abk.jabatan.edit', compact('title', 'unit_kerja', 'abk', 'jabatan', 'uraians', 'wpt', 'abk_jabatan'));
     }
 
-    public function storeDetailAbk(Request $request, Ajuan $anjab, Ajuan $abk, AbkJabatan $abk_jabatan, DetailAbk $detail_abk)
+    public function storeDetailAbk(Request $request, DetailAbk $detail_abk)
     {
         $detail_abk->update([
             'hasil_kerja' => $request->hasil_kerja,
@@ -271,13 +273,13 @@ class AbkController extends Controller
         return redirect()->back()->with('success', 'Detail ABK berhasil disimpan');
     }
 
-    public function updateAjuan(Ajuan $anjab, Ajuan $abk)
+    public function updateAjuan(Ajuan $abk)
     {
         Verifikasi::create([
             'ajuan_id' => $abk->id,
             'user_id' => auth()->user()->id,
             'is_approved' => true,
-            'catatan' => null
+            'catatan' => null,
         ]);
 
         RoleVerifikasi::where('ajuan_id', $abk->id)
@@ -289,13 +291,13 @@ class AbkController extends Controller
 
     public function abkVerifikasi(Ajuan $abk)
     {
-        // When user accepts the ajuan, verification instance is created, 
+        // When user accepts the ajuan, verification instance is created,
         // and is_approved in RoleVerifikasi is set to true
         Verifikasi::create([
             'ajuan_id' => $abk->id,
             'user_id' => auth()->user()->id,
             'is_approved' => true,
-            'catatan' => null
+            'catatan' => null,
         ]);
         RoleVerifikasi::where('ajuan_id', $abk->id)
             ->where('role_id', auth()->user()->roles->first()->id)
@@ -304,7 +306,7 @@ class AbkController extends Controller
         return redirect()->back()->with('success', 'Verifikasi berhasil');
     }
 
-    // When user rejects the ajuan, verification instance is created, 
+    // When user rejects the ajuan, verification instance is created,
     // is_approved in RoleVerifikasi from the previous role is set to false
     // and is_approved in RoleVerifikasi from the current role is also set to false
     public function abkRevisi(Ajuan $abk)

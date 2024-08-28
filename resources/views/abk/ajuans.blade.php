@@ -52,7 +52,7 @@
                             <p>{{ $ajuan->tahun }} </p>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 @can('make abk')
-                                    <a href="{{ route('abk.unitkerja.show', ['anjab' => $ajuan->anjab->first(), 'abk' => $ajuan]) }}"
+                                    <a href="{{ route('abk.unitkerja.show', ['abk' => $ajuan->parent, 'unit_kerja' => auth()->user()->unitKerja]) }}"
                                         class="btn btn-outline-primary">Lihat</a>
                                     @if (
                                         $ajuan->next_verificator()->role->name == 'Operator Unit Kerja')
