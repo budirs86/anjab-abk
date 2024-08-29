@@ -60,12 +60,12 @@ class JabatanController extends Controller
         ]);
     }
 
+
     public function store(CreateJabatanRequest $request)
     {
-        $validatedData = $request->validated();
-        $jabatan = JabatanDiajukan::create($validatedData);
+        $jabatan = JabatanDiajukan::create($request);
 
-        if ($validatedData['unsur_id'] == 'Semua Unsur') {
+        if ($request['unsur_id'] == 'Semua Unsur') {
             $unsurs = Unsur::all();
             foreach ($unsurs as $unsur) {
                 JabatanUnsurDiajukan::create([
@@ -74,7 +74,7 @@ class JabatanController extends Controller
                 ]);
             }
         } else {
-            foreach ($validatedData['unsur_id'] as $unsurId) {
+            foreach ($request['unsur_id'] as $unsurId) {
                JabatanUnsurDiajukan::create([
                 'jabatan_diajukan_id' => $jabatan->id,
                 'unsur_id' => $unsurId,
