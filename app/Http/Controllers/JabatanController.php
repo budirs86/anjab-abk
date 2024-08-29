@@ -60,11 +60,13 @@ class JabatanController extends Controller
         ]);
     }
 
-
     public function store(CreateJabatanRequest $request)
     {
+        // create instance of jabatan diajukan
         $jabatan = JabatanDiajukan::create($request);
 
+        // based on the input, create instances of JabatanUnsurDiajukan
+        // if user selected all unsur, create instances for all unsurs
         if ($request['unsur_id'] == 'Semua Unsur') {
             $unsurs = Unsur::all();
             foreach ($unsurs as $unsur) {
@@ -73,12 +75,13 @@ class JabatanController extends Controller
                     'unsur_id' => $unsur->id,
                 ]);
             }
+        // if user selected specific unsurs, create instances for those unsurs
         } else {
             foreach ($request['unsur_id'] as $unsurId) {
-               JabatanUnsurDiajukan::create([
-                'jabatan_diajukan_id' => $jabatan->id,
-                'unsur_id' => $unsurId,
-            ]);
+                JabatanUnsurDiajukan::create([
+                    'jabatan_diajukan_id' => $jabatan->id,
+                    'unsur_id' => $unsurId,
+                ]);
             }
         }
 
