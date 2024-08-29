@@ -62,9 +62,31 @@ class JabatanController extends Controller
 
     public function store(CreateJabatanRequest $request)
     {
-        // create instance of jabatan diajukan
-        $jabatan = JabatanDiajukan::create($request);
+        // don't create jabatan if it already exists
+        // instead, add the unsurs that are not already in the database
+        if (JabatanDiajukan::where('nama', $request['nama'])->where('ajuan_id', null)->exists()) {
+            // get jabatan instance of the same name
+            $jabatan = JabatanDiajukan::where('nama', $request['nama'])->where('ajuan_id', null);
+            $jabatanUnsurs = $jabatan->jabatanUnsur;
+            // loop through all unsurs in the request
+            foreach ($request['unsur_id'] as $unsurId) {
+                // if the unsurs already exists in the database, skip
+                if ($jabatanUnsurs->where('unsur_id', $unsurId)->exists()) {
+                    continue;
+                }
 
+                // create a new instance for each unsurs that are not in the database
+                JabatanUnsurDiajukan::create([
+                    'jabatan_diajukan_id' => $jabatan->id,
+                    'unsur_id' => $unsurId,
+                ]);
+            }
+
+            return back()->with('success', 'Data Jabatan ' . $jabatan->nama . ' berhasil Ditambahkan');
+        }
+        
+        // if jabatan does not exist yet, create a new one
+        $jabatan = JabatanDiajukan::create($request);
         // based on the input, create instances of JabatanUnsurDiajukan
         // if user selected all unsur, create instances for all unsurs
         if ($request['unsur_id'] == 'Semua Unsur') {
