@@ -25,7 +25,7 @@ class AbkJabatan extends Model
 
     public function jabatanTugasTambahan()
     {
-        return $this->belongsTo(JabatanTugasTambahan::class);
+        return $this->belongsTo(JabatanTugasTambahan::class,'jabatan_tutam_id');
     }
 
     public function detailAbk()
