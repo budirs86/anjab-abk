@@ -62,23 +62,43 @@ class JabatanController extends Controller
 
     public function store(CreateJabatanRequest $request)
     {
-        $validatedData = $request->validated();
-        $jabatan = JabatanDiajukan::create($validatedData);
+        // don't create jabatan if it already exists
+        // instead, add the unsurs that are not already in the database
+        // if jabatan exists, get the instance
+        if (JabatanDiajukan::where('nama', $request['nama'])->where('ajuan_id', null)->exists()) {
+            // get jabatan instance of the same name
+            $jabatan = JabatanDiajukan::where('nama', $request['nama'])->where('ajuan_id', null)->first();
+            $jabatanUnsurs = $jabatan->jabatanUnsur;
+        } else {
+            // if jabatan instance does not exist yet, create a new one
+            $jabatan = JabatanDiajukan::create($request);
+        }
 
-        if ($validatedData['unsur_id'] == 'Semua Unsur') {
+        // based on the input, create instances of JabatanUnsurDiajukan
+        // if user selected all unsur, create instances for all unsurs
+        if ($request['unsur_id'] == 'Semua Unsur') {
             $unsurs = Unsur::all();
             foreach ($unsurs as $unsur) {
+                // if the unsurs already exists in the database, skip
+                if ($jabatanUnsurs->where('unsur_id', $unsur->id)->count() > 0) {
+                    continue;
+                }
                 JabatanUnsurDiajukan::create([
                     'jabatan_diajukan_id' => $jabatan->id,
                     'unsur_id' => $unsur->id,
                 ]);
             }
         } else {
-            foreach ($validatedData['unsur_id'] as $unsurId) {
-               JabatanUnsurDiajukan::create([
-                'jabatan_diajukan_id' => $jabatan->id,
-                'unsur_id' => $unsurId,
-            ]);
+            // if user selected specific unsurs, create instances for those unsurs
+            foreach ($request['unsur_id'] as $unsurId) {
+                // if the unsurs already exists in the database, skip
+                if ($jabatanUnsurs->where('unsur_id', $unsurId)->count() > 0) {
+                    continue;
+                }
+                JabatanUnsurDiajukan::create([
+                    'jabatan_diajukan_id' => $jabatan->id,
+                    'unsur_id' => $unsurId,
+                ]);
             }
         }
 

@@ -140,6 +140,9 @@ class AnjabController extends Controller
       'jenis' => 'anjab'
     ]);
 
+    // update all JabatanUnsur where ajuan_id is null to the new ajuan_id
+    JabatanUnsurDiajukan::where('ajuan_id', null)->update(['ajuan_id' => $ajuan->id]);
+
     Verifikasi::create([
       'ajuan_id' => $ajuan->id,
       'user_id' => auth()->user()->id,
