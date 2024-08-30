@@ -162,7 +162,7 @@ class Ajuan extends Model
         return $this->belongsToMany(Ajuan::class, 'abk_anjab', 'abk_id', 'anjab_id');
     }
 
-    // return the count of approved abk for an anjab
+    // return the count of approved abk for an abk
     public function approvedAbkCount()
     {
         $roleIdWD2 = Role::where('name', 'Wakil Dekan 2')->first()->id;
@@ -182,7 +182,7 @@ class Ajuan extends Model
 
         if ($previousVerificatorId == Role::where('name', 'Operator Unit Kerja')->first()->id) {
             return
-                Ajuan::whereHas('detailAbk', function ($query) {
+                Ajuan::whereHas('abkUnitKerja', function ($query) {
                     $query->where('unit_kerja_id', auth()->user()->unit_kerja_id);
                 })
                 ->whereHas('role_verifikasi', function ($query) use ($previousVerificatorId) {
@@ -211,6 +211,10 @@ class Ajuan extends Model
     public function abkUnitKerja()
     {
         return $this->hasMany(AbkUnitKerja::class, 'abk_id');
+    }
+
+    public function unitKerja() {
+        return $this->belongsToMany(UnitKerja::class, 'abk_unit_kerja', 'abk_id', 'unit_kerja_id');
     }
 
     public function jabatanDiajukan() {
