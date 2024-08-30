@@ -8,7 +8,7 @@
         <h1 class="fw-light fs-4 d-inline nav-item">Edit Ajuan Analisis Jabatan {{ $ajuan->tahun }}</h1>
     </div>
     <div class="card dropdown-divider mb-4"></div>
-    <livewire:lihat-jabatan-table :ajuan="$ajuan" mode="show" />
+    <livewire:lihat-jabatan-table :ajuan="$ajuan" :unsurs="$unsurs" :jabatans="$jabatans" mode="show" />
     @include('anjab.partials.modaljabatan')
     <form action="{{ route('anjab.ajuan.update', ['ajuan' => $ajuan->id]) }}" method="POST">
         @csrf
