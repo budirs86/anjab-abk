@@ -216,7 +216,6 @@ class AnjabController extends Controller
         if (JabatanDiajukan::where('nama', $request['nama'])->where('ajuan_id', $id)->exists()) {
             // get jabatan instance of the same name
             $jabatan = JabatanDiajukan::where('nama', $request['nama'])->where('ajuan_id', $id)->first();
-            $jabatanUnsurs = $jabatan->jabatanUnsur;
         } else {
             // if jabatan instance does not exist yet, create a new one
             $jabatan = JabatanDiajukan::create(
@@ -234,7 +233,7 @@ class AnjabController extends Controller
             $unsurs = Unsur::all();
             foreach ($unsurs as $unsur) {
                 // if the unsurs already exists in the database, skip
-                if ($jabatanUnsurs?->where('unsur_id', $unsur->id)->count() > 0) {
+                if ($jabatan->jabatanUnsur?->where('unsur_id', $unsur->id)->count() > 0) {
                     continue;
                 }
                 JabatanUnsurDiajukan::create([
@@ -246,7 +245,7 @@ class AnjabController extends Controller
             // if user selected specific unsurs, create instances for those unsurs
             foreach ($request['unsur_id'] as $unsurId) {
                 // if the unsurs already exists in the database, skip
-                if ($jabatanUnsurs->where('unsur_id', $unsurId)->count() > 0) {
+                if ($jabatan->jabatanUnsur->where('unsur_id', $unsurId)->count() > 0) {
                     continue;
                 }
                 JabatanUnsurDiajukan::create([
