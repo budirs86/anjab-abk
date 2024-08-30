@@ -154,4 +154,57 @@ new class extends Component {
             @endforelse
         </table>
     @endif
+    {{-- Modal Terima Start --}}
+    <div class="modal fade " tabindex="-1" id="modalTerima">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Terima Ajuan?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Ajuan yang sudah diterima tidak akan bisa diubah lagi dan akan diteruskan ke tingkat
+                        verifikasi
+                        berikutnya.</p>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ route('anjab.ajuan.verifikasi', ['ajuan' => $this->ajuan->id]) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-primary">Ya</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Modal Terima End --}}
+    {{-- Modal Revisi Start --}}
+    <div class="modal fade" tabindex="-1" id="modalRevisi">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Beri Catatan dan Minta Revisi (Semua Jabatan)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('anjab.ajuan.revisi') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="text" name="ajuan_id" id="inputAjuan"
+                            value="{{ old('ajuan_id') ?? $this->ajuan->id }}">
+                        <label for="catatan" class="form-label">Berikan Catatan tentang ajuan untuk
+                            diperbaiki</label>
+                        <textarea class="form-control @error('catatan') is-invalid @enderror" name="catatan" id="catatan" cols="30"
+                            rows="10"></textarea>
+                        @error('catatan')
+                            <label for="catatan" class="invalid-feedback">{{ $message }}</label>
+                        @enderror
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{-- Modal Revisi End --}}
 </div>
