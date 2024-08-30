@@ -489,8 +489,9 @@ class AnjabController extends Controller
       // else, create a single JabatanDirevisi instance that represents all of the jabatan
 
       JabatanDirevisi::create([
-          'verifikasi_id' => $verifikasi->id,
-          'jabatan_direvisi' => 'Semua Jabatan'
+        'verifikasi_id' => $verifikasi->id,
+        'jabatan_diajukan_id' => $jabatan->id,
+        'catatan' => request('catatan')
       ]);
     }
     return redirect()->back()->with('success', 'Revisi berhasil');
