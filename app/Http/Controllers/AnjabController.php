@@ -188,7 +188,12 @@ class AnjabController extends Controller
     $title = 'Ajuan Jabatan';
     $ajuan = Ajuan::find($id);
     $jabatans = JabatanDiajukan::where('ajuan_id', $ajuan->id)->get();
-    return view('anjab.ajuan', compact('title', 'ajuan', 'jabatans' ));
+    $unsurs = Unsur::with([
+                    'jabatanDiajukan' => function ($query) use($ajuan) {
+                        $query->where('jabatan_diajukan.ajuan_id', $ajuan->id);
+                    },
+                ])->get();
+    return view('anjab.ajuan', compact('title', 'ajuan', 'jabatans','unsurs' ));
   }
 
   public function anjabEdit($tahun, $id)
@@ -434,7 +439,7 @@ class AnjabController extends Controller
       ->where('role_id', auth()->user()->roles->first()->id)
       ->update(['is_approved' => true]);
 
-    return redirect()->back()->with('success', 'Verifikasi berhasil');
+    return redirect()->route('anjab.ajuan.index')->with('success', 'Verifikasi berhasil');
   }
 
   // When user rejects the ajuan, verification instance is created, 
@@ -476,24 +481,13 @@ class AnjabController extends Controller
     
 
     // create JabatanDirevisi instance to store all the jabatans that require revisions
-    // if request has 'jabatan_direvisi' input, then create JabatanDirevisi instance for all of the 'jabatan_direvisi'
-    if (request()->has('jabatan_direvisi')){
-      foreach(request('jabatan_direvisi') as $key => $value){
-        JabatanDirevisi::create([
-          'verifikasi_id' => $verifikasi->id,
-          'jabatan_direvisi' => $value
-        ]);
-      }
-    }
-    else{
-      // else, create a single JabatanDirevisi instance that represents all of the jabatan
-
+    foreach ($ajuan->jabatanDiajukan as $jabatan) {
       JabatanDirevisi::create([
         'verifikasi_id' => $verifikasi->id,
         'jabatan_diajukan_id' => $jabatan->id,
         'catatan' => request('catatan')
       ]);
     }
-    return redirect()->back()->with('success', 'Revisi berhasil');
+    return redirect()->route('anjab.ajuan.index')->with('success', 'Revisi berhasil');
   }
 }
