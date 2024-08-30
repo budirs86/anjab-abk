@@ -28,8 +28,6 @@ new class extends Component {
 }; ?>
 
 <div>
-    {{-- @dd($this->ajuan) --}}
-    {{ $this->mode == 'edit' }}
     <div class="form-floating mb-3 w-25 ">
         <input type="email" wire:model.live="search" class="form-control" id="search" placeholder="Cari Jabatan">
         <label for="search">Cari Nama Jabatan</label>
