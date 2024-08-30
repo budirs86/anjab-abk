@@ -44,6 +44,7 @@ Route::prefix('anjab')
                 Route::post('/store', [AnjabController::class, 'anjabStore'])->name('store');
                 Route::get('/{ajuan:tahun}/{id}', [AnjabController::class, 'anjabShow'])->name('show');
                 Route::get('/{tahun}/{id}/edit', [AnjabController::class, 'anjabEdit'])->name('edit');
+                Route::post('/{tahun}/{id}/edit/storeJabatan', [AnjabController::class, 'storeJabatan'])->name('jabatanStore');
                 Route::post('/{ajuan}/update', [AnjabController::class, 'anjabUpdate'])->name('update');
                 Route::get('/{ajuan:tahun}/jabatan/{jabatan}', [AnjabController::class, 'anjabShowJabatan'])->name('jabatan.show');
                 Route::get('/{ajuan:tahun}/jabatan/{jabatan}/edit/1', [AnjabController::class, 'anjabEditJabatan1'])->name('jabatan.edit.1');

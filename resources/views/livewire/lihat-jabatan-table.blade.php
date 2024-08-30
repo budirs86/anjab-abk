@@ -40,8 +40,14 @@ new class extends Component {
             <thead>
                 <th class="text-muted d-flex">
                     Unsur
+                    @if (Route::currentRouteName() == 'anjab.ajuan.edit')
+                        <button class="btn btn-sm btn-success ms-auto add-button" data-bs-toggle="modal"
+                            data-bs-target="#modalJabatan" id="addButton" data-bs-atasan=""><i
+                                class="fa-solid fa-plus"></i>
+                            Tambah Jabatan</button>
+                    @endif
                 </th>
-
+                </th>
             </thead>
             <tbody>
                 @foreach ($unsurs as $unsur)
