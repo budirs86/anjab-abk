@@ -51,7 +51,7 @@ Route::prefix('anjab')
                 Route::get('/{ajuan:tahun}/jabatan/{jabatan}/edit/2', [AnjabController::class, 'anjabEditJabatan2'])->name('jabatan.edit.2');
                 Route::put('/{ajuan:tahun}/jabatan/{jabatan}/update/2', [AnjabController::class, 'anjabUpdateJabatan2'])->name('jabatan.update.2');
                 Route::post('/{ajuan}/verifikasi', [AnjabController::class, 'anjabVerifikasi'])->name('verifikasi');
-                Route::post('/revisi', [AnjabController::class, 'anjabRevisi'])->name('revisi');
+                Route::post('/revisi', [AnjabController::class, 'anjabRevisiAjuan'])->name('revisi');
             });
 
         Route::prefix('jabatan')

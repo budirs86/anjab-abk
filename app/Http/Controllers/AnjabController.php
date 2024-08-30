@@ -437,23 +437,24 @@ class AnjabController extends Controller
   // When user rejects the ajuan, verification instance is created, 
   // is_approved in RoleVerifikasi from the previous role is set to false
   // and is_approved in RoleVerifikasi from the current role is also set to false
-  public function anjabRevisi(Request $request) {
+  public function anjabRevisiAjuan(Request $request) {
 
     // dd(request()->all());
     $request->validate([
       'catatan' => 'required|string',
-      'jabatan_direvisi' => "array|min:1",
     ]);
 
     // get the Ajuan instance from the request
-    $ajuan = Ajuan::where('id', request('ajuan_id'))->first();
+    $ajuan = Ajuan::with('jabatanDiajukan')->where('id', request('ajuan_id'))->first();
+
+    // dd($ajuan);
     // Create a new verification instance
     $verifikasi = Verifikasi::create([
       'ajuan_id' => request('ajuan_id'),
       'user_id' => auth()->user()->id,
       'is_approved' => false,
-      'catatan' => request('catatan')
     ]);
+
 
     // Get all role ids that can verify the ajuan
     $verificatorIds = RoleVerifikasi::where('ajuan_id', $ajuan->id)->get()->pluck('role_id')->toArray();
