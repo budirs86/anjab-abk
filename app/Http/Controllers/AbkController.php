@@ -10,6 +10,7 @@ use App\Models\AjuanUnitKerja;
 use App\Models\DetailAbk;
 use App\Models\Jabatan;
 use App\Models\JabatanDiajukan;
+use App\Models\JabatanDirevisi;
 use App\Models\JabatanTugasTambahan;
 use App\Models\Role;
 use App\Models\RoleVerifikasi;
@@ -309,20 +310,35 @@ class AbkController extends Controller
     // When user rejects the ajuan, verification instance is created,
     // is_approved in RoleVerifikasi from the previous role is set to false
     // and is_approved in RoleVerifikasi from the current role is also set to false
-    public function abkRevisi(Ajuan $abk)
+    public function abkRevisi(Ajuan $abk, Request $request)
     {
-        // Create a new verification instance
-        Verifikasi::create([
-            'ajuan_id' => $abk->id,
-            'user_id' => auth()->user()->id,
-            'is_approved' => false,
-            'catatan' => request('catatan')
+        // dd($request->all());    
+
+        $abk = Ajuan::where('jenis','abk')->find(request('ajuan_id'));
+        $request->validate([
+            'catatan' => 'required|string',
+            'jabatan_direvisi' => 'array|min:1',
         ]);
+        // Create a new verification instance
+        // $verifikasi = Verifikasi::create([
+        //     'ajuan_id' => $abk->id,
+        //     'user_id' => auth()->user()->id,
+        //     'is_approved' => false,
+        //     'catatan' => request('catatan'),
+        // ]);
 
         // Get all role ids that can verify the ajuan
-        $verificatorIds = RoleVerifikasi::where('ajuan_id', $abk->id)->get()->pluck('role_id')->toArray();
+        $role_verifikasi = RoleVerifikasi::where('ajuan_id', $abk->id)->get();
+        $verificatorIds = $role_verifikasi
+            ->pluck('role_id')
+            ->toArray();
+            
         // Get the role id of the previous verificator
-        $previousVerificatorRoleId = $verificatorIds[array_search(auth()->user()->roles->first()->id, $verificatorIds) - 1];
+        if ($abk->parent_id == null) {
+            $previousVerificatorRoleId = $verificatorIds[array_search(auth()->user()->roles->first()->id, $verificatorIds) - 1];
+        } else {
+            $previousVerificatorRoleId = $verificatorIds[array_search(auth()->user()->roles->first()->id, $verificatorIds) - 1];
+        }
 
         // Set is_approved in RoleVerifikasi from the previous role to false
         RoleVerifikasi::where('ajuan_id', $abk->id)
@@ -334,6 +350,54 @@ class AbkController extends Controller
             ->where('role_id', auth()->user()->roles->first()->id)
             ->update(['is_approved' => false]);
 
+        // create JabatanDirevisi instance to store all the jabatans that require revisions
+        // if request has 'jabatan_direvisi' input, then create JabatanDirevisi instance for all of the 'jabatan_direvisi'
+        if (request()->has('jabatan_direvisi')) {
+            foreach (request('jabatan_direvisi') as $key => $value) {
+                JabatanDirevisi::create([
+                    'verifikasi_id' => $verifikasi->id,
+                    'jabatan_direvisi' => $value,
+                ]);
+            }
+        } else {
+            // else, create a single JabatanDirevisi instance that represents all of the jabatan
+
+            JabatanDirevisi::create([
+                'verifikasi_id' => $verifikasi->id,
+                'jabatan_direvisi' => 'Semua Jabatan',
+            ]);
+        }
+
         return redirect()->back()->with('success', 'Revisi berhasil');
+    }
+    public function getJabatanABK()
+    {
+        $ajuans = AbkJabatan::where('abk_id', request('ajuan'))
+            ->with(['jabatan', 'jabatanTugasTambahan'])
+            ->get();
+        $response = [];
+        foreach ($ajuans as $ajuan) {
+            $response[] = [
+                'jabatan' => $ajuan->jabatan->nama,
+                'jabatan_tutam' => $ajuan->jabatanTugasTambahan->nama,
+            ];
+        }
+        return response()->json(['jabatans' => $response]);
+    }
+    public function getJabatanABKParent()
+    {
+        $parent = Ajuan::find(request('ajuan'))->children->pluck('id');
+        $ajuans = AbkJabatan::whereIn('abk_id', $parent)
+            ->with(['jabatan', 'jabatanTugasTambahan'])
+            ->get();
+        $response = [];
+        foreach ($ajuans as $ajuan) {
+            $response[] = [
+                'jabatan' => $ajuan->jabatan->nama,
+                'jabatan_tutam' => $ajuan->jabatanTugasTambahan->nama,
+                'unit_kerja' => $ajuan->abk->unitKerja[0]->nama,
+            ];
+        }
+        return response()->json(['jabatans' => $response]);
     }
 }

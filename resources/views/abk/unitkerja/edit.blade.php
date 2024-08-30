@@ -179,7 +179,7 @@
                 @endforelse
             </tbody>
         </table> --}}
-        <form action="{{ route('abk.ajuan.update', ['abk' => $abk]) }}"  method="POST">
+        <form action="{{ route('abk.ajuan.update', ['abk' => $abkunit   ]) }}"  method="POST">
             @csrf
             <button type="submit" class="btn btn-primary header1 text-white"><i data-feather="save"></i> Simpan Ajuan
                 ABK</button>

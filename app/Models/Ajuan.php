@@ -162,7 +162,7 @@ class Ajuan extends Model
         return $this->belongsToMany(Ajuan::class, 'abk_anjab', 'abk_id', 'anjab_id');
     }
 
-    // return the count of approved abk for an anjab
+    // return the count of approved abk for an abk
     public function approvedAbkCount()
     {
         $roleIdWD2 = Role::where('name', 'Wakil Dekan 2')->first()->id;

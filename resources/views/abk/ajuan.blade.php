@@ -32,10 +32,38 @@
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="{{ route('abk.unitkerja.show', ['abk' => $abk, 'unit_kerja' => $abk_unit->unitKerja->first()->id]) }}"
                                     class="btn btn-outline-primary">Lihat</a>
+                                {{-- @if ($abk_unit->)
+                                    
+                                @endif --}}
                             </div>
                         </div>
                     </td>
                 </tr>
+                {{-- Modal Terima Start --}}
+                <div class="modal fade" tabindex="-1" id="modalTerima{{ $loop->index }}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Terima Ajuan?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Ajuan yang sudah diterima tidak akan bisa diubah lagi dan akan diteruskan ke tingkat
+                                    verifikasi
+                                    berikutnya.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <form action="{{ route('abk.ajuan.verifikasi', ['abk' => $abk_unit]) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">Ya</button>
+                                </form>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- Modal Terima End --}}
             @endforeach
 
         </tbody>
