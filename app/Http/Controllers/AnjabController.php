@@ -184,13 +184,18 @@ class AnjabController extends Controller
         return redirect()->route('anjab.ajuan.index')->with('success', 'Ajuan Jabatan berhasil diajukan');
     }
 
-    public function anjabShow(Ajuan $ajuan, $id)
-    {
-        $title = 'Ajuan Jabatan';
-        $ajuan = Ajuan::find($id);
-        $jabatans = JabatanDiajukan::where('ajuan_id', $ajuan->id)->get();
-        return view('anjab.ajuan', compact('title', 'ajuan', 'jabatans'));
-    }
+  public function anjabShow(Ajuan $ajuan, $id)
+  {
+    $title = 'Ajuan Jabatan';
+    $ajuan = Ajuan::find($id);
+    $jabatans = JabatanDiajukan::where('ajuan_id', $ajuan->id)->get();
+    $unsurs = Unsur::with([
+                    'jabatanDiajukan' => function ($query) use($ajuan) {
+                        $query->where('jabatan_diajukan.ajuan_id', $ajuan->id);
+                    },
+                ])->get();
+    return view('anjab.ajuan', compact('title', 'ajuan', 'jabatans','unsurs' ));
+  }
 
     public function anjabEdit($tahun, $id)
     {
@@ -487,8 +492,8 @@ class AnjabController extends Controller
             ->where('role_id', auth()->user()->roles->first()->id)
             ->update(['is_approved' => true]);
 
-        return redirect()->back()->with('success', 'Verifikasi berhasil');
-    }
+    return redirect()->route('anjab.ajuan.index')->with('success', 'Verifikasi berhasil');
+  }
 
     // When user rejects the ajuan, verification instance is created, 
     // is_approved in RoleVerifikasi from the previous role is set to false
@@ -529,23 +534,14 @@ class AnjabController extends Controller
             ->update(['is_approved' => false]);
 
 
-        // create JabatanDirevisi instance to store all the jabatans that require revisions
-        // if request has 'jabatan_direvisi' input, then create JabatanDirevisi instance for all of the 'jabatan_direvisi'
-        if (request()->has('jabatan_direvisi')) {
-            foreach (request('jabatan_direvisi') as $key => $value) {
-                JabatanDirevisi::create([
-                    'verifikasi_id' => $verifikasi->id,
-                    'jabatan_direvisi' => $value
-                ]);
-            }
-        } else {
-            // else, create a single JabatanDirevisi instance that represents all of the jabatan
-
-            JabatanDirevisi::create([
-                'verifikasi_id' => $verifikasi->id,
-                'jabatan_direvisi' => 'Semua Jabatan'
-            ]);
-        }
-        return redirect()->back()->with('success', 'Revisi berhasil');
+    // create JabatanDirevisi instance to store all the jabatans that require revisions
+    foreach ($ajuan->jabatanDiajukan as $jabatan) {
+      JabatanDirevisi::create([
+        'verifikasi_id' => $verifikasi->id,
+        'jabatan_diajukan_id' => $jabatan->id,
+        'catatan' => request('catatan')
+      ]);
     }
+    return redirect()->route('anjab.ajuan.index')->with('success', 'Revisi berhasil');
+  }
 }

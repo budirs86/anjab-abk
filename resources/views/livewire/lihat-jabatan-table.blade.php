@@ -7,18 +7,15 @@ use App\Models\Unsur;
 new class extends Component {
     public $search = '';
     public $ajuan = '';
+    public $jabatans = '';
+    public $unsurs = '';
 
     public function with()
     {
-        if (empty($this->search)) {
-            return [
-                'jabatans' => JabatanDiajukan::where('ajuan_id', null)->with('uraianTugas')->tree()->get()->toTree(),
-                'unsurs' => Unsur::with([
-                    'jabatanDiajukan' => function ($query) {
-                        $query->where('jabatan_diajukan.ajuan_id', $this->ajuan->id);
-                    },
-                ])->get(),
-            ];
+        if ($this->search) {
+            $this->jabatans = JabatanDiajukan::where('ajuan_id', $this->ajuan->id)
+                ->where('nama', 'like', '%' . $this->search . '%')
+                ->get();
         }
         return [
             'jabatans' => JabatanDiajukan::where('ajuan_id', $this->ajuan->id)
@@ -38,8 +35,19 @@ new class extends Component {
     @if (empty($this->search))
         <table class="table table-bordered">
             <thead>
-                <th class="text-muted d-flex">
+                <th class="text-muted d-flex justify-content-between">
                     Unsur
+                    @can('verify anjab')
+                        {{--  show buttons only when next verificator is the current user  --}}
+                        @if ($this->ajuan->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                    data-bs-target="#modalTerima">Terima Semua Jabatan</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                                    data-bs-target="#modalRevisi">Revisi Semua Jabatan</button>
+                            </div>
+                        @endif
+                    @endcan
                     @if (Route::currentRouteName() == 'anjab.ajuan.edit')
                         <button class="btn btn-sm btn-success ms-auto add-button" data-bs-toggle="modal"
                             data-bs-target="#modalJabatan" id="addButton" data-bs-atasan=""><i

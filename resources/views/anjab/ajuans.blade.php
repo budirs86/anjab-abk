@@ -124,7 +124,7 @@
                             @endif
                         </td>
                     @elsecan('verify anjab')
-                        <td class="d-flex justify-content-between">
+                        <td class="">
                             <p>{{ $ajuan->created_at }}</p>
                         </td>
                         <td>
