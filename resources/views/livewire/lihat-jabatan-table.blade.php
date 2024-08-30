@@ -78,11 +78,21 @@ new class extends Component {
                                                         {{ $jabatan->nama }}
                                                     </p>
                                                 </div>
-                                                <div class="div">
-                                                    <a href="{{ route('anjab.ajuan.jabatan.show', ['ajuan' => $this->ajuan, 'jabatan' => $jabatan->id, 'id' => '']) }}"
-                                                        class="btn btn-sm btn-primary ms-auto add-button"><i class="fa-regular fa-eye"></i>
-                                                        Lihat Informasi Jabatan</a>
-                                                </div>
+                                                @if (Route::currentRouteName() == 'anjab.ajuan.show')
+                                                    <div class="div">
+                                                        <a href="{{ route('anjab.ajuan.jabatan.show', ['ajuan' => $this->ajuan, 'jabatan' => $jabatan->id, 'id' => '']) }}"
+                                                            class="btn btn-sm btn-primary ms-auto add-button"><i
+                                                                class="fa-regular fa-eye"></i>
+                                                            Lihat Informasi Jabatan</a>
+                                                    </div>
+                                                @elseif(Route::currentRouteName() == 'anjab.ajuan.edit')
+                                                    <div class="div">
+                                                        <a href="{{ route('anjab.ajuan.jabatan.edit.1', ['ajuan' => $ajuan->tahun, 'jabatan' => $jabatan->id]) }}"
+                                                            class="btn btn-sm btn-warning ms-auto add-button"><img
+                                                                width="20px" data-feather="edit"></img> Edit Informasi
+                                                            Jabatan</a>
+                                                    </div>
+                                                @endif
                                             </td>
                                         </tr>
                                     @empty
