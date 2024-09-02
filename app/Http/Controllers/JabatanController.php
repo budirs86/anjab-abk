@@ -23,6 +23,7 @@ use App\Models\Ajuan;
 use App\Models\BakatKerjaJabatanDiajukan;
 use App\Models\FungsiPekerjaanJabatanDiajukan;
 use App\Models\JabatanDiajukan;
+use App\Models\JabatanDirevisi;
 use App\Models\JabatanUnsurDiajukan;
 use App\Models\MinatKerjaJabatanDiajukan;
 use App\Models\TemperamenKerjaJabatanDiajukan;
@@ -68,10 +69,9 @@ class JabatanController extends Controller
         if (JabatanDiajukan::where('nama', $request['nama'])->where('ajuan_id', null)->exists()) {
             // get jabatan instance of the same name
             $jabatan = JabatanDiajukan::where('nama', $request['nama'])->where('ajuan_id', null)->first();
-            $jabatanUnsurs = $jabatan->jabatanUnsur;
         } else {
             // if jabatan instance does not exist yet, create a new one
-            $jabatan = JabatanDiajukan::create($request);
+            $jabatan = JabatanDiajukan::create($request->all());
         }
 
         // based on the input, create instances of JabatanUnsurDiajukan
@@ -80,7 +80,7 @@ class JabatanController extends Controller
             $unsurs = Unsur::all();
             foreach ($unsurs as $unsur) {
                 // if the unsurs already exists in the database, skip
-                if ($jabatanUnsurs->where('unsur_id', $unsur->id)->count() > 0) {
+                if ($jabatan->jabatanUnsur?->where('unsur_id', $unsur->id)->count() > 0) {
                     continue;
                 }
                 JabatanUnsurDiajukan::create([
@@ -92,7 +92,7 @@ class JabatanController extends Controller
             // if user selected specific unsurs, create instances for those unsurs
             foreach ($request['unsur_id'] as $unsurId) {
                 // if the unsurs already exists in the database, skip
-                if ($jabatanUnsurs->where('unsur_id', $unsurId)->count() > 0) {
+                if ($jabatan->jabatanUnsur->where('unsur_id', $unsurId)->count() > 0) {
                     continue;
                 }
                 JabatanUnsurDiajukan::create([
@@ -277,5 +277,14 @@ class JabatanController extends Controller
 
         // return redirect()->route('anjab.ajuan.create')->with('success', 'Data Jabatan berhasil Diubah');
         return redirect(route('anjab.ajuan.create'))->with('success', 'Data Jabatan ' . $jabatan->nama . ' berhasil Diubah');
+    }
+
+    public function anjabMakeCatatan(Request $request) {
+      JabatanDirevisi::create([
+            'jabatan_diajukan_id' => request('jabatan'),
+            'catatan' => request('catatan')
+        ]);
+
+    redirect()->back();
     }
 }
