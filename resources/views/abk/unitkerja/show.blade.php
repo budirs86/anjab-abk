@@ -9,11 +9,10 @@
     </div>
     <div class="card dropdown-divider mb-4"></div>
     <div class="mb-3">
-        @if (auth()->user()->roles[0]->name == 'Admin Kepegawaian')
+        @if (auth()->user()->roles[0]->name == 'Admin Kepegawaian' || auth()->user()->roles[0]->name == 'Wakil Rektor 2')
             <a href="{{ route('abk.ajuan.show', ['abk' => $abk]) }}" class="btn btn-primary header1"><img src="" alt=""
                     data-feather="arrow-left" width="20px"> Kembali</a>
-        @endif
-        @if (auth()->user()->roles[0]->name == 'Operator Unit Kerja')
+        @else
             <a href="{{ route('abk.ajuans') }}"  class="btn btn-primary header1"><img src="" alt=""
                     data-feather="arrow-left" width="20px"> Kembali</a>
         @endif
@@ -21,7 +20,7 @@
     <table class="table table-bordered">
         <thead>
             <th class="text-muted d-flex">
-                Jabatan Struktural
+                Jabatan Tugas Tambahan
             </th>
 
         </thead>
