@@ -77,31 +77,50 @@ new class extends Component {
                                         <th class="fw-semibold text-muted">Kode</th>
                                         <th class="fw-semibold text-muted d-flex">Jabatan
                                         </th>
+                                        <th class="fw-semibold text-muted">Catatan Revisi</th>
                                     </thead>
                                     @forelse ($unsur->jabatanDiajukan as $jabatan)
                                         <tr wire:key="{{ $jabatan->id }}">
                                             <td>{{ $jabatan->kode == null ? 'N/A' : $jabatan->kode }}</td>
-                                            <td class="d-flex justify-content-between">
-                                                <div class="d-flex gap-1"
-                                                    style="margin-left: {{ 25 * $jabatan->depth }}px">
-                                                    @if ($jabatan->depth > 0)
-                                                        <i class="fa-solid fa-chevron-right mt-1"></i>
-                                                    @endif
-                                                    <p class="" href="/anjab/analisis-jabatan/create"
-                                                        style="">
-                                                        {{ $jabatan->nama }}
-                                                    </p>
+                                            <td>
+                                                <div class="d-flex justify-content-between flex-grow-1">
+                                                    <div class="d-flex gap-1"
+                                                        style="margin-left: {{ 25 * $jabatan->depth }}px">
+                                                        @if ($jabatan->depth > 0)
+                                                            <i class="fa-solid fa-chevron-right mt-1"></i>
+                                                        @endif
+                                                        <p class="" href="/anjab/analisis-jabatan/create"
+                                                            style="">
+                                                            {{ $jabatan->nama }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="div">
+                                                        <a href="{{ route('anjab.ajuan.jabatan.edit.1', ['ajuan' => $ajuan->tahun, 'jabatan' => $jabatan->id]) }}"
+                                                            class="btn btn-sm btn-warning ms-auto add-button"><i
+                                                                class="fa-solid fa-edit"></i> Edit Informasi
+                                                            Jabatan</a>
+                                                    </div>
                                                 </div>
-                                                <div class="div">
-                                                    <a href="{{ route('anjab.ajuan.jabatan.edit.1', ['ajuan' => $ajuan->tahun, 'jabatan' => $jabatan->id]) }}"
-                                                        class="btn btn-sm btn-warning ms-auto add-button"><i class="fa-solid fa-edit"></i> Edit Informasi
-                                                        Jabatan</a>
+                                            </td>
+                                            <td>
+                                                <div class="overflow-y-scroll"
+                                                    style="line-height: 1.5em; max-height: calc(1.5em * 4);">
+                                                    @forelse ($jabatan->catatanAjuan as $catatan)
+                                                        <p class="m-0 p-0 text-muted">Catatan oleh
+                                                            {{ $catatan->verifikasi->user->name }}</p>
+                                                        <p class="m-0 p-0 text-muted">
+                                                            {{ $catatan->verifikasi->created_at }}</p>
+                                                        <p class="m-0 p-0">{{ $catatan->catatan }}</p>
+                                                        <hr>
+                                                    @empty
+                                                        <p class="m-0 p-0 text-muted">Tidak ada catatan.</p>
+                                                    @endforelse
                                                 </div>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="2" class="text-center">Unsur ini Belum memiliki Jabatan</td>
+                                            <td colspan="3" class="text-center">Unsur ini Belum memiliki Jabatan</td>
                                         </tr>
                                     @endforelse
                                 </table>
@@ -117,29 +136,49 @@ new class extends Component {
                 <th class="fw-semibold text-muted"style="width: 10%">Kode</th>
                 <th class="fw-semibold text-muted d-flex">Jabatan
                 </th>
+                <th class="fw-semibold text-muted">Catatan Revisi</th>
+
             </thead>
             @forelse ($jabatans as $jabatan)
                 <tr wire:key="{{ $jabatan->id }}">
                     <td>{{ $jabatan->kode == null ? 'N/A' : $jabatan->kode }}</td>
-                    <td class="d-flex justify-content-between">
-                        <div class="d-flex gap-1" style="margin-left: {{ 25 * $jabatan->depth }}px">
-                            @if ($jabatan->depth > 0)
-                                <i class="fa-solid fa-chevron-right mt-1"></i>
-                            @endif
-                            <p class="" href="/anjab/analisis-jabatan/create" style="">
-                                {{ $jabatan->nama }}
-                            </p>
+                    <td>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex gap-1" style="margin-left: {{ 25 * $jabatan->depth }}px">
+                                @if ($jabatan->depth > 0)
+                                    <i class="fa-solid fa-chevron-right mt-1"></i>
+                                @endif
+                                <p class="" href="/anjab/analisis-jabatan/create" style="">
+                                    {{ $jabatan->nama }}
+                                </p>
+                            </div>
+                            <div class="div">
+                                <a href="{{ route('anjab.ajuan.jabatan.edit.1', ['ajuan' => $ajuan->tahun, 'jabatan' => $jabatan->id]) }}"
+                                    class="btn btn-sm btn-warning ms-auto add-button"><i class="fa-solid fa-edit"></i>
+                                    Edit
+                                    Informasi
+                                    Jabatan</a>
+                            </div>
                         </div>
-                        <div class="div">
-                            <a href="{{ route('anjab.ajuan.jabatan.edit.1', ['ajuan' => $ajuan->tahun, 'jabatan' => $jabatan->id]) }}"
-                                class="btn btn-sm btn-warning ms-auto add-button"><i class="fa-solid fa-edit"></i> Edit Informasi
-                                Jabatan</a>
+                    </td>
+                    <td>
+                        <div class="overflow-y-scroll" style="line-height: 1.5em; max-height: calc(1.5em * 4);">
+                            @forelse ($jabatan->catatanAjuan as $catatan)
+                                <p class="m-0 p-0 text-muted">Catatan oleh
+                                    {{ $catatan->verifikasi->user->name }}</p>
+                                <p class="m-0 p-0 text-muted">
+                                    {{ $catatan->verifikasi->created_at }}</p>
+                                <p class="m-0 p-0">{{ $catatan->catatan }}</p>
+                                <hr>
+                            @empty
+                                <p class="m-0 p-0 text-muted">Tidak ada catatan.</p>
+                            @endforelse
                         </div>
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="2" class="text-center">Jabatan Tidak Ditemukan</td>
+                    <td colspan="3" class="text-center">Jabatan Tidak Ditemukan</td>
                 </tr>
             @endforelse
         </table>

@@ -135,6 +135,10 @@ class JabatanDiajukan extends Model
         ->latest();
     }
     public function getCatatanRevisiTerbaru() {
-        return $this->latestRevisiWithoutVerifikasi?->catatan;
+        return $this->revisiTerbaruTanpaVerifikasi->catatan;
+    }
+
+    public function catatanAjuan() {
+        return $this->hasMany(JabatanDirevisi::class, 'jabatan_diajukan_id')->whereHas('verifikasi')->latest();
     }
 }

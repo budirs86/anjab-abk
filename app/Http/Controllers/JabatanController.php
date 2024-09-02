@@ -279,12 +279,13 @@ class JabatanController extends Controller
         return redirect(route('anjab.ajuan.create'))->with('success', 'Data Jabatan ' . $jabatan->nama . ' berhasil Diubah');
     }
 
-    public function anjabMakeCatatan(Request $request) {
+    public function anjabMakeCatatan(Request $request, JabatanDiajukan $jabatan) {
+    // dd(url()->previous() . "#form $jabatan->nama .$jabatan->id");
       JabatanDirevisi::create([
-            'jabatan_diajukan_id' => request('jabatan'),
+            'jabatan_diajukan_id' => $jabatan->id,
             'catatan' => request('catatan')
         ]);
 
-    redirect()->back();
+        return redirect()->back()->with('success', 'Catatan berhasil ditambahkan');
     }
 }

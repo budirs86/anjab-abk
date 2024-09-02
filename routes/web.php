@@ -53,6 +53,7 @@ Route::prefix('anjab')
                 Route::put('/{ajuan:tahun}/jabatan/{jabatan}/update/2', [AnjabController::class, 'anjabUpdateJabatan2'])->name('jabatan.update.2');
                 Route::post('/{ajuan}/verifikasi', [AnjabController::class, 'anjabVerifikasi'])->name('verifikasi');
                 Route::post('/revisi', [AnjabController::class, 'anjabRevisiAjuan'])->name('revisi');
+                Route::post('{ajuan}/revisi-jabatan', [AnjabController::class, 'anjabRevisiJabatan'])->name('jabatan.revisi');
             });
 
         Route::prefix('jabatan')
@@ -86,7 +87,9 @@ Route::prefix('anjab')
                     Route::delete('/korelasi-jabatan/{korelasiJabatan}/delete', [KorelasiJabatanController::class, 'deleteKorelasiJabatan'])->name('korelasiJabatan.delete');
                     Route::post('/risiko-bahaya/store', [RisikoBahayaController::class, 'storeRisikoBahaya'])->name('risikoBahaya.store');
                     Route::delete('/risiko-bahaya/{risikoBahaya}/delete', [RisikoBahayaController::class, 'deleteRisikoBahaya'])->name('risikoBahaya.delete');
+                    Route::post('/make-catatan',[JabatanController::class,'anjabMakeCatatan'])->name('makeCatatan');
                 });
+
             });
     });
 

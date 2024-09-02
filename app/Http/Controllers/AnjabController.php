@@ -194,7 +194,7 @@ class AnjabController extends Controller
                         $query->where('jabatan_diajukan.ajuan_id', $ajuan->id);
                     },
                 ])->get();
-    return view('anjab.ajuan', compact('title', 'ajuan', 'jabatans','unsurs' ));
+    return view('anjab.ajuan', compact('title', 'ajuan','jabatans','unsurs', 'jabatans','unsurs' ));
   }
 
     public function anjabEdit($tahun, $id)
@@ -541,6 +541,47 @@ class AnjabController extends Controller
         'catatan' => request('catatan')
       ]);
     }
+    return redirect()->route('anjab.ajuan.index')->with('success', 'Revisi berhasil');
+  }
+
+  public function anjabRevisiJabatan(Ajuan $ajuan,Request $request)
+    {
+
+        // $request->validate([
+        //     'catatan' => 'required|string',
+        // ]);
+        
+
+
+        // dd($ajuan);
+        // Create a new verification instance
+        $verifikasi = Verifikasi::create([
+            'ajuan_id' => $ajuan->id,
+            'user_id' => auth()->user()->id,
+            'is_approved' => false,
+        ]);
+
+
+        // Get all role ids that can verify the ajuan
+        $verificatorIds = RoleVerifikasi::where('ajuan_id', $ajuan->id)->get()->pluck('role_id')->toArray();
+        // // Get the role id of the previous verificator
+        $previousVerificatorRoleId = $verificatorIds[array_search(auth()->user()->roles->first()->id, $verificatorIds) - 1];
+
+        // // Set is_approved in RoleVerifikasi from the previous role to false
+        RoleVerifikasi::where('ajuan_id', $ajuan->id)
+            ->where('role_id', $previousVerificatorRoleId)
+            ->update(['is_approved' => false]);
+
+        // Set is_approved in RoleVerifikasi from the current role to false
+        RoleVerifikasi::where('ajuan_id', $ajuan->id)
+            ->where('role_id', auth()->user()->roles->first()->id)
+            ->update(['is_approved' => false]);
+
+
+    // update JabatanDirevisi instance to store all the jabatans that require revisions
+    $jabatanDirevisi = JabatanDirevisi::where('verifikasi_id',null)->update(['verifikasi_id' => $verifikasi->id]);
+    // dd($jabatanDirevisi);
+
     return redirect()->route('anjab.ajuan.index')->with('success', 'Revisi berhasil');
   }
 }
