@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('jabatan_direvisi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('verifikasi_id')->constrained('verifikasi');
-            // $table->foreignId('jabatan_diajukan_id')->constrained('jabatan_diajukan');
-            $table->string('jabatan_direvisi');
+            $table->foreignId('verifikasi_id')->nullable()->constrained('verifikasi');
+            $table->foreignId('jabatan_diajukan_id')->constrained('jabatan_diajukan');
+            $table->text('catatan')->nullable();
             $table->timestamps();
         });
     }

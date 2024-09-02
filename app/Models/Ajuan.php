@@ -216,4 +216,8 @@ class Ajuan extends Model
     public function unitKerja() {
         return $this->belongsToMany(UnitKerja::class, 'abk_unit_kerja', 'abk_id', 'unit_kerja_id');
     }
+
+    public function jabatanDiajukan() {
+        return $this->hasMany(JabatanDiajukan::class);
+    }
 }

@@ -44,6 +44,7 @@ Route::prefix('anjab')
                 Route::post('/store', [AnjabController::class, 'anjabStore'])->name('store');
                 Route::get('/{ajuan:tahun}/{id}', [AnjabController::class, 'anjabShow'])->name('show');
                 Route::get('/{tahun}/{id}/edit', [AnjabController::class, 'anjabEdit'])->name('edit');
+                Route::post('/{tahun}/{id}/edit/storeJabatan', [AnjabController::class, 'storeJabatan'])->name('jabatanStore');
                 Route::post('/{ajuan}/update', [AnjabController::class, 'anjabUpdate'])->name('update');
                 Route::get('/{ajuan:tahun}/jabatan/{jabatan}', [AnjabController::class, 'anjabShowJabatan'])->name('jabatan.show');
                 Route::get('/{ajuan:tahun}/jabatan/{jabatan}/edit/1', [AnjabController::class, 'anjabEditJabatan1'])->name('jabatan.edit.1');
@@ -51,7 +52,8 @@ Route::prefix('anjab')
                 Route::get('/{ajuan:tahun}/jabatan/{jabatan}/edit/2', [AnjabController::class, 'anjabEditJabatan2'])->name('jabatan.edit.2');
                 Route::put('/{ajuan:tahun}/jabatan/{jabatan}/update/2', [AnjabController::class, 'anjabUpdateJabatan2'])->name('jabatan.update.2');
                 Route::post('/{ajuan}/verifikasi', [AnjabController::class, 'anjabVerifikasi'])->name('verifikasi');
-                Route::post('/revisi', [AnjabController::class, 'anjabRevisi'])->name('revisi');
+                Route::post('/revisi', [AnjabController::class, 'anjabRevisiAjuan'])->name('revisi');
+                Route::post('{ajuan}/revisi-jabatan', [AnjabController::class, 'anjabRevisiJabatan'])->name('jabatan.revisi');
             });
 
         Route::prefix('jabatan')
@@ -85,7 +87,9 @@ Route::prefix('anjab')
                     Route::delete('/korelasi-jabatan/{korelasiJabatan}/delete', [KorelasiJabatanController::class, 'deleteKorelasiJabatan'])->name('korelasiJabatan.delete');
                     Route::post('/risiko-bahaya/store', [RisikoBahayaController::class, 'storeRisikoBahaya'])->name('risikoBahaya.store');
                     Route::delete('/risiko-bahaya/{risikoBahaya}/delete', [RisikoBahayaController::class, 'deleteRisikoBahaya'])->name('risikoBahaya.delete');
+                    Route::post('/make-catatan',[JabatanController::class,'anjabMakeCatatan'])->name('makeCatatan');
                 });
+
             });
     });
 
