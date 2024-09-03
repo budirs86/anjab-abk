@@ -91,7 +91,7 @@
                                                         @csrf
                                                         <div class="mb-3">
                                                             <input type="integer" name="abk_id"
-                                                                value="{{ $abk->id }}" hidden>
+                                                                value="{{ $abkunit->id }}" hidden>
                                                             <input type="integer" name="jabatan_tutam_id"
                                                                 value="{{ $tutam->id }}" hidden>
                                                             <label for="nama" class="form-label">Supervisor</label>

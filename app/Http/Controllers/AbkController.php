@@ -214,7 +214,7 @@ class AbkController extends Controller
     public function storeAbkJabatan(Request $request, Ajuan $abk)
     {
         $abkJabatan = AbkJabatan::create([
-            'abk_id' => $abk->id,
+            'abk_id' => $request->abk_id,
             'jabatan_id' => $request->jabatan_id,
             'jabatan_tutam_id' => $request->jabatan_tutam_id,
         ]);
