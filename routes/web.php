@@ -106,10 +106,14 @@ Route::prefix('/abk/ajuan')->name('abk.')->group(function () {
     Route::get('/{abk}/unit/{unit_kerja}/jabatan/{abk_jabatan}/edit', [AbkController::class, 'editJabatan'])->name('jabatan.edit');
     Route::put('/{detail_abk}/store', [AbkController::class, 'storeDetailAbk'])->name('detail_abk.store');
     Route::post('/{abk}/update', [AbkController::class, 'updateAjuan'])->name('ajuan.update');
+    Route::post('/abkjabatan/{abk_jabatan}/make-catatan',[AbkController::class,'abkMakeCatatan'])->name('jabatan.makecatatan');
+    Route::post('/{abk}/revisi', [AbkController::class, 'abkRevisi'])->name('ajuan.revisi');
+    Route::post('/{abk}/jabatan/revisi', [AbkController::class, 'abkRevisiJabatan'])->name('jabatan.revisi');
+    Route::post('/{abk}/verifikasi', [AbkController::class, 'abkVerifikasi'])->name('ajuan.verifikasi');
+    Route::post('/{abk}/parent/verifikasi', [AbkController::class, 'abkParentVerifikasi'])->name('ajuan.parent.verifikasi');
+
 });
 
-Route::post('/{abk}/verifikasi', [AbkController::class, 'abkVerifikasi'])->name('abk.ajuan.verifikasi');
-Route::post('/{abk}/revisi', [AbkController::class, 'abkRevisi'])->name('abk.ajuan.revisi');
 
 Route::prefix('admin')
     ->name('admin.')

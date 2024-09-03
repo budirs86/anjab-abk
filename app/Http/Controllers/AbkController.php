@@ -176,8 +176,6 @@ class AbkController extends Controller
         $title = 'Ajuan ABK';
         $abk_unit_kerja = $abk->children;
         $periode = $abk->tahun;
-        
-        
 
         return view('abk.ajuan', compact('title', 'abk', 'abk_unit_kerja'));
     }
@@ -185,28 +183,37 @@ class AbkController extends Controller
     public function showUnitKerja(Ajuan $abk, UnitKerja $unit_kerja)
     {
         $title = 'Lihat Informasi ABK';
-        $abkunit = Ajuan::where('jenis','abk')->where('parent_id',$abk->id)->whereHas('abkUnitKerja', function ($query) use ($unit_kerja) {
-            $query->where('unit_kerja_id', $unit_kerja->id);
-        })->get()->first();
-        $tutams = JabatanTugasTambahan::with('AbkJabatan')->where('unsur_id', $unit_kerja->unsur_id)
+        $abkunit = Ajuan::where('jenis', 'abk')
+            ->where('parent_id', $abk->id)
+            ->whereHas('abkUnitKerja', function ($query) use ($unit_kerja) {
+                $query->where('unit_kerja_id', $unit_kerja->id);
+            })
+            ->get()
+            ->first();
+        $tutams = JabatanTugasTambahan::with('AbkJabatan')
+            ->where('unsur_id', $unit_kerja->unsur_id)
             ->where('jenis_jabatan_id', '>', '3')
             ->get();
         // $jabatans = $abkunit->abkJabatan;
 
-        return view('abk.unitkerja.show', compact('title', 'abk', 'unit_kerja','tutams','abk','abkunit'));
+        return view('abk.unitkerja.show', compact('title', 'abk', 'unit_kerja', 'tutams', 'abk', 'abkunit'));
     }
 
     public function editUnitKerja(Ajuan $abk, UnitKerja $unit_kerja)
     {
         $title = 'Edit Informasi ABK';
-        $abkunit = Ajuan::where('jenis','abk')->where('parent_id',$abk->id)->whereHas('abkUnitKerja', function ($query) use ($unit_kerja) {
-            $query->where('unit_kerja_id', $unit_kerja->id);
-        })->get()->first();
+        $abkunit = Ajuan::where('jenis', 'abk')
+            ->where('parent_id', $abk->id)
+            ->whereHas('abkUnitKerja', function ($query) use ($unit_kerja) {
+                $query->where('unit_kerja_id', $unit_kerja->id);
+            })
+            ->get()
+            ->first();
         $tutams = JabatanTugasTambahan::where('unsur_id', $unit_kerja->unsur_id)
             ->where('jenis_jabatan_id', '>', '3')
             ->get();
         $jabatans = JabatanDiajukan::whereHas('jabatanUnsur', function ($query) use ($unit_kerja, $abkunit) {
-            $query->where('unsur_id', $unit_kerja->unsur_id)->where('ajuan_id', $abkunit->anjab->first()    ->id);
+            $query->where('unsur_id', $unit_kerja->unsur_id)->where('ajuan_id', $abkunit->anjab->first()->id);
         })->get();
         return view('abk.unitkerja.edit', compact('title', 'abkunit', 'unit_kerja', 'tutams', 'jabatans', 'abk'));
     }
@@ -222,7 +229,7 @@ class AbkController extends Controller
         // also create detail ABK instance for each uraian tugas the jabatan in $abkJabatan
         foreach ($abkJabatan->jabatan->uraianTugas as $uraianTugas) {
             DetailAbk::create([
-                'ajuan_id' => $abk->id,
+                'ajuan_id' => $request->abk_id,
                 'abk_jabatan_id' => $abkJabatan->id,
                 'uraian_tugas_diajukan_id' => $uraianTugas->id,
             ]);
@@ -247,8 +254,8 @@ class AbkController extends Controller
         $wpt = DetailAbk::where('abk_jabatan_id', $abk_jabatan->id)
             ->selectRaw('SUM(waktu_penyelesaian * jumlah_hasil_kerja) as total_value')
             ->value('total_value');
-        
-        return view('abk.jabatan.show', compact('title', 'abk', 'jabatan', 'wpt', 'detail_abk','unit_kerja'));
+
+        return view('abk.jabatan.show', compact('title', 'abk', 'jabatan', 'wpt', 'detail_abk', 'unit_kerja'));
     }
 
     public function editJabatan(Ajuan $abk, UnitKerja $unit_kerja, AbkJabatan $abk_jabatan)
@@ -304,7 +311,7 @@ class AbkController extends Controller
             ->where('role_id', auth()->user()->roles->first()->id)
             ->update(['is_approved' => true]);
 
-        return redirect()->back()->with('success', 'Verifikasi berhasil');
+        return redirect()->route('abk.ajuans')->with('success', 'Verifikasi berhasil');
     }
 
     // When user rejects the ajuan, verification instance is created,
@@ -312,27 +319,23 @@ class AbkController extends Controller
     // and is_approved in RoleVerifikasi from the current role is also set to false
     public function abkRevisi(Ajuan $abk, Request $request)
     {
-        // dd($request->all());    
-
-        $abk = Ajuan::where('jenis','abk')->find(request('ajuan_id'));
-        $request->validate([
+        // dd($request->all());
+        $abk = Ajuan::where('jenis', 'abk')->find(request('ajuan_id'));
+        $validated = $request->validate([
             'catatan' => 'required|string',
-            'jabatan_direvisi' => 'array|min:1',
         ]);
         // Create a new verification instance
-        // $verifikasi = Verifikasi::create([
-        //     'ajuan_id' => $abk->id,
-        //     'user_id' => auth()->user()->id,
-        //     'is_approved' => false,
-        //     'catatan' => request('catatan'),
-        // ]);
+        $verifikasi = Verifikasi::create([
+            'ajuan_id' => $abk->id,
+            'user_id' => auth()->user()->id,
+            'is_approved' => false,
+            'catatan' => $validated['catatan'],
+        ]);
 
         // Get all role ids that can verify the ajuan
         $role_verifikasi = RoleVerifikasi::where('ajuan_id', $abk->id)->get();
-        $verificatorIds = $role_verifikasi
-            ->pluck('role_id')
-            ->toArray();
-            
+        $verificatorIds = $role_verifikasi->pluck('role_id')->toArray();
+
         // Get the role id of the previous verificator
         if ($abk->parent_id == null) {
             $previousVerificatorRoleId = $verificatorIds[array_search(auth()->user()->roles->first()->id, $verificatorIds) - 1];
@@ -350,26 +353,69 @@ class AbkController extends Controller
             ->where('role_id', auth()->user()->roles->first()->id)
             ->update(['is_approved' => false]);
 
-        // create JabatanDirevisi instance to store all the jabatans that require revisions
-        // if request has 'jabatan_direvisi' input, then create JabatanDirevisi instance for all of the 'jabatan_direvisi'
-        if (request()->has('jabatan_direvisi')) {
-            foreach (request('jabatan_direvisi') as $key => $value) {
-                JabatanDirevisi::create([
-                    'verifikasi_id' => $verifikasi->id,
-                    'jabatan_direvisi' => $value,
-                ]);
-            }
-        } else {
-            // else, create a single JabatanDirevisi instance that represents all of the jabatan
-
+        // create JabatanDirevisi instance to store all the jabatans
+        foreach ($abk->abkJabatan as $abk_jabatan) {
             JabatanDirevisi::create([
                 'verifikasi_id' => $verifikasi->id,
-                'jabatan_direvisi' => 'Semua Jabatan',
+                'abk_jabatan_id' => $abk_jabatan->id,
+                'catatan' => $validated['catatan'],
             ]);
         }
 
-        return redirect()->back()->with('success', 'Revisi berhasil');
+        return redirect()->route('abk.ajuans')->with('success', 'Revisi berhasil');
     }
+
+    public function abkMakeCatatan(AbkJabatan $abk_jabatan, Request $request)
+    {
+        // dd(request()->all());
+        $validated = $request->validate([
+            'catatan' => 'string',
+        ]);
+        JabatanDirevisi::create([
+            'abk_jabatan_id' => $abk_jabatan->id,
+            'catatan' => $validated['catatan'],
+        ]);
+
+        return redirect()->back()->with('success', 'Catatan berhasil disimpan');
+    }
+
+    public function abkRevisiJabatan(Ajuan $abk, Request $request)
+    {
+
+        // Create a new verification instance
+        $verifikasi = Verifikasi::create([
+            'ajuan_id' => $abk->id,
+            'user_id' => auth()->user()->id,
+            'is_approved' => false,
+        ]);
+
+        // Get all role ids that can verify the ajuan
+        $role_verifikasi = RoleVerifikasi::where('ajuan_id', $abk->id)->get();
+        $verificatorIds = $role_verifikasi->pluck('role_id')->toArray();
+
+        // Get the role id of the previous verificator
+        if ($abk->parent_id == null) {
+            $previousVerificatorRoleId = $verificatorIds[array_search(auth()->user()->roles->first()->id, $verificatorIds) - 1];
+        } else {
+            $previousVerificatorRoleId = $verificatorIds[array_search(auth()->user()->roles->first()->id, $verificatorIds) - 1];
+        }
+
+        // Set is_approved in RoleVerifikasi from the previous role to false
+        RoleVerifikasi::where('ajuan_id', $abk->id)
+            ->where('role_id', $previousVerificatorRoleId)
+            ->update(['is_approved' => false]);
+
+        // Set is_approved in RoleVerifikasi from the current role to false
+        RoleVerifikasi::where('ajuan_id', $abk->id)
+            ->where('role_id', auth()->user()->roles->first()->id)
+            ->update(['is_approved' => false]);
+
+        // update JabatanDirevisi instance to store all the jabatans that require revisions
+        $jabatanDirevisi = JabatanDirevisi::where('verifikasi_id',null)->whereNotNull('abk_jabatan_id')->update(['verifikasi_id' => $verifikasi->id]);
+        
+        return redirect()->route('abk.ajuans')->with('success', 'Revisi berhasil'); 
+    }
+
     public function getJabatanABK()
     {
         $ajuans = AbkJabatan::where('abk_id', request('ajuan'))

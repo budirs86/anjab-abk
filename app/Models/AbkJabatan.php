@@ -32,4 +32,15 @@ class AbkJabatan extends Model
     {
         return $this->hasMany(DetailAbk::class);
     }
+
+    public function revisiTerbaruTanpaVerifikasi()
+    {
+        return $this->hasOne(JabatanDirevisi::class, 'abk_jabatan_id')
+        ->whereNull('verifikasi_id')
+        ->latest();
+    }
+
+    public function catatanAjuan() {
+        return $this->hasMany(JabatanDirevisi::class, 'abk_jabatan_id')->whereHas('verifikasi')->latest();
+    }
 }
