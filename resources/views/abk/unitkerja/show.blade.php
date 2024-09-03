@@ -17,5 +17,5 @@
                     data-feather="arrow-left" width="20px"> Kembali</a>
         @endif
     </div>
-    <livewire:lihat-jabatan-abk-table :tutams="$tutams" :abk="$abk" :unit="$unit_kerja"/>
+    <livewire:lihat-jabatan-abk-table :tutams="$tutams" :abk="$abkunit" :unit="$unit_kerja" />
 @endsection
