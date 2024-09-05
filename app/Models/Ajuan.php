@@ -93,9 +93,15 @@ class Ajuan extends Model
     }
 
     // get the latest verifikasi by current user
+    // public function latest_verifikasi_by_current_user()
+    // {
+    //     return $this->verifikasi()->where('user_id', auth()->user()->id)->latest()->first();
+    // }
     public function latest_verifikasi_by_current_user()
     {
-        return $this->verifikasi()->where('user_id', auth()->user()->id)->latest()->first();
+        return $this->hasOne(Verifikasi::class)
+            ->where('user_id', auth()->id())
+            ->latest();
     }
 
     // Get the role name of the verificator who verifed the latest verifikasi
@@ -174,11 +180,24 @@ class Ajuan extends Model
         })->count();
     }
 
-    // return the count of abk_unit that is verified/rejected by Admin Kepegawaian role
+    // return the count of abk_unit that is verified/rejected by user
     public function hasChildrenAbkCheckedByUser(){
         return $this->children()->whereHas('verifikasi', function ($query) {
             $query->where('user_id', auth()->user()->id);
         })->count();
+    }
+
+    // returns the count of abk_unit of an abk that is rejected by user
+    // input :
+    // - an abk instance that has no parent ('parent_id' == null)
+
+    // output :
+    // count of abk_unit of an abk that is rejected by user
+    public function hasChildrenRejectedByUser() {
+        return $this->children()->whereHas('latest_verifikasi_by_current_user', function ($query) {
+                $query->where('is_approved', false);
+            })
+            ->count();
     }
 
     // Ajuan for manajer kepegawaian

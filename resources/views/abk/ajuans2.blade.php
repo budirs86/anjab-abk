@@ -80,10 +80,8 @@
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <a href="{{ route('abk.ajuan.show', ['abk' => $ajuan->id]) }}"
                                             class="btn btn-outline-primary">Lihat</a>
-                                        {{-- <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                             data-bs-target="#modalTerima{{ $loop->index }}">Terima</button>
-                                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                            data-bs-target="#modalRevisi" data-ajuan="{{ $ajuan->id }}">Revisi</button> --}}
                                     </div>
                                 @else
                                     {{-- if current verificator HAS accepted/rejected the ajuan, show them that they accepted/rejected the ajuan  --}}
@@ -154,7 +152,7 @@
                                     berikutnya.</p>
                             </div>
                             <div class="modal-footer">
-                                <form action="{{ route('abk.ajuan.verifikasi', ['abk' => $ajuan->id]) }}" method="POST">
+                                <form action="{{ route('abk.ajuan.parent.verifikasi', ['abk' => $ajuan->id]) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-primary">Ya</button>
                                 </form>

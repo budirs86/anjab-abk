@@ -9,11 +9,7 @@
         <h1 class="fw-light fs-4 d-inline nav-item">Analisis Beban Kerja Periode {{ $abk->tahun }}</h1>
     </div>
     <div class="card dropdown-divider mb-3"></div>
-    {{-- show button if ajuan's next verificator is the current user and last verificator is not the current user--}}
-    @if ($abk->latest_verificator() != auth()->user()->getRoleNames()->first() &&
-        $abk->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
-        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalTerima">Terima Semua Ajuan Unit Kerja</button>
-    @endif
+    <a href="{{ route('abk.ajuans') }}" class="btn btn-primary header1 mb-3"><i data-feather="arrow-left"></i> Kembali</a>
     <table class="table table-striped table-bordered">
         <thead>
             <th class="fw-semibold text-muted">No</th>
@@ -86,7 +82,7 @@
                                     <h5 class="modal-title">Beri Catatan dan Minta Revisi (Semua Jabatan)</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form action="{{ route('abk.ajuan.revisi', ['abk' => $abk_unit]) }}" method="POST">
+                                <form action="{{ route('abk.ajuan.revisi', ['abk' => $abk_unit,'abkparent' => $abk]) }}" method="POST">
                                     @csrf
                                     <div class="modal-body">
                                         <input type="text" name="ajuan_id" id="inputAjuan"
@@ -111,30 +107,10 @@
 
         </tbody>
     </table>
-    {{-- Modal Terima Start --}}
-        <div class="modal fade" tabindex="-1" id="modalTerima">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Terima Ajuan?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Ajuan  yang sudah diterima tidak akan bisa diubah lagi dan akan diteruskan ke tingkat
-                            verifikasi
-                            berikutnya.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <form action="{{ route('abk.ajuan.parent.verifikasi', ['abk' => $abk]) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-primary">Ya</button>
-                        </form>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {{-- Modal Terima End --}}
-    <a href="{{ route('abk.ajuans') }}" class="btn btn-primary header1"><i data-feather="arrow-left"></i> Kembali</a>
+    <form action="{{ route('abk.ajuan.parent.revisi', ['abk' => $abk]) }}" method="POST">
+        @csrf
+        <button class="btn btn-danger mb-3" type="submit"><i class="fa-solid fa-arrow-left"></i>
+            Simpan Revisi dan Kembali</button>
+    </form>
+    
 @endsection

@@ -17,6 +17,7 @@ use App\Models\RoleVerifikasi;
 use App\Models\UnitKerja;
 use App\Models\UraianTugas;
 use App\Models\UraianTugasDiajukan;
+use App\Models\User;
 use App\Models\Verifikasi;
 use Illuminate\Http\Request;
 
@@ -296,6 +297,35 @@ class AbkController extends Controller
 
         return redirect()->route('abk.ajuans')->with('success', 'Ajuan ABK berhasil disimpan');
     }
+    public function abkParentVerifikasi(Ajuan $abk)
+    {
+        // When user accepts the ajuan, verification instance is created,
+        // and is_approved in RoleVerifikasi is set to true
+
+        Verifikasi::create([
+            'ajuan_id' => $abk->id,
+            'user_id' => auth()->user()->id,
+            'is_approved' => true,
+            'catatan' => null,
+        ]);
+        RoleVerifikasi::where('ajuan_id', $abk->id)
+            ->where('role_id', auth()->user()->roles->first()->id)
+            ->update(['is_approved' => true]);
+
+        foreach ($abk->children as $child) {
+            Verifikasi::create([
+                'ajuan_id' => $child->id,
+                'user_id' => auth()->user()->id,
+                'is_approved' => true,
+                'catatan' => null,
+            ]);
+            RoleVerifikasi::where('ajuan_id', $child->id)
+                ->where('role_id', auth()->user()->roles->first()->id)
+                ->update(['is_approved' => true]);
+        }
+
+        return redirect()->route('abk.ajuans')->with('success', 'Verifikasi berhasil');
+    }
 
     public function abkVerifikasi(Ajuan $abk)
     {
@@ -310,6 +340,20 @@ class AbkController extends Controller
         RoleVerifikasi::where('ajuan_id', $abk->id)
             ->where('role_id', auth()->user()->roles->first()->id)
             ->update(['is_approved' => true]);
+        
+            $abk_parent = $abk->parent;
+            if($abk_parent->approvedAbkCount() == $abk_parent->children->count()) {
+                Verifikasi::create([
+                    'ajuan_id' => $abk_parent->id,
+                    'user_id' => User::where('name','Superadmin')->first()->id,
+                    'is_approved' => true,
+                    'catatan' => null,
+                ]);
+                RoleVerifikasi::where('ajuan_id', $abk_parent->id)
+                    ->where('role_id', Role::where('name', 'Admin Kepegawaian')->first()->id)
+                    ->update(['is_approved' => false]);
+            }
+        
 
         return redirect()->route('abk.ajuans')->with('success', 'Verifikasi berhasil');
     }
@@ -319,7 +363,6 @@ class AbkController extends Controller
     // and is_approved in RoleVerifikasi from the current role is also set to false
     public function abkRevisi(Ajuan $abk, Request $request)
     {
-        // dd($request->all());
         $abk = Ajuan::where('jenis', 'abk')->find(request('ajuan_id'));
         $validated = $request->validate([
             'catatan' => 'required|string',
@@ -362,12 +405,15 @@ class AbkController extends Controller
             ]);
         }
 
+        if(request()->has('abkparent')) {
+            return redirect()->route('abk.ajuan.show',['abk' => request('abkparent')])->with('success', 'Revisi berhasil');
+        }
+
         return redirect()->route('abk.ajuans')->with('success', 'Revisi berhasil');
     }
 
     public function abkMakeCatatan(AbkJabatan $abk_jabatan, Request $request)
     {
-        // dd(request()->all());
         $validated = $request->validate([
             'catatan' => 'string',
         ]);
@@ -381,7 +427,6 @@ class AbkController extends Controller
 
     public function abkRevisiJabatan(Ajuan $abk, Request $request)
     {
-
         // Create a new verification instance
         $verifikasi = Verifikasi::create([
             'ajuan_id' => $abk->id,
@@ -411,9 +456,33 @@ class AbkController extends Controller
             ->update(['is_approved' => false]);
 
         // update JabatanDirevisi instance to store all the jabatans that require revisions
-        $jabatanDirevisi = JabatanDirevisi::where('verifikasi_id',null)->whereNotNull('abk_jabatan_id')->update(['verifikasi_id' => $verifikasi->id]);
+        $jabatanDirevisi = JabatanDirevisi::where('verifikasi_id', null)
+            ->whereNotNull('abk_jabatan_id')
+            ->update(['verifikasi_id' => $verifikasi->id]);
+
+        return redirect()->route('abk.ajuans')->with('success', 'Revisi berhasil');
+    }
+
+    public function abkParentRevisi(Ajuan $abk) {
+        $previousVerificatorRoleId  = $abk->latest_verifikasi()->user->roles->first()->id;
+        $verifikasi = Verifikasi::create([
+            'ajuan_id' => $abk->id,
+            'user_id' => auth()->user()->id,
+            'is_approved' => false,
+        ]);
+        // Set is_approved in RoleVerifikasi from the previous role to false
+        RoleVerifikasi::where('ajuan_id', $abk->id)
+            ->where('role_id', $previousVerificatorRoleId)
+            ->update(['is_approved' => false]);
+
+        // Set is_approved in RoleVerifikasi from the current role to false
+        RoleVerifikasi::where('ajuan_id', $abk->id)
+            ->where('role_id', auth()->user()->roles->first()->id)
+            ->update(['is_approved' => false]);
+
         
-        return redirect()->route('abk.ajuans')->with('success', 'Revisi berhasil'); 
+
+        return redirect()->route('abk.ajuans')->with('success', 'Revisi berhasil');
     }
 
     public function getJabatanABK()

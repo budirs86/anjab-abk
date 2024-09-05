@@ -56,6 +56,20 @@ new class extends Component {
                             </div>
                         </div>
                     </td>
+                    <td class="w-25">
+                        <div class="overflow-y-scroll" style="line-height: 1.5em; max-height: calc(1.5em * 4);">
+                            @forelse ($jabatan->catatanAjuan as $catatan)
+                                <p class="m-0 p-0 text-muted">Catatan oleh
+                                    {{ $catatan->verifikasi->user->name }}</p>
+                                <p class="m-0 p-0 text-muted">
+                                    {{ $catatan->verifikasi->created_at }}</p>
+                                <p class="m-0 p-0">{{ $catatan->catatan }}</p>
+                                <hr>
+                            @empty
+                                <p class="m-0 p-0 text-muted">Tidak ada catatan.</p>
+                            @endforelse
+                        </div>
+                    </td>
                 <tr>
                 @empty
                 <tr>
@@ -112,6 +126,21 @@ new class extends Component {
                                                                 class="fa-solid fa-edit"></i> Edit Analisis Beban
                                                             Kerja</a>
                                                     </div>
+                                                </div>
+                                            </td>
+                                            <td class="w-25">
+                                                <div class="overflow-y-scroll"
+                                                    style="line-height: 1.5em; max-height: calc(1.5em * 4);">
+                                                    @forelse ($jabatan->catatanAjuan as $catatan)
+                                                        <p class="m-0 p-0 text-muted">Catatan oleh
+                                                            {{ $catatan->verifikasi->user->name }}</p>
+                                                        <p class="m-0 p-0 text-muted">
+                                                            {{ $catatan->verifikasi->created_at }}</p>
+                                                        <p class="m-0 p-0">{{ $catatan->catatan }}</p>
+                                                        <hr>
+                                                    @empty
+                                                        <p class="m-0 p-0 text-muted">Tidak ada catatan.</p>
+                                                    @endforelse
                                                 </div>
                                             </td>
                                         <tr>
@@ -171,8 +200,8 @@ new class extends Component {
                                             @enderror
                                         </div>
                                         <div class="">
-                                            <button class="btn btn-primary header1" type="submit" id="submitJabatan"><i
-                                                    class="fa-solid fa-plus"></i>
+                                            <button class="btn btn-primary header1" type="submit"
+                                                id="submitJabatan"><i class="fa-solid fa-plus"></i>
                                                 Tambah
                                                 Jabatan</button>
                                         </div>

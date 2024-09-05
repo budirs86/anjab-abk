@@ -111,6 +111,7 @@ Route::prefix('/abk/ajuan')->name('abk.')->group(function () {
     Route::post('/{abk}/jabatan/revisi', [AbkController::class, 'abkRevisiJabatan'])->name('jabatan.revisi');
     Route::post('/{abk}/verifikasi', [AbkController::class, 'abkVerifikasi'])->name('ajuan.verifikasi');
     Route::post('/{abk}/parent/verifikasi', [AbkController::class, 'abkParentVerifikasi'])->name('ajuan.parent.verifikasi');
+    Route::post('/{abk}/parent/revisi', [AbkController::class, 'abkParentRevisi'])->name('ajuan.parent.revisi');
 
 });
 

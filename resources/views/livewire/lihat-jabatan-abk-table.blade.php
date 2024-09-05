@@ -103,8 +103,10 @@ new class extends Component {
                         {{-- {{ $this->abk->next_verificator()->role->name }} --}}
                         @if ($this->abk->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
+                                @if (!auth()->user()->hasAnyRole(['Wakil Rektor 2', 'Admin Kepegawaian']))
+                                    <button type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal"
                                     data-bs-target="#modalTerima">Terima Semua Jabatan</button>
+                                @endif
                                 <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
                                     data-bs-target="#modalRevisi">Revisi Semua Jabatan</button>
                             </div>
