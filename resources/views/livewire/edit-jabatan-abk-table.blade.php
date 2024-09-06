@@ -140,7 +140,7 @@ new class extends Component {
                                     {{ $tutam->nama }}
                                     <button type="button" class="btn btn-sm btn-success ms-auto text-right"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#modalTambahJabatan{{ $loop->index }}">Tambah Jabatan
+                                        data-bs-target="#modalTambahJabatan" data-tutam-id="{{ $tutam->id }}" data-nama-tutam="{{ $tutam->nama }}" id="buttonTambahJabatan">Tambah Jabatan
                                         Bawahan</button>
                                 </div>
                             </div>
@@ -200,63 +200,6 @@ new class extends Component {
                             </div>
                         </td>
                     </tr>
-                    {{-- Modal Tambah Jabatan Start --}}
-                    <div class="modal fade" tabindex="-1" id="modalTambahJabatan{{ $loop->index }}">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Tambahkan Jabatan</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{ route('abk.abk-jabatan.store', ['abk' => $abk]) }}"
-                                        method="POST" id="jabatanForm">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <input type="integer" name="abk_id" value="{{ $abk->id }}" hidden>
-                                            <input type="integer" name="jabatan_tutam_id"
-                                                value="{{ $tutam->id }}" hidden>
-                                            <label for="nama" class="form-label">Supervisor</label>
-                                            <input type="text"
-                                                class="form-control @error('nama') is-invalid @enderror"
-                                                placeholder="Masukkan Nama Jabatan" value="{{ $tutam->nama }}"
-                                                readonly>
-                                            @error('nama')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="jabatan_id" class="form-label">Jabatan
-                                                Bawahan</label>
-                                            <select class="form-select @error('jabatan_id') is-invalid @enderror"
-                                                name="jabatan_id" id="jabatan_id">
-                                                <option value="">Pilih Jenis Jabatan</option>
-                                                @foreach ($jabatans as $jabatan)
-                                                    <option value="{{ $jabatan->id }}"
-                                                        @if ($jabatan->id == old('jabatan_id')) selected @endif>
-                                                        {{ $jabatan->nama }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('jabatan_id')
-                                                <label for="jabatan_id"
-                                                    class="invalid-feedback">{{ $message }}</label>
-                                            @enderror
-                                        </div>
-                                        <div class="">
-                                            <button class="btn btn-primary header1" type="submit"
-                                                id="submitJabatan"><i class="fa-solid fa-plus"></i>
-                                                Tambah
-                                                Jabatan</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- Modal Tambah Jabatan End --}}
                 @endforeach
             </tbody>
         </table>
