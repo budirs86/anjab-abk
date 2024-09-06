@@ -275,8 +275,7 @@ new class extends Component {
                 $ajuan->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
             <form action="{{ route('anjab.ajuan.jabatan.revisi', ['ajuan' => $this->ajuan]) }}" method="POST">
                 @csrf
-                <button {{-- href="{{ route('anjab.ajuan.index') }}" --}} class="btn btn-danger mb-3" type="submit"><i
-                        data-feather="arrow-left"></i>
+                <button {{-- href="{{ route('anjab.ajuan.index') }}" --}} class="btn btn-danger mb-3" type="submit"><i class="fa-solid fa-arrow-left"></i> 
                     Simpan Revisi dan Kembali</button>
             </form>
         @endif
