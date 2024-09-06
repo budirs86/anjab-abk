@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('verifikasi_id')->nullable()->constrained('verifikasi');
             $table->foreignId('jabatan_diajukan_id')->nullable()->constrained('jabatan_diajukan');
-            $table->foreignId('abk_jabatan_id')->nullable()->constrained('abk_jabatan');
+            $table->foreignId('abk_jabatan_id')->nullable()->constrained('abk_jabatan')->onDelete('cascade');
             $table->text('catatan')->nullable();
             $table->timestamps();
         });
