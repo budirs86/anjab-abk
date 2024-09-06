@@ -85,7 +85,7 @@ new class extends Component {
                             </div>
                             <div class="">
                                 <div class="">
-                                    <a href="{{ route('abk.jabatan.edit', ['abk' => $abk, 'unit_kerja' => $this->unit, 'abk_jabatan' => $jabatan]) }}"
+                                    <a href="{{ route('abk.jabatan.edit', ['abk' => $abk->parent, 'unit_kerja' => $this->unit, 'abk_jabatan' => $jabatan]) }}"
                                         class="btn btn-sm btn-warning ms-auto"><i class="fa-solid fa-edit"></i> Edit
                                         Analisis Beban
                                         Kerja</a>
@@ -122,7 +122,7 @@ new class extends Component {
         <table class="table table-bordered">
             <thead>
                 <th class="text-muted d-flex">
-                    Jabatan Tugas Tambahan
+                    Jabatan Tugas Tambahan 
                 </th>
 
             </thead>
@@ -162,7 +162,7 @@ new class extends Component {
                                                 <div class="d-flex justify-content-between">
                                                     <p>{{ $jabatan->jabatan->nama }}</p>
                                                     <div class="">
-                                                        <a href="{{ route('abk.jabatan.edit', ['abk' => $abk, 'unit_kerja' => $this->unit, 'abk_jabatan' => $jabatan]) }}"
+                                                        <a href="{{ route('abk.jabatan.edit', ['abk' => $abk->parent, 'unit_kerja' => $this->unit, 'abk_jabatan' => $jabatan]) }}"
                                                             class="btn btn-sm btn-warning ms-auto"><i
                                                                 class="fa-solid fa-edit"></i> Edit Analisis Beban
                                                             Kerja</a>
