@@ -89,7 +89,7 @@ new class extends Component {
                 <tr>
                 @empty
                 <tr>
-                    <td colspan="3" class="text-center">Unsur ini Belum memiliki Jabatan</td>
+                    <td colspan="3" class="text-center">Jabatan Tidak Ditemukan.</td>
                 </tr>
             @endforelse
         </table>
@@ -208,7 +208,7 @@ new class extends Component {
 
                                         @empty
                                         <tr>
-                                            <td colspan="3" class="text-center">Unsur ini Belum memiliki Jabatan</td>
+                                            <td colspan="3" class="text-center">Jabatan Bawahan belum disusun.</td>
                                         </tr>
                                     @endforelse
                                 </table>
