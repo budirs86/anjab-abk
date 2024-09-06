@@ -46,7 +46,7 @@
         <tbody>
             @foreach ($ajuans as $ajuan)
                 <tr>
-                    <td>{{ $loop->iteration }}</td> 
+                    <td>{{ $loop->iteration }}</td>
                     <td class="w-25">
                         <div class="d-flex flex-column justify-content-between">
                             <p>{{ $ajuan->tahun }} </p>
@@ -70,7 +70,7 @@
                         <td>
                             <p>{{ $ajuan->created_at }}</p>
                         </td>
-                        @if ($ajuan->approvedAbkCount() == $ajuan->children()->count())
+                        @if ($ajuan->approvedAbkCount() == $ajuan->children()->count() || $ajuan->hasChildrenAbkCheckedByUser())
                             <td>
                                 {{-- check if current verificator HAS NOT accept/reject the ajuan YET, show "Terima" and "Revisi" buttons --}}
                                 @if (
@@ -80,10 +80,8 @@
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <a href="{{ route('abk.ajuan.show', ['abk' => $ajuan->id]) }}"
                                             class="btn btn-outline-primary">Lihat</a>
-                                        {{-- <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                             data-bs-target="#modalTerima{{ $loop->index }}">Terima</button>
-                                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                            data-bs-target="#modalRevisi" data-ajuan="{{ $ajuan->id }}">Revisi</button> --}}
                                     </div>
                                 @else
                                     {{-- if current verificator HAS accepted/rejected the ajuan, show them that they accepted/rejected the ajuan  --}}
@@ -154,7 +152,7 @@
                                     berikutnya.</p>
                             </div>
                             <div class="modal-footer">
-                                <form action="{{ route('abk.ajuan.verifikasi', ['abk' => $ajuan->id]) }}" method="POST">
+                                <form action="{{ route('abk.ajuan.parent.verifikasi', ['abk' => $ajuan->id]) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-primary">Ya</button>
                                 </form>
@@ -164,56 +162,60 @@
                     </div>
                 </div>
                 {{-- Modal Terima End --}}
+                {{-- Modal Revisi Start --}}
+                <div class="modal fade" tabindex="-1" id="modalRevisi">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Beri Catatan dan Minta Revisi</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form action="{{ route('abk.ajuan.revisi', ['abk' => $ajuan->id]) }}" method="POST">
+                                @csrf
+                                <div class="modal-body">
+                                    <input type="text" name="ajuan_id" id="inputAjuan" value="{{ old('ajuan_id') }}">
+                                    <label for="catatan" class="form-label">Berikan Catatan tentang ajuan untuk
+                                        diperbaiki</label>
+                                    <textarea
+                                        class="form-control mb-1 @error('catatan')
+                            is-invalid
+                        @enderror"
+                                        name="catatan" id="catatan" cols="30" rows="10"></textarea>
+                                    @error('catatan')
+                                        <label for="catatan" class="invalid-feedback">{{ $message }}</label>
+                                    @enderror
+                                    <label for="select2" class="form-label mt-1">Pilih Jabatan apa saja yang perlu
+                                        diperbaiki
+                                    </label>
+                                    <div class="w-100 border" id="select2">
+                                        <select class="select2 form-select" id="select2input" style="width: 100%"
+                                            multiple="multiple" name="jabatan_direvisi[]" placeholder="Pilih Jabatan">
+
+                                        </select>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="Semua Jabatan"
+                                            id="semuaJabatanCheckbox" name="semua_jabatan_revisi">
+                                        <label class="form-check-label" for="semuaJabatanCheckbox">
+                                            Pilih Semua Jabatan
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Simpan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {{-- Modal Revisi End --}}
             @endforeach
         </tbody>
     </table>
-    {{-- Modal Revisi Start --}}
-    <div class="modal fade" tabindex="-1" id="modalRevisi">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Beri Catatan dan Minta Revisi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('abk.ajuan.revisi', ['abk' => $ajuan->id]) }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <input type="text" name="ajuan_id" id="inputAjuan" value="{{ old('ajuan_id') }}">
-                        <label for="catatan" class="form-label">Berikan Catatan tentang ajuan untuk
-                            diperbaiki</label>
-                        <textarea
-                            class="form-control mb-1 @error('catatan')
-                            is-invalid
-                        @enderror"
-                            name="catatan" id="catatan" cols="30" rows="10"></textarea>
-                        @error('catatan')
-                            <label for="catatan" class="invalid-feedback">{{ $message }}</label>
-                        @enderror
-                        <label for="select2" class="form-label mt-1">Pilih Jabatan apa saja yang perlu diperbaiki
-                        </label>
-                        <div class="w-100 border" id="select2">
-                            <select class="select2 form-select" id="select2input" style="width: 100%"
-                                multiple="multiple" name="jabatan_direvisi[]" placeholder="Pilih Jabatan">
 
-                            </select>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Semua Jabatan"
-                                id="semuaJabatanCheckbox" name="semua_jabatan_revisi">
-                            <label class="form-check-label" for="semuaJabatanCheckbox">
-                                Pilih Semua Jabatan
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {{-- Modal Revisi End --}}
     {{-- make a kembali button --}}
     <a href="{{ route('home') }}" class="btn btn-primary header1"><i data-feather="arrow-left"></i> Kembali</a>
 
