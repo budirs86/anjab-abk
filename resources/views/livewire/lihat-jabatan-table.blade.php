@@ -132,17 +132,19 @@ new class extends Component {
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="overflow-y-scroll" style="line-height: 1.5em; max-height: calc(1.5em * 4);">
-                                                @forelse ($jabatan->catatanAjuan as $catatan) 
+                                                <div class="overflow-y-scroll"
+                                                    style="line-height: 1.5em; max-height: calc(1.5em * 4);">
+                                                    @forelse ($jabatan->catatanAjuan as $catatan)
                                                         <p class="m-0 p-0 text-muted">Catatan oleh
                                                             {{ $catatan->verifikasi?->user->name }}</p>
                                                         <p class="m-0 p-0 text-muted">
                                                             {{ $catatan->verifikasi->created_at }}</p>
                                                         <p class="m-0 p-0">{{ $catatan->catatan }}</p>
                                                         <hr>
-                                                        @empty
-                                                        <p class="m-0 p-0 text-muted">Tidak ada catatan.</p> @endforelse
-                                                    </div>
+                                                    @empty
+                                                        <p class="m-0 p-0 text-muted">Tidak ada catatan.</p>
+                                                    @endforelse
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty
@@ -194,12 +196,13 @@ new class extends Component {
                                             !empty($ajuan->next_verificator()) &&
                                             $ajuan->latest_verificator() != auth()->user()->getRoleNames()->first() &&
                                             $ajuan->next_verificator()->role->name == auth()->user()->getRoleNames()->first())
-                                        <form action="" wire:submit="saveCatatan" class="d-flex flex-grow-1 me-2">
-
+                                        <form action="{{ route('anjab.jabatan.makeCatatan', ['jabatan' => $jabatan]) }}"
+                                            class="d-flex flex-grow-1 me-2" method="POST" id="form{{ $jabatan->id }}">
+                                            @csrf
                                             <div class="flex-grow-1 me-1">
-                                                <input wire:model="catatan"
+                                                <input name="catatan"
                                                     class="form-control form-control-sm w-100 border-black" type="text"
-                                                    placeholder="{{ $this->notes->catatan ?? 'Berikan Catatan Perbaikan' }}"
+                                                    placeholder="{{ $jabatan->revisiTerbaruTanpaVerifikasi->catatan ?? 'Berikan Catatan Perbaikan' }}"
                                                     aria-label=".form-control-sm example" style="width: 150px;">
                                             </div>
                                             <div class="">
