@@ -96,7 +96,7 @@ Breadcrumbs::for('isi-informasi-abk', function (BreadcrumbTrail $trail) {
 });
 
 Breadcrumbs::for('ajuan-abk-jabatan', function (BreadcrumbTrail $trail, $ajuan, $unit_kerja, $jabatan) {
-    $trail->parent('ajuan-abk-unitkerja', $ajuan, $unit_kerja);
+    $trail->parent('lihat-ajuan-abk-unitkerja', $ajuan, $unit_kerja);
     $trail->push($jabatan->nama, route('abk.jabatan.show',[$ajuan, $unit_kerja, $jabatan]));
 });
 Breadcrumbs::for('edit-ajuan-abk-jabatan', function (BreadcrumbTrail $trail, $ajuan, $unit_kerja, $jabatan) {
@@ -125,6 +125,12 @@ Breadcrumbs::for('edit-ajuan-abk-unitkerja', function (BreadcrumbTrail $trail, $
     $trail->parent('daftar-ajuan-abk');
     $trail->push("Edit ABK ". $unit_kerja->nama . " " . $periode->tahun, route('abk.unitkerja.edit',[$periode, $unit_kerja]));
 });
+
+Breadcrumbs::for('lihat-ajuan-abk-unitkerja', function (BreadcrumbTrail $trail, $periode, $unit_kerja) {
+    $trail->parent('daftar-ajuan-abk');
+    $trail->push("ABK ". $unit_kerja->nama . " " . $periode->tahun, route('abk.unitkerja.show',['abk' => $periode, 'unit_kerja' => $unit_kerja]));
+});
+
 
 Breadcrumbs::for('edit-ajuan-abk', function (BreadcrumbTrail $trail) {
     $trail->parent('daftar-ajuan-abk');
