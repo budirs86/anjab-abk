@@ -168,6 +168,7 @@ Breadcrumbs::for('jabatan-dashboard', function (BreadcrumbTrail $trail) {
 
 // create breadcrumbs for laporan page, not parenting any breadcrumb
 Breadcrumbs::for('laporan', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
     $trail->push('Laporan', route('laporan.index'));
 });
 Breadcrumbs::for('laporan-anjab', function (BreadcrumbTrail $trail, $anjab) {
