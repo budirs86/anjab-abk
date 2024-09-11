@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="">
-        {{ Breadcrumbs::render('ajuan-abk-unitkerja', $abk, $unit_kerja) }}
+        {{ Breadcrumbs::render('lihat-ajuan-abk-unitkerja', $abkunit, $unit_kerja) }}
     </div>
     <div class="card-head mb-3">
         <h1 class="fw-light fs-4 d-inline nav-item">Analisis Beban Kerja {{ $abk->tahun }} {{ $unit_kerja->nama }}</h1>
@@ -17,5 +17,5 @@
                     data-feather="arrow-left" width="20px"> Kembali</a>
         @endif
     </div>
-    <livewire:lihat-jabatan-abk-table :tutams="$tutams" :abk="$abkunit" :unit="$unit_kerja" />
+    <livewire:lihat-jabatan-abk-table :tutams="$tutams" :abk="$abkunit" :abkparent="$abk" :unit="$unit_kerja" />
 @endsection

@@ -9,6 +9,7 @@ new class extends Component {
     public $unit;
     public $search;
     public $jabatans;
+    public $abkparent;
 
     public function with()
     {
@@ -79,7 +80,7 @@ new class extends Component {
                                     @endif
                                 @endcan
                                 <div class="">
-                                    <a href="{{ route('abk.jabatan.show', ['abk' => $this->abk, 'unit_kerja' => $this->unit, 'abk_jabatan' => $jabatan]) }}"
+                                    <a href="{{ route('abk.jabatan.show', ['abk' => $this->abkparent, 'unit_kerja' => $this->unit, 'abk_jabatan' => $jabatan]) }}"
                                         class="btn btn-sm btn-primary ms-auto"><i class="fa-regular fa-eye"></i> Lihat
                                         </a>
                                 </div>
@@ -89,7 +90,7 @@ new class extends Component {
                 <tr>
                 @empty
                 <tr>
-                    <td colspan="3" class="text-center">Unsur ini Belum memiliki Jabatan</td>
+                    <td colspan="3" class="text-center">Jabatan Tidak Ditemukan.</td>
                 </tr>
             @endforelse
         </table>
@@ -182,7 +183,7 @@ new class extends Component {
                                                             @endif
                                                         @endcan
                                                         <div class="">
-                                                            <a href="{{ route('abk.jabatan.show', ['abk' => $abk, 'unit_kerja' => $this->unit, 'abk_jabatan' => $abkjabatan]) }}"
+                                                            <a href="{{ route('abk.jabatan.show', ['abk' => $abkparent, 'unit_kerja' => $this->unit, 'abk_jabatan' => $abkjabatan]) }}"
                                                                 class="btn btn-sm btn-primary ms-auto"><i
                                                                     class="fa-regular fa-eye"></i> Lihat</a>
                                                         </div>
@@ -208,7 +209,7 @@ new class extends Component {
 
                                         @empty
                                         <tr>
-                                            <td colspan="3" class="text-center">Unsur ini Belum memiliki Jabatan</td>
+                                            <td colspan="3" class="text-center">Jabatan Bawahan belum disusun.</td>
                                         </tr>
                                     @endforelse
                                 </table>

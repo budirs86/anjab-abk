@@ -221,6 +221,11 @@ class AbkController extends Controller
 
     public function storeAbkJabatan(Request $request, Ajuan $abk)
     {
+        $validated = $request->validate([
+            'jabatan_id' => 'required|exists:jabatan_diajukan,id',
+            'jabatan_tutam_id' => 'required|exists:jabatan_tugas_tambahan,id',
+        ]);
+
         $abkJabatan = AbkJabatan::create([
             'abk_id' => $request->abk_id,
             'jabatan_id' => $request->jabatan_id,
