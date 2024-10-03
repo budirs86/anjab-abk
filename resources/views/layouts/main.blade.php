@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Anjab-ABK | {{ $title }}</title>
+    <title>E-Anjab/abk | {{ $title }}</title>
     
     {{-- add a custom icon  --}}
-    <link rel="icon" href="{{ asset('assets/undip-logo.png') }}" type="image/png" />
+    <link rel="icon" href="{{ asset('assets/anjab_logo.png') }}" type="image/png" />
     {{-- Bootstrap CDN --}}
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"

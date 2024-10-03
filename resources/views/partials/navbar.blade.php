@@ -2,9 +2,9 @@
         <div class="container-fluid header1 px-3">
             <div class="logo">
                 <a class="navbar-brand " href="/">
-                    <img src="/assets/undip-logo.svg" alt="Logo" width="100"
+                    <img src="/assets/anjab_logo.png" alt="Logo" width="200"
                         class="d-inline-block align-text-center" />
-                    Universitas Diponegoro <br />
+                        <br />
                 </a>
             </div>
             <ul class="navbar-nav">

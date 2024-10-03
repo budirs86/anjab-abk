@@ -3,12 +3,12 @@
             <div class="logo">
                 <a class="navbar-brand text-white" href="#">
                     <img
-                        src="/assets/undip-logo.svg"
+                        src="/assets/anjab_logo.png"
                         alt="Logo"
-                        width="100"
+                        width="200"
                         class="d-inline-block align-text-center"
                     />
-                    Universitas Diponegoro <br />
+                    <br />
                 </a>
             </div>
         </div>
